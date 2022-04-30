@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
-		<title>Login - srtdash</title>
+		<title>Login</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link
 			rel="shortcut icon"
@@ -55,10 +55,25 @@
 							<h4>Aplikasi Ujian SV IPB</h4>
 							<p></p>
 						</div>
+
+						@if (session()->has('loginError'))
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								{{ session('loginError') }}
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						@endif
+
 						<div class="login-form-body">
 							<div class="form-gp">
-								<label for="email">Username</label>
-								<input type="email" name="email" id="email" autofocus required/>
+								<label for="email">Email</label>
+								<input type="email" @error('email')
+									is-invalid
+								@enderror name="email" id="email" required value="{{ old('email')}}"/>
+								@error('email')
+									<div class="invalid-feedback">
+										{{ $message }}
+									</div>
+								@enderror
 								<!-- <i class="ti-user"></i> -->
 								<img
 									class="user-thumb"
@@ -74,7 +89,7 @@
 								<!-- <i class="ti-lock"></i> -->
 								<img
 									class="user-thumb"
-									src="{{ asset('images/icon/visibility.png') }}"
+									src="{{ asset('images/icon/lock.png') }}"
 									alt="avatar"
 									width="20px"
 								/>
