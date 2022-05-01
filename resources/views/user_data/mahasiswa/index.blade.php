@@ -13,7 +13,7 @@
             </div>
         </div>
         <!-- profile info & task notification -->
-        @include('layouts.profile');
+        @include('layouts.profile')
     </div>
 </div>
 <!-- header area end -->
@@ -61,7 +61,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title">DataTable</h4>
-                    <a href="{{ Route('mahasiswa.input') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                    <a href="{{ Route('data.mahasiswa.input') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                         Tambah Data
                     </a>
                     <div class="table-responsive">

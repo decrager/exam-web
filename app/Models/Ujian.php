@@ -24,6 +24,7 @@ class Ujian extends Model
         'susulan',
         'perbanyak',
         'sesi',
+        'online'
     ];
 
     public function Matkul()

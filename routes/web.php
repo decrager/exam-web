@@ -16,7 +16,7 @@ use App\Http\Controllers\pjUjianController;
 |
 */
 
-Route::get('/', [loginController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/', [loginController::class, 'index'])->name('login');
 Route::post('/login', [loginController::class, 'authenticate']);
 
 Route::group(['middleware' => ['auth']], function () {
@@ -26,18 +26,15 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::group(['middleware' => ['auth','cekrole:data']], function () {
-    Route::get('/dashboard', [dataController::class, 'dashboard'])->name('dashboard');
-    Route::get('/mahasiswa', [dataController::class, 'mahasiswaIndex'])->name('mahasiswa.view');
-    Route::get('/mahasiswaInputView', [dataController::class, 'mahasiswaInputView'])->name('mahasiswa.input');
-    Route::get('/bap', [dataController::class, 'bap'])->name('ketersediaan.bap');
-    Route::get('/amplop', [dataController::class, 'amplop'])->name('ketersediaan.amplop');
-    Route::get('/berkas', [dataController::class, 'berkas'])->name('berkas');
-
-    Route::post('/logout', [loginController::class, 'logout'])->name('logout');
+    Route::get('/data', [dataController::class, 'dashboard'])->name('dashboardData');
+    Route::get('/data/mahasiswa', [dataController::class, 'mahasiswaIndex'])->name('data.mahasiswa.view');
+    Route::get('/data/mahasiswaInputView', [dataController::class, 'mahasiswaInputView'])->name('data.mahasiswa.input');
+    Route::get('/data/bap', [dataController::class, 'bap'])->name('data.ketersediaan.bap');
+    Route::get('/data/amplop', [dataController::class, 'amplop'])->name('data.ketersediaan.amplop');
+    Route::get('/data/berkas', [dataController::class, 'berkas'])->name('data.berkas');
+    Route::get('/data/pelanggaran', [dataController::class, 'pelanggaran'])->name('data.pelanggaran');
 });
 
 Route::group(['middleware' => ['auth','cekrole:pj_ujian']], function () {
-    Route::get('/dashboard', [pjUjianController::class, 'dashboard'])->name('dashboard');
-
-    Route::post('/logout', [loginController::class, 'logout'])->name('logout');
+    Route::get('/pj_ujian', [pjUjianController::class, 'dashboard'])->name('dashboardPJUjian');
 });

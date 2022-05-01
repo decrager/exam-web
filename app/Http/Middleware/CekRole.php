@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class CekRole
@@ -20,6 +21,7 @@ class CekRole
         if (in_array($request->user()->role,$levels)){
             return $next($request);
         }
-        return redirect('/dashboard');
+        $role = Auth::user()->role;
+        return redirect('/'.$role);
     } 
 }

@@ -18,7 +18,7 @@ class dataController extends Controller
 
     public function mahasiswaInputView()
     {
-        return view('user_data.mahasiswa.input', ["title" => "Mahasiswa"]);
+        return view('user_data.mahasiswa.form', ["title" => "Mahasiswa"]);
     }
 
     public function bap()
@@ -34,5 +34,10 @@ class dataController extends Controller
     public function berkas()
     {
         return view('user_data.berkas', ["title" => "Berkas"]);
+    }
+
+    public function pelanggaran()
+    {
+        return view('user_data.pelanggaran', ["title" => "Pelanggaran"]);
     }
 }

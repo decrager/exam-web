@@ -24,7 +24,9 @@ class loginController extends Controller
 
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+
+            $role = Auth::user()->role;
+            return redirect()->intended('/'.$role);
         }
 
         return back()->with('loginError', 'Email atau Password salah');
@@ -54,6 +56,7 @@ class loginController extends Controller
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->newPass)]);
 
-        return redirect('/dashboard');
+        $role = Auth::user()->role;
+        return redirect('/'.$role);
     }
 }

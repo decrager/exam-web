@@ -51,6 +51,10 @@
 				<div class="login-box ptb--100">
 					<form class="bg-transparent" action="/login" method="POST">
                         @csrf
+						<div class="d-flex justify-content-center mb-5">
+							<img src="{{ asset('images/icon/SV_IPB.png') }}" alt="" width="65%">
+						</div>
+
 						<div class="login-form-head">
 							<h4>Aplikasi Ujian SV IPB</h4>
 							<p></p>
@@ -101,11 +105,6 @@
 									Sign In <i class="ti-arrow-right"></i>
 								</button>
 							</div>
-							<!-- <div class="form-footer text-center mt-5">
-								<p class="text-muted">
-									Don't have an account? <a href="register.html">Sign up</a>
-								</p>
-							</div> -->
 						</div>
 					</form>
 				</div>
