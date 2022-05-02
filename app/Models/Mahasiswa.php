@@ -27,4 +27,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(Pelanggaran::class, 'mhs_id', 'id');
     }
+
+    public function Susulan()
+    {
+        return $this->hasMany(Susulan::class, 'mhs_id', 'id');
+    }
 }

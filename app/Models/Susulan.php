@@ -12,7 +12,20 @@ class Susulan extends Model
     protected $primaryKey = 'id';
     protected $guarded = [];
     protected $fillable = [
+        'mhs_id',
+        'matkul_id',
+        'tipe_mk',
         'file',
         'status'
     ];
+
+    public function Matkul()
+    {
+        return $this->belongsTo(Matkul::class, 'matkul_id', "id");
+    }
+
+    public function Mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'mhs_id', "id");
+    }
 }

@@ -27,4 +27,9 @@ class Matkul extends Model
     {
         return $this->hasMany(Ujian::class, 'matkul_id', 'id');
     }
+
+    public function Susulan()
+    {
+        return $this->hasMany(Susulan::class, 'matkul_id', 'id');
+    }
 }

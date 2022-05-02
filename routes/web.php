@@ -36,5 +36,19 @@ Route::group(['middleware' => ['auth','cekrole:data']], function () {
 });
 
 Route::group(['middleware' => ['auth','cekrole:pj_ujian']], function () {
-    Route::get('/pj_ujian', [pjUjianController::class, 'dashboard'])->name('dashboardPJUjian');
+    Route::get('/pj_ujian', [pjUjianController::class, 'dashboard'])->name('pjUjianDashboard');
+    Route::get('/pj_ujian/jadwal', [pjUjianController::class, 'ujianIndex'])->name('pjUjian.jadwal.index');
+    Route::get('/pj_ujian/jadwal/tambah', [pjUjianController::class, 'ujianForm'])->name('pjUjian.jadwal.tambah');
+    Route::get('/pj_ujian/jadwal/edit/{id}', [pjUjianController::class, 'ujianEdit'])->name('pjUjian.jadwal.edit');
+    Route::get('/pj_ujian/soal', [pjUjianController::class, 'soalIndex'])->name('pjUjian.soal.index');
+    Route::get('/pj_ujian/soal/tambah', [pjUjianController::class, 'soalForm'])->name('pjUjian.soal.form');
+    Route::get('/pj_ujian/soal/edit/{id}', [pjUjianController::class, 'soalEdit'])->name('pjUjian.soal.edit');
+    Route::get('/pj_ujian/Pengawas/Daftar', [pjUjianController::class, 'listPengawas'])->name('pjUjian.pengawas.daftar');
+    Route::get('/pj_ujian/Pengawas/Penugasan', [pjUjianController::class, 'penugasanIndex'])->name('pjUjian.pengawas.penugasan.index');
+    Route::get('/pj_ujian/Pengawas/Penugasan/Tambah', [pjUjianController::class, 'penugasanForm'])->name('pjUjian.pengawas.penugasan.form');
+    Route::get('/pj_ujian/Kelengkapan/Amplop', [pjUjianController::class, 'amplop'])->name('pjUjian.kelengkapan.amplop');
+    Route::get('/pj_ujian/Kelengkapan/BAP', [pjUjianController::class, 'bap'])->name('pjUjian.kelengkapan.bap');
+    Route::get('/pj_ujian/Kelengkapan/Berkas', [pjUjianController::class, 'berkas'])->name('pjUjian.kelengkapan.berkas');
+    Route::get('/pj_ujian/Susulan', [pjUjianController::class, 'susulan'])->name('pjUjian.susulan');
+    Route::get('/pj_ujian/Pelanggaran', [pjUjianController::class, 'pelanggaran'])->name('pjUjian.pelanggaran');
 });
