@@ -50,6 +50,22 @@
             @include('user_data.sidebar')
         @elseif (auth()->user()->role == 'pj_ujian')
 			@include('pj_ujian.sidebar')
+        @elseif (auth()->user()->role == 'prodi')
+			@include('prodi.sidebar')
+        @elseif (auth()->user()->role == 'assisten')
+			@include('assisten.sidebar')
+        @elseif (auth()->user()->role == 'berkas')
+			@include('berkas.sidebar')
+        @elseif (auth()->user()->role == 'mahasiswa')
+			@include('mahasiswa.sidebar')
+        @elseif (auth()->user()->role == 'pj_lokasi')
+			@include('pj_lokasi.sidebar')
+        @elseif (auth()->user()->role == 'pj_online')
+			@include('pj_online.sidebar')
+        @elseif (auth()->user()->role == 'pj_susulan')
+			@include('pj_susulan.sidebar')
+        @elseif (auth()->user()->role == 'supervisor')
+			@include('supervisor.sidebar')
         @endif
         <!-- sidebar menu area end -->
 

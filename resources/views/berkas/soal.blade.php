@@ -23,11 +23,10 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Penugasan</h4>
+                    <h4 class="page-title pull-left">Soal Ujian</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
-                        <li><a>Pengawas</a></li>
-                        <li><span>Penugasan</span></li>
+                        <li><span>Soal Ujian</span></li>
                     </ul>
                 </div>
             </div>
@@ -62,7 +61,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">DataTable</h4>
-                        <a href="{{ route('pjUjian.pengawas.penugasan.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="input-form.html" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
                         <div class="table-responsive">

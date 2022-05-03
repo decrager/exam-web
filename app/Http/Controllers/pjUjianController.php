@@ -56,6 +56,11 @@ class pjUjianController extends Controller
         return view('pj_ujian.penugasan.form', ["title" => env('APP_NAME')]);
     }
 
+    public function penugasanEdit()
+    {
+        return view('pj_ujian.penugasan.edit', ["title" => env('APP_NAME')]);
+    }
+
     public function amplop()
     {
         return view('pj_ujian.amplop', ["title" => env('APP_NAME')]);

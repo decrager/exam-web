@@ -26,7 +26,6 @@
                 <h4 class="page-title pull-left">Tambah Penugasan</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="">Beranda</a></li>
-                    <li><a>Pengawas</a></li>
                     <li><a href=""><span>Penugasan</span></a></li>
                     <li><span>Tambah Penugasan</span></li>
                 </ul>

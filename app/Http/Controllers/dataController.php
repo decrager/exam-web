@@ -16,9 +16,14 @@ class dataController extends Controller
         return view('user_data.mahasiswa.index', ["title" => env('APP_NAME')]);
     }
 
-    public function mahasiswaInputView()
+    public function mahasiswaForm()
     {
         return view('user_data.mahasiswa.form', ["title" => env('APP_NAME')]);
+    }
+
+    public function mahasiswaEdit()
+    {
+        return view('user_data.mahasiswa.edit', ["title" => env('APP_NAME')]);
     }
 
     public function bap()
@@ -29,6 +34,21 @@ class dataController extends Controller
     public function amplop()
     {
         return view('user_data.amplop', ["title" => env('APP_NAME')]);
+    }
+
+    public function penggunaIndex()
+    {
+        return view('user_data.pengguna.index', ["title" => env('APP_NAME')]);
+    }
+
+    public function penggunaForm()
+    {
+        return view('user_data.pengguna.form', ["title" => env('APP_NAME')]);
+    }
+
+    public function penggunaEdit()
+    {
+        return view('user_data.pengguna.edit', ["title" => env('APP_NAME')]);
     }
 
     public function berkas()

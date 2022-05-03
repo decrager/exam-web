@@ -62,7 +62,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">DataTable</h4>
-                        <a href="{{ route('pjUjian.pengawas.penugasan.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="{{ route('prodi.pengawas.penugasan.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
                         <div class="table-responsive">
