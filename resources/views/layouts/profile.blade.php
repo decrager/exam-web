@@ -19,7 +19,7 @@
             @elseif (auth()->user()->role == 'supervisor')
                 <?php $role = 'Supervisor' ?>
             @elseif (auth()->user()->role == 'pj_online')
-                <?php $role = '{PJ Online}' ?>
+                <?php $role = 'PJ Online' ?>
             @elseif (auth()->user()->role == 'mahasiswa')
                 <?php $role = 'Mahasiswa' ?>
             @endif

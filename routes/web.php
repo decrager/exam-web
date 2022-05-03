@@ -7,6 +7,11 @@ use App\Http\Controllers\pjUjianController;
 use App\Http\Controllers\prodiController;
 use App\Http\Controllers\pjLokasiController;
 use App\Http\Controllers\berkasController;
+use App\Http\Controllers\assistenController;
+use App\Http\Controllers\pjSusulanController;
+use App\Http\Controllers\supervisorController;
+use App\Http\Controllers\pjOnlineController;
+use App\Http\Controllers\mahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,4 +102,54 @@ Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {
     Route::get('/berkas/kelengkapan/bap', [berkasController::class, 'bap'])->name('berkas.kelengkapan.bap');
     Route::get('/berkas/kelengkapan/berkas', [berkasController::class, 'berkas'])->name('berkas.kelengkapan.berkas');
     Route::get('/berkas/pelanggaran', [berkasController::class, 'pelanggaran'])->name('berkas.pelanggaran');
+});
+
+Route::group(['middleware' => ['auth', 'cekrole:assisten']], function () {
+    Route::get('/assisten', [assistenController::class, 'dashboard'])->name('assistenDashboard');
+    Route::get('/assisten/berkas', [assistenController::class, 'berkas'])->name('assisten.berkas');
+    Route::get('/assisten/pelanggaran', [assistenController::class, 'pelanggaran'])->name('assisten.pelanggaran');
+});
+
+Route::group(['middleware' => ['auth', 'cekrole:pj_susulan']], function () {
+    Route::get('/pj_susulan', [pjSusulanController::class, 'dashboard'])->name('pjSusulanDashboard');
+    Route::get('/pj_susulan/ketentuan', [pjSusulanController::class, 'ketentuanIndex'])->name('pjSusulan.ketentuan.index');
+    Route::get('/pj_susulan/ketentuan/tambah', [pjSusulanController::class, 'ketentuanForm'])->name('pjSusulan.ketentuan.form');
+    Route::get('/pj_susulan/ketentuan/edit/{id}', [pjSusulanController::class, 'ketentuanEdit'])->name('pjSusulan.ketentuan.edit');
+    Route::get('/pj_susulan/mahasiswa', [pjSusulanController::class, 'mahasiswaIndex'])->name('pjSusulan.mahasiswa.index');
+    Route::get('/pj_susulan/mahasiswa/detail', [pjSusulanController::class, 'mahasiswaForm'])->name('pjSusulan.mahasiswa.form');
+    Route::get('/pj_susulan/penjadwalan', [pjSusulanController::class, 'penjadwalanIndex'])->name('pjSusulan.penjadwalan.index');
+    Route::get('/pj_susulan/penjadwalan/tambah', [pjSusulanController::class, 'penjadwalanForm'])->name('pjSusulan.penjadwalan.form');
+    Route::get('/pj_susulan/jadwal', [pjSusulanController::class, 'jadwalIndex'])->name('pjSusulan.jadwal.index');
+    Route::get('/pj_susulan/jadwal/edit/{id}', [pjSusulanController::class, 'jadwalEdit'])->name('pjSusulan.jadwal.edit');
+    Route::get('/pj_susulan/pelanggaran', [pjSusulanController::class, 'pelanggaran'])->name('pjSusulan.pelanggaran');
+});
+
+Route::group(['middleware' => ['auth', 'cekrole:supervisor']], function () {
+    Route::get('/supervisor', [supervisorController::class, 'dashboard'])->name('supervisorDashboard');
+    Route::get('/supervisor/ujian', [supervisorController::class, 'ujian'])->name('supervisor.ujian');
+    Route::get('/supervisor/susulan', [supervisorController::class, 'susulan'])->name('supervisor.susulan');
+    Route::get('/supervisor/pengawas', [supervisorController::class, 'pengawas'])->name('supervisor.pengawas');
+    Route::get('/supervisor/mahasiswa', [supervisorController::class, 'mahasiswa'])->name('supervisor.mahasiswa');
+    Route::get('/supervisor/matkul', [supervisorController::class, 'matkul'])->name('supervisor.matkul');
+    Route::get('/supervisor/kelengkapan/amplop', [supervisorController::class, 'amplop'])->name('supervisor.kelengkapan.amplop');
+    Route::get('/supervisor/kelengkapan/bap', [supervisorController::class, 'bap'])->name('supervisor.kelengkapan.bap');
+    Route::get('/supervisor/kelengkapan/berkas', [supervisorController::class, 'berkas'])->name('supervisor.kelengkapan.berkas');
+    Route::get('/supervisor/pengguna', [supervisorController::class, 'pengguna'])->name('supervisor.pengguna');
+    Route::get('/supervisor/pelanggaran', [supervisorController::class, 'pelanggaran'])->name('supervisor.pelanggaran');
+});
+
+Route::group(['middleware' => ['auth', 'cekrole:pj_online']], function () {
+    Route::get('/pj_online', [pjOnlineController::class, 'dashboard'])->name('pjOnlineDashboard');
+    Route::get('/pj_online/jadwal_ujian', [pjOnlineController::class, 'ujian'])->name('pjOnline.ujian');
+    Route::get('/pj_online/pelanggaran', [pjOnlineController::class, 'pelanggaranIndex'])->name('pjOnline.pelanggaran.index');
+    Route::get('/pj_online/pelanggaran/tambah', [pjOnlineController::class, 'pelanggaranForm'])->name('pjOnline.pelanggaran.form');
+    Route::get('/pj_online/pelanggaran/edit/{id}', [pjOnlineController::class, 'pelanggaranEdit'])->name('pjOnline.pelanggaran.edit');
+});
+
+Route::group(['middleware' => ['auth', 'cekrole:mahasiswa']], function () {
+    Route::get('/mahasiswa', [mahasiswaController::class, 'dashboard'])->name('mahasiswaDashboard');
+    Route::get('/mahasiswa/susulan/jadwal', [mahasiswaController::class, 'ujian'])->name('mahasiswa.susulan.jadwal');
+    Route::get('/mahasiswa/susulan/pengajuan', [mahasiswaController::class, 'pengajuanIndex'])->name('mahasiswa.susulan.pengajuan.index');
+    Route::get('/mahasiswa/susulan/pengajuan/tambah', [mahasiswaController::class, 'pengajuanForm'])->name('mahasiswa.susulan.pengajuan.form');
+    Route::get('/mahasiswa/susulan/pengajuan/edit/{id}', [mahasiswaController::class, 'pengajuanEdit'])->name('mahasiswa.susulan.pengajuan.edit');
 });
