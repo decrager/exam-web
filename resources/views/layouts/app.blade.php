@@ -49,23 +49,23 @@
         @if (auth()->user()->role == 'data')
             @include('user_data.sidebar')
         @elseif (auth()->user()->role == 'pj_ujian')
-			@include('pj_ujian.sidebar')
+            @include('pj_ujian.sidebar')
         @elseif (auth()->user()->role == 'prodi')
-			@include('prodi.sidebar')
+            @include('prodi.sidebar')
         @elseif (auth()->user()->role == 'assisten')
-			@include('assisten.sidebar')
+            @include('assisten.sidebar')
         @elseif (auth()->user()->role == 'berkas')
-			@include('berkas.sidebar')
+            @include('berkas.sidebar')
         @elseif (auth()->user()->role == 'mahasiswa')
-			@include('mahasiswa.sidebar')
+            @include('mahasiswa.sidebar')
         @elseif (auth()->user()->role == 'pj_lokasi')
-			@include('pj_lokasi.sidebar')
+            @include('pj_lokasi.sidebar')
         @elseif (auth()->user()->role == 'pj_online')
-			@include('pj_online.sidebar')
+            @include('pj_online.sidebar')
         @elseif (auth()->user()->role == 'pj_susulan')
-			@include('pj_susulan.sidebar')
+            @include('pj_susulan.sidebar')
         @elseif (auth()->user()->role == 'supervisor')
-			@include('supervisor.sidebar')
+            @include('supervisor.sidebar')
         @endif
         <!-- sidebar menu area end -->
 
@@ -88,6 +88,7 @@
     <!-- jquery latest version -->
     <!-- <script src="assets/js/vendor/jquery-2.2.4.min.js"></script> -->
 
+    <script src="https://kit.fontawesome.com/b3b03a4327.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
 
@@ -97,6 +98,13 @@
     <script src="{{ asset('js/metisMenu.min.js') }}"></script>
     <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('js/jquery.slicknav.min.js') }}"></script>
+
+    <!-- Highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <!-- Start datatable js -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -110,6 +118,68 @@
     <script>
         $(document).ready(function() {
             $("#example").DataTable();
+        });
+
+        Highcharts.chart("container", {
+            title: {
+                text: "Grafik Pelanggaran",
+            },
+
+            subtitle: {
+                text: "Subtitle",
+            },
+
+            yAxis: {
+                title: {
+                    text: "Text",
+                },
+            },
+
+            xAxis: {
+                title: {
+                    text: "Date",
+                    style: {
+                        color: "#000"
+                    },
+                },
+                categories: [1, 2, 3, 4, 5, 6, 7, 8],
+                labels: {
+                    style: {
+                        color: "#000",
+                    },
+                },
+            },
+
+            legend: {
+                layout: "vertical",
+                align: "right",
+                verticalAlign: "middle",
+            },
+
+            series: [{
+                    name: "Pelanggaran",
+                    data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175],
+                },
+                // {
+                // 	name: "Manufacturing",
+                // 	data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434],
+                // },
+            ],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500,
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: "horizontal",
+                            align: "center",
+                            verticalAlign: "bottom",
+                        },
+                    },
+                }, ],
+            },
         });
     </script>
 </body>
