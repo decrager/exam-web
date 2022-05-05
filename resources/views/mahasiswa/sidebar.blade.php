@@ -25,8 +25,8 @@
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Susulan</span></a>
                         <ul class="collapse">
-                            <li class="{{ Request::routeIs('mahasiswa.susulan.jadwal') ? 'active' : '' }}"><a href="{{ route('mahasiswa.susulan.jadwal') }}">Pengajuan</a></li>
-                            <li class="{{ Request::routeIs('mahasiswa.susulan.pengajuan.*') ? 'active' : '' }}"><a href="{{ route('mahasiswa.susulan.pengajuan.index') }}">Jadwal</a></li>
+                            <li class="{{ Request::routeIs('mahasiswa.susulan.jadwal') ? 'active' : '' }}"><a href="{{ route('mahasiswa.susulan.jadwal') }}">Jadwal</a></li>
+                            <li class="{{ Request::routeIs('mahasiswa.susulan.pengajuan.*') ? 'active' : '' }}"><a href="{{ route('mahasiswa.susulan.pengajuan.index') }}">Pengajuan</a></li>
                         </ul>
                     </li>
                 </ul>
