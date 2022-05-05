@@ -56,6 +56,11 @@ class dataController extends Controller
         return view('user_data.berkas', ["title" => env('APP_NAME')]);
     }
 
+    public function ttd()
+    {
+        return view('user_data.ttd', ["title" => env('APP_NAME')]);
+    }
+
     public function pelanggaran()
     {
         return view('user_data.pelanggaran', ["title" => env('APP_NAME')]);

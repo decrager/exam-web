@@ -43,7 +43,8 @@ Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
     Route::get('/data/pengguna', [dataController::class, 'penggunaIndex'])->name('data.pengguna.index');
     Route::get('/data/pengguna/tambah', [dataController::class, 'penggunaForm'])->name('data.pengguna.form');
     Route::get('/data/pengguna/edit/{id}', [dataController::class, 'penggunaEdit'])->name('data.pengguna.edit');
-    Route::get('/data/berkas', [dataController::class, 'berkas'])->name('data.berkas');
+    Route::get('/data/berkas', [dataController::class, 'berkas'])->name('data.berkas.index');
+    Route::get('/data/berkas/ttd', [dataController::class, 'ttd'])->name('data.berkas.ttd');
     Route::get('/data/pelanggaran', [dataController::class, 'pelanggaran'])->name('data.pelanggaran');
 });
 

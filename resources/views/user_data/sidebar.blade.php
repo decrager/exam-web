@@ -40,8 +40,8 @@
                             <span>Pengguna</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('data.berkas') ? 'active' : '' }}">
-                        <a href="{{ route('data.berkas') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                    <li class="{{ Request::routeIs('data.berkas.*') ? 'active' : '' }}">
+                        <a href="{{ route('data.berkas.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Berkas</span></a>
                     </li>
 
