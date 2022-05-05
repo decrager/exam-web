@@ -74,7 +74,6 @@ Route::group(['middleware' => ['auth', 'cekrole:prodi']], function () {
     Route::get('/prodi/pengawas/daftar', [prodiController::class, 'pengawasList'])->name('prodi.pengawas.list');
     Route::get('/prodi/pengawas/penugasan', [prodiController::class, 'penugasanIndex'])->name('prodi.pengawas.penugasan.index');
     Route::get('/prodi/pengawas/penugasan/tambah', [prodiController::class, 'penugasanForm'])->name('prodi.pengawas.penugasan.form');
-    Route::get('/prodi/pengawas/penugasan/edit/{id}', [prodiController::class, 'penugasanEdit'])->name('prodi.pengawas.penugasan.edit');
     Route::get('/prodi/berkas', [prodiController::class, 'berkas'])->name('prodi.berkas');
     Route::get('/prodi/pelanggaran', [prodiController::class, 'pelanggaran'])->name('prodi.pelanggaran');
 });

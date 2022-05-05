@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class prodiController extends Controller
 {
@@ -39,11 +40,6 @@ class prodiController extends Controller
     public function penugasanForm()
     {
         return view('prodi.penugasan.form', ["title" => env('APP_NAME')]);
-    }
-
-    public function penugasanEdit()
-    {
-        return view('prodi.penugasan.edit', ["title" => env('APP_NAME')]);
     }
 
     public function berkas()

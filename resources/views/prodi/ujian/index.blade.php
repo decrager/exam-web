@@ -39,7 +39,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">DataTable</h4>
+                        <h4 class="header-title">Jadwal Ujian</h4>
                         <a href="{{ route('prodi.jadwal.form')}} " class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
@@ -48,6 +48,7 @@
                                 <thead>
                                     <tr>
                                         <th>Program Studi</th>
+                                        <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th>Mata Kuliah</th>
@@ -66,6 +67,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Manajemen Informatika</td>
+                                        <td>4</td>
                                         <td>A</td>
                                         <td>2</td>
                                         <td>RPL</td>
@@ -84,6 +86,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>Program Studi</th>
+                                        <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th>Mata Kuliah</th>
