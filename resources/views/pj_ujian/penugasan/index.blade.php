@@ -118,12 +118,7 @@
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-primary"><i class="fas fa-user-plus"></i></button>
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                            </div>
-                                        </td>
+                                        <td><button class="btn btn-primary"><i class="fas fa-user-plus"></i></button></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

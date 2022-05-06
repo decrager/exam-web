@@ -42,6 +42,11 @@ class prodiController extends Controller
         return view('prodi.penugasan.form', ["title" => env('APP_NAME')]);
     }
 
+    public function penugasanEdit()
+    {
+        return view('prodi.penugasan.edit', ["title" => env('APP_NAME')]);
+    }
+
     public function berkas()
     {
         return view('prodi.berkas', ["title" => env('APP_NAME')]);

@@ -37,13 +37,13 @@
         <div class="row">
             <div class="col-12 col-md-4">
                 <div class="single-report bg-white">
-                    <span>Report</span>
+                    <span>Jumlah Pelanggaran</span>
                     <div class="number">000</div>
                 </div>
             </div>
             <div class="col-12 col-md-4">
                 <div class="single-report bg-white">
-                    <span>Report</span>
+                    <span>Ujian Hari Ini</span>
                     <div class="number">000</div>
                 </div>
             </div>
