@@ -23,11 +23,10 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">BAP</h4>
+                    <h4 class="page-title pull-left">Data Mahasiswa Susulan</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
-                        <li><a>Kelengkapan</a></li>
-                        <li><span>BAP</span></li>
+                        <li><span>Data Susulan</span></li>
                     </ul>
                 </div>
             </div>
@@ -40,48 +39,42 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">BAP</h4>
+                        <h4 class="header-title">Daftar Mahasiswa yang Mengikuti Ujian Susulan</h4>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th>Tanggal</th>
                                         <th>Program Studi</th>
+                                        <th>Nama Mahasiswa</th>
+                                        <th>NIM</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th>Mata Kuliah</th>
-                                        <th>Jenis</th>
-                                        <th>Lokasi</th>
-                                        <th>BAP</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>04-05-2022</td>
                                         <td>Manajemen Informatika</td>
+                                        <td>Irfan Zafar</td>
+                                        <td>J3C219155</td>
                                         <td>4</td>
                                         <td>A</td>
-                                        <td>2</td>
+                                        <td>4</td>
                                         <td>RPL</td>
-                                        <td>Responsi</td>
-                                        <td>K-35</td>
-                                        <td><button class="btn btn-danger btn-sm px-3">Belum</button></td>
-                                        <td><button class="btn btn-danger btn-sm px-3">Belum</button></td>
+                                        <td><span class="badge bg-success">Disetujui</span></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Tanggal</th>
                                         <th>Program Studi</th>
+                                        <th>Nama Mahasiswa</th>
+                                        <th>NIM</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th>Mata Kuliah</th>
-                                        <th>Jenis</th>
-                                        <th>Lokasi</th>
-                                        <th>BAP</th>
                                         <th>Status</th>
                                     </tr>
                                 </tfoot>

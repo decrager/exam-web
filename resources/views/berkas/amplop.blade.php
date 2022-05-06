@@ -68,9 +68,9 @@
                                         <td>RPL</td>
                                         <td>Responsi</td>
                                         <td>K-35</td>
-                                        <td><button class="btn btn-danger">Belum</button></td>
-                                        <td><button class="btn btn-danger">Belum</button></td>
-                                        <td><button class="btn btn-danger">Belum</button></td>
+                                        <td><button class="btn btn-danger btn-sm px-3">Belum</button></td>
+                                        <td><button class="btn btn-danger btn-sm px-3">Belum</button></td>
+                                        <td><button class="btn btn-danger btn-sm px-3">Belum</button></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

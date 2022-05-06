@@ -31,6 +31,11 @@
                             <span>Jadwal Susulan</span></a>
                     </li>
 
+                    <li class="{{ Request::routeIs('supervisor.mhs_susulan') ? 'active' : '' }}">
+                        <a href="{{ route('supervisor.mhs_susulan') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Data Susulan</span></a>
+                    </li>
+
                     <li class="{{ Request::routeIs('supervisor.pengawas') ? 'active' : '' }}">
                         <a href="{{ route('supervisor.pengawas') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengawas</span></a>

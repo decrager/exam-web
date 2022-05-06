@@ -46,48 +46,53 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
                                         <th>Tanggal</th>
                                         <th>Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th>Mata Kuliah</th>
-                                        <th>Jenis MK</th>
+                                        <th>Jenis</th>
                                         <th>Lokasi</th>
-                                        <th>Pengawas</th>
+                                        <th>Jumlah</th>
+                                        <th>File</th>
+                                        <th>Fotokopi</th>
+                                        <th>Pengambilan</th>
+                                        <th>Kelengkapan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>
-                                            <a href="#" class="btn btn-primary text-sm px-3 py-1">
-                                                Ambil
-                                            </a>
-                                        </td>
+                                        <td>04-05-2022</td>
+                                        <td>Manajemen Informatika</td>
+                                        <td>4</td>
+                                        <td>A</td>
+                                        <td>2</td>
+                                        <td>RPL</td>
+                                        <td>Responsi</td>
+                                        <td>K-35</td>
+                                        <td>36</td>
+                                        <td><button class="btn btn-primary text-sm px-3">Unduh</button></td>
+                                        <td><button class="btn btn-danger text-sm px-3">Belum</button></td>
+                                        <td><button class="btn btn-danger text-sm px-3">Belum</button></td>
+                                        <td><button class="btn btn-danger text-sm px-3">Belum</button></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>No</th>
                                         <th>Tanggal</th>
                                         <th>Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th>Mata Kuliah</th>
-                                        <th>Jenis MK</th>
+                                        <th>Jenis</th>
                                         <th>Lokasi</th>
-                                        <th>Pengawas</th>
+                                        <th>Jumlah</th>
+                                        <th>File</th>
+                                        <th>Fotokopi</th>
+                                        <th>Pengambilan</th>
+                                        <th>Kelengkapan</th>
                                     </tr>
                                 </tfoot>
                             </table>

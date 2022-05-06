@@ -128,6 +128,7 @@ Route::group(['middleware' => ['auth', 'cekrole:supervisor']], function () {
     Route::get('/supervisor', [supervisorController::class, 'dashboard'])->name('supervisorDashboard');
     Route::get('/supervisor/ujian', [supervisorController::class, 'ujian'])->name('supervisor.ujian');
     Route::get('/supervisor/susulan', [supervisorController::class, 'susulan'])->name('supervisor.susulan');
+    Route::get('/supervisor/mhs_susulan', [supervisorController::class, 'mhs_susulan'])->name('supervisor.mhs_susulan');
     Route::get('/supervisor/pengawas', [supervisorController::class, 'pengawas'])->name('supervisor.pengawas');
     Route::get('/supervisor/mahasiswa', [supervisorController::class, 'mahasiswa'])->name('supervisor.mahasiswa');
     Route::get('/supervisor/matkul', [supervisorController::class, 'matkul'])->name('supervisor.matkul');

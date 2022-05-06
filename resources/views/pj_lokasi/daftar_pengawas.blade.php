@@ -39,10 +39,7 @@
             <div class="col-12 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">DataTable</h4>
-                        <a href="input-form.html" class="btn btn-primary text-sm bg-blue px-3 mb-3">
-                            Tambah Data
-                        </a>
+                        <h4 class="header-title">Daftar Pengawas</h4>
                         <!-- <i class="fa fa-check text-danger"></i> -->
 
                         <div class="table-responsive">

@@ -63,6 +63,8 @@
                                             <option value="nonpns">NON PNS</option>
                                         </select>
                                     </div>
+
+                                    <button class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                         </div>

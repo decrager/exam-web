@@ -65,7 +65,7 @@
                                         <td>RPL</td>
                                         <td>K-35</td>
                                         <td>-</td>
-                                        <td><button class="btn btn-danger">Hapus</button></td>
+                                        <td><button class="btn btn-danger btn-sm px-3">Hapus</button></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

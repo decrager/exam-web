@@ -43,10 +43,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Form Input Penugasan</h4>
-                            <p class="text-muted font-14 mb-4">
-                                Lorem ipsum dolor sit amet.
-                            </p>
+                            <h4 class="header-title">Ubah Data Penugasan</h4>
+                            
                             <div class="form-group">
                                 <label for="example-text-input" class="col-form-label"
                                     >Nama</label

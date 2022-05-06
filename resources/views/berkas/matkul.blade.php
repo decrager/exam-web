@@ -62,7 +62,7 @@
                                         <td>A</td>
                                         <td>2</td>
                                         <td>RPL</td>
-                                        <td>Ya</td>
+                                        <td><span class="badge bg-success">Perbanyak</span></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

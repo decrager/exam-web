@@ -43,7 +43,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <form action="" method="POST">
-                                    <h4 class="header-title">Tambah Jadwal Ujian</h4>
+                                    <h4 class="header-title">Ubah Jadwal Ujian</h4>
 
                                     @csrf
                                     @method('PUT')
@@ -214,6 +214,8 @@
                                             <option value="Offline">Offline</option>
                                         </select>
                                     </div>
+
+                                    <button class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                         </div>

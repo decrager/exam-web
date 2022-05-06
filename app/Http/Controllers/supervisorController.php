@@ -21,6 +21,11 @@ class supervisorController extends Controller
         return view('supervisor.susulan', ["title" => env('APP_NAME')]);
     }
 
+    public function mhs_susulan()
+    {
+        return view('supervisor.mhs_susulan', ["title" => env('APP_NAME')]);
+    }
+
     public function pengawas()
     {
         return view('supervisor.pengawas', ["title" => env('APP_NAME')]);

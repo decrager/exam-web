@@ -211,6 +211,8 @@
                                             <option value="Offline">Offline</option>
                                         </select>
                                     </div>
+
+                                    <button class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                         </div>
