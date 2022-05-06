@@ -40,13 +40,66 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Daftar Jadwal Ujian</h4>
-                        <a href="{{ route('pjUjian.jadwal.tambah') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="{{ route('pjUjian.jadwal.tambah') }}"
+                            class="btn btn-primary bg-blue mb-3 float-right py-2">
                             Tambah Jadwal
                         </a>
+                        <div class="row justify-content-start">
+                            <div class="col-md-2 pl--0">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Program Studi</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Semester</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Kelas</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Praktikum</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Mata Kuliah</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1 align-content-center">
+                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                            </div>
+                        </div>
+
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
@@ -62,10 +115,12 @@
                                         <th>Sesi</th>
                                         <th>Software</th>
                                         <th>Pelaksanaan</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
                                         <td>A</td>
@@ -81,10 +136,17 @@
                                         <td>1</td>
                                         <td>-</td>
                                         <td>Offline</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th>No</th>
                                         <th>Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
@@ -100,6 +162,7 @@
                                         <th>Sesi</th>
                                         <th>Software</th>
                                         <th>Pelaksanaan</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </tfoot>
                             </table>

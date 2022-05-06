@@ -36,14 +36,16 @@
     <div class="main-content-inner">
         <div class="row">
             <!-- data table start -->
-            <div class="col-12 mt-5">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Mahasiswa yang Mengikuti Ujian Susulan</h4>
+
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Program Studi</th>
                                         <th>Semester</th>
                                         <th>Mata Kuliah</th>
@@ -54,6 +56,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
                                         <td>RPL</td>
@@ -64,6 +67,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th>No</th>
                                         <th>Program Studi</th>
                                         <th>Semester</th>
                                         <th>Mata Kuliah</th>
