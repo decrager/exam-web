@@ -98,7 +98,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 pr--0">
                                 <div class="form-group">
                                     <select class="custom-select">
                                         <option selected="selected">Mata Kuliah</option>

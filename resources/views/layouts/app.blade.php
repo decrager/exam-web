@@ -37,6 +37,10 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" />
 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet"> 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
     <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
 
     <style>
@@ -49,7 +53,6 @@
             width: 100% !important;
             height: auto;
         }
-
     </style>
 
     <!-- modernizr css -->
@@ -134,7 +137,6 @@
     <!-- others plugins -->
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/scripts.js') }}"></script>
-    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
 
     <script type="text/javascript">
         var sig = $('#sig').signature({

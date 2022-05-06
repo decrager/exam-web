@@ -26,6 +26,7 @@
                     <h4 class="page-title pull-left">Penugasan</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
+                        <li><a>Pengawas</a></li>
                         <li><span>Penugasan</span></li>
                     </ul>
                 </div>
@@ -40,6 +41,56 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Penugasan</h4>
+                        <div class="row justify-content-start">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Program Studi</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Semester</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Kelas</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Praktikum</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Mata Kuliah</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1 align-content-center">
+                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                            </div>
+                        </div>
                         <!-- <i class="fa fa-check text-danger"></i> -->
 
                         <div class="table-responsive">
@@ -67,7 +118,7 @@
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
-                                        <td><button class="btn btn-primary text-sm px-3">Assign</button></td>
+                                        <td><button class="btn btn-primary"><i class="fas fa-user-plus"></i></button></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

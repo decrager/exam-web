@@ -52,23 +52,30 @@
                                         <th>No</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
-                                        <th>Prodi</th>
+                                        <th>Program Studi</th>
                                         <th>Semester</th>
                                         <th>Tanggal</th>
                                         <th>Sesi</th>
                                         <th>Pelanggaran</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td>Irfan Zafar</td>
+                                        <td>J3C219155</td>
+                                        <td>Manajemen Informatika</td>
+                                        <td>4</td>
+                                        <td>09/05/2022</td>
+                                        <td>1</td>
+                                        <td>Mencontek</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -76,11 +83,12 @@
                                         <th>No</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
-                                        <th>Prodi</th>
+                                        <th>Program Studi</th>
                                         <th>Semester</th>
                                         <th>Tanggal</th>
                                         <th>Sesi</th>
                                         <th>Pelanggaran</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </tfoot>
                             </table>

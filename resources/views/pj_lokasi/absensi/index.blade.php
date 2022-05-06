@@ -40,10 +40,34 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title float-left">Absensi</h4>
-                        <a href="#" class="btn btn-danger text-sm px-3 py-1 mb-3 float-right">
-                            PDF
+                        <h4 class="header-title">Absensi</h4>
+                        <a href="#" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
+                            <i class="fas fa-file-pdf"></i>
                         </a>
+                        <div class="row justify-content-start">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Program Studi</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Mata Kuliah</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1 align-content-center">
+                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                            </div>
+                        </div>
+
                         <!-- <i class="fa fa-check text-danger"></i> -->
 
                         <div class="table-responsive">
@@ -54,7 +78,7 @@
                                         <th>Nama</th>
                                         <th>PNS</th>
                                         <th>NON PNS</th>
-                                        <th>Prodi</th>
+                                        <th>Program Studi</th>
                                         <th>Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Tanda Tangan</th>
@@ -72,9 +96,10 @@
                                         <td>-</td>
                                         <td>-</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary text-sm px-3 py-1">
-                                                TTD
-                                            </a>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success"><i class="fas fa-file-signature"></i></button>
+                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -84,7 +109,7 @@
                                         <th>Nama</th>
                                         <th>PNS</th>
                                         <th>NON PNS</th>
-                                        <th>Prodi</th>
+                                        <th>Program Studi</th>
                                         <th>Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Tanda Tangan</th>
