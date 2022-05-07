@@ -142,23 +142,6 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Lokasi</th>
-                                        <th>Ruang</th>
-                                        <th>Hari</th>
-                                        <th>Tanggal</th>
-                                        <th>Jam Mulai</th>
-                                        <th>Jam Selesai</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

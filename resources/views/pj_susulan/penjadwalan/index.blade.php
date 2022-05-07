@@ -44,6 +44,7 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Nama Mahasiswa</th>
@@ -57,6 +58,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
                                         <td>Irfan Zafar</td>
@@ -65,22 +67,9 @@
                                         <td>2</td>
                                         <td>RPL</td>
                                         <td>Responsi</td>
-                                        <td><button class="btn btn-primary btn-sm">Jadwalkan</button></td>
+                                        <td><button class="btn btn-primary"><i class="fas fa-calendar-plus"></i></button></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Nama Mahasiswa</th>
-                                        <th>NIM</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Jenis</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

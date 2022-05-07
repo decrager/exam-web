@@ -110,7 +110,6 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_susulan']], function () {
     Route::get('/pj_susulan/ketentuan/tambah', [pjSusulanController::class, 'ketentuanForm'])->name('pjSusulan.ketentuan.form');
     Route::get('/pj_susulan/ketentuan/edit/{id}', [pjSusulanController::class, 'ketentuanEdit'])->name('pjSusulan.ketentuan.edit');
     Route::get('/pj_susulan/mahasiswa', [pjSusulanController::class, 'mahasiswaIndex'])->name('pjSusulan.mahasiswa.index');
-    Route::get('/pj_susulan/mahasiswa/detail', [pjSusulanController::class, 'mahasiswaForm'])->name('pjSusulan.mahasiswa.form');
     Route::get('/pj_susulan/penjadwalan', [pjSusulanController::class, 'penjadwalanIndex'])->name('pjSusulan.penjadwalan.index');
     Route::get('/pj_susulan/penjadwalan/tambah', [pjSusulanController::class, 'penjadwalanForm'])->name('pjSusulan.penjadwalan.form');
     Route::get('/pj_susulan/jadwal', [pjSusulanController::class, 'jadwalIndex'])->name('pjSusulan.jadwal.index');

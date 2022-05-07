@@ -58,18 +58,13 @@
                                         <td class="col-1 text-center">1</td>
                                         <td>Memiliki bukti yang valid</td>
                                         <td>
-                                            <button class="btn btn-warning btn-sm">Edit</button>
-                                            <button class="btn btn-danger btn-sm">Hapus</button>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th class="col-1 text-center">No</th>
-                                        <th>Ketentuan</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

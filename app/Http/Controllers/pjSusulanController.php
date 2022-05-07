@@ -28,12 +28,7 @@ class pjSusulanController extends Controller
     
     public function mahasiswaIndex()
     {
-        return view('pj_susulan.mahasiswa.index', ["title" => env('APP_NAME')]);
-    }
-
-    public function mahasiswaForm()
-    {
-        return view('pj_susulan.mahasiswa.form', ["title" => env('APP_NAME')]);
+        return view('pj_susulan.mahasiswa', ["title" => env('APP_NAME')]);
     }
 
     public function penjadwalanIndex()
