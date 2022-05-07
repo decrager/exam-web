@@ -26,7 +26,7 @@
                     <h4 class="page-title pull-left">Amplop</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
-                        <li><a>Kelengkapan</a></li>
+                        <li><a><span>Kelengkapan</span></a></li>
                         <li><span>Amplop</span></li>
                     </ul>
                 </div>
@@ -105,8 +105,8 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis</th>
                                         <th>Lokasi</th>
-                                        <th>Ketersediaan</th>
-                                        <th>Status</th>
+                                        <th>Ruang</th>
+                                        <th>Print</th>
                                         <th>Pengambilan</th>
                                     </tr>
                                 </thead>
@@ -121,37 +121,16 @@
                                         <td>RPL</td>
                                         <td>Responsi</td>
                                         <td>K-35</td>
-                                        <td><button class="btn btn-danger btn-sm">Belum tersedia</button></td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-danger btn-sm">Belum bisa diambil</button>
-                                                <button class="btn btn-primary btn-sm"><i class="fas fa-check"></i></button>
-                                            </div>
-                                        </td>
+                                        <td>Lab. Komputer</td>
+                                        <td><button class="btn btn-danger btn-sm">Belum diprint</button></td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-danger btn-sm">Belum diambil</button>
-                                                <button class="btn btn-primary btn-sm"><i class="fas fa-check"></i></button>
+                                                <button class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Jenis</th>
-                                        <th>Lokasi</th>
-                                        <th>Ketersediaan</th>
-                                        <th>Status</th>
-                                        <th>Pengambilan</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

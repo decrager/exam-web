@@ -124,21 +124,6 @@
                                             data-bs-target="#detail"><i class="fas fa-info"></i></button></td>
                                 </tr>
                             </tbody>
-                            <tfoot class="d-none">
-                                <tr>
-                                    <th class="border-0" scope="col">No</th>
-                                    <th class="border-0" scope="col">Tanggal</th>
-                                    <th class="border-0" scope="col">Program Studi</th>
-                                    <th class="border-0" scope="col">Semester</th>
-                                    <th class="border-0" scope="col">Kelas</th>
-                                    <th class="border-0" scope="col">Praktikum</th>
-                                    <th class="border-0" scope="col">Mata Kuliah</th>
-                                    <th class="border-0" scope="col">Lokasi</th>
-                                    <th class="border-0" scope="col">Jam Mulai</th>
-                                    <th class="border-0" scope="col">Jam Selesai</th>
-                                    <th class="border-0" scope="col">Aksi</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>

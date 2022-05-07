@@ -11,11 +11,6 @@ class berkasController extends Controller
         return view('berkas.dashboard', ["title" => env('APP_NAME')]);
     }
 
-    public function soal()
-    {
-        return view('berkas.soal', ["title" => env('APP_NAME')]);
-    }
-
     public function mahasiswa()
     {
         return view('berkas.mahasiswa', ["title" => env('APP_NAME')]);

@@ -118,18 +118,6 @@
                                         <td><span class="badge bg-success">Perbanyak</span></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Perbanyak</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

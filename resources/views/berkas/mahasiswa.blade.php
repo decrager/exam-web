@@ -63,16 +63,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <select class="custom-select">
-                                        <option selected="selected">Kelas</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Praktikum</option>
+                                        <option selected="selected">Mata Kuliah</option>
                                         <option value="#">-</option>
                                         <option value="#">-</option>
                                     </select>
@@ -87,11 +78,10 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
+                                        <th class="col-1">No</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
+                                        <th>Mata Kuliah</th>
                                         <th>Jumlah Fotokopi</th>
                                     </tr>
                                 </thead>
@@ -100,21 +90,10 @@
                                         <td>1</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
-                                        <td>A</td>
-                                        <td>2</td>
+                                        <td>RPL</td>
                                         <td>36</td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th>Jumlah Fotokopi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

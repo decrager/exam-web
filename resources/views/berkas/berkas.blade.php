@@ -26,7 +26,7 @@
                     <h4 class="page-title pull-left">Berkas</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
-                        <li><a>Kelengkapan</a></li>
+                        <li><a><span>Kelengkapan</span></a></li>
                         <li><span>Berkas</span></li>
                     </ul>
                 </div>
@@ -41,6 +41,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Berkas</h4>
+
                         <div class="row justify-content-start">
                             <div class="col-md-2">
                                 <div class="form-group">
@@ -105,11 +106,13 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Jumlah</th>
-                                        <th>File</th>
-                                        <th>Fotokopi</th>
                                         <th>Pengambilan</th>
-                                        <th>Kelengkapan</th>
+                                        <th>Fotokopi</th>
+                                        <th>Lengkap</th>
+                                        <th>Asisten</th>
+                                        <th>Serah Terima</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -123,31 +126,36 @@
                                         <td>RPL</td>
                                         <td>Responsi</td>
                                         <td>K-35</td>
+                                        <td>Lab. Komputer</td>
                                         <td>36</td>
-                                        <td><button class="btn btn-primary"><i class="fas fa-download"></i></button></td>
-                                        <td><button class="btn btn-danger">Belum</button></td>
-                                        <td><button class="btn btn-danger">Belum</button></td>
-                                        <td><button class="btn btn-danger">Belum</button></td>
+                                        <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
+                                        <td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-danger btn-sm">Belum difotokopi</button>
+                                                    <button class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+                                                </div>
+                                            </td>
+                                        </td>
+                                        <td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-danger btn-sm">Belum lengkap</button>
+                                                    <button class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+                                                </div>
+                                            </td>
+                                        </td>
+                                        <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
+                                        <td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-danger btn-sm">Belum diserahkan</button>
+                                                    <button class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+                                                </div>
+                                            </td>
+                                        </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Jenis</th>
-                                        <th>Lokasi</th>
-                                        <th>Jumlah</th>
-                                        <th>File</th>
-                                        <th>Fotokopi</th>
-                                        <th>Pengambilan</th>
-                                        <th>Kelengkapan</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

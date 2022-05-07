@@ -21,11 +21,6 @@
                             <span>Beranda</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('berkas.soal') ? 'active' : '' }}">
-                        <a href="{{ route('berkas.soal') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Soal Ujian</span></a>
-                    </li>
-
                     <li class="{{ Request::routeIs('berkas.rekapitulasi.*') ? 'active' : '' }}">
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Rekapitulasi</span></a>

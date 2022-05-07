@@ -92,7 +92,6 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
 
 Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {
     Route::get('/berkas', [berkasController::class, 'dashboard'])->name('berkasDashboard');
-    Route::get('/berkas/soal_ujian', [berkasController::class, 'soal'])->name('berkas.soal');
     Route::get('/berkas/rekapitulasi/mahasiswa', [berkasController::class, 'mahasiswa'])->name('berkas.rekapitulasi.mahasiswa');
     Route::get('/berkas/rekapitulasi/mata_kuliah', [berkasController::class, 'matkul'])->name('berkas.rekapitulasi.matkul');
     Route::get('/berkas/kelengkapan/amplop', [berkasController::class, 'amplop'])->name('berkas.kelengkapan.amplop');
