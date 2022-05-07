@@ -81,6 +81,7 @@
                                         <th class="col-2">Program Studi</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Tanda Tangan</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -88,6 +89,7 @@
                                 <tbody>
                                     <tr>
                                         <td>1</td>
+                                        <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
@@ -103,19 +105,6 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>PNS</th>
-                                        <th>NON PNS</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Lokasi</th>
-                                        <th>Tanda Tangan</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

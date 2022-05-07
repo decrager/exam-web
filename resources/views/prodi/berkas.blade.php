@@ -106,6 +106,7 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Jumlah</th>
                                         <th>Pengambilan</th>
                                         <th>Fotokopi</th>
@@ -125,6 +126,7 @@
                                         <td>RPL</td>
                                         <td>Responsi</td>
                                         <td>K-35</td>
+                                        <td>Lab. Komputer</td>
                                         <td>36</td>
                                         <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
                                         <td><button class="btn btn-danger btn-sm">Belum difotokopi</button></td>

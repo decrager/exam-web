@@ -103,8 +103,9 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Jenis MK</th>
+                                        <th>Jenis</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -118,22 +119,10 @@
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
+                                        <td>-</td>
                                         <td><button class="btn btn-primary"><i class="fas fa-user-plus"></i></button></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Jenis MK</th>
-                                        <th>Lokasi</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

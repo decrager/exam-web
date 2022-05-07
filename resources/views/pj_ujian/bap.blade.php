@@ -105,6 +105,7 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Print</th>
                                         <th>Pengambilan</th>
                                     </tr>
@@ -120,6 +121,7 @@
                                         <td>RPL</td>
                                         <td>Responsi</td>
                                         <td>K-35</td>
+                                        <td>Lab. Komputer</td>
                                         <td><button class="btn btn-danger btn-sm">Belum diprint</button></td>
                                         <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
                                     </tr>

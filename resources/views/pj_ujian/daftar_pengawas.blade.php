@@ -102,6 +102,7 @@
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Pengawas</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -116,6 +117,7 @@
                                         <td>2</td>
                                         <td>RPL</td>
                                         <td>K-35</td>
+                                        <td>Lab. Komputer</td>
                                         <td>-</td>
                                         <td>
                                             <div class="btn-group" role="group">
@@ -125,20 +127,6 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot class="d-none">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Lokasi</th>
-                                        <th>Pengawas</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

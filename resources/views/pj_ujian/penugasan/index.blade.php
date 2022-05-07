@@ -105,12 +105,14 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis MK</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>1</td>
+                                        <td>-</td>
                                         <td>-</td>
                                         <td>-</td>
                                         <td>-</td>

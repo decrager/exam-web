@@ -39,12 +39,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Rekapitulasi Pelanggaran</h4>
+                        <h4 class="header-title">Pelanggaran</h4>
                         <a href="{{ route('pjLokasi.pelanggaran.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
-                        <!-- <i class="fa fa-check text-danger"></i> -->
-
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
@@ -54,9 +52,7 @@
                                         <th>NIM</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
-                                        <th>Tanggal</th>
-                                        <th>Sesi</th>
-                                        <th>Pelanggaran</th>
+                                        <th>Jumlah Pelanggaran</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -67,36 +63,131 @@
                                         <td>J3C219155</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
-                                        <td>09/05/2022</td>
                                         <td>1</td>
-                                        <td>Mencontek</td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                        </td>
+                                        <td><button class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#detail"><i class=" fas fa-info"></i></button></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Mahasiswa</th>
-                                        <th>NIM</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Tanggal</th>
-                                        <th>Sesi</th>
-                                        <th>Pelanggaran</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- data table end -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="max-height: 600px;">
+                    <div class="row">
+                        <!-- Textual inputs start -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <h6>Nama</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>NIM</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Program Studi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Semester</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Kelas - Praktikum</h6>
+                                                <p>Value - value</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-7">
+                                            <div class="row">
+                                                <div class="col-7">
+                                                    <h6 class="mb-2 pt-1">Pelanggaran 1:</h6>
+                                                </div>
+                                                <div class="col-5">
+                                                    <div class="btn-group" role="group">
+                                                        <button class="btn btn-warning btn-sm"><i class="fas fa-pen"></i></button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group pl-3">
+                                                <h6>Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group pl-3 mb-2">
+                                                <h6>Pelanggaran</h6>
+                                                <p>Value</p>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-7">
+                                                    <h6 class="mb-2 pt-1">Pelanggaran 2:</h6>
+                                                </div>
+                                                <div class="col-5">
+                                                    <div class="btn-group" role="group">
+                                                        <button class="btn btn-warning btn-sm"><i class="fas fa-pen"></i></button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group pl-3">
+                                                <h6>Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group pl-3 mb-2">
+                                                <h6>Pelanggaran</h6>
+                                                <p>Value</p>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-7">
+                                                    <h6 class="mb-2 pt-1">Pelanggaran 3:</h6>
+                                                </div>
+                                                <div class="col-5">
+                                                    <div class="btn-group" role="group">
+                                                        <button class="btn btn-warning btn-sm"><i class="fas fa-pen"></i></button>
+                                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group pl-3">
+                                                <h6>Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group pl-3 mb-2">
+                                                <h6>Pelanggaran</h6>
+                                                <p>Value</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Textual inputs end -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

@@ -117,23 +117,14 @@
                                         <td>RPL</td>
                                         <td>K-35</td>
                                         <td>-</td>
-                                        <td><button class="btn btn-danger"><i class="fas fa-trash"></i></button></td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Lokasi</th>
-                                        <th>Pengawas</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
