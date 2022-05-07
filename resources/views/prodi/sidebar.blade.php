@@ -37,7 +37,7 @@
 
                     <li class="{{ Request::routeIs('prodi.berkas') ? 'active' : '' }}">
                         <a href="{{ route('prodi.berkas') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Berkas</span></a>
+                            <span>Soal Ujian</span></a>
                     </li>
 
                     <li class="{{ Request::routeIs('prodi.pelanggaran') ? 'active' : '' }}">

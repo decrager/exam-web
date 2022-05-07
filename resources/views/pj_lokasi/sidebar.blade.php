@@ -33,7 +33,7 @@
 
                     <li class="{{ Request::routeIs('pjLokasi.berkas') ? 'active' : '' }}">
                         <a href="{{ route('pjLokasi.berkas') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Berkas</span></a>
+                            <span>Soal Ujian</span></a>
                     </li>
 
                     <li class="{{ Request::routeIs('pjLokasi.pelanggaran.*') ? 'active' : '' }}">

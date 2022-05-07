@@ -39,12 +39,7 @@
                         <a href="{{ route('data.pengguna.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengguna</span></a>
                     </li>
-
-                    <li class="{{ Request::routeIs('data.berkas.*') ? 'active' : '' }}">
-                        <a href="{{ route('data.berkas.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Berkas</span></a>
-                    </li>
-
+                    
                     <li class="{{ Request::routeIs('data.pelanggaran') ? 'active' : '' }}">
                         <a href="{{ route('data.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>

@@ -47,6 +47,7 @@
                         <table id="example" class="table" style="width: 100%">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th class="col-2">Program Studi</th>
                                     <th>Semester</th>
                                     <th>Kelas</th>
@@ -59,6 +60,7 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>1</td>
                                     <td>Manajemen Informatika</td>
                                     <td>4</td>
                                     <td>A</td>
@@ -66,21 +68,14 @@
                                     <td>Irfan Zafar</td>
                                     <td>J3C219155</td>
                                     <td>01.irfanzafar@gmail.com</td>
-                                    <td>Aksi</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th class="col-2">Program Studi</th>
-                                    <th>Semester</th>
-                                    <th>Kelas</th>
-                                    <th>Praktikum</th>
-                                    <th>Nama</th>
-                                    <th>NIM</th>
-                                    <th>Email</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>

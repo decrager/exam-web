@@ -52,6 +52,7 @@
                                         <th>Email</th>
                                         <th>Role</th>
                                         <th>Lokasi</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,17 +62,14 @@
                                         <td>aldonugroho@apps.ipb.ac.id</td>
                                         <td>Data</td>
                                         <td>-</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Lokasi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

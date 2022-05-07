@@ -23,7 +23,7 @@
 
                     <li class="{{ Request::routeIs('assisten.berkas') ? 'active' : '' }}">
                         <a href="{{ route('assisten.berkas') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Berkas</span></a>
+                            <span>Soal Ujian</span></a>
                     </li>
 
                     <li class="{{ Request::routeIs('assisten.pelanggaran') ? 'active' : '' }}">

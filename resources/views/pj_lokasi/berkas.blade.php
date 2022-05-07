@@ -23,11 +23,11 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Berkas</h4>
+                    <h4 class="page-title pull-left">Soal ujian</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
                         <li><a><span>Kelengkapan</span></a></li>
-                        <li><span>Berkas</span></li>
+                        <li><span>Soal ujian</span></li>
                     </ul>
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Berkas</h4>
+                        <h4 class="header-title">Soal ujian</h4>
 
                         <div class="row justify-content-start">
                             <div class="col-md-2">

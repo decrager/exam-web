@@ -36,7 +36,7 @@
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('berkas.kelengkapan.amplop') ? 'active' : '' }}"><a href="{{ route('berkas.kelengkapan.amplop') }}">Amplop</a></li>
                             <li class="{{ Request::routeIs('berkas.kelengkapan.bap') ? 'active' : '' }}"><a href="{{ route('berkas.kelengkapan.bap') }}">BAP</a></li>
-                            <li class="{{ Request::routeIs('berkas.kelengkapan.berkas') ? 'active' : '' }}"><a href="{{ route('berkas.kelengkapan.berkas') }}">Berkas</a></li>
+                            <li class="{{ Request::routeIs('berkas.kelengkapan.berkas') ? 'active' : '' }}"><a href="{{ route('berkas.kelengkapan.berkas') }}">Soal Ujian</a></li>
                         </ul>
                     </li>
 
