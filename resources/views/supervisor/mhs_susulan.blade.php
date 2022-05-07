@@ -44,6 +44,7 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
@@ -56,6 +57,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>Manajemen Informatika</td>
                                         <td>Irfan Zafar</td>
                                         <td>J3C219155</td>
@@ -66,18 +68,6 @@
                                         <td><span class="badge bg-success">Disetujui</span></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Nama Mahasiswa</th>
-                                        <th>NIM</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

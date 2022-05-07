@@ -44,6 +44,7 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
@@ -55,6 +56,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
                                         <td>A</td>
@@ -64,17 +66,6 @@
                                         <td>01.irfanzafar@apps.ipb.ac.id</td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th>Nama Mahasiswa</th>
-                                        <th>NIM</th>
-                                        <th>Email</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

@@ -32,6 +32,7 @@
             </div>
         </div>
     </div>
+    
     <!-- page title area end -->
     <div class="main-content-inner">
         <div class="row">
@@ -39,8 +40,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title float-left pt-2">Jadwal Ujian</h4>
-                        <div class="row mb-1 justify-content-end">
+                        <h4 class="header-title pt-2">Jadwal Ujian</h4>
+                        <div class="row mb-1 justify-content-start">
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <select class="custom-select">
@@ -77,7 +78,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 pr--0">
                                 <div class="form-group">
                                     <select class="custom-select">
                                         <option selected="selected">Mata Kuliah</option>
@@ -86,6 +87,9 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-1 align-content-center">
+                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                            </div>
                         </div>
                         <!-- <i class="fa fa-check text-danger"></i> -->
 
@@ -93,59 +97,126 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th class="border-0" scope="col">No</th>
-                                        <th class="border-0" scope="col">Tanggal</th>
-                                        <th class="border-0" scope="col">Program Studi</th>
-                                        <th class="border-0" scope="col">Semester</th>
-                                        <th class="border-0" scope="col">Kelas</th>
-                                        <th class="border-0" scope="col">Praktikum</th>
-                                        <th class="border-0" scope="col">Mata Kuliah</th>
-                                        <th class="border-0" scope="col">Lokasi</th>
-                                        <th class="border-0" scope="col">Jam Mulai</th>
-                                        <th class="border-0" scope="col">Jam Selesai</th>
-                                        <th class="border-0" scope="col">Aksi</th>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th class="col-2">Program Studi</th>
+                                        <th>Semester</th>
+                                        <th>Kelas</th>
+                                        <th>Praktikum</th>
+                                        <th class="col-2">Mata Kuliah</th>
+                                        <th>Lokasi</th>
+                                        <th>Ruang</th>
+                                        <th>Jam Mulai</th>
+                                        <th>Jam Selesai</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th class="border-0" scope="row">1</th>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">
-                                            <a href="#" class="btn btn-primary text-sm px-3 py-1">
-                                                Detail
-                                            </a>
-                                        </td>
+                                        <th scope="row">1</th>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td><button class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#detail"><i class="fas fa-info"></i></button></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th class="border-0" scope="col">No</th>
-                                        <th class="border-0" scope="col">Tanggal</th>
-                                        <th class="border-0" scope="col">Program Studi</th>
-                                        <th class="border-0" scope="col">Semester</th>
-                                        <th class="border-0" scope="col">Kelas</th>
-                                        <th class="border-0" scope="col">Praktikum</th>
-                                        <th class="border-0" scope="col">Mata Kuliah</th>
-                                        <th class="border-0" scope="col">Lokasi</th>
-                                        <th class="border-0" scope="col">Jam Mulai</th>
-                                        <th class="border-0" scope="col">Jam Selesai</th>
-                                        <th class="border-0" scope="col">Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- data table end -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Textual inputs start -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <h6>Tanggal</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Program Studi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Semester</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Kelas - Praktikum</h6>
+                                                <p>Value - value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Lokasi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <h6>Ruang</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Jam Mulai - Jam Selesai</h6>
+                                                <p>Value - Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Tipe Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Sesi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Software</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Pelaksanaan</h6>
+                                                <p>Value</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Textual inputs end -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

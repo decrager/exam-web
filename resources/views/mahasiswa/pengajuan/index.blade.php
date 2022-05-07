@@ -41,7 +41,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Pengajuan Ujian Susulan</h4>
-                        <a href="{{ route('mahasiswa.susulan.pengajuan.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="{{ route('mahasiswa.susulan.pengajuan.form') }}"
+                            class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Ajukan
                         </a>
                         <!-- <i class="fa fa-check text-danger"></i> -->
@@ -52,30 +53,18 @@
                                     <tr>
                                         <th>No</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>file</th>
+                                        <th>Bukti Persyaratan</th>
                                         <th>status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>
-                                            <a href="#" class="btn btn-primary text-sm px-3 py-1">
-                                                Belum Disetujui
-                                            </a>
-                                        </td>
+                                        <td>RPL</td>
+                                        <td><button class="btn btn-success btn-sm"><i class="fas fa-download"></i>&ensp; Download</button></td>
+                                        <td><span class="badge badge-warning text-black-50">Belum disetujui</span></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>file</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

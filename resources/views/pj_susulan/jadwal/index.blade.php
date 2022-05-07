@@ -36,10 +36,10 @@
     <div class="main-content-inner">
         <div class="row">
             <!-- data table start -->
-            <div class="col-12 mt-3">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title pt-2">Jadwal Ujian</h4>
+                        <h4 class="header-title pt-2">Jadwal Ujian Susulan</h4>
                         <div class="row mb-1 justify-content-start">
                             <div class="col-md-2">
                                 <div class="form-group">

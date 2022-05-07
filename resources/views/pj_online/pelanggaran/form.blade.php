@@ -80,9 +80,8 @@
                                     <label for="example-text-input" class="col-form-label">Pelanggaran</label>
                                     <input class="form-control" type="text" id="example-text-input" />
                                 </div>
-                                <a href="input-form.html" class="btn btn-primary text-sm bg-blue px-3 mb-3">
-                                    Submit
-                                </a>
+                                
+                                <button class="btn btn-primary">Simpan</button>
                             </div>
                         </div>
                     </div>

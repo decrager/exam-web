@@ -36,7 +36,7 @@
 
     <div class="row">
         <!-- data table start -->
-        <div class="col-12 mt-3">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title float-left pt-2">Jadwal Ujian</h4>
@@ -134,7 +134,7 @@
 
     <div class="row">
         <!-- data table start -->
-        <div class="col-12 mt-3">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title">Rekapitulasi Pelanggaran</h4>

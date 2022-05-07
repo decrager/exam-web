@@ -57,7 +57,7 @@
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('supervisor.kelengkapan.amplop') ? 'active' : '' }}"><a href="{{ route('supervisor.kelengkapan.amplop') }}">Amplop</a></li>
                             <li class="{{ Request::routeIs('supervisor.kelengkapan.bap') ? 'active' : '' }}"><a href="{{ route('supervisor.kelengkapan.bap') }}">BAP</a></li>
-                            <li class="{{ Request::routeIs('supervisor.kelengkapan.berkas') ? 'active' : '' }}"><a href="{{ route('supervisor.kelengkapan.berkas') }}">Berkas</a></li>
+                            <li class="{{ Request::routeIs('supervisor.kelengkapan.berkas') ? 'active' : '' }}"><a href="{{ route('supervisor.kelengkapan.berkas') }}">Soal Ujian</a></li>
                         </ul>
                     </li>
 

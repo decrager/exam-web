@@ -23,11 +23,11 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Berkas</h4>
+                    <h4 class="page-title pull-left">Soal Ujian</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
                         <li><a><span>Kelengkapan</span></a></li>
-                        <li><span>Berkas</span></li>
+                        <li><span>Soal Ujian</span></li>
                     </ul>
                 </div>
             </div>
@@ -40,11 +40,64 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Kelengkapan Berkas</h4>
+                        <h4 class="header-title">Soal Ujian</h4>
+
+                        <div class="row justify-content-start">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Program Studi</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Semester</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Kelas</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Praktikum</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Mata Kuliah</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1 align-content-center">
+                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                            </div>
+                        </div>
+
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Tanggal</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
@@ -53,15 +106,18 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Jumlah</th>
-                                        <th>File</th>
-                                        <th>Fotokopi</th>
                                         <th>Pengambilan</th>
-                                        <th>Kelengkapan</th>
+                                        <th>Fotokopi</th>
+                                        <th>Lengkap</th>
+                                        <th>Asisten</th>
+                                        <th>Serah Terima</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>04-05-2022</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
@@ -70,30 +126,15 @@
                                         <td>RPL</td>
                                         <td>Responsi</td>
                                         <td>K-35</td>
+                                        <td>Lab. Komputer</td>
                                         <td>36</td>
-                                        <td><button class="btn btn-primary">Unduh</button></td>
-                                        <td><button class="btn btn-danger">Belum</button></td>
-                                        <td><button class="btn btn-danger">Belum</button></td>
-                                        <td><button class="btn btn-danger">Belum</button></td>
+                                        <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
+                                        <td><button class="btn btn-danger btn-sm">Belum difotokopi</button></td>
+                                        <td><button class="btn btn-danger btn-sm">Belum lengkap</button></td>
+                                        <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
+                                        <td><button class="btn btn-danger btn-sm">Belum diserahkan</button></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Tanggal</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Jenis</th>
-                                        <th>Lokasi</th>
-                                        <th>Jumlah</th>
-                                        <th>File</th>
-                                        <th>Fotokopi</th>
-                                        <th>Pengambilan</th>
-                                        <th>Kelengkapan</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

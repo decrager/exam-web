@@ -64,6 +64,18 @@
                                             <option value="#">Responsi</option>
                                         </select>
                                     </div>
+
+                                    <div class="input-group mb-3">
+                                        {{-- <label class="col-form-label col-12">Bukti Persyaratan</label> --}}
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Bukti Persyaratan</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="inputGroupFile01" />
+                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        </div>
+                                    </div>
+
                                     <a href="input-form.html" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                                         Submit
                                     </a>

@@ -44,6 +44,7 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Tanggal</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
@@ -55,6 +56,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>04-05-2022</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
@@ -64,17 +66,6 @@
                                         <td><span class="badge bg-success">Perbanyak</span></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Tanggal</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Perbanyak</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

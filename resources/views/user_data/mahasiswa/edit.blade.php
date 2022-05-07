@@ -19,7 +19,7 @@
     <!-- header area end -->
 
     <!-- page title area start -->
-    <div class="page-title-area mb-5">
+    <div class="page-title-area mb-3">
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">

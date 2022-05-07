@@ -36,7 +36,7 @@
     <div class="main-content-inner">
         <div class="row">
             <!-- data table start -->
-            <div class="col-12 mt-3">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Daftar Pengawas</h4>
@@ -46,46 +46,34 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Tanggal</th>
-                                        <th scope="col">Program Studi</th>
-                                        <th scope="col">Semester</th>
-                                        <th scope="col">Kelas</th>
-                                        <th scope="col">Praktikum</th>
-                                        <th scope="col">Mata Kuliah</th>
-                                        <th scope="col">Jenis MK</th>
-                                        <th scope="col">Lokasi</th>
-                                        <th scope="col">Pengawas</th>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th>Program Studi</th>
+                                        <th>Semester</th>
+                                        <th>Kelas</th>
+                                        <th>Praktikum</th>
+                                        <th>Mata Kuliah</th>
+                                        <th>Jenis MK</th>
+                                        <th>Lokasi</th>
+                                        <th>Ruang</th>
+                                        <th>Pengawas</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th class="border-0" scope="row">1</th>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
-                                        <td class="border-0">-</td>
+                                        <td>1</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Tanggal</th>
-                                        <th scope="col">Program Studi</th>
-                                        <th scope="col">Semester</th>
-                                        <th scope="col">Kelas</th>
-                                        <th scope="col">Praktikum</th>
-                                        <th scope="col">Mata Kuliah</th>
-                                        <th scope="col">Jenis MK</th>
-                                        <th scope="col">Lokasi</th>
-                                        <th scope="col">Pengawas</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
