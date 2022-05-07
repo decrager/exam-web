@@ -17,11 +17,6 @@ class prodiController extends Controller
         return view('prodi.ujian.index', ["title" => env('APP_NAME')]);
     }
 
-    public function ujianForm()
-    {
-        return view('prodi.ujian.form', ["title" => env('APP_NAME')]);
-    }
-
     public function ujianEdit()
     {
         return view('prodi.ujian.edit', ["title" => env('APP_NAME')]);

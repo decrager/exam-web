@@ -133,7 +133,8 @@
                                         <td>10.00</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-primary"><i
+                                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#detail"><i
                                                         class="fas fa-info text-white"></i></button>
                                                 <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
                                                 <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
@@ -164,6 +165,88 @@
                 </div>
             </div>
             <!-- data table end -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Textual inputs start -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <h6>Tanggal</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Program Studi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Semester</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Kelas - Praktikum</h6>
+                                                <p>Value - value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Lokasi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <h6>Ruang</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Jam Mulai - Jam Selesai</h6>
+                                                <p>Value - Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Tipe Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Sesi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Software</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Pelaksanaan</h6>
+                                                <p>Value</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Textual inputs end -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

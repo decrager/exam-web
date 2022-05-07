@@ -39,10 +39,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Jadwal Ujian</h4>
-                        <a href="{{ route('prodi.jadwal.form')}} " class="btn btn-primary py-2 bg-blue px-3 mb-3 float-right">
-                            Tambah Data
-                        </a>
+                        <h4 class="header-title">Daftar Jadwal Ujian</h4>
+                        <div class="float-right">
+                            <button class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
+                                    class="fas fa-file-excel-o"></i></button>
+                        </div>
                         <div class="row justify-content-start">
                             <div class="col-md-2 pl--0">
                                 <div class="form-group">
@@ -104,17 +105,12 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Kode Ruang</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Hari</th>
                                         <th>Tanggal</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
-                                        <th>Jenis</th>
-                                        <th>Perbanyak</th>
-                                        <th>Sesi</th>
-                                        <th>Software</th>
-                                        <th>Pelaksanaan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -127,18 +123,15 @@
                                         <td>2</td>
                                         <td>RPL</td>
                                         <td>K-35</td>
-                                        <td>Lab Kom</td>
+                                        <td>Lab. Komputer</td>
                                         <td>Senin</td>
                                         <td>09/05/2022</td>
                                         <td>08.00</td>
                                         <td>10.00</td>
-                                        <td>Responsi</td>
-                                        <td>Ya</td>
-                                        <td>1</td>
-                                        <td>-</td>
-                                        <td>Offline</td>
                                         <td>
                                             <div class="btn-group" role="group">
+                                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#detail"><i class="fas fa-info text-white"></i></button>
                                                 <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
                                                 <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                             </div>
@@ -153,17 +146,12 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Kode Ruang</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Hari</th>
                                         <th>Tanggal</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
-                                        <th>Jenis</th>
-                                        <th>Perbanyak</th>
-                                        <th>Sesi</th>
-                                        <th>Software</th>
-                                        <th>Pelaksanaan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </tfoot>
@@ -173,6 +161,88 @@
                 </div>
             </div>
             <!-- data table end -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Textual inputs start -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <h6>Tanggal</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Program Studi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Semester</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Kelas - Praktikum</h6>
+                                                <p>Value - value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Lokasi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <h6>Ruang</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Jam Mulai - Jam Selesai</h6>
+                                                <p>Value - Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Tipe Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Sesi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Software</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Pelaksanaan</h6>
+                                                <p>Value</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Textual inputs end -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

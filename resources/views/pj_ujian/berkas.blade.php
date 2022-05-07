@@ -92,7 +92,7 @@
                                 <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
                             </div>
                         </div>
-                        
+
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
@@ -126,7 +126,12 @@
                                         <td>Responsi</td>
                                         <td>K-35</td>
                                         <td>36</td>
-                                        <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-danger btn-sm">Belum diambil</button>
+                                                <button class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+                                            </div>
+                                        </td>
                                         <td><button class="btn btn-danger btn-sm">Belum difotokopi</button></td>
                                         <td><button class="btn btn-danger btn-sm">Belum lengkap</button></td>
                                         <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
