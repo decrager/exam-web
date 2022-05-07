@@ -13,8 +13,9 @@ class Ujian extends Model
     protected $guarded = [];
     protected $fillable = [
         'matkul_id',
-        'lokasi_id',
         'hari',
+        'lokasi',
+        'ruang',
         'jam_mulai',
         'jam_selesai',
         'tanggal',
@@ -55,10 +56,5 @@ class Ujian extends Model
     public function Pengawas()
     {
         return $this->hasOne(Pengawas::class, 'ujian_id', 'id');
-    }
-
-    public function Lokasi()
-    {
-        return $this->belongsTo(Lokasi::class, 'lokasi_id', 'id');
     }
 }

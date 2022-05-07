@@ -44,9 +44,10 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Tanggal</th>
                                         <th>Sesi</th>
@@ -55,6 +56,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>Irfan Zafar</td>
                                         <td>J3C219155</td>
                                         <td>Manajemen Informatika</td>
@@ -66,9 +68,10 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th>No</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Tanggal</th>
                                         <th>Sesi</th>

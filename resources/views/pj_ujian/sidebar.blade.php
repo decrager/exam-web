@@ -26,10 +26,10 @@
                             <span>Jadwal Ujian</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjUjian.soal.*') ? 'active' : '' }}">
+                    {{-- <li class="{{ Request::routeIs('pjUjian.soal.*') ? 'active' : '' }}">
                         <a href="{{ route('pjUjian.soal.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Soal Ujian</span></a>
-                    </li>
+                    </li> --}}
 
                     <li class="{{ Request::routeIs('pjUjian.pengawas.*') ? 'active' : '' }}">
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
@@ -46,7 +46,7 @@
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('pjUjian.kelengkapan.amplop') ? 'active' : '' }}"><a href="{{ route('pjUjian.kelengkapan.amplop') }}">Amplop</a></li>
                             <li class="{{ Request::routeIs('pjUjian.kelengkapan.bap') ? 'active' : '' }}"><a href="{{ route('pjUjian.kelengkapan.bap') }}">BAP</a></li>
-                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.berkas') ? 'active' : '' }}"><a href="{{ route('pjUjian.kelengkapan.berkas') }}">Berkas</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.berkas') ? 'active' : '' }}"><a href="{{ route('pjUjian.kelengkapan.berkas') }}">Soal Ujian</a></li>
                         </ul>
                     </li>
 

@@ -44,11 +44,11 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Hari</th>
                                         <th>Tanggal</th>
@@ -79,16 +79,16 @@
                                         <td>1</td>
                                         <td>-</td>
                                         <td>Offline</td>
-                                        <td><Button class="btn btn-warning btn-sm px-3">Edit</Button></td>
+                                        <td><Button class="btn btn-warning btn-sm">Edit</Button></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Hari</th>
                                         <th>Tanggal</th>

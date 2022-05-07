@@ -41,21 +41,74 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Mata Kuliah</h4>
+                        <div class="row justify-content-start">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Program Studi</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Semester</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Kelas</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Praktikum</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Mata Kuliah</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1 align-content-center">
+                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                            </div>
+                        </div>
+                        
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Perbanyak</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>04-05-2022</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
@@ -67,12 +120,13 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Perbanyak</th>
                                     </tr>
                                 </tfoot>

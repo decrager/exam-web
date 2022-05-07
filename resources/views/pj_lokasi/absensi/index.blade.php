@@ -78,8 +78,8 @@
                                         <th>Nama</th>
                                         <th>PNS</th>
                                         <th>NON PNS</th>
-                                        <th>Program Studi</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Program Studi</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Tanda Tangan</th>
                                         <th>Aksi</th>
@@ -109,8 +109,8 @@
                                         <th>Nama</th>
                                         <th>PNS</th>
                                         <th>NON PNS</th>
-                                        <th>Program Studi</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Program Studi</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Tanda Tangan</th>
                                         <th>Aksi</th>

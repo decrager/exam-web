@@ -96,11 +96,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Pengawas</th>
                                         <th>Aksi</th>
@@ -124,11 +124,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Pengawas</th>
                                         <th>Aksi</th>

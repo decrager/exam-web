@@ -46,11 +46,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
+                                        <th>File</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -62,20 +63,10 @@
                                         <td>RPL</td>
                                         <td>Irfan Zafar</td>
                                         <td>J3C219155</td>
-                                        <td><button class="btn btn-danger btn-sm px-3">Belum disetujui</button></td>
+                                        <td><button class="btn btn-success btn-sm"><i class="fas fa-download"></i></button></td>
+                                        <td><button class="btn btn-danger btn-sm">Belum disetujui</button></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Mata Kuliah</th>
-                                        <th>Nama Mahasiswa</th>
-                                        <th>NIM</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

@@ -45,11 +45,11 @@
                                 <thead>
                                     <tr>
                                         <th>Tanggal</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Perbanyak</th>
                                     </tr>
                                 </thead>
@@ -67,11 +67,11 @@
                                 <tfoot>
                                     <tr>
                                         <th>Tanggal</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Perbanyak</th>
                                     </tr>
                                 </tfoot>

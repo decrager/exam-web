@@ -45,12 +45,13 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis</th>
                                         <th>Lokasi</th>
                                         <th>BAP</th>
@@ -59,6 +60,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>04-05-2022</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
@@ -67,18 +69,25 @@
                                         <td>RPL</td>
                                         <td>Responsi</td>
                                         <td>K-35</td>
-                                        <td><button class="btn btn-danger btn-sm px-3">Belum</button></td>
-                                        <td><button class="btn btn-danger btn-sm px-3">Belum</button></td>
+                                        <td><button class="btn btn-danger btn-sm">Belum tersedia</button></td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-danger btn-sm">Belum diambil</button>
+                                                <button class="btn btn-primary btn-sm"><i
+                                                        class="fas fa-check"></i></button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
+                                        <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis</th>
                                         <th>Lokasi</th>
                                         <th>BAP</th>

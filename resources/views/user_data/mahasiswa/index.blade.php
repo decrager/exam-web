@@ -47,7 +47,7 @@
                         <table id="example" class="table" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th>Program Studi</th>
+                                    <th class="col-2">Program Studi</th>
                                     <th>Semester</th>
                                     <th>Kelas</th>
                                     <th>Praktikum</th>
@@ -71,7 +71,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Program Studi</th>
+                                    <th class="col-2">Program Studi</th>
                                     <th>Semester</th>
                                     <th>Kelas</th>
                                     <th>Praktikum</th>

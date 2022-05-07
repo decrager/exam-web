@@ -98,15 +98,14 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis</th>
                                         <th>Lokasi</th>
-                                        <th>Ketersediaan</th>
-                                        <th>Status</th>
+                                        <th>Print</th>
                                         <th>Pengambilan</th>
                                     </tr>
                                 </thead>
@@ -121,27 +120,10 @@
                                         <td>RPL</td>
                                         <td>Responsi</td>
                                         <td>K-35</td>
-                                        <td><button class="btn btn-danger btn-sm px-3">Belum</button></td>
-                                        <td><button class="btn btn-danger btn-sm px-3">Belum</button></td>
-                                        <td><button class="btn btn-danger btn-sm px-3">Belum</button></td>
+                                        <td><button class="btn btn-danger btn-sm">Belum diprint</button></td>
+                                        <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th>Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
-                                        <th>Jenis</th>
-                                        <th>Lokasi</th>
-                                        <th>Ketersediaan</th>
-                                        <th>Status</th>
-                                        <th>Pengambilan</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

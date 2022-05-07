@@ -98,11 +98,11 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis MK</th>
                                         <th>Lokasi</th>
                                         <th>Aksi</th>
@@ -121,19 +121,6 @@
                                         <td><button class="btn btn-primary"><i class="fas fa-user-plus"></i></button></td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
-                                        <th>Jenis MK</th>
-                                        <th>Lokasi</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

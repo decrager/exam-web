@@ -13,9 +13,8 @@ class Amplop extends Model
     protected $guarded = [];
     protected $fillable = [
         'ujian_id',
-        'ketersediaan',
-        'status',
-        'pengambilan'
+        'print',
+        'pengambilan',
     ];
 
     public function Ujian()

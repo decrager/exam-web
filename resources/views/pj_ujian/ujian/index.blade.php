@@ -40,10 +40,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Daftar Jadwal Ujian</h4>
-                        <a href="{{ route('pjUjian.jadwal.tambah') }}"
-                            class="btn btn-primary bg-blue mb-3 float-right py-2">
-                            Tambah Jadwal
-                        </a>
+                        <div class="float-right">
+                            <button class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i class="fas fa-file-excel-o"></i></button>
+                            <a href="{{ route('pjUjian.jadwal.tambah') }}"
+                                class="btn btn-primary bg-blue float-right mb-3 py-2">
+                                Tambah Jadwal
+                            </a>
+                        </div>
                         <div class="row justify-content-start">
                             <div class="col-md-2 pl--0">
                                 <div class="form-group">
@@ -100,21 +103,17 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Hari</th>
                                         <th>Tanggal</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
-                                        <th>Jenis</th>
-                                        <th>Perbanyak</th>
-                                        <th>Sesi</th>
-                                        <th>Software</th>
-                                        <th>Pelaksanaan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -127,17 +126,15 @@
                                         <td>2</td>
                                         <td>RPL</td>
                                         <td>K-35</td>
+                                        <td>Lab. Komputer</td>
                                         <td>Senin</td>
                                         <td>09/05/2022</td>
                                         <td>08.00</td>
                                         <td>10.00</td>
-                                        <td>Responsi</td>
-                                        <td>Ya</td>
-                                        <td>1</td>
-                                        <td>-</td>
-                                        <td>Offline</td>
                                         <td>
                                             <div class="btn-group" role="group">
+                                                <button class="btn btn-primary"><i
+                                                        class="fas fa-info text-white"></i></button>
                                                 <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
                                                 <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                             </div>
@@ -147,21 +144,17 @@
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
+                                        <th>Ruang</th>
                                         <th>Hari</th>
                                         <th>Tanggal</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
-                                        <th>Jenis</th>
-                                        <th>Perbanyak</th>
-                                        <th>Sesi</th>
-                                        <th>Software</th>
-                                        <th>Pelaksanaan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </tfoot>

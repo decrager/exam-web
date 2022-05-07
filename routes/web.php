@@ -53,9 +53,6 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::get('/pj_ujian/jadwal', [pjUjianController::class, 'ujianIndex'])->name('pjUjian.jadwal.index');
     Route::get('/pj_ujian/jadwal/tambah', [pjUjianController::class, 'ujianForm'])->name('pjUjian.jadwal.tambah');
     Route::get('/pj_ujian/jadwal/edit/{id}', [pjUjianController::class, 'ujianEdit'])->name('pjUjian.jadwal.edit');
-    Route::get('/pj_ujian/soal', [pjUjianController::class, 'soalIndex'])->name('pjUjian.soal.index');
-    Route::get('/pj_ujian/soal/tambah', [pjUjianController::class, 'soalForm'])->name('pjUjian.soal.form');
-    Route::get('/pj_ujian/soal/edit/{id}', [pjUjianController::class, 'soalEdit'])->name('pjUjian.soal.edit');
     Route::get('/pj_ujian/pengawas/daftar', [pjUjianController::class, 'listPengawas'])->name('pjUjian.pengawas.daftar');
     Route::get('/pj_ujian/pengawas/penugasan', [pjUjianController::class, 'penugasanIndex'])->name('pjUjian.pengawas.penugasan.index');
     Route::get('/pj_ujian/pengawas/penugasan/tambah', [pjUjianController::class, 'penugasanForm'])->name('pjUjian.pengawas.penugasan.form');

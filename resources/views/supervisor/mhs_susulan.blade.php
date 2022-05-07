@@ -44,13 +44,13 @@
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -68,13 +68,13 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Status</th>
                                     </tr>
                                 </tfoot>

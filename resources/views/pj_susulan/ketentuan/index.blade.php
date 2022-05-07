@@ -58,8 +58,8 @@
                                         <td class="col-1 text-center">1</td>
                                         <td>Memiliki bukti yang valid</td>
                                         <td>
-                                            <button class="btn btn-warning btn-sm px-3">Edit</button>
-                                            <button class="btn btn-danger btn-sm px-3">Hapus</button>
+                                            <button class="btn btn-warning btn-sm">Edit</button>
+                                            <button class="btn btn-danger btn-sm">Hapus</button>
                                         </td>
                                     </tr>
                                 </tbody>

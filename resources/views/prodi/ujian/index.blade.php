@@ -99,11 +99,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
+                                        <th>Kode Ruang</th>
                                         <th>Lokasi</th>
                                         <th>Hari</th>
                                         <th>Tanggal</th>
@@ -126,6 +127,7 @@
                                         <td>2</td>
                                         <td>RPL</td>
                                         <td>K-35</td>
+                                        <td>Lab Kom</td>
                                         <td>Senin</td>
                                         <td>09/05/2022</td>
                                         <td>08.00</td>
@@ -146,11 +148,12 @@
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
+                                        <th>Kode Ruang</th>
                                         <th>Lokasi</th>
                                         <th>Hari</th>
                                         <th>Tanggal</th>

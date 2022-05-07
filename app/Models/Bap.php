@@ -13,8 +13,8 @@ class Bap extends Model
     protected $guarded = [];
     protected $fillable = [
         'ujian_id',
-        'bap',
-        'status'
+        'print',
+        'pengambilan'
     ];
 
     public function Ujian()

@@ -48,7 +48,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Hari</th>
                                         <th>Tanggal</th>
@@ -76,7 +76,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Hari</th>
                                         <th>Tanggal</th>

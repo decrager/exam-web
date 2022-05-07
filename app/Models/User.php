@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'lokasi_id'
+        'lokasi'
     ];
 
     /**
@@ -44,8 +44,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Lokasi()
+    public function Mahasiswa()
     {
-        return $this->belongsTo(Lokasi::class, 'lokasi_id', 'id');
+        return $this->hasOne(Mahasiswa::class, 'user_id', 'id');
     }
 }

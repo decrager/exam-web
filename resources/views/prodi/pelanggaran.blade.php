@@ -47,7 +47,7 @@
                                         <th>No</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Tanggal</th>
                                         <th>Sesi</th>
@@ -71,7 +71,7 @@
                                         <th>No</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Tanggal</th>
                                         <th>Sesi</th>

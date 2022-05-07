@@ -51,7 +51,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>file</th>
                                         <th>status</th>
                                     </tr>
@@ -71,7 +71,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Mata Kuliah</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>file</th>
                                         <th>Status</th>
                                     </tr>

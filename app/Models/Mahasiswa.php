@@ -13,6 +13,7 @@ class Mahasiswa extends Model
     protected $guarded = [];
     protected $fillable = [
         'prak_id',
+        'user_id',
         'nim',
         'nama',
         'email',
@@ -31,5 +32,10 @@ class Mahasiswa extends Model
     public function Susulan()
     {
         return $this->hasMany(Susulan::class, 'mhs_id', 'id');
+    }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

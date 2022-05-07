@@ -41,11 +41,54 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Mahasiswa</h4>
+                        <div class="row justify-content-start">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Program Studi</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Semester</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Kelas</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select">
+                                        <option selected="selected">Praktikum</option>
+                                        <option value="#">-</option>
+                                        <option value="#">-</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1 align-content-center">
+                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                            </div>
+                        </div>
+
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th>Program Studi</th>
+                                        <th>No</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
@@ -54,6 +97,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>1</td>
                                         <td>Manajemen Informatika</td>
                                         <td>4</td>
                                         <td>A</td>
@@ -63,7 +107,8 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Program Studi</th>
+                                        <th>No</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>

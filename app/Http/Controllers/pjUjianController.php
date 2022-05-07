@@ -26,21 +26,6 @@ class pjUjianController extends Controller
         return view('pj_ujian.ujian.edit', ["title" => env('APP_NAME')]);
     }
 
-    public function soalIndex()
-    {
-        return view('pj_ujian.soal.index', ["title" => env('APP_NAME')]);
-    }
-
-    public function soalForm()
-    {
-        return view('pj_ujian.soal.form', ["title" => env('APP_NAME')]);
-    }
-
-    public function soalEdit()
-    {
-        return view('pj_ujian.soal.edit', ["title" => env('APP_NAME')]);
-    }
-
     public function listPengawas()
     {
         return view('pj_ujian.daftar_pengawas', ["title" => env('APP_NAME')]);

@@ -14,10 +14,11 @@ class Berkas extends Model
     protected $fillable = [
         'ujian_id',
         'jml_berkas',
-        'file',
-        'fotokopi',
         'pengambilan',
-        'kelengkapan'
+        'fotokopi',
+        'lengkap',
+        'asisten',
+        'serah_terima'
     ];
 
     public function Ujian()
