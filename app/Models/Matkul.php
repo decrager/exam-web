@@ -14,8 +14,7 @@ class Matkul extends Model
     protected $fillable = [
         'prak_id',
         'kode_matkul',
-        'nama_matkul',
-        'semester'
+        'nama_matkul'
     ];
 
     public function Praktikum()

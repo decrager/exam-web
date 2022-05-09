@@ -61,8 +61,8 @@
                                     <tr>
                                         <td>1</td>
                                         <td>RPL</td>
-                                        <td><button class="btn btn-success btn-sm"><i class="fas fa-download"></i>&ensp; Download</button></td>
-                                        <td><span class="badge badge-warning text-black-50">Belum disetujui</span></td>
+                                        <td><button class="btn btn-success btn-sm"><i class="fas fa-eye"></i></button></td>
+                                        <td><span class="badge badge-danger">Belum disetujui</span></td>
                                     </tr>
                                 </tbody>
                             </table>

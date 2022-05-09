@@ -26,9 +26,14 @@ class pjUjianController extends Controller
         return view('pj_ujian.ujian.edit', ["title" => env('APP_NAME')]);
     }
 
-    public function listPengawas()
+    public function pengawasIndex()
     {
-        return view('pj_ujian.daftar_pengawas', ["title" => env('APP_NAME')]);
+        return view('pj_ujian.pengawas.index', ["title" => env('APP_NAME')]);
+    }
+
+    public function pengawasEdit()
+    {
+        return view('pj_ujian.pengawas.edit', ["title" => env('APP_NAME')]);
     }
 
     public function penugasanIndex()
@@ -39,11 +44,6 @@ class pjUjianController extends Controller
     public function penugasanForm()
     {
         return view('pj_ujian.penugasan.form', ["title" => env('APP_NAME')]);
-    }
-
-    public function penugasanEdit()
-    {
-        return view('pj_ujian.penugasan.edit', ["title" => env('APP_NAME')]);
     }
 
     public function amplop()

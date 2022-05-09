@@ -25,14 +25,13 @@
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengawas</span></a>
                         <ul class="collapse">
-                            <li class="{{ Request::routeIs('pjLokasi.pengawas.list') ? 'active' : '' }}"><a href="{{ route('pjLokasi.pengawas.list') }}">Daftar Pengawas</a></li>
-                            <li class="{{ Request::routeIs('pjLokasi.pengawas.penugasan.*') ? 'active' : '' }}"><a href="{{ route('pjLokasi.pengawas.penugasan.index') }}">Penugasan</a></li>
+                            <li class="{{ Request::routeIs('pjLokasi.pengawas.daftar.*') ? 'active' : '' }}"><a href="{{ route('pjLokasi.pengawas.daftar.index') }}">Daftar Pengawas</a></li>
                             <li class="{{ Request::routeIs('pjLokasi.pengawas.absensi.*') ? 'active' : '' }}"><a href="{{ route('pjLokasi.pengawas.absensi.index') }}">Absensi</a></li>
                         </ul>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjLokasi.berkas') ? 'active' : '' }}">
-                        <a href="{{ route('pjLokasi.berkas') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                    <li class="{{ Request::routeIs('pjLokasi.soal.*') ? 'active' : '' }}">
+                        <a href="{{ route('pjLokasi.soal.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Soal Ujian</span></a>
                     </li>
 

@@ -40,20 +40,20 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Daftar Pengawas</h4>
-                        <!-- <i class="fa fa-check text-danger"></i> -->
-
+                        <div class="row justify-content-start">
+                            @include('layouts.filter')
+                        </div>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
-                                        <th>Program Studi</th>
+                                        <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Mata Kuliah</th>
-                                        <th>Jenis MK</th>
+                                        <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
                                         <th>Ruang</th>
                                         <th>Pengawas</th>
@@ -62,15 +62,14 @@
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td>09/05/2022</td>
+                                        <td>Manajemen Informatika</td>
+                                        <td>4</td>
+                                        <td>A</td>
+                                        <td>2</td>
+                                        <td>RPL</td>
+                                        <td>K-35</td>
+                                        <td>Lab. Komputer</td>
                                         <td>-</td>
                                     </tr>
                                 </tbody>

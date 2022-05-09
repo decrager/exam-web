@@ -119,12 +119,7 @@
                                         <td>K-35</td>
                                         <td>Lab. Komputer</td>
                                         <td>-</td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                        </td>
+                                        <td><button class="btn btn-warning"><i class="fas fa-pen"></i></button></td>
                                     </tr>
                                 </tbody>
                             </table>

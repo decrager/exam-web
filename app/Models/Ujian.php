@@ -13,6 +13,9 @@ class Ujian extends Model
     protected $guarded = [];
     protected $fillable = [
         'matkul_id',
+        'sks',
+        'sks_kul',
+        'sks_prak',
         'hari',
         'lokasi',
         'ruang',

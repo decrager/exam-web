@@ -35,6 +35,21 @@
     
     <!-- page title area end -->
     <div class="main-content-inner">
+        <div class="row mb-3">
+            <!-- data table start -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title pt-2">Ketentuan Ujian Susulan:</h4>
+                        <ul>
+                            <li>- Memiliki bukti yang valid untuk mengajukan ujian susulan</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- data table end -->
+        </div>
+
         <div class="row">
             <!-- data table start -->
             <div class="col-12">
@@ -42,54 +57,7 @@
                     <div class="card-body">
                         <h4 class="header-title pt-2">Jadwal Ujian</h4>
                         <div class="row mb-1 justify-content-start">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Program Studi</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Semester</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Kelas</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Praktikum</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2 pr--0">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Mata Kuliah</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-1 align-content-center">
-                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
-                            </div>
+                            @include('layouts.filter')
                         </div>
                         <!-- <i class="fa fa-check text-danger"></i> -->
 

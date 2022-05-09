@@ -11,24 +11,14 @@ class pjLokasiController extends Controller
         return view('pj_lokasi.dashboard', ["title" => env('APP_NAME')]);
     }
 
-    public function pengawasList()
+    public function pengawasIndex()
     {
-        return view('pj_lokasi.daftar_pengawas', ["title" => env('APP_NAME')]);
+        return view('pj_lokasi.pengawas.index', ["title" => env('APP_NAME')]);
     }
 
-    public function penugasanIndex()
+    public function pengawasEdit()
     {
-        return view('pj_lokasi.penugasan.index', ["title" => env('APP_NAME')]);
-    }
-
-    public function penugasanForm()
-    {
-        return view('pj_lokasi.penugasan.form', ["title" => env('APP_NAME')]);
-    }
-
-    public function penugasanEdit()
-    {
-        return view('pj_lokasi.penugasan.edit', ["title" => env('APP_NAME')]);
+        return view('pj_lokasi.pengawas.edit', ["title" => env('APP_NAME')]);
     }
 
     public function absensiIndex()
@@ -41,9 +31,14 @@ class pjLokasiController extends Controller
         return view('pj_lokasi.absensi.form', ["title" => env('APP_NAME')]);
     }
 
-    public function berkas()
+    public function soalIndex()
     {
-        return view('pj_lokasi.berkas', ["title" => env('APP_NAME')]);
+        return view('pj_lokasi.soal.index', ["title" => env('APP_NAME')]);
+    }
+
+    public function soalForm()
+    {
+        return view('pj_lokasi.soal.form', ["title" => env('APP_NAME')]);
     }
 
     public function pelanggaranIndex()

@@ -72,7 +72,7 @@
 							<div class="form-gp">
 								<label for="email">Email</label>
 								<input type="email" @error('email')
-									is-invalid
+									is-invalid value="Niicontohnya"
 								@enderror name="email" id="email" required value="{{ old('email')}}"/>
 								@error('email')
 									<div class="invalid-feedback">

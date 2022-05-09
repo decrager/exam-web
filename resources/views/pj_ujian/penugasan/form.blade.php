@@ -43,22 +43,29 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Penugasan</h4>
+                                <form action="" method="POST">
+                                    <h4 class="header-title">Penugasan Pengawas Ujian</h4>
 
-                                <div class="form-group">
-                                    <label for="example-text-input" class="col-form-label">Nama</label>
-                                    <input class="form-control" type="text" id="example-text-input" />
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Status PNS</label>
-                                    <select class="custom-select">
-                                        <option selected="selected">Select</option>
-                                        <option value="#">PNS</option>
-                                        <option value="#">Non-PNS</option>
-                                    </select>
-                                </div>
+                                    @csrf
 
-                                <button class="btn btn-primary text-sm bg-blue px-3 mb-3">Simpan</button>
+                                    <div class="form-group">
+                                        <label for="nama" class="col-form-label">Nama Pengawas</label>
+                                        <input class="form-control" type="text" placeholder="Ketik nama pengawas..." id="nama" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">PNS</label>
+                                        <select class="custom-select">
+                                            <option selected="selected">
+                                                Pilih
+                                            </option>
+                                            <option value="pns">PNS</option>
+                                            <option value="nonpns">NON PNS</option>
+                                        </select>
+                                    </div>
+
+                                    <button class="btn btn-primary">Simpan</button>
+                                </form>
                             </div>
                         </div>
                     </div>

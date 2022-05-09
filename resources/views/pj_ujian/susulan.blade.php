@@ -39,8 +39,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Mahasiswa yang Mengikuti Ujian Susulan</h4>
-
+                        <h4 class="header-title">Daftar Mahasiswa yang Mengajukan Susulan</h4>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
@@ -51,8 +50,8 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
-                                        <th>File</th>
                                         <th>Status</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,8 +62,8 @@
                                         <td>RPL</td>
                                         <td>Irfan Zafar</td>
                                         <td>J3C219155</td>
-                                        <td><button class="btn btn-success btn-sm"><i class="fas fa-download"></i></button></td>
-                                        <td><button class="btn btn-danger btn-sm">Belum disetujui</button></td>
+                                        <td><span class="badge bg-danger">Belum disetujui</span></td>
+                                        <td><Button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detail"><i class="fas fa-info"></i></Button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -73,6 +72,84 @@
                 </div>
             </div>
             <!-- data table end -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Textual inputs start -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <h6>Program Studi</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Semester</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Nama Mahasiswa</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>NIM</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Kelas - Praktikum</h6>
+                                                <p>Value - value</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <h6>Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Tipe Mata Kuliah</h6>
+                                                <p>Value</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Status</h6>
+                                                <p><span class="badge bg-danger">Belum disetujui</span></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Bukti Persyaratan</h6>
+                                                <button class="btn btn-success btn-sm mt-1"><i class="fas fa-download"></i>&ensp; Download</button>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Persetujuan</h6>
+                                                <div class="btn-group mt-1" role="group">
+                                                    <button class="btn btn-success btn-sm"><i class="fas fa-check"></i>&ensp; Setujui</button>
+                                                    <button class="btn btn-danger btn-sm"><i class="fas fa-xmark"></i>&ensp; Tolak</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Textual inputs end -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

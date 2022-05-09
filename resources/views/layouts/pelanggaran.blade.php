@@ -19,7 +19,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Pelanggaran</h4>
+                    @if (auth()->user()->role == 'berkas' or auth()->user()->role == 'pj_ujian' or auth()->user()->role == 'supervisor')
+                        <h4 class="header-title float-left">Pelanggaran</h4>
+                        <button class="btn btn-success float-right mb-3"><i class="fas fa-file-excel-o"></i>&ensp;Export</button>
+                    @else
+                        <h4 class="header-title">Pelanggaran</h4>
+                    @endif
                     <div class="table-responsive">
                         <table id="example" class="table" style="width: 100%">
                             <thead>

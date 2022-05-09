@@ -69,7 +69,7 @@
                                         name="lokasi" />
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 bg-danger">
                                     <label class="" for="">Signature:</label>
                                     <br />
                                     <div id="sig"></div>

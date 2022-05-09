@@ -46,11 +46,11 @@
 
     <style>
         .kbw-signature {
-            width: 100%;
-            height: 200px;
+            width: 30%;
+            height: 120px;
         }
 
-        #sig canvas {
+        #sign canvas {
             width: 100% !important;
             height: auto;
         }
@@ -146,13 +146,13 @@
     </script>
 
     <script type="text/javascript">
-        var sig = $('#sig').signature({
+        var sign = $('#sign').signature({
             syncField: '#signature64',
             syncFormat: 'PNG'
         });
         $('#clear').click(function(e) {
             e.preventDefault();
-            sig.signature('clear');
+            sign.signature('clear');
             $("#signature64").val('');
         });
     </script>
@@ -173,7 +173,7 @@
 
             yAxis: {
                 title: {
-                    text: "Text",
+                    text: "Jumlah",
                 },
             },
 
@@ -184,7 +184,7 @@
                         color: "#000"
                     },
                 },
-                categories: [1, 2, 3, 4, 5, 6, 7, 8],
+                categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
                 labels: {
                     style: {
                         color: "#000",
@@ -200,12 +200,8 @@
 
             series: [{
                     name: "Pelanggaran",
-                    data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175],
+                    data: [4, 8, 11, 1, 0, 2, 4, 2, 6, 9, 10, 4, 2, 1, 3],
                 },
-                // {
-                // 	name: "Manufacturing",
-                // 	data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434],
-                // },
             ],
 
             responsive: {

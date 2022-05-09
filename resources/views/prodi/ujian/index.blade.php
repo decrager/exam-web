@@ -45,54 +45,7 @@
                                     class="fas fa-file-excel-o"></i></button>
                         </div>
                         <div class="row justify-content-start">
-                            <div class="col-md-2 pl--0">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Program Studi</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Semester</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Kelas</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Praktikum</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Mata Kuliah</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-1 align-content-center">
-                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
-                            </div>
+                            @include('layouts.filter')
                         </div>
 
                         <div class="table-responsive">
@@ -111,6 +64,7 @@
                                         <th>Tanggal</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
+                                        <th>Perbanyak</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -128,6 +82,7 @@
                                         <td>09/05/2022</td>
                                         <td>08.00</td>
                                         <td>10.00</td>
+                                        <td><span class="badge badge-success">Perbanyak</span></td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <button class="btn btn-primary" data-bs-toggle="modal"
@@ -138,23 +93,6 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Lokasi</th>
-                                        <th>Ruang</th>
-                                        <th>Hari</th>
-                                        <th>Tanggal</th>
-                                        <th>Jam Mulai</th>
-                                        <th>Jam Selesai</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

@@ -16,46 +16,46 @@
         <div class="menu-inner">
             <nav>
                 <ul class="metismenu" id="menu">    
-                    <li class="{{ Request::routeIs('pjUjianDashboard') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('pjUjianDashboard') ? 'active' : '' }} mb-1">
                         <a href="{{ route('pjUjianDashboard') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Beranda</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjUjian.jadwal.*') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('pjUjian.jadwal.*') ? 'active' : '' }} mb-1">
                         <a href="{{ route('pjUjian.jadwal.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Jadwal Ujian</span></a>
                     </li>
 
-                    {{-- <li class="{{ Request::routeIs('pjUjian.soal.*') ? 'active' : '' }}">
+                    {{-- <li class="{{ Request::routeIs('pjUjian.soal.*') ? 'active' : '' }} mb-1">
                         <a href="{{ route('pjUjian.soal.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Soal Ujian</span></a>
                     </li> --}}
 
-                    <li class="{{ Request::routeIs('pjUjian.pengawas.*') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('pjUjian.pengawas.*') ? 'active' : '' }} mb-1">
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengawas</span></a>
                         <ul class="collapse">
-                            <li class="{{ Request::routeIs('pjUjian.pengawas.daftar') ? 'active' : '' }}"><a href="{{ route('pjUjian.pengawas.daftar') }}">Daftar Pengawas</a></li>
-                            <li class="{{ Request::routeIs('pjUjian.pengawas.penugasan.*') ? 'active' : '' }}"><a href="{{ route('pjUjian.pengawas.penugasan.index') }}">Penugasan</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.pengawas.pengawas.*') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.pengawas.pengawas.index') }}">Daftar pengawas</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.pengawas.penugasan.*') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.pengawas.penugasan.index') }}">Penugasan</a></li>
                         </ul>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjUjian.kelengkapan.*') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('pjUjian.kelengkapan.*') ? 'active' : '' }} mb-1">
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Kelengkapan</span></a>
                         <ul class="collapse">
-                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.amplop') ? 'active' : '' }}"><a href="{{ route('pjUjian.kelengkapan.amplop') }}">Amplop</a></li>
-                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.bap') ? 'active' : '' }}"><a href="{{ route('pjUjian.kelengkapan.bap') }}">BAP</a></li>
-                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.berkas') ? 'active' : '' }}"><a href="{{ route('pjUjian.kelengkapan.berkas') }}">Soal Ujian</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.amplop') ? 'active' : '' }} mb-1"><a href="{{ route('pjUjian.kelengkapan.amplop') }}">Amplop</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.bap') ? 'active' : '' }} mb-1"><a href="{{ route('pjUjian.kelengkapan.bap') }}">BAP</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.berkas') ? 'active' : '' }} mb-1"><a href="{{ route('pjUjian.kelengkapan.berkas') }}">Soal Ujian</a></li>
                         </ul>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjUjian.susulan') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('pjUjian.susulan') ? 'active' : '' }} mb-1">
                         <a href="{{ route('pjUjian.susulan') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Susulan</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjUjian.pelanggaran') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('pjUjian.pelanggaran') ? 'active' : '' }} mb-1">
                         <a href="{{ route('pjUjian.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>
                     </li>

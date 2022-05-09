@@ -13,7 +13,7 @@
 </div>
 <!-- page title area end -->
 <div class="main-content-inner">
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-12 col-md-4">
             <div class="single-report bg-white">
                 <span>Jumlah Pelanggaran</span>
@@ -34,58 +34,14 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         <!-- data table start -->
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title float-left pt-2">Jadwal Ujian</h4>
-                    <div class="row mb-1 justify-content-end">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <select class="custom-select">
-                                    <option selected="selected">Program Studi</option>
-                                    <option value="#">-</option>
-                                    <option value="#">-</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <select class="custom-select">
-                                    <option selected="selected">Semester</option>
-                                    <option value="#">-</option>
-                                    <option value="#">-</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <select class="custom-select">
-                                    <option selected="selected">Kelas</option>
-                                    <option value="#">-</option>
-                                    <option value="#">-</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <select class="custom-select">
-                                    <option selected="selected">Praktikum</option>
-                                    <option value="#">-</option>
-                                    <option value="#">-</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2 pr--0">
-                            <div class="form-group">
-                                <select class="custom-select">
-                                    <option selected="selected">Mata Kuliah</option>
-                                    <option value="#">-</option>
-                                    <option value="#">-</option>
-                                </select>
-                            </div>
-                        </div>
+                    <h4 class="header-title pt-2">Jadwal Ujian</h4>
+                    <div class="row mb-1 justify-content-start">
+                        @include('layouts.filter')
                     </div>
                     <!-- <i class="fa fa-check text-danger"></i> -->
 
@@ -132,7 +88,7 @@
         <!-- data table end -->
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         <!-- data table start -->
         <div class="col-12">
             <div class="card">

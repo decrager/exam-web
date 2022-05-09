@@ -61,15 +61,6 @@
                                         <td>-</td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Lokasi</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

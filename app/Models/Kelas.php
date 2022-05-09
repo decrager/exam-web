@@ -14,6 +14,7 @@ class Kelas extends Model
     protected $fillable = [
         'prodi_id',
         'kelas',
+        'semester',
         'jml_mhs'
     ];
 
