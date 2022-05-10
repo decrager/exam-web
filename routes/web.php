@@ -12,6 +12,15 @@ use App\Http\Controllers\pjSusulanController;
 use App\Http\Controllers\supervisorController;
 use App\Http\Controllers\pjOnlineController;
 use App\Http\Controllers\mahasiswaController;
+use App\Http\Controllers\pelanggaranController;
+use Illuminate\Support\Facades\DB;
+use App\Models\Prodi;
+use App\Models\Semester;
+use App\Models\Kelas;
+use App\Models\Praktikum;
+use App\Models\Matkul;
+use App\Models\Ujian;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +40,26 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/resetPassword', [loginController::class, 'resetPassword'])->name('resetView');
     Route::post('/resetPassword', [loginController::class, 'reset'])->name('resetPassword');
     Route::post('/logout', [loginController::class, 'logout'])->name('logout');
+
+    Route::get('getSemester/{id}', function ($id) {
+        $semester = Semester::where('prodi_id', $id)->get();
+        return response()->json($semester);
+    });
+
+    Route::get('getKelas/{id}', function ($id) {
+        $kelas = Kelas::where('semester_id', $id)->get();
+        return response()->json($kelas);
+    });
+
+    Route::get('getPrak/{id}', function($id) {
+        $prak = Praktikum::where('kelas_id', $id)->get();
+        return response()->json($prak);
+    });
+
+    Route::get('getMatkul/{id}', function($id) {
+        $matkul = Matkul::where('semester_id', $id)->get();
+        return response()->json($matkul);
+    });
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
@@ -83,6 +112,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
     Route::get('/pj_lokasi/soal', [pjLokasiController::class, 'soalIndex'])->name('pjLokasi.soal.index');
     Route::get('/pj_lokasi/soal/ttd', [pjLokasiController::class, 'soalForm'])->name('pjLokasi.soal.form');
     Route::get('/pj_lokasi/pelanggaran', [pjLokasiController::class, 'pelanggaranIndex'])->name('pjLokasi.pelanggaran.index');
+    Route::get('/pj_lokasi/pelanggaran/crud', [pelanggaranController::class, 'index'])->name('pjLokasi.pelanggaran.index');
     Route::get('/pj_lokasi/pelanggaran/tambah', [pjLokasiController::class, 'pelanggaranForm'])->name('pjLokasi.pelanggaran.form');
     Route::get('/pj_lokasi/pelanggaran/edit/{id}', [pjLokasiController::class, 'pelanggaranEdit'])->name('pjLokasi.pelanggaran.edit');
 });

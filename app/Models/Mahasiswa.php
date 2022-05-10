@@ -16,7 +16,7 @@ class Mahasiswa extends Model
         'user_id',
         'nim',
         'nama',
-        'email',
+        'email'
     ];
 
     public function Praktikum()

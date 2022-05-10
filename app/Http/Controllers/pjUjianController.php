@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ujian;
 
 class pjUjianController extends Controller
 {
     public function dashboard()
     {
-        return view('pj_ujian.dashboard', ["title" => env('APP_NAME')]);
+        $ujian = Ujian::all();
+
+        return view('pj_ujian.dashboard', [
+            "title" => env('APP_NAME'),
+            "dbUjian" => $ujian
+        ]);
     }
 
     public function ujianIndex()

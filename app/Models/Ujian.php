@@ -12,7 +12,10 @@ class Ujian extends Model
     protected $primaryKey = 'id';
     protected $guarded = [];
     protected $fillable = [
+        'prak_id',
         'matkul_id',
+        'kapasitas',
+        'isuas',
         'sks',
         'sks_kul',
         'sks_prak',
@@ -34,6 +37,11 @@ class Ujian extends Model
     public function Matkul()
     {
         return $this->belongsTo(Matkul::class, 'matkul_id', 'id');
+    }
+
+    public function Praktikum()
+    {
+        return $this->belongsTo(Praktikum::class, 'prak_id', 'id');
     }
 
     public function Pelanggaran()

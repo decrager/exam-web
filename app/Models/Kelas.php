@@ -12,9 +12,8 @@ class Kelas extends Model
     protected $primaryKey = 'id';
     protected $guarded = [];
     protected $fillable = [
-        'prodi_id',
+        'semester_id',
         'kelas',
-        'semester',
         'jml_mhs'
     ];
 
@@ -23,8 +22,8 @@ class Kelas extends Model
         return $this->hasMany(Praktikum::class, 'kelas_id', 'id');
     }
 
-    public function Prodi()
+    public function Semester()
     {
-        return $this->belongsTo(Prodi::class, 'prodi_id', 'id');
+        return $this->belongsTo(Semester::class, 'semester_id', 'id');
     }
 }

@@ -12,14 +12,14 @@ class Matkul extends Model
     protected $primaryKey = 'id';
     protected $guarded = [];
     protected $fillable = [
-        'prak_id',
+        'semester_id',
         'kode_matkul',
         'nama_matkul'
     ];
 
-    public function Praktikum()
+    public function Semester()
     {
-        return $this->belongsTo(Praktikum::class, 'prak_id', 'id');
+        return $this->belongsTo(Semester::class, 'semester_id', 'id');
     }
 
     public function Ujian()
