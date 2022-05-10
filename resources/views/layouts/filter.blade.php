@@ -1,6 +1,6 @@
 <div class="col-md-2">
     <div class="form-group">
-        <select class="custom-select" name="prodi" id="prodi">
+        <select class="custom-select" name="dbProdi" id="dbProdi">
             <option selected="selected">Program Studi</option>
             @foreach ($dbProdi as $prodi)
                 <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
@@ -10,40 +10,40 @@
 </div>
 <div class="col-md-2">
     <div class="form-group">
-        <select class="custom-select" name="semester" id="semester">
+        <select class="custom-select" name="dbSemester" id="dbSemester">
             <option selected="selected">Semester</option>
         </select>
     </div>
 </div>
 <div class="col-md-2">
     <div class="form-group">
-        <select class="custom-select" name="kelas" id="kelas">
+        <select class="custom-select" name="dbKelas" id="dbKelas">
             <option selected="selected">Kelas</option>
         </select>
     </div>
 </div>
 <div class="col-md-2">
     <div class="form-group">
-        <select class="custom-select" name="praktikum" id="praktikum">
+        <select class="custom-select" name="dbPraktikum" id="dbPraktikum">
             <option selected="selected">Praktikum</option>
         </select>
     </div>
 </div>
 <div class="col-md-2">
     <div class="form-group">
-        <select class="custom-select" name="matkul" id="matkul">
+        <select class="custom-select" name="dbMatkul" id="dbMatkul">
             <option selected="selected">Mata Kuliah</option>
         </select>
     </div>
 </div>
 <div class="col-md-2">
     <div class="form-group">
-        <input type="date" name="tanggal" id="tanggal" class="form-control">
+        <input type="date" name="dbTanggal" id="tanggal" class="form-control">
     </div>
 </div>
 <div class="col-md-2">
     <div class="form-group">
-        <select class="custom-select">
+        <select class="custom-select" name="dbRuang">
             <option selected="selected">Kode Ruang</option>
             @foreach ($dbRuang as $ruang)
                 <option value="{{ $ruang->ruang }}">{{ $ruang->ruang }}</option>
@@ -57,7 +57,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#prodi').on('change', function() {
+        $('#dbProdi').on('change', function() {
             var prodi_id = $(this).val();
             if (prodi_id) {
                 $.ajax({
@@ -69,23 +69,23 @@
                     dataType: "json",
                     success: function(data) {
                         if (data) {
-                            $('#semester').empty();
-                            $('#semester').append(
+                            $('#dbSemester').empty();
+                            $('#dbSemester').append(
                                 '<option selected="selected">Semester</option>');
                             $.each(data, function(key, semester) {
-                                $('select[name="semester"]').append('<option value="' + semester.id + '">' + semester.semester + '</option>');
+                                $('select[name="dbSemester"]').append('<option value="' + semester.id + '">' + semester.semester + '</option>');
                             });
                         }else{
-                            $('#course').empty();
+                            $('#dbSemester').empty();
                         }
                     }
                 });
             }else{
-                $('#course').empty();
+                $('#dbSemester').empty();
             }
         });
 
-        $('#semester').on('change', function() {
+        $('#dbSemester').on('change', function() {
             var semester_id = $(this).val();
             if(semester_id) {
                 $.ajax({
@@ -96,18 +96,66 @@
                     success:function(data)
                     {
                         if(data){
-                            $('#kelas').empty();
-                            $('#kelas').append('<option selected="selected">Kelas</option>');
+                            $('#dbKelas').empty();
+                            $('#dbKelas').append('<option selected="selected">Kelas</option>');
                             $.each(data, function(key, kelas){
-                                $('select[name="kelas"]').append('<option value="'+ kelas.id +'">' + kelas.kelas + '</option>');
+                                $('select[name="dbKelas"]').append('<option value="'+ kelas.id +'">' + kelas.kelas + '</option>');
                             });
                         }else{
-                            $('#kelas').empty();
+                            $('#dbKelas').empty();
+                        }
+                    }
+                });
+
+                $.ajax({
+                    url: '/getMatkul/' + semester_id,
+                    type: "GET",
+                    data: {"_token":"{{ csrf_token() }}"},
+                    dataType: "json",
+                    success:function(data)
+                    {
+                        if(data){
+                            $('#dbMatkul').empty();
+                            $('#dbMatkul').append('<option selected="selected">Mata Kuliah</option>');
+                            $.each(data, function(key, matkul){
+                                $('select[name="dbMatkul"]').append('<option value="'+ matkul.id +'">' + matkul.nama_matkul + '</option>');
+                            });
+                        }else{
+                            $('#dbMatkul').empty();
                         }
                     }
                 });
             }else{
-                $('#kelas').empty();
+                $('#dbKelas').empty();
+                $('#dbMatkul').empty();
+            }
+        });
+
+        $('#dbKelas').on('change', function() {
+            var kelas_id = $(this).val();
+            if (kelas_id) {
+                $.ajax({
+                    url: '/getPrak/' + kelas_id,
+                    type: "GET",
+                    data: {
+                        "_token": "{{ csrf_token() }}"
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        if (data) {
+                            $('#dbPraktikum').empty();
+                            $('#dbPraktikum').append(
+                                '<option selected="selected">Praktikum</option>');
+                            $.each(data, function(key, praktikum) {
+                                $('select[name="dbPraktikum"]').append('<option value="' + praktikum.id + '">' + praktikum.praktikum + '</option>');
+                            });
+                        }else{
+                            $('#dbPraktikum').empty();
+                        }
+                    }
+                });
+            }else{
+                $('#dbPraktikum').empty();
             }
         });
     });

@@ -9,6 +9,7 @@ use App\Models\Prodi;
 use App\Models\Kelas;
 use App\Models\Praktikum;
 use App\Models\Matkul;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Request $request)
     {
         config(['app.locale' => 'id']);
         Carbon::setLocale('id');

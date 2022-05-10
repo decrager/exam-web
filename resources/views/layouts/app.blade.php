@@ -220,6 +220,113 @@
             },
         });
     </script>
+
+    <!-- Dependent Dropdown Filtering -->
+    <script>
+        $(document).ready(function() {
+            $('#dbProdi').on('change', function() {
+                var prodi_id = $(this).val();
+                if (prodi_id) {
+                    $.ajax({
+                        url: '/getSemester/' + prodi_id,
+                        type: "GET",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                $('#dbSemester').empty();
+                                $('#dbSemester').append(
+                                    '<option selected="selected">Semester</option>');
+                                $.each(data, function(key, semester) {
+                                    $('select[name="pemester"]').append('<option value="' + semester.id + '">' + semester.semester + '</option>');
+                                });
+                            }else{
+                                $('#Semester').empty();
+                            }
+                        }
+                    });
+                }else{
+                    $('#Semester').empty();
+                }
+            });
+    
+            $('#Semester').on('change', function() {
+                var semester_id = $(this).val();
+                if(semester_id) {
+                    $.ajax({
+                        url: '/getKelas/' + semester_id,
+                        type: "GET",
+                        data: {"_token":"{{ csrf_token() }}"},
+                        dataType: "json",
+                        success:function(data)
+                        {
+                            if(data){
+                                $('#Kelas').empty();
+                                $('#Kelas').append('<option selected="selected">Kelas</option>');
+                                $.each(data, function(key, kelas){
+                                    $('select[name="pelas"]').append('<option value="'+ kelas.id +'">' + kelas.kelas + '</option>');
+                                });
+                            }else{
+                                $('#Kelas').empty();
+                            }
+                        }
+                    });
+    
+                    $.ajax({
+                        url: '/getMatkul/' + semester_id,
+                        type: "GET",
+                        data: {"_token":"{{ csrf_token() }}"},
+                        dataType: "json",
+                        success:function(data)
+                        {
+                            if(data){
+                                $('#Matkul').empty();
+                                $('#Matkul').append('<option selected="selected">Mata Kuliah</option>');
+                                $.each(data, function(key, matkul){
+                                    $('select[name="patkul"]').append('<option value="'+ matkul.id +'">' + matkul.nama_matkul + '</option>');
+                                });
+                            }else{
+                                $('#Matkul').empty();
+                            }
+                        }
+                    });
+                }else{
+                    $('#Kelas').empty();
+                    $('#Matkul').empty();
+                }
+            });
+    
+            $('#Kelas').on('change', function() {
+                var kelas_id = $(this).val();
+                if (kelas_id) {
+                    $.ajax({
+                        url: '/getPrak/' + kelas_id,
+                        type: "GET",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                $('#Praktikum').empty();
+                                $('#Praktikum').append(
+                                    '<option selected="selected">Praktikum</option>');
+                                $.each(data, function(key, praktikum) {
+                                    $('select[name="praktikum"]').append('<option value="' + praktikum.id + '">' + praktikum.praktikum + '</option>');
+                                });
+                            }else{
+                                $('#Praktikum').empty();
+                            }
+                        }
+                    });
+                }else{
+                    $('#Praktikum').empty();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
