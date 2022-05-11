@@ -2,18 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 use App\Models\Ujian;
 
 class pjUjianController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        $ujian = Ujian::all();
+        // $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        //         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        //         ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        //         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        //         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        //         ->join('prodis', 'b.prodi_id', '=', 'prodis.id');
+
+        // if ($request->dbProdi)
+        // {
+        //     $ujian->where('prodis.nama_prodi', 'like', '%' . $request->dbProdi . '%');
+        //     if ($request->dbSemester){
+        //         $ujian->where('b.semester', 'like', '%' . $request->dbSemester . '%');
+        //         if ($request->dbKelas) {
+        //             $ujian->where('kelas.kelas', 'like', '%' . $request->dbKelas . '%');
+        //             if ($request->dbPraktikum) {
+        //                 $ujian->where('praktikums.praktikum', 'like', '%' . $request->dbPraktikum . '%');
+        //             }
+        //         }
+        //         if ($request->dbMatkul) {
+        //             $ujian->where('matkuls.nama_matkul', 'like', '%' . $request->dbMatkul . '%');
+        //         }
+        //     }
+        // }
+
+        // if ($request->dbTanggal) {
+        //     $ujian->where('tanggal', 'like', '%' . $request->dbTanggal . '%');
+        // }
+
+        // if ($request->dbRuang) {
+        //     $ujian->where('ruang', 'like', '%' . $request->dbRuang . '%');
+        // }
+
+        // $ujian->get();
 
         return view('pj_ujian.dashboard', [
             "title" => env('APP_NAME'),
-            "dbUjian" => $ujian
+            // "dbUjian" => $ujian
         ]);
     }
 
