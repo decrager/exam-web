@@ -61,24 +61,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>09/05/2022</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>A</td>
-                                        <td>2</td>
-                                        <td>RPL</td>
-                                        <td>K-35</td>
-                                        <td>Lab. Komputer</td>
-                                        <td>-</td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach ($pengawas as $pengawas)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $pengawas->Ujian->tanggal }}</td>
+                                            <td>{{ $pengawas->Ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                            <td>{{ $pengawas->Ujian->Matkul->Semester->semester }}</td>
+                                            <td>{{ $pengawas->Ujian->Praktikum->Kelas->kelas }}</td>
+                                            <td>{{ $pengawas->Ujian->Praktikum->praktikum }}</td>
+                                            <td>{{ $pengawas->Ujian->Matkul->nama_matkul }}</td>
+                                            <td>{{ $pengawas->Ujian->lokasi }}</td>
+                                            <td>{{ $pengawas->Ujian->ruang }}</td>
+                                            <td>{{ $pengawas->nama }}</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

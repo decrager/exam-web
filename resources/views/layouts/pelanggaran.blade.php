@@ -21,7 +21,8 @@
                 <div class="card-body">
                     @if (auth()->user()->role == 'berkas' or auth()->user()->role == 'pj_ujian' or auth()->user()->role == 'supervisor')
                         <h4 class="header-title float-left">Pelanggaran</h4>
-                        <button class="btn btn-success float-right mb-3"><i class="fas fa-file-excel-o"></i>&ensp;Export</button>
+                        <button class="btn btn-success float-right mb-3"><i
+                                class="fas fa-file-excel-o"></i>&ensp;Export</button>
                     @else
                         <h4 class="header-title">Pelanggaran</h4>
                     @endif
@@ -39,16 +40,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Irfan Zafar</td>
-                                    <td>J3C219155</td>
-                                    <td>Manajemen Informatika</td>
-                                    <td>4</td>
-                                    <td>1</td>
-                                    <td><button class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#detail"><i class=" fas fa-info"></i></button></td>
-                                </tr>
+                                @foreach ($mhs as $mhs)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $mhs->nama }}</td>
+                                        <td>{{ $mhs->nim }}</td>
+                                        <td>{{ $mhs->nama_prodi }}</td>
+                                        <td>{{ $mhs->semester }}</td>
+                                        <td>{{ $mhs->total }}</td>
+                                        <td><button class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="{{ '#detail' . $mhs->id }}"><i
+                                                    class=" fas fa-info"></i></button></td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -60,85 +64,75 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <!-- Textual inputs start -->
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body p-2">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <h6>Nama</h6>
-                                            <p>Value</p>
+@foreach ($mhs2 as $mhs)
+    <div class="modal fade" id="{{ 'detail' . $mhs->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Textual inputs start -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <h6>Nama</h6>
+                                                <p>{{ $mhs->nama }}</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>NIM</h6>
+                                                <p>{{ $mhs->nim }}</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Program Studi</h6>
+                                                <p>{{ $mhs->nama_prodi }}
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Semester</h6>
+                                                <p>{{ $mhs->semester }}</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Kelas - Praktikum</h6>
+                                                <p>{{ $mhs->kelas }} -
+                                                    {{ $mhs->praktikum }}</p>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <h6>NIM</h6>
-                                            <p>Value</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <h6>Program Studi</h6>
-                                            <p>Value</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <h6>Semester</h6>
-                                            <p>Value</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <h6>Kelas - Praktikum</h6>
-                                            <p>Value - value</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <h6 class="mb-2">Pelanggaran 1:</h6>
-                                        <div class="form-group pl-3">
-                                            <h6>Mata Kuliah</h6>
-                                            <p>Value</p>
-                                        </div>
-                                        <div class="form-group pl-3 mb-2">
-                                            <h6>Pelanggaran</h6>
-                                            <p>Value</p>
-                                        </div>
-
-                                        <h6 class="mb-2">Pelanggaran 2:</h6>
-                                        <div class="form-group pl-3">
-                                            <h6>Mata Kuliah</h6>
-                                            <p>Value</p>
-                                        </div>
-                                        <div class="form-group pl-3 mb-2">
-                                            <h6>Pelanggaran</h6>
-                                            <p>Value</p>
-                                        </div>
-
-                                        <h6 class="mb-2">Pelanggaran 3:</h6>
-                                        <div class="form-group pl-3">
-                                            <h6>Mata Kuliah</h6>
-                                            <p>Value</p>
-                                        </div>
-                                        <div class="form-group pl-3 mb-2">
-                                            <h6>Pelanggaran</h6>
-                                            <p>Value</p>
+                                        <div class="col-6">
+                                            @foreach ($allPelanggaran as $pelanggaran)
+                                                @if ($pelanggaran == $mhs->id)
+                                                    
+                                                @endif
+                                            @endforeach
+                                            <h6 class="mb-2">Pelanggaran 1:</h6>
+                                            <div class="form-group pl-3">
+                                                <h6>Mata Kuliah</h6>
+                                                <p>value</p>
+                                            </div>
+                                            <div class="form-group pl-3 mb-2">
+                                                <h6>Pelanggaran</h6>
+                                                <p>value</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Textual inputs end -->
                     </div>
-                    <!-- Textual inputs end -->
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                    Close
-                </button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+@endforeach

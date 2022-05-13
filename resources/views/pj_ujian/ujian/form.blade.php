@@ -42,98 +42,92 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
-                                    <h4 class="header-title">Tambah Jadwal Ujian</h4>
-
+                                <form action="{{ route('pjUjian.jadwal.create') }}" method="POST">
                                     @csrf
+
+                                    <h4 class="header-title">Tambah Jadwal Ujian Periode
+                                        @if ($master->isuas == 1)
+                                            UAS
+                                        @else
+                                            UTS
+                                        @endif
+                                    </h4>
+
+                                    <div class="form-group">
+                                        <label for="tahun" class="col-form-label">Tahun Ajaran</label>
+                                        <input class="form-control" type="text" readonly name="tahun"
+                                            value="{{ $master->thn_ajaran }}" id="tahun" />
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="col-form-label">Program Studi</label>
-                                        <select class="custom-select">
-                                            <option selected="selected">
-                                                Pilih Program Studi
-                                            </option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                        <select class="custom-select" name="prodi" id="prodi" required>
+                                            <option selected="selected">Pilih Program Studi</option>
+                                            @foreach ($dbProdi as $prodi)
+                                                <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Semester</label>
-                                        <select class="custom-select">
-                                            <option selected="selected">
-                                                Pilih Semester
-                                            </option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
+                                        <select class="custom-select" name="semester" id="semester" required>
+                                            <option selected="selected">Pilih Semester</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Kelas</label>
-                                        <select class="custom-select">
-                                            <option selected="selected">
-                                                Pilih Kelas
-                                            </option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                        <label class="col-form-label-sm">Kelas</label>
+                                        <select class="custom-select" name="kelas" id="kelas" required>
+                                            <option selected="selected">Pilih Kelas</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Praktikum</label>
-                                        <select class="custom-select">
-                                            <option selected="selected">
-                                                Pilih Praktikum
-                                            </option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                        <label class="col-form-label-sm">Praktikum</label>
+                                        <select class="custom-select" name="praktikum" id="kelas" required>
+                                            <option selected="selected">Pilih Praktikum</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Mata Kuliah</label>
-                                        <select class="custom-select">
-                                            <option selected="selected">
-                                                Pilih Mata Kuliah
-                                            </option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                        <select class="custom-select" name="matkul" id="matkul" required>
+                                            <option selected="selected">Pilih Mata Kuliah</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Lokasi</label>
-                                        <select class="custom-select" name="lokasi">
+                                        <label for="lokasi" class="col-form-label">Lokasi</label>
+                                        <select class="custom-select" name="lokasi" id="lokasi">
                                             <option selected="selected">
                                                 Pilih Lokasi
                                             </option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option value="Lab. Komputer">Lab. Komputer</option>
+                                            <option value="Ruang Kelas">Ruang Kelas</option>
+                                            <option value="Lab. Prodi">Lab. Prodi</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Ruang</label>
-                                        <select class="custom-select" name="ruang">
+                                        <label for="ruang" class="col-form-label">Kode Ruang</label>
+                                        <select class="custom-select" name="ruang" id="ruang">
                                             <option selected="selected">Pilih ruang</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            @foreach ($dbRuang as $ruang)
+                                                <option value="{{ $ruang->ruang }}">{{ $ruang->ruang }}</option>
+                                            @endforeach
                                         </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="col-form-label">Kapasitas</label>
+                                        <input class="form-control" type="text" placeholder="Ketik kapasitas"
+                                            id="example-text-input" name="kapasitas" />
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Hari</label>
-                                        <select class="custom-select" name="hari">
+                                        <select class="custom-select" name="hari" required>
                                             <option selected="selected">
                                                 Pilih Hari
                                             </option>
@@ -148,21 +142,14 @@
 
                                     <div class="form-group">
                                         <label for="tanggal" class="col-form-label">Tanggal</label>
-                                        <input class="form-control" type="date" name="tanggal" value="2022-05-04"
-                                            id="tanggal" />
+                                        <input class="form-control" type="date" name="tanggal" id="tanggal" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="tahun" class="col-form-label">Tahun</label>
-                                        <input class="form-control" type="text" readonly name="tahun" value="2022"
-                                            id="tahun" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">Jenis Mata Kuliah</label>
-                                        <select class="custom-select" name="jenis_mk">
+                                        <label class="col-form-label">Tipe Mata Kuliah</label>
+                                        <select class="custom-select" name="tipe_mk" required>
                                             <option selected="selected">
-                                                Pilih Jenis Mata Kuliah
+                                                Pilih Tipe Mata Kuliah
                                             </option>
                                             <option value="K">Kuliah</option>
                                             <option value="P">Praktikum</option>
@@ -172,26 +159,26 @@
 
                                     <div class="form-group">
                                         <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
-                                        <input class="form-control" type="time" value="08:00" name="mulai"
-                                            id="jam_mulai" />
+                                        <input class="form-control" type="time" name="jam_mulai" id="jam_mulai"
+                                            required />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
-                                        <input class="form-control" type="time" value="10:00" name="selesai"
-                                            id="jam_selesai" />
+                                        <input class="form-control" type="time" name="jam_selesai" id="jam_selesai"
+                                            required />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Software yang
                                             Dibutuhkan</label>
-                                        <input class="form-control" type="text"
+                                        <input class="form-control" type="text" name="software"
                                             placeholder="Ketik software yang dibutuhkan..." id="example-text-input" />
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Perbanyak Soal</label>
-                                        <select class="custom-select" name="perbanyak">
+                                        <select class="custom-select" name="perbanyak" required>
                                             <option selected="selected">
                                                 Pilih Perbanyak atau Tidak
                                             </option>
@@ -202,7 +189,7 @@
 
                                     <div class="form-group">
                                         <label class="col-form-label">Sesi</label>
-                                        <select class="custom-select" name="sesi">
+                                        <select class="custom-select" name="sesi" required>
                                             <option selected="selected">
                                                 Pilih Sesi
                                             </option>
@@ -224,12 +211,12 @@
                                         </select>
                                     </div>
 
-                                    <button class="btn btn-primary">Simpan</button>
+                                    <input hidden type="text" name="isuas" value="{{ $master->isuas }}">
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <!-- Textual inputs end -->
                 </div>
             </div>
         </div>

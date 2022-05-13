@@ -16,31 +16,31 @@
         <div class="menu-inner">
             <nav>
                 <ul class="metismenu" id="menu">    
-                    <li class="{{ Request::routeIs('prodiDashboard') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('prodiDashboard') ? 'active' : '' }} m-1">
                         <a href="{{ route('prodiDashboard') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Beranda</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('prodi.jadwal.*') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('prodi.jadwal.*') ? 'active' : '' }} m-1">
                         <a href="{{ route('prodi.jadwal.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Jadwal Ujian</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('prodi.pengawas.*') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('prodi.pengawas.*') ? 'active' : '' }} m-1">
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengawas</span></a>
                         <ul class="collapse">
-                            <li class="{{ Request::routeIs('prodi.pengawas.list') ? 'active' : '' }}"><a href="{{ route('prodi.pengawas.list') }}">Daftar Pengawas</a></li>
-                            <li class="{{ Request::routeIs('prodi.pengawas.penugasan.*') ? 'active' : '' }}"><a href="{{ route('prodi.pengawas.penugasan.index') }}">Penugasan</a></li>
+                            <li class="{{ Request::routeIs('prodi.pengawas.list') ? 'active' : '' }} m-1"><a href="{{ route('prodi.pengawas.list') }}">Daftar Pengawas</a></li>
+                            <li class="{{ Request::routeIs('prodi.pengawas.penugasan.*') ? 'active' : '' }} m-1"><a href="{{ route('prodi.pengawas.penugasan.index') }}">Penugasan</a></li>
                         </ul>
                     </li>
 
-                    <li class="{{ Request::routeIs('prodi.berkas') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('prodi.berkas') ? 'active' : '' }} m-1">
                         <a href="{{ route('prodi.berkas') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Soal Ujian</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('prodi.pelanggaran') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('prodi.pelanggaran') ? 'active' : '' }} m-1">
                         <a href="{{ route('prodi.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>
                     </li>

@@ -67,29 +67,68 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>04-05-2022</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>A</td>
-                                        <td>2</td>
-                                        <td>RPL</td>
-                                        <td>Responsi</td>
-                                        <td>K-35</td>
-                                        <td>Lab. Komputer</td>
-                                        <td>36</td>
-                                        <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
-                                        <td><button class="btn btn-danger btn-sm">Belum difotokopi</button></td>
-                                        <td><button class="btn btn-danger btn-sm">Belum lengkap</button></td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-danger btn-sm">Belum diambil</button>
-                                                <button class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
-                                            </div>
-                                        </td>
-                                        <td><button class="btn btn-danger btn-sm">Belum diserahkan</button></td>
-                                    </tr>
+                                    @foreach ($berkas as $ujian)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $ujian->tanggal }}</td>
+                                            <td>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                            <td>{{ $ujian->Matkul->Semester->semester }}</td>
+                                            <td>{{ $ujian->Praktikum->Kelas->kelas }}</td>
+                                            <td>{{ $ujian->Praktikum->praktikum }}</td>
+                                            <td>{{ $ujian->Matkul->nama_matkul }}</td>
+                                            <td>{{ $ujian->tipe_mk }}</td>
+                                            <td>{{ $ujian->lokasi }}</td>
+                                            <td>{{ $ujian->ruang }}</td>
+                                            <td>
+                                                @if ($ujian->tipe_mk == 'K')
+                                                    <?php $berkas = $ujian->Praktikum->Kelas->jml_mhs + 6; ?>
+                                                @else
+                                                    <?php $berkas = $ujian->Praktikum->jml_mhs + 3; ?>
+                                                @endif
+                                                {{ $berkas }}
+                                            </td>
+                                            <td>
+                                                @if ($ujian->Berkas->pengambilan == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum diambil</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Sudah diambil</button>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($ujian->Berkas->fotokopi == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum difotokopi</button>
+                                                @elseif ($ujian->Berkas->fotokopi == 'Sudah difotokopi')
+                                                    <button class="btn btn-warning btn-sm">Sudah difotokopi</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Sudah diambil</button>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($ujian->Berkas->lengkap == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum lengkap</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Sudah lengkap</button>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form class="btn-group" role="group">
+                                                    @if ($ujian->Berkas->asisten == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum diambil</button>
+                                                    @else
+                                                    <button class="btn btn-success btn-sm">Sudah diambil</button>
+                                                    @endif
+                                                    <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                @if ($ujian->Berkas->serah_terima)
+                                                    <button class="btn btn-danger btn-sm">Belum diserahkan</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Sudah diserahkan</button>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

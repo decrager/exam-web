@@ -40,6 +40,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">Penugasan</h4>
                         <div class="row justify-content-start">
                             @include('layouts.filter')
@@ -63,18 +68,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td><button class="btn btn-primary"><i class="fas fa-user-plus"></i></button></td>
-                                    </tr>
+                                    @foreach ($penugasan as $ujian)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                            <td>{{ $ujian->Matkul->Semester->semester }}</td>
+                                            <td>{{ $ujian->Praktikum->Kelas->kelas }}</td>
+                                            <td>{{ $ujian->Praktikum->praktikum }}</td>
+                                            <td>{{ $ujian->Matkul->nama_matkul }}</td>
+                                            <td>{{ $ujian->tipe_mk }}</td>
+                                            <td>{{ $ujian->lokasi }}</td>
+                                            <td>{{ $ujian->ruang }}</td>
+                                            <td><a class="btn btn-primary"
+                                                    href="{{ route('pjUjian.pengawas.penugasan.form', $ujian->id) }}"><i
+                                                        class="fas fa-user-plus"></i></a></td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

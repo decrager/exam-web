@@ -2,18 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ketentuan;
+use App\Models\Ujian;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class pjSusulanController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        return view('pj_susulan.dashboard', ["title" => env('APP_NAME')]);
+        if (isEmpty($request)) {
+            $ujian = Ujian::all();
+        } else {
+            $prodi = $request->prodi;
+            $semester = $request->semester;
+            $matkul = $request->matkul;
+            $kelas = $request->kelas;
+            $praktikum = $request->praktikum;
+            $tanggal = $request->tanggal;
+            $ruang = $request->ruang;
+
+            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
+            $ujian->get();
+        }
+
+        return view('pj_susulan.dashboard', [
+            "title" => env('APP_NAME'),
+            "ujian" => $ujian
+        ]);
     }
 
     public function ketentuanIndex()
     {
-        return view('pj_susulan.ketentuan.index', ["title" => env('APP_NAME')]);
+        $ketentuan = Ketentuan::all();
+
+        return view('pj_susulan.ketentuan.index', [
+            "title" => env('APP_NAME'),
+            "ketentuan" => $ketentuan
+        ]);
     }
 
     public function ketentuanForm()

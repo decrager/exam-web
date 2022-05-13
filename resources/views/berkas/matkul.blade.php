@@ -91,7 +91,7 @@
                                 <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
                             </div>
                         </div>
-                        
+
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
@@ -107,16 +107,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>04-05-2022</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>A</td>
-                                        <td>2</td>
-                                        <td>RPL</td>
-                                        <td><span class="badge bg-success">Perbanyak</span></td>
-                                    </tr>
+                                    @foreach ($matkul as $ujian)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $ujian->tanggal }}</td>
+                                            <td>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                            <td>{{ $ujian->Matkul->Semester->semester }}</td>
+                                            <td>{{ $ujian->Praktikum->Kelas->kelas }}</td>
+                                            <td>{{ $ujian->Praktikum->praktikum }}</td>
+                                            <td>{{ $ujian->Matkul->nama_matkul }}</td>
+                                            <td>
+                                                @if ($ujian->perbanyak == 1)
+                                                <span class="badge bg-success">Perbanyak</span>
+                                                @else
+                                                <span class="badge bg-danger">Tidak</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

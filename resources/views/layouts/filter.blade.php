@@ -55,7 +55,7 @@
     <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
 </div>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('#dbProdi').on('change', function() {
             var prodi_id = $(this).val();
@@ -159,4 +159,4 @@
             }
         });
     });
-</script>
+</script> --}}

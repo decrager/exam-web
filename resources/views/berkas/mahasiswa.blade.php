@@ -82,17 +82,30 @@
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Mata Kuliah</th>
+                                        <th>Kelas</th>
+                                        <th>Praktikum</th>
                                         <th>Jumlah Fotokopi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>RPL</td>
-                                        <td>36</td>
-                                    </tr>
+                                    @foreach ($ujian as $ujian)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                            <td>{{ $ujian->Matkul->Semester->semester }}</td>
+                                            <td>{{ $ujian->Matkul->nama_matkul }}</td>
+                                            <td>{{ $ujian->Praktikum->Kelas->kelas }}</td>
+                                            <td>{{ $ujian->Praktikum->praktikum }}</td>
+                                            <td>
+                                                @if ($ujian->tipe_mk == 'K')
+                                                    <?php $berkas = $ujian->Praktikum->Kelas->jml_mhs + 6; ?>
+                                                @else
+                                                    <?php $berkas = $ujian->Praktikum->jml_mhs + 3; ?>
+                                                @endif
+                                                {{ $berkas }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

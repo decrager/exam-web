@@ -42,46 +42,41 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Masukkan Data Pelanggaran</h4>
-
-                                <div class="form-group">
-                                    <label class="col-form-label">Prodi</label>
-                                    <select class="custom-select">
-                                        <option selected="selected">Select</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Semester</label>
-                                    <select class="custom-select">
-                                        <option selected="selected">Select</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Mata Kuliah</label>
-                                    <select class="custom-select">
-                                        <option selected="selected">Select</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Nama Mahasiswa</label>
-                                    <select class="custom-select">
-                                        <option selected="selected">Select</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="example-text-input" class="col-form-label">Pelanggaran</label>
-                                    <input class="form-control" type="text" id="example-text-input" />
-                                </div>
-                                
-                                <button class="btn btn-primary">Simpan</button>
+                                <h4 class="hr-title">Masukkan Data Pelanggaran</h4>
+                                <form method="post" action="/pj_lokasi/pelanggaran">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label class="col-form-label">Ujian</label>
+                                        <select class="custom-select ujian-select" name="ujian_id" id="">
+                                            <option selected="selected">Select</option>
+                                            @foreach ($ujians as $ujian)
+                                            @if (old('ujian_id') === $ujian->id)
+                                              <option value="{{ $ujian->id }}" selected>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - {{ $ujian->Matkul->nama_matkul }}</option>
+                                            @else
+                                              <option value="{{ $ujian->id }}">{{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - {{ $ujian->Matkul->nama_matkul }} </option>                 
+                                            @endif
+                                          @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Nama Mahasiswa</label>
+                                        <select class="custom-select mhs-select" name="mhs_id" id="">
+                                            <option selected="selected">Select</option>
+                                            @foreach ($mahasiswas as $mahasiswa)
+                                            @if (old('mhs_id') === $mahasiswa->id)
+                                              <option value="{{ $mahasiswa->id }}" selected>{{ $mahasiswa->nama }}</option>
+                                            @else
+                                              <option value="{{ $mahasiswa->id }}">{{ $mahasiswa->nama }}</option>                 
+                                            @endif
+                                          @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="col-form-label">Pelanggaran</label>
+                                        <input class="form-control" type="text" id="example-text-input" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -90,4 +85,9 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $('.ujian-select').select2();
+        $('.mhs-select').select2();
+    </script>
 @endsection

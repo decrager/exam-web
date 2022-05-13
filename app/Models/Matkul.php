@@ -14,7 +14,10 @@ class Matkul extends Model
     protected $fillable = [
         'semester_id',
         'kode_matkul',
-        'nama_matkul'
+        'nama_matkul',
+        'sks',
+        'sks_kul',
+        'sks_prak',
     ];
 
     public function Semester()

@@ -87,23 +87,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-success"><i class="fas fa-file-signature"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach ($absensi as $pengawas)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $pengawas->nama }}</td>
+                                            <td>
+                                                @if ($pengawas->pns == 'PNS')
+                                                    <i class="fas fa-check"></i>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($pengawas->pns != 'PNS')
+                                                    <i class="fas fa-xmark"></i>
+                                                @endif
+                                            </td>
+                                            <td>{{ $pengawas->Ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                            <td>{{ $pengawas->Ujian->Matkul->nama_matkul }}</td>
+                                            <td>{{ $pengawas->Ujian->lokasi }}</td>
+                                            <td>{{ $pengawas->Ujian->ruang }}</td>
+                                            <td>-</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a href="{{ route('pjLokasi.pengawas.absensi.form', $pengawas->id) }}"
+                                                        class="btn btn-success"><i class="fas fa-file-signature"></i></a>
+                                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

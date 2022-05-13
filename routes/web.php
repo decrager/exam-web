@@ -83,12 +83,20 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::get('/pj_ujian/pengawas', [pjUjianController::class, 'pengawasIndex'])->name('pjUjian.pengawas.pengawas.index');
     Route::get('/pj_ujian/pengawas/edit/{id}', [pjUjianController::class, 'pengawasEdit'])->name('pjUjian.pengawas.pengawas.edit');
     Route::get('/pj_ujian/pengawas/penugasan', [pjUjianController::class, 'penugasanIndex'])->name('pjUjian.pengawas.penugasan.index');
-    Route::get('/pj_ujian/pengawas/penugasan/tambah', [pjUjianController::class, 'penugasanForm'])->name('pjUjian.pengawas.penugasan.form');
+    Route::get('/pj_ujian/pengawas/penugasan/tambah/{id}', [pjUjianController::class, 'penugasanForm'])->name('pjUjian.pengawas.penugasan.form');
     Route::get('/pj_ujian/kelengkapan/amplop', [pjUjianController::class, 'amplop'])->name('pjUjian.kelengkapan.amplop');
     Route::get('/pj_ujian/kelengkapan/bap', [pjUjianController::class, 'bap'])->name('pjUjian.kelengkapan.bap');
     Route::get('/pj_ujian/kelengkapan/berkas', [pjUjianController::class, 'berkas'])->name('pjUjian.kelengkapan.berkas');
     Route::get('/pj_ujian/susulan', [pjUjianController::class, 'susulan'])->name('pjUjian.susulan');
     Route::get('/pj_ujian/pelanggaran', [pjUjianController::class, 'pelanggaran'])->name('pjUjian.pelanggaran');
+
+    Route::post('/pj_ujian/pengawas/penugasan/create', [pjUjianController::class, 'penugasanCreate'])->name('pjUjian.pengawas.penugasan.create');
+    Route::put('/pj_ujian/pengawas/update/{id}', [pjUjianController::class, 'pengawasUpdate'])->name('pjUjian.pengawas.update');
+    Route::delete('/pj_ujian/pengawas/destroy/{id}', [pjUjianController::class, 'pengawasDestroy'])->name('pjUjian.pengawas.destroy');
+    Route::put('/pj_ujian/kelengkapan/berkas/update/{id}', [pjUjianController::class, 'berkasUpdate'])->name('pjUjian.berkas.update');
+    Route::post('/pj_ujian/jadwal/create', [pjUjianController::class, 'ujianCreate'])->name('pjUjian.jadwal.create');
+    Route::put('/pj_ujian/jadwal/edit/update/{id}', [pjUjianController::class, 'ujianUpdate'])->name('pjUjian.jadwal.update');
+    Route::delete('/pj_ujian/jadwal/destroy/{id}', [pjUjianController::class, 'ujianDestroy'])->name('pjUjian.jadwal.destroy');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:prodi']], function () {
@@ -97,7 +105,7 @@ Route::group(['middleware' => ['auth', 'cekrole:prodi']], function () {
     Route::get('/prodi/jadwal/edit/{id}', [prodiController::class, 'ujianEdit'])->name('prodi.jadwal.edit');
     Route::get('/prodi/pengawas/daftar', [prodiController::class, 'pengawasList'])->name('prodi.pengawas.list');
     Route::get('/prodi/pengawas/penugasan', [prodiController::class, 'penugasanIndex'])->name('prodi.pengawas.penugasan.index');
-    Route::get('/prodi/pengawas/penugasan/tambah', [prodiController::class, 'penugasanForm'])->name('prodi.pengawas.penugasan.form');
+    Route::get('/prodi/pengawas/penugasan/tambah{id}', [prodiController::class, 'penugasanForm'])->name('prodi.pengawas.penugasan.form');
     Route::get('/prodi/pengawas/penugasan/edit/{id}', [prodiController::class, 'penugasanEdit'])->name('prodi.pengawas.penugasan.edit');
     Route::get('/prodi/berkas', [prodiController::class, 'berkas'])->name('prodi.berkas');
     Route::get('/prodi/pelanggaran', [prodiController::class, 'pelanggaran'])->name('prodi.pelanggaran');
@@ -108,11 +116,10 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
     Route::get('/pj_lokasi/pengawas', [pjLokasiController::class, 'pengawasIndex'])->name('pjLokasi.pengawas.daftar.index');
     Route::get('/pj_lokasi/pengawas/edit/{id}', [pjLokasiController::class, 'pengawasEdit'])->name('pjLokasi.pengawas.daftar.edit');
     Route::get('/pj_lokasi/pengawas/absensi', [pjLokasiController::class, 'absensiIndex'])->name('pjLokasi.pengawas.absensi.index');
-    Route::get('/pj_lokasi/pengawas/absensi/ttd', [pjLokasiController::class, 'absensiForm'])->name('pjLokasi.pengawas.absensi.form');
+    Route::get('/pj_lokasi/pengawas/absensi/ttd/{id}', [pjLokasiController::class, 'absensiForm'])->name('pjLokasi.pengawas.absensi.form');
     Route::get('/pj_lokasi/soal', [pjLokasiController::class, 'soalIndex'])->name('pjLokasi.soal.index');
     Route::get('/pj_lokasi/soal/ttd', [pjLokasiController::class, 'soalForm'])->name('pjLokasi.soal.form');
-    Route::get('/pj_lokasi/pelanggaran', [pjLokasiController::class, 'pelanggaranIndex'])->name('pjLokasi.pelanggaran.index');
-    Route::get('/pj_lokasi/pelanggaran/crud', [pelanggaranController::class, 'index'])->name('pjLokasi.pelanggaran.index');
+    Route::resource('/pj_lokasi/pelanggaran', pelanggaranController::class);
     Route::get('/pj_lokasi/pelanggaran/tambah', [pjLokasiController::class, 'pelanggaranForm'])->name('pjLokasi.pelanggaran.form');
     Route::get('/pj_lokasi/pelanggaran/edit/{id}', [pjLokasiController::class, 'pelanggaranEdit'])->name('pjLokasi.pelanggaran.edit');
 });

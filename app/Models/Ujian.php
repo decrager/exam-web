@@ -16,9 +16,6 @@ class Ujian extends Model
         'matkul_id',
         'kapasitas',
         'isuas',
-        'sks',
-        'sks_kul',
-        'sks_prak',
         'hari',
         'lokasi',
         'ruang',
@@ -31,7 +28,7 @@ class Ujian extends Model
         'susulan',
         'perbanyak',
         'sesi',
-        'online'
+        'pelaksanaan'
     ];
 
     public function Matkul()
@@ -66,6 +63,6 @@ class Ujian extends Model
 
     public function Pengawas()
     {
-        return $this->hasOne(Pengawas::class, 'ujian_id', 'id');
+        return $this->hasMany(Pengawas::class, 'ujian_id', 'id');
     }
 }

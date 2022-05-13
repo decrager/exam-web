@@ -55,6 +55,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($susulan as $susulan)
                                     <tr>
                                         <td>1</td>
                                         <td>Manajemen Informatika</td>
@@ -65,6 +66,7 @@
                                         <td><span class="badge bg-danger">Belum disetujui</span></td>
                                         <td><Button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detail"><i class="fas fa-info"></i></Button></td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

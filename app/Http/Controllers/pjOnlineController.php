@@ -2,17 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ujian;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class pjOnlineController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        return view('pj_online.dashboard', ["title" => env('APP_NAME')]);
+        if (isEmpty($request)) {
+            $ujian = Ujian::all();
+        } else {
+            $prodi = $request->prodi;
+            $semester = $request->semester;
+            $matkul = $request->matkul;
+            $kelas = $request->kelas;
+            $praktikum = $request->praktikum;
+            $tanggal = $request->tanggal;
+            $ruang = $request->ruang;
+
+            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
+            $ujian->get();
+        }
+
+        return view('pj_online.dashboard', [
+            "title" => env('APP_NAME'),
+            "ujian" => $ujian
+        ]);
     }
 
-    public function ujian()
+    public function ujian(Request $request)
     {
+        if (isEmpty($request)) {
+            $ujian = Ujian::where('pelaksanaan', 'like', '%Online%')->get();
+        } else {
+            $prodi = $request->prodi;
+            $semester = $request->semester;
+            $matkul = $request->matkul;
+            $kelas = $request->kelas;
+            $praktikum = $request->praktikum;
+            $tanggal = $request->tanggal;
+            $ruang = $request->ruang;
+
+            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
+            $ujian->where('ujians.pelaksanaan', 'like', '%Online%')->get();
+        }
+
         return view('pj_online.ujian', ["title" => env('APP_NAME')]);
     }
 

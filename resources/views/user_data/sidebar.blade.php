@@ -16,31 +16,31 @@
         <div class="menu-inner">
             <nav>
                 <ul class="metismenu" id="menu">    
-                    <li class="{{ Request::routeIs('dashboardData') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('dashboardData') ? 'active' : '' }} m-1">
                         <a href="{{ route('dashboardData') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Beranda</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('data.mahasiswa.*') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('data.mahasiswa.*') ? 'active' : '' }} m-1">
                         <a href="{{ route('data.mahasiswa.view') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Mahasiswa</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('data.ketersediaan.*') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('data.ketersediaan.*') ? 'active' : '' }} m-1">
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Ketersediaan</span></a>
                         <ul class="collapse">
-                            <li class="{{ Request::routeIs('data.ketersediaan.amplop') ? 'active' : '' }}"><a href="{{ route('data.ketersediaan.amplop') }}">Amplop</a></li>
-                            <li class="{{ Request::routeIs('data.ketersediaan.bap') ? 'active' : '' }}"><a href="{{ route('data.ketersediaan.bap') }}">BAP</a></li>
+                            <li class="{{ Request::routeIs('data.ketersediaan.amplop') ? 'active' : '' }} m-1"><a href="{{ route('data.ketersediaan.amplop') }}">Amplop</a></li>
+                            <li class="{{ Request::routeIs('data.ketersediaan.bap') ? 'active' : '' }} m-1"><a href="{{ route('data.ketersediaan.bap') }}">BAP</a></li>
                         </ul>
                     </li>
 
-                    <li class="{{ Request::routeIs('data.pengguna.*') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('data.pengguna.*') ? 'active' : '' }} m-1">
                         <a href="{{ route('data.pengguna.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengguna</span></a>
                     </li>
                     
-                    <li class="{{ Request::routeIs('data.pelanggaran') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('data.pelanggaran') ? 'active' : '' }} m-1">
                         <a href="{{ route('data.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>
                     </li>

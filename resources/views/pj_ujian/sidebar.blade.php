@@ -16,22 +16,22 @@
         <div class="menu-inner">
             <nav>
                 <ul class="metismenu" id="menu">    
-                    <li class="{{ Request::routeIs('pjUjianDashboard') ? 'active' : '' }} mb-1">
+                    <li class="{{ Request::routeIs('pjUjianDashboard') ? 'active' : '' }} m-1 mb-1">
                         <a href="{{ route('pjUjianDashboard') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Beranda</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjUjian.jadwal.*') ? 'active' : '' }} mb-1">
+                    <li class="{{ Request::routeIs('pjUjian.jadwal.*') ? 'active' : '' }} m-1 mb-1">
                         <a href="{{ route('pjUjian.jadwal.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Jadwal Ujian</span></a>
                     </li>
 
-                    {{-- <li class="{{ Request::routeIs('pjUjian.soal.*') ? 'active' : '' }} mb-1">
+                    {{-- <li class="{{ Request::routeIs('pjUjian.soal.*') ? 'active' : '' }} m-1 mb-1">
                         <a href="{{ route('pjUjian.soal.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Soal Ujian</span></a>
                     </li> --}}
 
-                    <li class="{{ Request::routeIs('pjUjian.pengawas.*') ? 'active' : '' }} mb-1">
+                    <li class="{{ Request::routeIs('pjUjian.pengawas.*') ? 'active' : '' }} m-1 mb-1">
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengawas</span></a>
                         <ul class="collapse">
@@ -40,22 +40,22 @@
                         </ul>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjUjian.kelengkapan.*') ? 'active' : '' }} mb-1">
+                    <li class="{{ Request::routeIs('pjUjian.kelengkapan.*') ? 'active' : '' }} m-1 mb-1">
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Kelengkapan</span></a>
                         <ul class="collapse">
-                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.amplop') ? 'active' : '' }} mb-1"><a href="{{ route('pjUjian.kelengkapan.amplop') }}">Amplop</a></li>
-                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.bap') ? 'active' : '' }} mb-1"><a href="{{ route('pjUjian.kelengkapan.bap') }}">BAP</a></li>
-                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.berkas') ? 'active' : '' }} mb-1"><a href="{{ route('pjUjian.kelengkapan.berkas') }}">Soal Ujian</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.amplop') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.kelengkapan.amplop') }}">Amplop</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.bap') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.kelengkapan.bap') }}">BAP</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.berkas') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.kelengkapan.berkas') }}">Soal Ujian</a></li>
                         </ul>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjUjian.susulan') ? 'active' : '' }} mb-1">
+                    <li class="{{ Request::routeIs('pjUjian.susulan') ? 'active' : '' }} m-1 mb-1">
                         <a href="{{ route('pjUjian.susulan') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Susulan</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjUjian.pelanggaran') ? 'active' : '' }} mb-1">
+                    <li class="{{ Request::routeIs('pjUjian.pelanggaran') ? 'active' : '' }} m-1 mb-1">
                         <a href="{{ route('pjUjian.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>
                     </li>

@@ -39,6 +39,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">Daftar Jadwal Ujian</h4>
                         <div class="float-right">
                             <button class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
@@ -64,14 +69,14 @@
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
-                                        <th>Ruang</th>
+                                        <th>Kode Ruang</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($dbUjian as $ujian)
+                                    @foreach ($jadwal as $ujian)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $ujian->tanggal }}</td>
@@ -85,13 +90,15 @@
                                             <td>{{ $ujian->jam_mulai }}</td>
                                             <td>{{ $ujian->jam_selesai }}</td>
                                             <td>
-                                                <div class="btn-group" role="group">
-                                                    <button class="btn btn-primary" data-bs-toggle="modal"
+                                                <form action="{{ route('pjUjian.jadwal.destroy', $ujian->id) }}" method="POST" class="btn-group" role="group">
+                                                    <a class="btn btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="{{ '#detail' . $ujian->id }}"><i
-                                                            class="fas fa-info text-white"></i></button>
-                                                    <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                                </div>
+                                                            class="fas fa-info text-white"></i></a>
+                                                    <a href="{{ route('pjUjian.jadwal.edit', $ujian->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus jadwal ujian ini?')"><i class="fas fa-trash"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -105,7 +112,7 @@
         </div>
     </div>
 
-    @foreach ($dbUjian as $ujian)
+    @foreach ($jadwal as $ujian)
         <div class="modal fade" id="{{ 'detail' . $ujian->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -154,7 +161,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <h6>Ruang</h6>
+                                                    <h6>Kode Ruang</h6>
                                                     <p>{{ $ujian->ruang }}</p>
                                                 </div>
                                                 <div class="form-group">

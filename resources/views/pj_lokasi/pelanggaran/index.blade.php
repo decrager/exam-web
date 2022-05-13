@@ -40,7 +40,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Pelanggaran</h4>
-                        <a href="{{ route('pjLokasi.pelanggaran.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="/pj_lokasi/pelanggaran/create" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
                         <div class="table-responsive">
@@ -48,6 +48,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>ID</th>
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
                                         <th class="col-2">Program Studi</th>
@@ -57,16 +58,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($data as $item)
                                     <tr>
-                                        <td>1</td>
-                                        <td>Irfan Zafar</td>
-                                        <td>J3C219155</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->mhs_id }}</td>
+                                        <td>{{ $item->Mahasiswa->nama }}</td>
+                                        <td>{{ $item->Mahasiswa->nim }}</td>
+                                        <td>{{ $item->Mahasiswa->Praktikum->Kelas->Semester->Prodi->nama_prodi }}</td>
+                                        <td>{{ $item->Mahasiswa->Praktikum->Kelas->Semester->semester }}</td>
                                         <td>1</td>
                                         <td><button class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#detail"><i class=" fas fa-info"></i></button></td>
-                                    </tr>
+                                    </tr>                                
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

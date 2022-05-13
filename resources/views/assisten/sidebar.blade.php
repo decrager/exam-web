@@ -16,17 +16,17 @@
         <div class="menu-inner">
             <nav>
                 <ul class="metismenu" id="menu">    
-                    <li class="{{ Request::routeIs('assistenDashboard') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('assistenDashboard') ? 'active' : '' }} m-1">
                         <a href="{{ route('assistenDashboard') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Beranda</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('assisten.berkas') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('assisten.berkas') ? 'active' : '' }} m-1">
                         <a href="{{ route('assisten.berkas') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Soal Ujian</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('assisten.pelanggaran') ? 'active' : '' }}">
+                    <li class="{{ Request::routeIs('assisten.pelanggaran') ? 'active' : '' }} m-1">
                         <a href="{{ route('assisten.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>
                     </li>

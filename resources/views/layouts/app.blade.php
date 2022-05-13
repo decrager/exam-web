@@ -59,6 +59,12 @@
 
     <!-- modernizr css -->
     <script src="{{ asset('js/vendor/modernizr-2.8.3.min.js') }}"></script>
+   
+    <!-- select2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -224,7 +230,7 @@
     <!-- Dependent Dropdown Filtering -->
     <script>
         $(document).ready(function() {
-            $('#dbProdi').on('change', function() {
+            $('#prodi').on('change', function() {
                 var prodi_id = $(this).val();
                 if (prodi_id) {
                     $.ajax({
@@ -236,23 +242,23 @@
                         dataType: "json",
                         success: function(data) {
                             if (data) {
-                                $('#dbSemester').empty();
-                                $('#dbSemester').append(
-                                    '<option selected="selected">Semester</option>');
+                                $('#semester').empty();
+                                $('#semester').append(
+                                    '<option selected="selected">Pilih Semester</option>');
                                 $.each(data, function(key, semester) {
-                                    $('select[name="pemester"]').append('<option value="' + semester.id + '">' + semester.semester + '</option>');
+                                    $('select[name="semester"]').append('<option value="' + semester.id + '">' + semester.semester + '</option>');
                                 });
                             }else{
-                                $('#Semester').empty();
+                                $('#semester').empty();
                             }
                         }
                     });
                 }else{
-                    $('#Semester').empty();
+                    $('#semester').empty();
                 }
             });
     
-            $('#Semester').on('change', function() {
+            $('#semester').on('change', function() {
                 var semester_id = $(this).val();
                 if(semester_id) {
                     $.ajax({
@@ -263,13 +269,13 @@
                         success:function(data)
                         {
                             if(data){
-                                $('#Kelas').empty();
-                                $('#Kelas').append('<option selected="selected">Kelas</option>');
+                                $('#kelas').empty();
+                                $('#kelas').append('<option selected="selected">Pilih Kelas</option>');
                                 $.each(data, function(key, kelas){
-                                    $('select[name="pelas"]').append('<option value="'+ kelas.id +'">' + kelas.kelas + '</option>');
+                                    $('select[name="kelas"]').append('<option value="'+ kelas.id +'">' + kelas.kelas + '</option>');
                                 });
                             }else{
-                                $('#Kelas').empty();
+                                $('#kelas').empty();
                             }
                         }
                     });
@@ -282,23 +288,23 @@
                         success:function(data)
                         {
                             if(data){
-                                $('#Matkul').empty();
-                                $('#Matkul').append('<option selected="selected">Mata Kuliah</option>');
+                                $('#matkul').empty();
+                                $('#matkul').append('<option selected="selected">Pilih Mata Kuliah</option>');
                                 $.each(data, function(key, matkul){
-                                    $('select[name="patkul"]').append('<option value="'+ matkul.id +'">' + matkul.nama_matkul + '</option>');
+                                    $('select[name="matkul"]').append('<option value="'+ matkul.id +'">' + matkul.nama_matkul + '</option>');
                                 });
                             }else{
-                                $('#Matkul').empty();
+                                $('#matkul').empty();
                             }
                         }
                     });
                 }else{
-                    $('#Kelas').empty();
-                    $('#Matkul').empty();
+                    $('#kelas').empty();
+                    $('#matkul').empty();
                 }
             });
     
-            $('#Kelas').on('change', function() {
+            $('#kelas').on('change', function() {
                 var kelas_id = $(this).val();
                 if (kelas_id) {
                     $.ajax({
@@ -310,19 +316,19 @@
                         dataType: "json",
                         success: function(data) {
                             if (data) {
-                                $('#Praktikum').empty();
-                                $('#Praktikum').append(
-                                    '<option selected="selected">Praktikum</option>');
+                                $('#praktikum').empty();
+                                $('#praktikum').append(
+                                    '<option selected="selected">Pilih Praktikum</option>');
                                 $.each(data, function(key, praktikum) {
                                     $('select[name="praktikum"]').append('<option value="' + praktikum.id + '">' + praktikum.praktikum + '</option>');
                                 });
                             }else{
-                                $('#Praktikum').empty();
+                                $('#praktikum').empty();
                             }
                         }
                     });
                 }else{
-                    $('#Praktikum').empty();
+                    $('#praktikum').empty();
                 }
             });
         });
