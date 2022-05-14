@@ -8,13 +8,12 @@ use DateInterval;
 use Carbon\Carbon;
 use App\Models\Ujian; 
 use App\Models\Mahasiswa;
-use App\Models\Pelanggaran;
-use App\Models\Master;
-use Illuminate\Http\Request;
 use App\Http\Controllers\DB;
+use App\Models\Pelanggaran; 
+use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
 
-class pelanggaranController extends Controller
+class pelanggaranOnlineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,12 +22,11 @@ class pelanggaranController extends Controller
      */
     public function index()
     {
-        $dataPelanggaran = Pelanggaran::orderBy('created_at', 'desc')->get();
-        $dataTanggalMulai = Master::first();
-        $dataTanggalSelesai = Master::first();
+        $dataPelanggaran = Pelanggaran::orderBy('created_at', 'desc')
+              ->get();
 
-        $from = $dataTanggalMulai->periode_mulai;
-        $to = $dataTanggalSelesai->periode_akhir;
+        $from = "2022-03-18";
+        $to = "2022-03-29";
 
         $period = new DatePeriod( new DateTime($from), new DateInterval('P1D'), new DateTime($to));
         $dbData = [];
@@ -52,7 +50,7 @@ class pelanggaranController extends Controller
         $label =  array_keys($data);
         $data = array_values($data);
         
-        return view('pj_lokasi.pelanggaran.index', [
+        return view('pj_online.pelanggaran.index', [
             'label' => $label,
             'data' => $data
           ], compact(['dataPelanggaran']));
@@ -67,17 +65,17 @@ class pelanggaranController extends Controller
     {
         $ujian = Ujian::all()->pluck('id');
         $today = Carbon::today()->toDateString();
-        return view('pj_lokasi.pelanggaran.form', [
+        return view('pj_online.pelanggaran.form', [
             'ujians' => Ujian::all(),
             // ->where('tanggal', $today),
             'mahasiswas' => Mahasiswa::all()
           ]);
     }
 
-    /**{{  }}
+    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request{{  }}{{  }}
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -88,7 +86,7 @@ class pelanggaranController extends Controller
             'mhs_id' => 'required',
             'pelanggaran' => 'required',
         ]);
-  
+    
         Pelanggaran::create($validatedData);
         return redirect('/pj_lokasi/pelanggaran')->with('success', 'Data has been successfully added');
     }
@@ -104,40 +102,27 @@ class pelanggaranController extends Controller
         //
     }
 
-    /**{{  }}
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pelanggaran $pelanggaran)
+    public function edit($id)
     {
-        $pelanggaran = Pelanggaran::join('mahasiswas', 'pelanggarans.mhs_id', 'mahasiswas.id')
-        ->join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
-        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
-        ->join('semesters', 'kelas.semester_id', 'semesters.id')
-        ->join('prodis', 'semesters.prodi_id', 'prodis.id')->where('pelanggarans.id', $pelanggaran);
-
-        return view('pj_lokasi.pelanggaran.edit', [
-            'pelanggarans' => $pelanggaran,
-            'ujians' => Ujian::all(),
-            'mahasiswas' => Mahasiswa::all()
-        ]);
-      
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request{{  }}
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $pelanggaran = Pelanggaran::find($id);
-        $pelanggaran->update($request->except('_token','submit'));
-        return redirect('/pj_lokasi/pelanggaran/crud')->with('success', 'Data has been successfully updated');
+        //
     }
 
     /**
@@ -148,8 +133,6 @@ class pelanggaranController extends Controller
      */
     public function destroy($id)
     {
-        $pelanggaran = Pelanggaran::find($id);
-        $pelanggaran->delete();
-        return redirect('/pj_lokasi/pelanggaran/crud')->with('success', 'Data has been successfully deleted');
+        //
     }
 }

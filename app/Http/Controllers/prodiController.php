@@ -56,9 +56,33 @@ class prodiController extends Controller
         ]);
     }
 
-    public function ujianEdit()
+    public function ujianEdit($id)
     {
-        return view('prodi.ujian.edit', ["title" => env('APP_NAME')]);
+        return view('prodi.ujian.edit', [
+            "title" => env('APP_NAME'),
+            "ujian" => Ujian::find($id)
+        ]);
+    }
+
+    public function UjianUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'lokasi' => 'nullable',
+            'ruang' => 'nullable',
+            'software' => 'nullable',
+            'perbanyak' => 'nullable'
+        ]);
+        
+        $ujian = Ujian::find($id);
+        // $ujian['prak_id'] = $request->praktikum;
+        $ujian->update([
+            'lokasi' => $request->lokasi,
+            'ruang' => $request->ruang,
+            'software' => $request->software,
+            'perbanyak' => $request->perbanyak
+        ]);
+
+        return redirect()->route('prodi.jadwal.index')->with('success', 'Jadwal berhasil diubah!');
     }
 
     public function pengawasList(Request $request)
@@ -130,14 +154,55 @@ class prodiController extends Controller
         ]);
     }
 
-    public function penugasanForm()
+    public function penugasanForm($id)
     {
-        return view('prodi.penugasan.form', ["title" => env('APP_NAME')]);
+        return view('prodi.penugasan.form', [
+            "title" => env('APP_NAME'),
+            "ujian" => Ujian::find($id)
+        ]);
     }
 
     public function penugasanEdit($id)
     {
-        return view('prodi.penugasan.edit', ["title" => env('APP_NAME')]);
+        return view('prodi.penugasan.edit', [
+            "title" => env('APP_NAME'),
+            "pengawas" => Pengawas::find($id)
+        ]);
+    }
+
+    public function pengawasCreate(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'pns' => 'required',
+            'ujian_id' => 'required'
+        ]);
+
+        Pengawas::create($request->all());
+
+        return redirect()->route('prodi.pengawas.penugasan.index')->with('success', 'Pengawas berhasil ditambahkan!');
+    }
+
+    public function pengawasUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'pns' => 'required'
+        ]);
+
+        $pengawas = Pengawas::find($id);
+        $pengawas->update([
+            'nama' => $request->nama,
+            'pns' => $request->pns
+        ]);
+
+        return redirect()->route('prodi.pengawas.list')->with('success', 'Pengawas sudah diperbarui!');
+    }
+
+    public function pengawasDestroy($id)
+    {
+        Pengawas::find($id)->delete();
+        return redirect()->route('prodi.pengawas.list')->with('success', 'Pengawas sudah dihapus!');
     }
 
     public function berkas(Request $request)

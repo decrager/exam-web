@@ -39,6 +39,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">Ketentuan Ujian Susulan</h4>
                         <a href="{{ route('pjSusulan.ketentuan.form') }}"
                             class="btn btn-primary text-sm bg-blue px-3 mb-3">
@@ -54,16 +59,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($ketentuan as $ketentuan)
                                     <tr>
-                                        <td class="col-1 text-center">1</td>
-                                        <td>Memiliki bukti yang valid</td>
+                                        <td class="col-1 text-center">{{ $loop->iteration }}</td>
+                                        <td>{{ $ketentuan->ketentuan }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
+                                            <form action="{{ route('pjSusulan.ketentuan.delete', $ketentuan->id) }}" class="btn-group" role="group" method="POST">
+                                                <a href="{{ route('pjSusulan.ketentuan.edit', $ketentuan->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus ketentuan ini?')"><i class="fas fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Amplop;
 use App\Models\Bap;
-use App\Models\Berkas;
-use App\Models\Pelanggaran;
-use App\Models\Pengawas;
 use App\Models\Prodi;
-use App\Models\Susulan;
-use Illuminate\Http\Request;
 use App\Models\Ujian;
+use App\Models\Amplop;
+use App\Models\Berkas;
+use App\Models\Susulan;
+use App\Models\Pengawas;
+use App\Models\Pelanggaran;
+use App\Exports\UjianExport;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Redis;
 use function PHPUnit\Framework\isEmpty;
 
@@ -63,6 +65,10 @@ class pjUjianController extends Controller
         ]);
     }
 
+    public function export(){
+        return Excel::download(new UjianExport, 'dataujian.xlsx');
+    }
+
     public function ujianForm()
     {
         return view('pj_ujian.ujian.form', ["title" => env('APP_NAME')]);
@@ -95,7 +101,7 @@ class pjUjianController extends Controller
             'software' => 'nullable',
             'perbanyak' => 'nullable',
             'sesi' => 'required',
-            'pelaksanaan' => 'nullable',
+            'pelaksanaan' => 'required',
         ]);
 
         $ujian = new Ujian;
@@ -326,7 +332,7 @@ class pjUjianController extends Controller
 
         Pengawas::create($request->all());
 
-        return redirect()->route('pjUjian.pengawas.pengawas.index')->with('success', 'Pengawas berhasil ditambahkan!');
+        return redirect()->route('pjUjian.pengawas.penugasan.index')->with('success', 'Pengawas berhasil ditambahkan!');
     }
 
     public function amplop(Request $request)
@@ -412,7 +418,7 @@ class pjUjianController extends Controller
             ]);
         }
 
-        return redirect()->route('pjUjian.kelengkapan.berkas')->with('success', 'Status soal ujian berhasil diubah!');
+        return redirect()->route('pjUjian.kelengkapan.berkas')->with('success', 'Status pengambil soal ujian berhasil diubah!');
     }
 
     public function susulan(Request $request)

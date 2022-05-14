@@ -46,8 +46,10 @@
                         @endif
                         <h4 class="header-title">Daftar Jadwal Ujian</h4>
                         <div class="float-right">
-                            <button class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
+                            <button class="btn btn-success py-2 mr-2" onclick="tablesToExcel(['dataTable'], ['Jadwal'], 'jadwal.xls', 'Excel')">Export &nbsp;&nbsp;<i
                                     class="fas fa-file-excel-o"></i></button>
+                            <a href="/pj_ujian/jadwal/export" class="btn btn-primary py-2 mr-2">Export &nbsp;&nbsp;<i
+                                class="fas fa-file-excel-o"></i></a>
                             <a href="{{ route('pjUjian.jadwal.tambah') }}"
                                 class="btn btn-primary bg-blue float-right mb-3 py-2">
                                 Tambah Jadwal
@@ -58,7 +60,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table id="example" class="table" style="width: 100%">
+                            <table id="dataTable" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -89,7 +91,7 @@
                                             <td>{{ $ujian->ruang }}</td>
                                             <td>{{ $ujian->jam_mulai }}</td>
                                             <td>{{ $ujian->jam_selesai }}</td>
-                                            <td>
+                                            <td class="d-block">
                                                 <form action="{{ route('pjUjian.jadwal.destroy', $ujian->id) }}" method="POST" class="btn-group" role="group">
                                                     <a class="btn btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="{{ '#detail' . $ujian->id }}"><i
@@ -105,6 +107,7 @@
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -201,4 +204,97 @@
             </div>
         </div>
     @endforeach
+    
+    <script>
+        var tablesToExcel = (function () {
+          var uri = "data:application/vnd.ms-excel;base64,",
+              tmplWorkbookXML =
+                  '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">' +
+                  '<DocumentProperties xmlns="urn:schemas-microsoft-com:office:office"><Author>Axel Richter</Author><Created>{created}</Created></DocumentProperties>' +
+                  "<Styles>" +
+                  '<Style ss:ID="Currency"><NumberFormat ss:Format="Currency"></NumberFormat></Style>' +
+                  '<Style ss:ID="Date"><NumberFormat ss:Format="Medium Date"></NumberFormat></Style>' +
+                  "</Styles>" +
+                  "{worksheets}</Workbook>",
+              tmplWorksheetXML =
+                  '<Worksheet ss:Name="{nameWS}"><Table>{rows}</Table></Worksheet>',
+              tmplCellXML =
+                  '<Cell{attributeStyleID}{attributeFormula}><Data ss:Type="{nameType}">{data}</Data></Cell>',
+              base64 = function (s) {
+                  return window.btoa(unescape(encodeURIComponent(s)));
+              },
+              format = function (s, c) {
+                  return s.replace(/{(\w+)}/g, function (m, p) {
+                      return c[p];
+                  });
+              };
+          return function (tables, wsnames, wbname, appname) {
+              var ctx = "";
+              var workbookXML = "";
+              var worksheetsXML = "";
+              var rowsXML = "";
+        
+              for (var i = 0; i < tables.length; i++) {
+                  if (!tables[i].nodeType)
+                      tables[i] = document.getElementById(tables[i]);
+                  for (var j = 0; j < tables[i].rows.length; j++) {
+                      rowsXML += "<Row>";
+                      for (var k = 0; k < tables[i].rows[j].cells.length; k++) {
+                          var dataType =
+                              tables[i].rows[j].cells[k].getAttribute("data-type");
+                          var dataStyle =
+                              tables[i].rows[j].cells[k].getAttribute("data-style");
+                          var dataValue =
+                              tables[i].rows[j].cells[k].getAttribute("data-value");
+                          dataValue = dataValue
+                              ? dataValue
+                              : tables[i].rows[j].cells[k].innerHTML;
+                          var dataFormula =
+                              tables[i].rows[j].cells[k].getAttribute("data-formula");
+                          dataFormula = dataFormula
+                              ? dataFormula
+                              : appname == "Calc" && dataType == "DateTime"
+                              ? dataValue
+                              : null;
+                          ctx = {
+                              attributeStyleID:
+                                  dataStyle == "Currency" || dataStyle == "Date"
+                                      ? ' ss:StyleID="' + dataStyle + '"'
+                                      : "",
+                              nameType:
+                                  dataType == "Number" ||
+                                  dataType == "DateTime" ||
+                                  dataType == "Boolean" ||
+                                  dataType == "Error"
+                                      ? dataType
+                                      : "String",
+                              data: dataFormula ? "" : dataValue,
+                              attributeFormula: dataFormula
+                                  ? ' ss:Formula="' + dataFormula + '"'
+                                  : "",
+                          };
+                          rowsXML += format(tmplCellXML, ctx);
+                      }
+                      rowsXML += "</Row>";
+                  }
+                  ctx = { rows: rowsXML, nameWS: wsnames[i] || "Sheet" + i };
+                  worksheetsXML += format(tmplWorksheetXML, ctx);
+                  rowsXML = "";
+              }
+        
+              ctx = { created: new Date().getTime(), worksheets: worksheetsXML };
+              workbookXML = format(tmplWorkbookXML, ctx);
+        
+              console.log(workbookXML);
+        
+              var link = document.createElement("A");
+              link.href = uri + base64(workbookXML);
+              link.download = wbname || "Workbook.xls";
+              link.target = "_blank";
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+          };
+        })();
+    </script>
 @endsection

@@ -34,13 +34,29 @@
     </div>
     <!-- page title area end -->
     <div class="main-content-inner">
+        <!-- page title area end -->
+        <div class="row mb-3">
+            <!-- data table start -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Rekapitulasi Pelanggaran</h4>
+                        <figure class="highcharts-figure">
+                            <div id="pjonlinechart"></div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <!-- data table end -->
+        </div>
+
         <div class="row">
             <!-- data table start -->
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Pelanggaran</h4>
-                        <a href="{{ route('pjLokasi.pelanggaran.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="/pj_online/pelanggaran/create" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
                         <div class="table-responsive">
@@ -57,16 +73,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Irfan Zafar</td>
-                                        <td>J3C219155</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>1</td>
-                                        <td><button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#detail"><i class=" fas fa-info"></i></button></td>
-                                    </tr>
+                                    @foreach ($mhs as $mhs)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $mhs->nama }}</td>
+                                            <td>{{ $mhs->nim }}</td>
+                                            <td>{{ $mhs->nama_prodi }}</td>
+                                            <td>{{ $mhs->semester }}</td>
+                                            <td>{{ $mhs->total }}</td>
+                                            <td><button class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="{{ '#detail' . $mhs->mhs_id }}"><i
+                                                        class=" fas fa-info"></i></button></td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -74,6 +93,7 @@
                 </div>
             </div>
             <!-- data table end -->
+        </div>
         </div>
     </div>
 

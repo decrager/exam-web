@@ -79,7 +79,8 @@
                                         <td class="border-0">{{ $ujian->jam_mulai }}</td>
                                         <td class="border-0">{{ $ujian->jam_selesai }}</td>
                                         <td class="border-0"><button class="btn btn-primary"
-                                                data-bs-toggle="modal" data-bs-target="{{ '#detail' . $ujian->id }}"><i
+                                                data-bs-toggle="modal"
+                                                data-bs-target="{{ '#detail' . $ujian->id }}"><i
                                                     class="fas fa-info"></i></button></td>
                                     </tr>
                                 @endforeach
@@ -109,8 +110,8 @@
 
     <!-- Modal -->
     @foreach ($dbUjian as $ujian)
-        <div class="modal fade" id="{{ 'detail' . $ujian->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="{{ 'detail' . $ujian->id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -197,5 +198,5 @@
                 </div>
             </div>
         </div>
+    @endforeach
 </div>
-@endforeach

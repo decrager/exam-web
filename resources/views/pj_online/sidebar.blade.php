@@ -26,8 +26,8 @@
                             <span>Jadwal Ujian</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjOnline.pelanggaran.*') ? 'active' : '' }} m-1">
-                        <a href="{{ route('pjOnline.pelanggaran.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                    <li class="{{ Request::is('pj_online/pelanggaran*') ? 'active' : '' }} m-1">
+                        <a href="/pj_online/pelanggaran" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>
                     </li>
                 </ul>

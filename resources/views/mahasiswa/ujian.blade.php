@@ -41,9 +41,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title pt-2">Jadwal Ujian Susulan</h4>
-                        <div class="row mb-1 justify-content-start">
-                            @include('layouts.filter')
-                        </div>
                         <!-- <i class="fa fa-check text-danger"></i> -->
 
                         <div class="table-responsive">
@@ -65,21 +62,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td><button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#detail"><i class="fas fa-info"></i></button></td>
-                                    </tr>
+                                    @foreach ($susulan as $susulan)
+                                        <tr>
+                                            <td scope="row">{{ $loop->iteration }}</td>
+                                            <td>{{ $susulan->tanggal }}</td>
+                                            <td>{{ $susulan->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                            <td>{{ $susulan->Matkul->Semester->semester }}</td>
+                                            <td>{{ $susulan->Praktikum->Kelas->kelas }}</td>
+                                            <td>{{ $susulan->Praktikum->praktikum }}</td>
+                                            <td>{{ $susulan->Matkul->nama_matkul }}</td>
+                                            <td>{{ $susulan->lokasi }}</td>
+                                            <td>{{ $susulan->ruang }}</td>
+                                            <td>{{ $susulan->jam_mulai }}</td>
+                                            <td>{{ $susulan->jam_selesai }}</td>
+                                            <td><button class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="{{ '#detail' . $susulan->id }}"><i
+                                                        class="fas fa-info"></i></button></td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -91,85 +91,93 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <!-- Textual inputs start -->
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body p-2">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <h6>Tanggal</h6>
-                                                <p>Value</p>
+    @foreach ($detail as $susulan)
+        <div class="modal fade" id="{{ 'detail' . $susulan->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <!-- Textual inputs start -->
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body p-2">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <h6>Tanggal</h6>
+                                                    <p>{{ $susulan->tanggal }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Program Studi</h6>
+                                                    <p>{{ $susulan->Matkul->Semester->Prodi->nama_prodi }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Semester</h6>
+                                                    <p>{{ $susulan->Matkul->Semester->semester }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Kelas - Praktikum</h6>
+                                                    <p>{{ $susulan->Praktikum->Kelas->kelas }} -
+                                                        {{ $susulan->Praktikum->praktikum }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Kode Mata Kuliah</h6>
+                                                    <p>{{ $susulan->Matkul->kode_matkul }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Mata Kuliah</h6>
+                                                    <p>{{ $susulan->Matkul->nama_matkul }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Lokasi</h6>
+                                                    <p>{{ $susulan->lokasi }}</p>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <h6>Program Studi</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Semester</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Kelas - Praktikum</h6>
-                                                <p>Value - value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Mata Kuliah</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Lokasi</h6>
-                                                <p>Value</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <h6>Ruang</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Jam Mulai - Jam Selesai</h6>
-                                                <p>Value - Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Tipe Mata Kuliah</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Sesi</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Software</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Pelaksanaan</h6>
-                                                <p>Value</p>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <h6>Ruang</h6>
+                                                    <p>{{ $susulan->ruang }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Jam Mulai - Jam Selesai</h6>
+                                                    <p>{{ $susulan->jam_mulai }} - {{ $susulan->jam_selesai }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Tipe Mata Kuliah</h6>
+                                                    <p>{{ $susulan->tipe_mk }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Sesi</h6>
+                                                    <p>{{ $susulan->sesi }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Software</h6>
+                                                    <p>{{ $susulan->software }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Pelaksanaan</h6>
+                                                    <p>{{ $susulan->pelaksanaan }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Textual inputs end -->
                         </div>
-                        <!-- Textual inputs end -->
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                        Close
-                    </button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
 @endsection

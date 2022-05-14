@@ -98,31 +98,21 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="lokasi" class="col-form-label">Lokasi</label>
-                                        <select class="custom-select" name="lokasi" id="lokasi">
+                                        <label class="col-form-label">Tipe Mata Kuliah</label>
+                                        <select class="custom-select" name="tipe_mk" required>
                                             <option selected="selected">
-                                                Pilih Lokasi
+                                                Pilih Tipe Mata Kuliah
                                             </option>
-                                            <option value="Lab. Komputer">Lab. Komputer</option>
-                                            <option value="Ruang Kelas">Ruang Kelas</option>
-                                            <option value="Lab. Prodi">Lab. Prodi</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="ruang" class="col-form-label">Kode Ruang</label>
-                                        <select class="custom-select" name="ruang" id="ruang">
-                                            <option selected="selected">Pilih ruang</option>
-                                            @foreach ($dbRuang as $ruang)
-                                                <option value="{{ $ruang->ruang }}">{{ $ruang->ruang }}</option>
-                                            @endforeach
+                                            <option value="K">Kuliah</option>
+                                            <option value="P">Praktikum</option>
+                                            <option value="R">Responsi</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Kapasitas</label>
                                         <input class="form-control" type="text" placeholder="Ketik kapasitas"
-                                            id="example-text-input" name="kapasitas" />
+                                            id="example-text-input" name="kapasitas"/>
                                     </div>
 
                                     <div class="form-group">
@@ -146,18 +136,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Tipe Mata Kuliah</label>
-                                        <select class="custom-select" name="tipe_mk" required>
-                                            <option selected="selected">
-                                                Pilih Tipe Mata Kuliah
-                                            </option>
-                                            <option value="K">Kuliah</option>
-                                            <option value="P">Praktikum</option>
-                                            <option value="R">Responsi</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
                                         <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
                                         <input class="form-control" type="time" name="jam_mulai" id="jam_mulai"
                                             required />
@@ -167,24 +145,6 @@
                                         <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
                                         <input class="form-control" type="time" name="jam_selesai" id="jam_selesai"
                                             required />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">Software yang
-                                            Dibutuhkan</label>
-                                        <input class="form-control" type="text" name="software"
-                                            placeholder="Ketik software yang dibutuhkan..." id="example-text-input" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">Perbanyak Soal</label>
-                                        <select class="custom-select" name="perbanyak" required>
-                                            <option selected="selected">
-                                                Pilih Perbanyak atau Tidak
-                                            </option>
-                                            <option value="1">Perbanyak</option>
-                                            <option value="0">Tidak</option>
-                                        </select>
                                     </div>
 
                                     <div class="form-group">
@@ -211,6 +171,10 @@
                                         </select>
                                     </div>
 
+                                    <input hidden type="text" name="lokasi" value="-">
+                                    <input hidden type="text" name="ruang" value="">
+                                    <input hidden type="text" name="perbanyak" value="0">
+                                    <input hidden type="text" name="software" value="-">
                                     <input hidden type="text" name="isuas" value="{{ $master->isuas }}">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>

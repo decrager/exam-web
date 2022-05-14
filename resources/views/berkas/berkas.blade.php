@@ -40,6 +40,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">Soal Ujian</h4>
                         <div class="row justify-content-start">
                             @include('layouts.filter')
@@ -96,7 +101,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <form class="btn-group" role="group">
+                                                <form class="btn-group" role="group" action="{{ route('berkas.fotokopi.update', $ujian->Berkas->id) }}" method="POST">
                                                     @if ($ujian->Berkas->fotokopi == 'Belum')
                                                         <button class="btn btn-danger btn-sm">Belum difotokopi</button>
                                                     @elseif ($ujian->Berkas->fotokopi == 'Sudah difotokopi')
@@ -104,19 +109,23 @@
                                                     @else
                                                         <button class="btn btn-success btn-sm">Sudah diambil</button>
                                                     @endif
-                                                    <button class="btn btn-success btn-sm"><i
-                                                            class="fas fa-check"></i></button>
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-success btn-sm"><i
+                                                            class="fas fa-check" onclick="return confirm('Yakin ingin mengubah status Fotokopi?')"></i></button>
                                                 </form>
                                             </td>
                                             <td>
-                                                <form class="btn-group" role="group">
+                                                <form class="btn-group" role="group" action="{{ route('berkas.lengkap.update', $ujian->Berkas->id) }}" method="POST">
                                                     @if ($ujian->Berkas->lengkap == 'Belum')
                                                         <button class="btn btn-danger btn-sm">Belum lengkap</button>
                                                     @else
                                                         <button class="btn btn-success btn-sm">Sudah lengkap</button>
                                                     @endif
-                                                    <button class="btn btn-success btn-sm"><i
-                                                            class="fas fa-check"></i></button>
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-success btn-sm"><i
+                                                            class="fas fa-check" onclick="return confirm('Yakin ingin mengubah status Kelengkapan?')"></i></button>
                                                 </form>
                                             </td>
                                             <td>
@@ -127,14 +136,16 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <form class="btn-group" role="group">
-                                                    @if ($ujian->Berkas->serah_terima)
+                                                <form class="btn-group" role="group" action="{{ route('berkas.serahterima.update', $ujian->Berkas->id) }}" method="POST">
+                                                    @if ($ujian->Berkas->serah_terima == 'Belum')
                                                         <button class="btn btn-danger btn-sm">Belum diserahkan</button>
                                                     @else
                                                         <button class="btn btn-success btn-sm">Sudah diserahkan</button>
                                                     @endif
-                                                    <button class="btn btn-success btn-sm"><i
-                                                            class="fas fa-check"></i></button>
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-success btn-sm"><i
+                                                            class="fas fa-check" onclick="return confirm('Yakin ingin mengubah status Serah Terima?')"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

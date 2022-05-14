@@ -111,13 +111,15 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <form class="btn-group" role="group">
+                                                <form class="btn-group" role="group" action="{{ route('assisten.berkas.update', $ujian->Berkas->id) }}" method="POST">
                                                     @if ($ujian->Berkas->asisten == 'Belum')
                                                     <button class="btn btn-danger btn-sm">Belum diambil</button>
                                                     @else
                                                     <button class="btn btn-success btn-sm">Sudah diambil</button>
                                                     @endif
-                                                    <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin mengubah status Asisten?')"><i class="fas fa-check"></i></button>
                                                 </form>
                                             </td>
                                             <td>

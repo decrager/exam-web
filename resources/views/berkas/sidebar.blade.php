@@ -21,13 +21,18 @@
                             <span>Beranda</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('berkas.rekapitulasi.*') ? 'active' : '' }} m-1">
+                    {{-- <li class="{{ Request::routeIs('berkas.rekapitulasi.*') ? 'active' : '' }} m-1">
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Rekapitulasi</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('berkas.rekapitulasi.mahasiswa') ? 'active' : '' }} m-1"><a href="{{ route('berkas.rekapitulasi.mahasiswa') }}">Mahasiswa</a></li>
                             <li class="{{ Request::routeIs('berkas.rekapitulasi.matkul') ? 'active' : '' }} m-1"><a href="{{ route('berkas.rekapitulasi.matkul') }}">Mata Kuliah</a></li>
                         </ul>
+                    </li> --}}
+
+                    <li class="{{ Request::routeIs('berkas.soal') ? 'active' : '' }} m-1">
+                        <a href="{{ route('berkas.soal') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Soal Ujian</span></a>
                     </li>
 
                     <li class="{{ Request::routeIs('berkas.kelengkapan.*') ? 'active' : '' }} m-1">
@@ -45,8 +50,7 @@
                             <span>Pelanggaran</span></a>
                     </li>
                 </ul>
-            </nav>{{  }}
-        </div>{{  }}
-    </div>{{  }}
-</div>{{  }}
-{{  }}
+            </nav>
+        </div>
+    </div>
+</div>

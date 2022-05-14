@@ -57,7 +57,8 @@
                                     <div class="form-group">
                                         <label class="col-form-label">PNS</label>
                                         <select class="custom-select" name="pns" required>
-                                            <option selected="selected">Pilih</option>
+                                            <option>Pilih</option>
+                                            <option selected="selected" value="{{ $pengawas->pns }}">{{ $pengawas->pns }}</option>
                                             <option value="PNS">PNS</option>
                                             <option value="NON PNS">NON PNS</option>
                                         </select>

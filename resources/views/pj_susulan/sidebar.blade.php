@@ -23,7 +23,7 @@
 
                     <li class="{{ Request::routeIs('pjSusulan.jadwal.*') ? 'active' : '' }} m-1">
                         <a href="{{ route('pjSusulan.jadwal.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Jadwal Ujian Susulan</span></a>
+                            <span>Jadwal Susulan</span></a>
                     </li>
 
                     <li class="{{ Request::routeIs('pjSusulan.ketentuan.*') ? 'active' : '' }} m-1">

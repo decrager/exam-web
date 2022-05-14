@@ -40,6 +40,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">Amplop</h4>
                         <div class="row justify-content-start">
                             @include('layouts.filter')
@@ -84,14 +89,15 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <form class="btn-group" role="group">
+                                                <form class="btn-group" role="group" action="{{ route('berkas.amplop.update', $ujian->Amplop->id) }}" method="POST">
                                                     @if ($ujian->Amplop->pengambilan == 'Belum')
                                                         <button class="btn btn-danger btn-sm">Belum diambil</button>
                                                     @else
                                                         <button class="btn btn-success btn-sm">Sudah diambil</button>
                                                     @endif
-                                                    <button class="btn btn-success btn-sm"><i
-                                                            class="fas fa-check"></i></button>
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin mengubah status Pengambilan?')"><i class="fas fa-check"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

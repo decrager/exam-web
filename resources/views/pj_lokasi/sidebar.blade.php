@@ -35,10 +35,10 @@
                             <span>Soal Ujian</span></a>
                     </li>
 
-                    {{-- <li class="{{ Request::routeIs('pjLokasi.pelanggaran.*') ? 'active' : '' }} m-1">
-                        <a href="{{ route('pjLokasi.pelanggaran.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                    <li class="{{ Request::is('pj_lokasi/pelanggaran*') ? 'active' : '' }} m-1">
+                        <a href="/pj_lokasi/pelanggaran" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>
-                    </li> --}}
+                    </li>
                 </ul>
             </nav>
         </div>

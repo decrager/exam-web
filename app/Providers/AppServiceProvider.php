@@ -73,7 +73,6 @@ class AppServiceProvider extends ServiceProvider
         ->groupBy('mhs_id', 'mahasiswas.nim', 'mahasiswas.nama', 'praktikums.praktikum', 'kelas.kelas', 'semesters.semester', 'prodis.nama_prodi')
         ->selectRaw('mhs_id, count(*) as total, mahasiswas.nim, mahasiswas.nama, praktikums.praktikum, kelas.kelas, semesters.semester, prodis.nama_prodi')
         ->get();
-        $mahasiswa = Mahasiswa::all();
 
         View::share([
             'dbUjian' => $ujian,
@@ -83,7 +82,6 @@ class AppServiceProvider extends ServiceProvider
             'mhs' => $count,
             'mhs2' => $count2,
             'master' => $master,
-            'pelmahasiswa' => $mahasiswa
         ]);
     }
 }

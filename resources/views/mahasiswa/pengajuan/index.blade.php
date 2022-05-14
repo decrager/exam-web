@@ -40,6 +40,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">Pengajuan Ujian Susulan</h4>
                         <a href="{{ route('mahasiswa.susulan.pengajuan.form') }}"
                             class="btn btn-primary text-sm bg-blue px-3 mb-3">
@@ -55,15 +60,36 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Bukti Persyaratan</th>
                                         <th>status</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($susulan as $pengajuan)
                                     <tr>
-                                        <td>1</td>
-                                        <td>RPL</td>
-                                        <td><button class="btn btn-success btn-sm"><i class="fas fa-eye"></i></button></td>
-                                        <td><span class="badge badge-danger">Belum disetujui</span></td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $pengajuan->nama_matkul }}</td>
+                                        <td><a href="{{ asset('storage/files/syarat/' . $pengajuan->file) }}" target="_blank" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a></td>
+                                        <td>
+                                            @if ($pengajuan->status == 'Belum')
+                                                <span class="badge badge-warning">Belum disetujui</span>
+                                            @elseif ($pengajuan->status == 'Ditolak')
+                                                <span class="badge badge-danger">Ditolak</span>
+                                            @elseif ($pengajuan->status == 'Disetujui')
+                                                <span class="badge badge-success">Disetujui</span>
+                                            @else
+                                                <span class="badge badge-success bg-green">Terjadwal</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('mahasiswa.susulan.delete', $pengajuan->id) }}" class="btn-group" role="group" method="POST">
+                                                <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"><i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

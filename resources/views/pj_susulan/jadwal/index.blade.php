@@ -39,6 +39,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title pt-2">Jadwal Ujian Susulan</h4>
                         <div class="row mb-1 justify-content-start">
                             @include('layouts.filter')
@@ -64,21 +69,36 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td><button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#detail"><i class="fas fa-info"></i></button></td>
-                                    </tr>
+                                    @foreach ($susulan as $susulan)
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td>{{ $susulan->tanggal }}</td>
+                                            <td>{{ $susulan->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                            <td>{{ $susulan->Matkul->Semester->semester }}</td>
+                                            <td>{{ $susulan->Praktikum->Kelas->kelas }}</td>
+                                            <td>{{ $susulan->Praktikum->praktikum }}</td>
+                                            <td>{{ $susulan->Matkul->nama_matkul }}</td>
+                                            <td>{{ $susulan->lokasi }}</td>
+                                            <td>{{ $susulan->ruang }}</td>
+                                            <td>{{ $susulan->jam_mulai }}</td>
+                                            <td>{{ $susulan->jam_selesai }}</td>
+                                            <td>
+                                                <form action="{{ route('pjSusulan.jadwal.destroy', $susulan->id) }}"
+                                                    method="POST" class="btn-group" role="group">
+                                                    <a class="btn btn-primary" data-bs-toggle="modal"
+                                                        data-bs-target="{{ '#detail' . $susulan->id }}"><i
+                                                            class="fas fa-info text-white"></i></a>
+                                                    <a href="{{ route('pjSusulan.jadwal.edit', $susulan->id) }}"
+                                                        class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="text" hidden name="prak_id" value="{{ $susulan->prak_id }}">
+                                                    <input type="text" hidden name="matkul_id" value="{{ $susulan->matkul_id }}">
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus jadwal ujian susulan ini?')"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -90,85 +110,93 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <!-- Textual inputs start -->
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body p-2">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <h6>Tanggal</h6>
-                                                <p>Value</p>
+    @foreach ($susulans as $ujian)
+        <div class="modal fade" id="{{ 'detail' . $ujian->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <!-- Textual inputs start -->
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body p-2">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <h6>Tanggal</h6>
+                                                    <p>{{ $ujian->tanggal }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Program Studi</h6>
+                                                    <p>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Semester</h6>
+                                                    <p>{{ $ujian->Matkul->Semester->semester }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Kelas - Praktikum</h6>
+                                                    <p>{{ $ujian->Praktikum->Kelas->kelas }} -
+                                                        {{ $ujian->Praktikum->praktikum }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Kode Mata Kuliah</h6>
+                                                    <p>{{ $ujian->Matkul->kode_matkul }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Mata Kuliah</h6>
+                                                    <p>{{ $ujian->Matkul->nama_matkul }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Lokasi</h6>
+                                                    <p>{{ $ujian->lokasi }}</p>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <h6>Program Studi</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Semester</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Kelas - Praktikum</h6>
-                                                <p>Value - value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Mata Kuliah</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Lokasi</h6>
-                                                <p>Value</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <h6>Ruang</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Jam Mulai - Jam Selesai</h6>
-                                                <p>Value - Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Tipe Mata Kuliah</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Sesi</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Software</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Pelaksanaan</h6>
-                                                <p>Value</p>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <h6>Kode Ruang</h6>
+                                                    <p>{{ $ujian->ruang }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Jam Mulai - Jam Selesai</h6>
+                                                    <p>{{ $ujian->jam_mulai }} - {{ $ujian->jam_selesai }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Tipe Mata Kuliah</h6>
+                                                    <p>{{ $ujian->tipe_mk }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Sesi</h6>
+                                                    <p>{{ $ujian->sesi }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Software</h6>
+                                                    <p>{{ $ujian->software }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Pelaksanaan</h6>
+                                                    <p>{{ $ujian->pelaksanaan }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Textual inputs end -->
                         </div>
-                        <!-- Textual inputs end -->
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                        Close
-                    </button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
 @endsection

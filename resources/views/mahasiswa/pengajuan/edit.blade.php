@@ -43,31 +43,64 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                @foreach ($pengajuan as $pengajuan)
+                                <form action="{{ route('mahasiswa.susulan.update', $pengajuan->id) }}" method="POST" enctype="multipart/form-data">
                                     <h4 class="header-title">Masukkan Pengajuan</h4>
-
+                                    @csrf
+                                    @method('PUT')
                                     <div class="form-group">
                                         <label class="col-form-label">Mata Kuliah</label>
-                                        <select class="custom-select" name="matkul">
-                                            <option selected="selected">Select</option>
-                                            <option value="#">-</option>
-                                            <option value="#">-</option>
+                                        <select class="custom-select @error('matkul_id') is-invalid @enderror" name="matkul_id" required>
+                                            <option>Select</option>
+                                            <option selected="selected" value="{{ $pengajuan->matkul_id }}">{{ $pengajuan->Matkul->nama_matkul }}</option>
+                                            @foreach ($matkul as $matkul)
+                                                <option value="{{ $matkul->id }}">{{ $matkul->nama_matkul }}</option>
+                                            @endforeach
                                         </select>
+                                        @error('matkul_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-form-label">Tipe Mata Kuliah</label>
+                                        <select class="custom-select @error('tipe_mk') is-invalid @enderror" name="tipe_mk" required>
+                                            <option>Select</option>
+                                            <option selected="{{ $pengajuan->tipe_mk }}">
+                                                @if ($pengajuan->tipe_mk == 'K')
+                                                Kuliah
+                                                @elseif ($pengajuan->tipe_mk == 'P')
+                                                Praktikum
+                                                @else
+                                                Responsi
+                                                @endif
+                                            </option>
+                                            <option value="K">Kuliah</option>
+                                            <option value="P">Praktikum</option>
+                                            <option value="R">Responsi</option>
+                                        </select>
+                                        @error('tipe_mk')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Tipe Mata Kuliah</label>
-                                        <select class="custom-select" name="jenis_mk">
-                                            <option selected="selected">Select</option>
-                                            <option value="#">Kuliah</option>
-                                            <option value="#">Praktikum</option>
-                                            <option value="#">Responsi</option>
-                                        </select>
+                                        <label class="col-form-label">Bukti Persyaratan</label>
+                                        <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file" required placeholder="File type: PDF"/>
+                                        @error('file')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
-                                    <a href="input-form.html" class="btn btn-primary text-sm bg-blue px-3 mb-3">
-                                        Submit
-                                    </a>
+
+                                    <button class="btn btn-primary">Simpan</button>
                                 </form>
+                                @endforeach
                             </div>
                         </div>
                     </div>

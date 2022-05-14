@@ -39,6 +39,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">Daftar Jadwal Ujian</h4>
                         <div class="float-right">
                             <button class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
@@ -93,8 +98,7 @@
                                                     <button class="btn btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="{{ '#detail' . $ujian->id }}"><i
                                                             class="fas fa-info text-white"></i></button>
-                                                    <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                    <a href="{{ route('prodi.jadwal.edit', $ujian->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                                 </div>
                                             </td>
                                         </tr>

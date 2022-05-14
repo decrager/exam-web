@@ -23,7 +23,10 @@ class Controller extends BaseController
             ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
             ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
             ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-            ->join('prodis', 'b.prodi_id', '=', 'prodis.id');
+            ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+            ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+            ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+            ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
 
         if ($prodi) {
             $ujian->where('prodis.nama_prodi', 'like', '%' . $prodi . '%');

@@ -124,7 +124,6 @@
                                     <textarea id="signature64" style="display: none"></textarea>
                                 </div>
                                 
-
                                 <div class="form-group">
                                     <label for="nama_terima" class="col-form-label">Nama yang menerima</label>
                                     <input class="form-control" type="text" placeholder="Ketik nama penerima..." id="nama_terima"

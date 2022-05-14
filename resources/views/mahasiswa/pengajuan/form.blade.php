@@ -43,42 +43,50 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="{{ route('mahasiswa.susulan.create') }}" method="POST" enctype="multipart/form-data">
                                     <h4 class="header-title">Masukkan Pengajuan</h4>
                                     @csrf
                                     <div class="form-group">
                                         <label class="col-form-label">Mata Kuliah</label>
-                                        <select class="custom-select" name="matkul">
+                                        <select class="custom-select @error('matkul_id') is-invalid @enderror" name="matkul_id" required>
                                             <option selected="selected">Select</option>
-                                            <option value="#">-</option>
-                                            <option value="#">-</option>
+                                            @foreach ($matkul as $matkul)
+                                                <option value="{{ $matkul->id }}">{{ $matkul->nama_matkul }}</option>
+                                            @endforeach
                                         </select>
+                                        @error('matkul_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Tipe Mata Kuliah</label>
-                                        <select class="custom-select" name="jenis_mk">
+                                        <select class="custom-select @error('tipe_mk') is-invalid @enderror" name="tipe_mk" required>
                                             <option selected="selected">Select</option>
-                                            <option value="#">Kuliah</option>
-                                            <option value="#">Praktikum</option>
-                                            <option value="#">Responsi</option>
+                                            <option value="K">Kuliah</option>
+                                            <option value="P">Praktikum</option>
+                                            <option value="R">Responsi</option>
                                         </select>
+                                        @error('tipe_mk')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
 
-                                    <div class="input-group mb-3">
-                                        {{-- <label class="col-form-label col-12">Bukti Persyaratan</label> --}}
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Bukti Persyaratan</span>
-                                        </div>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="inputGroupFile01" />
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                        </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Bukti Persyaratan</label>
+                                        <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file" required/>
+                                        @error('file')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
 
-                                    <a href="input-form.html" class="btn btn-primary text-sm bg-blue px-3 mb-3">
-                                        Submit
-                                    </a>
+                                    <button class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                         </div>

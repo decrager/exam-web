@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Berkas;
+use App\Models\Ujian;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
 
@@ -33,6 +35,20 @@ class assistenController extends Controller
             "title" => env('APP_NAME'),
             "berkas" => $ujian
         ]);
+    }
+
+    public function berkasUpdate($id)
+    {
+        $berkas = Berkas::find($id);
+
+        if ($berkas->asisten == 'Belum')
+        {
+            $berkas->update(['asisten' => 'Sudah']);
+        } else {
+            $berkas->update(['asisten' => 'Belum']);
+        }
+
+        return redirect()->route('assisten.berkas')->with('success', 'Status Asisten Berkas berhasil diubah!');
     }
 
     public function pelanggaran()

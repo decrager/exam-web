@@ -168,13 +168,15 @@
             $("#example").DataTable();
         });
 
+
+
         Highcharts.chart("container", {
             title: {
                 text: "Grafik Pelanggaran",
             },
 
             subtitle: {
-                text: "Subtitle",
+                text: "Keterangan",
             },
 
             yAxis: {
@@ -190,7 +192,7 @@
                         color: "#000"
                     },
                 },
-                categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                categories: label,
                 labels: {
                     style: {
                         color: "#000",
@@ -206,7 +208,65 @@
 
             series: [{
                     name: "Pelanggaran",
-                    data: [4, 8, 11, 1, 0, 2, 4, 2, 6, 9, 10, 4, 2, 1, 3],
+                    data: data,
+                },
+            ],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500,
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: "horizontal",
+                            align: "center",
+                            verticalAlign: "bottom",
+                        },
+                    },
+                }, ],
+            },
+        });
+
+        Highcharts.chart("pjonlinechart", {
+            title: {
+                text: "Grafik Pelanggaran",
+            },
+
+            subtitle: {
+                text: "Keterangan",
+            },
+
+            yAxis: {
+                title: {
+                    text: "Jumlah",
+                },
+            },
+
+            xAxis: {
+                title: {
+                    text: "Date",
+                    style: {
+                        color: "#000"
+                    },
+                },
+                categories: label,
+                labels: {
+                    style: {
+                        color: "#000",
+                    },
+                },
+            },
+
+            legend: {
+                layout: "vertical",
+                align: "right",
+                verticalAlign: "middle",
+            },
+
+            series: [{
+                    name: "Pelanggaran",
+                    data: data,
                 },
             ],
 

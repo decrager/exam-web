@@ -109,31 +109,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="lokasi" class="col-form-label">Lokasi</label>
-                                        <select class="custom-select" name="lokasi" id="lokasi">
-                                            <option>Pilih Lokasi</option>
-                                            <option selected="selected" value="{{ $ujian->lokasi }}">
-                                                {{ $ujian->lokasi }}
-                                            </option>
-                                            <option value="Lab. Komputer">Lab. Komputer</option>
-                                            <option value="Ruang Kelas">Ruang Kelas</option>
-                                            <option value="Lab. Prodi">Lab. Prodi</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="ruang" class="col-form-label">Kode Ruang</label>
-                                        <select class="custom-select" name="ruang" id="ruang">
-                                            <option>Pilih Kode Ruang</option>
-                                            <option selected="selected" value="{{ $ujian->ruang }}">
-                                                {{ $ujian->ruang }}</option>
-                                            @foreach ($dbRuang as $ruang)
-                                                <option value="{{ $ruang->ruang }}">{{ $ruang->ruang }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
                                         <label class="col-form-label">Hari</label>
                                         <select class="custom-select" name="hari" required>
                                             <option> Pilih Hari</option>
@@ -187,28 +162,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">Software yang
-                                            Dibutuhkan</label>
-                                        <input class="form-control" type="text" value="{{ $ujian->software }}" name="software"
-                                            placeholder="Ketik software yang dibutuhkan..." id="example-text-input" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">Perbanyak Soal</label>
-                                        <select class="custom-select" name="perbanyak" required>
-                                            <option selected="selected" value="{{ $ujian->perbanyak }}">
-                                                @if ($ujian->perbanyak == 1)
-                                                    Perbanyak
-                                                @else
-                                                    Tidak
-                                                @endif
-                                            </option>
-                                            <option value="1">Perbanyak</option>
-                                            <option value="0">Tidak</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
                                         <label class="col-form-label">Sesi</label>
                                         <select class="custom-select" name="sesi" required>
                                             <option selected="selected" value="{{ $ujian->sesi }}">
@@ -232,6 +185,10 @@
                                         </select>
                                     </div>
 
+                                    <input hidden type="text" name="lokasi" value="-">
+                                    <input hidden type="text" name="ruang" value="">
+                                    <input hidden type="text" name="perbanyak" value="0">
+                                    <input hidden type="text" name="software" value="-">
                                     <input hidden type="text" name="isuas" value="{{ $master->isuas }}">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>

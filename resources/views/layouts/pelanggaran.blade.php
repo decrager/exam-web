@@ -49,7 +49,7 @@
                                         <td>{{ $mhs->semester }}</td>
                                         <td>{{ $mhs->total }}</td>
                                         <td><button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="{{ '#detail' . $mhs->id }}"><i
+                                                data-bs-target="{{ '#detail' . $mhs->mhs_id }}"><i
                                                     class=" fas fa-info"></i></button></td>
                                     </tr>
                                 @endforeach
@@ -65,12 +65,12 @@
 
 <!-- Modal -->
 @foreach ($mhs2 as $mhs)
-    <div class="modal fade" id="{{ 'detail' . $mhs->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="{{ 'detail' . $mhs->mhs_id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Detail Pelanggaran</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -106,19 +106,19 @@
                                         </div>
                                         <div class="col-6">
                                             @foreach ($allPelanggaran as $pelanggaran)
-                                                @if ($pelanggaran == $mhs->id)
-                                                    
+                                                @if ($pelanggaran->mhs_id == $mhs->mhs_id)
+                                                    <h6 class="mb-2">Pelanggaran:
+                                                    </h6>
+                                                    <div class="form-group pl-3">
+                                                        <h6>Mata Kuliah</h6>
+                                                        <p>{{ $pelanggaran->Ujian->Matkul->nama_matkul }}</p>
+                                                    </div>
+                                                    <div class="form-group pl-3 mb-2">
+                                                        <h6>Pelanggaran</h6>
+                                                        <p>{{ $pelanggaran->pelanggaran }}</p>
+                                                    </div>
                                                 @endif
                                             @endforeach
-                                            <h6 class="mb-2">Pelanggaran 1:</h6>
-                                            <div class="form-group pl-3">
-                                                <h6>Mata Kuliah</h6>
-                                                <p>value</p>
-                                            </div>
-                                            <div class="form-group pl-3 mb-2">
-                                                <h6>Pelanggaran</h6>
-                                                <p>value</p>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

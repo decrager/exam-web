@@ -10,7 +10,7 @@ class Ujian extends Model
     use HasFactory;
     protected $table = 'ujians';
     protected $primaryKey = 'id';
-    protected $guarded = [];
+    protected $guarded = ['master_id'];
     protected $fillable = [
         'prak_id',
         'matkul_id',
@@ -64,5 +64,10 @@ class Ujian extends Model
     public function Pengawas()
     {
         return $this->hasMany(Pengawas::class, 'ujian_id', 'id');
+    }
+
+    public function Master()
+    {
+        return $this->belongsTo(Master::class, 'master_id', 'id');
     }
 }
