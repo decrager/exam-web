@@ -45,11 +45,11 @@
                         </div>
                     @endif
                     <h4 class="header-title">Periode Ujian</h4>
-                    <a href="{{ Route('') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                    <a href="{{ Route('data.periode.edit', $master->id) }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                         Perbarui Data
                     </a>
                     <div class="table-responsive">
-                        <table id="example" class="table" style="width: 100%">
+                        <table class="table" style="width: 100%; font-size: 16px">
                             <thead>
                                 <tr>
                                     <th class="col-1">No</th>
@@ -59,35 +59,41 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Tahun Ajaran</td>
-                                    <td>{{ $master->thn_ajaran }}</td>
+                                    <th>1</th>
+                                    <th>Tahun Ajaran</th>
+                                    <th>{{ $master->thn_ajaran }}</th>
                                 </tr>
                                 <tr>
-                                    <td>2</td>
-                                    <td>Semester Akademik</td>
-                                    <td>{{ $master->smt_akademik }}</td>
+                                    <th>2</th>
+                                    <th>Semester Akademik</th>
+                                    <th>
+                                        @if ($master->smt_akademik == 1)
+                                            Ganjil
+                                        @else
+                                            Genap
+                                        @endif
+                                    </th>
                                 </tr>
                                 <tr>
-                                    <td>3</td>
-                                    <td>Periode</td>
-                                    <td>
+                                    <th>3</th>
+                                    <th>Periode</th>
+                                    <th>
                                         @if ($master->isuas == 1)
                                             UAS
                                         @else
                                             UTS
                                         @endif
-                                    </td>
+                                    </th>
                                 </tr>
                                 <tr>
-                                    <td>4</td>
-                                    <td>Periode Mulai</td>
-                                    <td>{{ $master->periode_mulai }}</td>
+                                    <th>4</th>
+                                    <th>Periode Mulai</th>
+                                    <th>{{ $master->periode_mulai }}</th>
                                 </tr>
                                 <tr>
-                                    <td>5</td>
-                                    <td>Periode Akhir</td>
-                                    <td>{{ $master->periode_akhir }}</td>
+                                    <th>5</th>
+                                    <th>Periode Akhir</th>
+                                    <th>{{ $master->periode_akhir }}</th>
                                 </tr>
                             </tbody>
                         </table>

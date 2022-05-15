@@ -43,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="{{ route('data.prodi.create') }}" method="POST">
                                     <h4 class="header-title">Tambah Program Studi</h4>
                                     @csrf
 

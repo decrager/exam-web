@@ -23,11 +23,11 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Ubah Kelas</h4>
+                    <h4 class="page-title pull-left">Ubah Mata Kuliah</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
                         <li><a><span>Akademik</span></a></li>
-                        <li><a href=""><span>Kelas</span></a></li>
+                        <li><a href=""><span>Mata Kuliah</span></a></li>
                         <li><span>Ubah Data</span></li>
                     </ul>
                 </div>
@@ -43,15 +43,15 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
-                                    <h4 class="header-title">Ubah Kelas</h4>
+                                <form action="{{ route('data.matkul.update', $matkul->id) }}" method="POST">
+                                    <h4 class="header-title">Ubah Data Mata Kuliah</h4>
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
                                         <label class="col-form-label">Program Studi</label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option>Pilih Program Studi</option>
-                                            <option selected="selected" value="{{ $kelas->Semester->Prodi->id }}">{{ $kelas->Semester->Prodi->nama_prodi }}</option>
+                                            <option selected="selected" value="{{ $matkul->Semester->Prodi->id }}">{{ $matkul->Semester->Prodi->nama_prodi }}</option>
                                             @foreach ($dbProdi as $prodi)
                                                 <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
                                             @endforeach
@@ -62,13 +62,33 @@
                                         <label class="col-form-label">Semester</label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option>Pilih Semester</option>
-                                            <option selected="selected" value="{{ $kelas->Semester->id }}">{{ $kelas->Semester->semester }}</option>
+                                            <option selected="selected" value="{{ $matkul->Semester->id }}">{{ $matkul->Semester->semester }}</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="kelas" class="col-form-label">Kelas</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="kelas" name="kelas" value="{{ $kelas->kelas }}"/>
+                                        <label for="kode_matkul" class="col-form-label">Kode Mata Kuliah</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $matkul->kode_matkul }}" id="kode_matkul" name="kode_matkul" required/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nama_matkul" class="col-form-label">Mata Kuliah</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $matkul->nama_matkul }}" id="nama_matkul" name="nama_matkul" required/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="sks" class="col-form-label">SKS</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $matkul->sks }}" id="sks" name="sks" required/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="sks_kul" class="col-form-label">SKS Kuliah</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $matkul->sks_kul }}" id="sks_kul" name="sks_kul" required/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="sks_prak" class="col-form-label">SKS Praktikum</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $matkul->sks_prak }}" id="sks_prak" name="sks_prak" required/>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Simpan</button>

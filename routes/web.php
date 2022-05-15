@@ -95,6 +95,7 @@ Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
 
     Route::put('/data/bap/update/{id}', [dataController::class, 'bapUpdate'])->name('data.bap.update');
     Route::put('/data/amplop/update/{id}', [dataController::class, 'amplopUpdate'])->name('data.amplop.update');
+    Route::put('/data/periode/update/{id}', [dataController::class, 'periodeUpdate'])->name('data.periode.update');
 
     Route::post('/data/pengguna/create', [dataController::class, 'penggunaCreate'])->name('data.pengguna.create');
     Route::put('/data/pengguna/update/{id}', [dataController::class, 'penggunaUpdate'])->name('data.pengguna.update');
@@ -102,6 +103,21 @@ Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
     Route::post('/data/mahasiswa/create', [dataController::class, 'mahasiswaCreate'])->name('data.mahasiswa.create');
     Route::put('/data/mahasiswa/update/{id}', [dataController::class, 'mahasiswaUpdate'])->name('data.mahasiswa.update');
     Route::delete('/data/mahasiswa/delete/{id}', [dataController::class, 'mahasiswaDestroy'])->name('data.mahasiswa.destroy');
+    Route::post('/data/prodi/create', [dataController::class, 'prodiCreate'])->name('data.prodi.create');
+    Route::put('/data/prodi/update/{id}', [dataController::class, 'prodiUpdate'])->name('data.prodi.update');
+    Route::delete('/data/prodi/delete/{id}', [dataController::class, 'prodiDestroy'])->name('data.prodi.destroy');
+    Route::post('/data/semester/create', [dataController::class, 'semesterCreate'])->name('data.semester.create');
+    Route::put('/data/semester/update/{id}', [dataController::class, 'semesterUpdate'])->name('data.semester.update');
+    Route::delete('/data/semester/delete/{id}', [dataController::class, 'semesterDestroy'])->name('data.semester.destroy');
+    Route::post('/data/kelas/create', [dataController::class, 'kelasCreate'])->name('data.kelas.create');
+    Route::put('/data/kelas/update/{id}', [dataController::class, 'kelasUpdate'])->name('data.kelas.update');
+    Route::delete('/data/kelas/delete/{id}', [dataController::class, 'kelasDestroy'])->name('data.kelas.destroy');
+    Route::post('/data/praktikum/create', [dataController::class, 'praktikumCreate'])->name('data.praktikum.create');
+    Route::put('/data/praktikum/update/{id}', [dataController::class, 'praktikumUpdate'])->name('data.praktikum.update');
+    Route::delete('/data/praktikum/delete/{id}', [dataController::class, 'praktikumDestroy'])->name('data.praktikum.destroy');
+    Route::post('/data/matkul/create', [dataController::class, 'matkulCreate'])->name('data.matkul.create');
+    Route::put('/data/matkul/update/{id}', [dataController::class, 'matkulUpdate'])->name('data.matkul.update');
+    Route::delete('/data/matkul/delete/{id}', [dataController::class, 'matkulDestroy'])->name('data.matkul.destroy');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {

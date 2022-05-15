@@ -43,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="{{ route('data.kelas.update', $kelas->id) }}" method="POST">
                                     <h4 class="header-title">Ubah Kelas</h4>
                                     @csrf
                                     @method('PUT')
@@ -68,9 +68,15 @@
 
                                     <div class="form-group">
                                         <label for="kelas" class="col-form-label">Kelas</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="kelas" name="kelas" value="{{ $kelas->kelas }}"/>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="kelas" name="kelas" value="{{ $kelas->kelas }}" required/>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="jml_mhs" class="col-form-label">Jumlah Mahasiswa</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="jml_mhs" name="jml_mhs" value="{{ $kelas->jml_mhs }}" required/>
+                                    </div>
+
+                                    {{-- <input type="text" hidden name="jml_mhs" value=0> --}}
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>

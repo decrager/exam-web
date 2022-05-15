@@ -43,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="{{ route('data.praktikum.create') }}" method="POST">
                                     <h4 class="header-title">Tambah Praktikum</h4>
                                     @csrf
 
@@ -76,7 +76,12 @@
                                         <input class="form-control" type="text" placeholder="Ketik..." id="praktikum" name="praktikum" />
                                     </div>
 
-                                    <input type="text" hidden name="jml_mhs" value=0>
+                                    <div class="form-group">
+                                        <label for="jml_mhs" class="col-form-label">Jumlah Mahasiswa</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="jml_mhs" name="jml_mhs" />
+                                    </div>
+
+                                    {{-- <input type="text" hidden name="jml_mhs" value=0> --}}
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>

@@ -46,7 +46,7 @@
                             </div>
                         @endif
                         <h4 class="header-title">Kelas</h4>
-                        <a href="{{ route('data.pengguna.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="{{ route('data.akademik.kelas.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
                         <div class="table-responsive">
@@ -62,19 +62,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($kelas as $kelas)
                                     <tr>
-                                        <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $kelas->Semester->Prodi->kode_prodi }}</td>
+                                        <td>{{ $kelas->Semester->Prodi->nama_prodi }}</td>
+                                        <td>{{ $kelas->Semester->semester }}</td>
+                                        <td>{{ $kelas->kelas }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
+                                            <form action="{{ route('data.kelas.destroy', $kelas->id) }}" class="btn-group" role="group" method="POST">
+                                                <a href="{{ route('data.akademik.kelas.edit', $kelas->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus kelas ini?')"><i class="fas fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

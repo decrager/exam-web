@@ -46,7 +46,7 @@
                             </div>
                         @endif
                         <h4 class="header-title">Program Studi</h4>
-                        <a href="{{ route('data.pengguna.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="{{ route('data.akademik.prodi.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
                         <div class="table-responsive">
@@ -60,17 +60,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($prodi as $prodi)
                                     <tr>
-                                        <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $prodi->kode_prodi }}</td>
+                                        <td>{{ $prodi->nama_prodi }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
+                                            <form action="{{ route('data.prodi.destroy', $prodi->id) }}" method="POST" class="btn-group" role="group">
+                                                <a href="{{ route('data.akademik.prodi.edit', $prodi->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus Program Studi ini?')"><i class="fas fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

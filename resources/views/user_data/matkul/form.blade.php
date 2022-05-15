@@ -43,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="{{ route('data.matkul.create') }}" method="POST">
                                     <h4 class="header-title">Tambah Mata Kuliah</h4>
                                     @csrf
 
@@ -66,27 +66,27 @@
 
                                     <div class="form-group">
                                         <label for="kode_matkul" class="col-form-label">Kode Mata Kuliah</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="kode_matkul" name="kode_matkul" />
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="kode_matkul" name="kode_matkul" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="nama_matkul" class="col-form-label">Mata Kuliah</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="nama_matkul" name="nama_matkul" />
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="nama_matkul" name="nama_matkul" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="sks" class="col-form-label">SKS</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="sks" name="sks" />
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="sks" name="sks" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="sks_kul" class="col-form-label">SKS Kuliah</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="sks_kul" name="sks_kul" />
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="sks_kul" name="sks_kul" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="sks_prak" class="col-form-label">SKS Praktikum</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="sks_prak" name="sks_prak" />
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="sks_prak" name="sks_prak" required/>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Simpan</button>

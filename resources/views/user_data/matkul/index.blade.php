@@ -46,7 +46,7 @@
                             </div>
                         @endif
                         <h4 class="header-title">Mata Kuliah</h4>
-                        <a href="{{ route('data.pengguna.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="{{ route('data.akademik.matkul.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
                         <div class="table-responsive">
@@ -57,24 +57,36 @@
                                         <th>Kode Program Studi</th>
                                         <th>Nama Program Studi</th>
                                         <th>Semester</th>
+                                        <th>Kode Mata Kuliah</th>
                                         <th>Mata Kuliah</th>
+                                        <th>SKS</th>
+                                        <th>SKS Kuliah</th>
+                                        <th>SKS Praktikum</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($matkul as $matkul)
                                     <tr>
-                                        <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $matkul->Semester->Prodi->kode_prodi }}</td>
+                                        <td>{{ $matkul->Semester->Prodi->nama_prodi }}</td>
+                                        <td>{{ $matkul->Semester->semester }}</td>
+                                        <td>{{ $matkul->nama_matkul }}</td>
+                                        <td>{{ $matkul->kode_matkul }}</td>
+                                        <td>{{ $matkul->sks }}</td>
+                                        <td>{{ $matkul->sks_kul }}</td>
+                                        <td>{{ $matkul->sks_prak }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
+                                            <form action="{{ route('data.matkul.destroy', $matkul->id) }}" method="POST" class="btn-group" role="group">
+                                                <a href="{{ route('data.akademik.matkul.edit', $matkul->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus praktikum ini?')"><i class="fas fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

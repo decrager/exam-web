@@ -43,13 +43,13 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="{{ route('data.semester.create') }}" method="POST">
                                     <h4 class="header-title">Tambah Semester</h4>
                                     @csrf
 
                                     <div class="form-group">
                                         <label class="col-form-label">Program Studi</label>
-                                        <select class="custom-select" name="prodi" required>
+                                        <select class="custom-select" name="prodi_id" required>
                                             <option selected="selected">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
                                                 <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>

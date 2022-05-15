@@ -43,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="{{ route('data.semester.update', $semester->id) }}" method="POST">
                                     <h4 class="header-title">Ubah Semester</h4>
                                     @csrf
                                     @method('PUT')

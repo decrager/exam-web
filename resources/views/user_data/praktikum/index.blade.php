@@ -46,7 +46,7 @@
                             </div>
                         @endif
                         <h4 class="header-title">Praktikum</h4>
-                        <a href="{{ route('data.pengguna.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="{{ route('data.akademik.praktikum.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
                         <div class="table-responsive">
@@ -63,20 +63,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($praktikum as $praktikum)
                                     <tr>
-                                        <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $praktikum->Kelas->Semester->Prodi->kode_prodi }}</td>
+                                        <td>{{ $praktikum->Kelas->Semester->Prodi->nama_prodi }}</td>
+                                        <td>{{ $praktikum->Kelas->Semester->semester }}</td>
+                                        <td>{{ $praktikum->Kelas->kelas }}</td>
+                                        <td>{{ $praktikum->praktikum }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
+                                            <form action="{{ route('data.praktikum.destroy', $praktikum->id) }}" method="POST" class="btn-group" role="group">
+                                                <a href="{{ route('data.akademik.praktikum.edit', $praktikum->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

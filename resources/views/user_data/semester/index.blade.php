@@ -46,7 +46,7 @@
                             </div>
                         @endif
                         <h4 class="header-title">Semester</h4>
-                        <a href="{{ route('data.pengguna.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                        <a href="{{ route('data.akademik.semester.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
                         <div class="table-responsive">
@@ -61,18 +61,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($semester as $semester)
                                     <tr>
-                                        <td>1</td>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $semester->Prodi->kode_prodi }}</td>
+                                        <td>{{ $semester->Prodi->nama_prodi }}</td>
+                                        <td>{{ $semester->semester }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
+                                            <form action="{{ route('data.semester.destroy', $semester->id) }}" method="POST" class="btn-group" role="group">
+                                                <a href="{{ route('data.akademik.semester.edit', $semester->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
