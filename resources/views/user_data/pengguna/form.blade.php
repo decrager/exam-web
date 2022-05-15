@@ -42,31 +42,30 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="{{ route('data.pengguna.create') }}" method="POST">
                                     <h4 class="header-title">Tambah Pengguna</h4>
                                     @csrf
 
                                     <div class="form-group">
-                                        <label for="nama" class="col-form-label">Nama</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nama..." id="nama" name="nama" />
+                                        <label for="name" class="col-form-label">Nama</label>
+                                        <input class="form-control" type="text" placeholder="Ketik nama..." id="name" name="name" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email" class="col-form-label">Email</label>
                                         <input class="form-control" type="email" placeholder="Ketik email..." name="email"
-                                            id="email" />
+                                            id="email" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Jenis Pengguna</label>
-                                        <select class="custom-select" name="role">
+                                        <select class="custom-select" name="role" required>
                                             <option selected="selected">
                                                 Pilih jenis pengguna
                                             </option>
                                             <option value="assisten">Assisten Lokasi</option>
                                             <option value="berkas">Berkas</option>
                                             <option value="data">Data</option>
-                                            <option value="mahasiswa">Mahasiswa</option>
                                             <option value="pj_lokasi">PJ Lokasi</option>
                                             <option value="pj_online">PJ Online</option>
                                             <option value="pj_susulan">PJ Susulan</option>
@@ -77,14 +76,16 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Lokasi</label>
-                                        <select class="custom-select" name="id_lokasi">
-                                            <option selected="selected">
-                                                Pilih jenis pengguna
-                                            </option>
-                                            <option value="">Lokasi 1</option>
-                                            <option value="">Lokasi 2</option>
-                                            <option value="">Lokasi 3</option>
+                                        <label class="col-form-label">Lokasi (Optional)</label>
+                                        <select class="custom-select" name="lokasi">
+                                            <option selected="selected" value="-">Pilih lokasi</option>
+                                            <option value="BS B01-B06">BS B01-B06</option>
+                                            <option value="BS B07-B010">BS B07-B010</option>
+                                            <option value="BS BOTANI, FISIKA, KIMIA">BS BOTANI, FISIKA, KIMIA</option>
+                                            <option value="BS P01-P03">BS P01-P03</option>
+                                            <option value="CA & Lab Kom">CA & Lab Kom</option>
+                                            <option value="CB & Lab Kom">CB & Lab Kom</option>
+                                            <option value="Sukabumi">Sukabumi</option>
                                         </select>
                                     </div>
 

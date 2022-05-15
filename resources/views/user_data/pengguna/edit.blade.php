@@ -42,32 +42,47 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
-                                    <h4 class="header-title">Ubah Pengguna</h4>
+                                <form action="{{ route('data.pengguna.update', $pengguna->id) }}" method="POST">
+                                    <h4 class="header-title">Tambah Pengguna</h4>
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label for="nama" class="col-form-label">Nama</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nama..." id="nama"
-                                            name="nama" />
+                                        <label for="name" class="col-form-label">Nama</label>
+                                        <input class="form-control" type="text" placeholder="Ketik nama..." value="{{ $pengguna->name }}" id="name" name="name" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email" class="col-form-label">Email</label>
-                                        <input class="form-control" type="email" placeholder="Ketik email..." name="email"
-                                            id="email" />
+                                        <input class="form-control" type="email" placeholder="Ketik email..." value="{{ $pengguna->email }}" name="email"
+                                            id="email" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Jenis Pengguna</label>
-                                        <select class="custom-select" name="role">
-                                            <option selected="selected">
-                                                Pilih jenis pengguna
-                                            </option>
+                                        <select class="custom-select" name="role" required>
+                                            <option>Pilih jenis pengguna</option>
+                                            @if ($pengguna->role == 'data')
+                                            <option selected="selected" value="{{ $pengguna->role }}">Data</option>
+                                            @elseif ($pengguna->role == 'pj_ujian')
+                                            <option selected="selected" value="{{ $pengguna->role }}">PJ Ujian</option>
+                                            @elseif ($pengguna->role == 'prodi')
+                                            <option selected="selected" value="{{ $pengguna->role }}">Program Studi</option>
+                                            @elseif ($pengguna->role == 'pj_lokasi')
+                                            <option selected="selected" value="{{ $pengguna->role }}">PJ Lokasi</option>
+                                            @elseif ($pengguna->role == 'berkas')
+                                            <option selected="selected" value="{{ $pengguna->role }}">Berkas</option>
+                                            @elseif ($pengguna->role == 'assisten')
+                                            <option selected="selected" value="{{ $pengguna->role }}">Asisten Perlokasi</option>
+                                            @elseif ($pengguna->role == 'pj_susulan')
+                                            <option selected="selected" value="{{ $pengguna->role }}">PJ Susulan</option>
+                                            @elseif ($pengguna->role == 'supervisor')
+                                            <option selected="selected" value="{{ $pengguna->role }}">Supervisor (Komdik/Pembina)</option>
+                                            @elseif ($pengguna->role == 'pj_online')
+                                            <option selected="selected" value="{{ $pengguna->role }}">PJ Online</option>
+                                            @endif
                                             <option value="assisten">Assisten Lokasi</option>
                                             <option value="berkas">Berkas</option>
                                             <option value="data">Data</option>
-                                            <option value="mahasiswa">Mahasiswa</option>
                                             <option value="pj_lokasi">PJ Lokasi</option>
                                             <option value="pj_online">PJ Online</option>
                                             <option value="pj_susulan">PJ Susulan</option>
@@ -78,14 +93,17 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Lokasi</label>
+                                        <label class="col-form-label">Lokasi (Optional)</label>
                                         <select class="custom-select" name="id_lokasi">
-                                            <option selected="selected">
-                                                Pilih jenis pengguna
-                                            </option>
-                                            <option value="">Lokasi 1</option>
-                                            <option value="">Lokasi 2</option>
-                                            <option value="">Lokasi 3</option>
+                                            <option value="-">Pilih lokasi</option>
+                                            <option selected="selected" value="{{ $pengguna->lokasi }}">{{ $pengguna->lokasi }}</option>
+                                            <option value="BS B01-B06">BS B01-B06</option>
+                                            <option value="BS B07-B010">BS B07-B010</option>
+                                            <option value="BS BOTANI, FISIKA, KIMIA">BS BOTANI, FISIKA, KIMIA</option>
+                                            <option value="BS P01-P03">BS P01-P03</option>
+                                            <option value="CA & Lab Kom">CA & Lab Kom</option>
+                                            <option value="CB & Lab Kom">CB & Lab Kom</option>
+                                            <option value="Sukabumi">Sukabumi</option>
                                         </select>
                                     </div>
 

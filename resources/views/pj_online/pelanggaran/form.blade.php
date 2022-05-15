@@ -43,7 +43,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="hr-title">Masukkan Data Pelanggaran</h4>
-                                <form method="post" action="/pj_lokasi/pelanggaran">
+                                <form method="post" action="/pj_online/pelanggaran">
                                     @csrf
                                     <div class="form-group">
                                         <label class="col-form-label">Ujian</label>

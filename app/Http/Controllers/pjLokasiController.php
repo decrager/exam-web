@@ -27,7 +27,6 @@ class pjLokasiController extends Controller
         }
         
         return view('pj_lokasi.dashboard', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -73,7 +72,6 @@ class pjLokasiController extends Controller
         }
 
         return view('pj_lokasi.pengawas.index', [
-            "title" => env('APP_NAME'),
             "pengawas" => $pengawas
         ]);
     }
@@ -83,7 +81,6 @@ class pjLokasiController extends Controller
         $pengawas = Pengawas::find($id);
 
         return view('pj_lokasi.pengawas.edit', [
-            "title" => env('APP_NAME'),
             "pengawas" => $pengawas
         ]);
     }
@@ -129,7 +126,6 @@ class pjLokasiController extends Controller
         }
 
         return view('pj_lokasi.absensi.index', [
-            "title" => env('APP_NAME'),
             "absensi" => $pengawas
         ]);
     }
@@ -139,7 +135,6 @@ class pjLokasiController extends Controller
         $pengawas = Pengawas::find($id);
 
         return view('pj_lokasi.absensi.form', [
-            "title" => env('APP_NAME'),
             "pengawas" => $pengawas
         ]);
     }
@@ -162,7 +157,6 @@ class pjLokasiController extends Controller
         }
 
         return view('pj_lokasi.soal.index', [
-            "title" => env('APP_NAME'),
             "berkas" => $ujian
         ]);
     }

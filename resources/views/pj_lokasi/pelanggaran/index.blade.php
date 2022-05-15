@@ -144,11 +144,12 @@
                                                                 <h6 class="mb-2 pt-1">Pelanggaran:</h6>
                                                             </div>
                                                             <div class="col-5">
-                                                                <form class="btn-group" role="group" action="" method="POST">
+                                                                <a href="pelanggaran/{{ $pelanggaran->id }}/edit" class="btn btn-warning btn-sm"><i
+                                                                    class="fas fa-pen"></i></a>
+                                                                <form class="btn-group" role="group" action="pelanggaran/{{ $pelanggaran->id }}" method="POST">
                                                                     @csrf
-                                                                    @method('DELETE')
-                                                                    <a href="pelanggaran/{{ $pelanggaran->id }}/edit" class="btn btn-warning btn-sm"><i
-                                                                            class="fas fa-pen"></i></a>
+                                                                    @method('delete')
+
                                                                     <button type="submit" class="btn btn-danger btn-sm"><i
                                                                             class="fas fa-trash"></i></button>
                                                                 </form>

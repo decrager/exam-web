@@ -23,11 +23,11 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">BAP</h4>
+                    <h4 class="page-title pull-left">Kelas</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
-                        <li><a><span>Kelengkapan</span></a></li>
-                        <li><span>BAP</span></li>
+                        <li><a><span>Akademik</span></a></li>
+                        <li><span>Kelas</span></li>
                     </ul>
                 </div>
             </div>
@@ -40,43 +40,40 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Kelengkapan BAP</h4>
-                        <div class="row justify-content-start">
-                            @include('layouts.filter')
-                        </div>
-
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <h4 class="header-title">Kelas</h4>
+                        <a href="{{ route('data.pengguna.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                            Tambah Data
+                        </a>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th class="col-2">Program Studi</th>
+                                        <th>Kode Program Studi</th>
+                                        <th>Nama Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Tipe</th>
-                                        <th>Lokasi</th>
-                                        <th>Ruang</th>
-                                        <th>Print</th>
-                                        <th>Pengambilan</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>04-05-2022</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>A</td>
-                                        <td>2</td>
-                                        <td>RPL</td>
-                                        <td>Responsi</td>
-                                        <td>K-35</td>
-                                        <td>Lab. Komputer</td>
-                                        <td><button class="btn btn-danger btn-sm">Belum diprint</button></td>
-                                        <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

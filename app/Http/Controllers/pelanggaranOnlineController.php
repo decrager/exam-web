@@ -86,9 +86,9 @@ class pelanggaranOnlineController extends Controller
             'mhs_id' => 'required',
             'pelanggaran' => 'required',
         ]);
-    
+  
         Pelanggaran::create($validatedData);
-        return redirect('/pj_lokasi/pelanggaran')->with('success', 'Data has been successfully added');
+        return redirect('/pj_online/pelanggaran')->with('success', 'Data has been successfully added');
     }
 
     /**
@@ -108,9 +108,13 @@ class pelanggaranOnlineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pelanggaran $pelanggaran)
     {
-        //
+        return view('pj_online.pelanggaran.edit', [
+            'pelanggarans' => $pelanggaran,
+            'ujians' => Ujian::all(),
+            'mahasiswas' => Mahasiswa::all()
+        ]);
     }
 
     /**
@@ -120,9 +124,18 @@ class pelanggaranOnlineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pelanggaran $pelanggaran)
     {
-        //
+        $validatedData = $request->validate([
+            'ujian_id' => 'required',
+            'mhs_id' => 'required',
+            'pelanggaran' => 'required',
+        ]);
+
+
+        Pelanggaran::where('id', $pelanggaran->id)
+        ->update($validatedData);
+        return redirect('/pj_online/pelanggaran')->with('success', 'Data has been successfully updated');
     }
 
     /**
@@ -131,8 +144,9 @@ class pelanggaranOnlineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pelanggaran $pelanggaran)
     {
-        //
+        Pelanggaran::destroy($pelanggaran->id);
+        return redirect('/pj_online/pelanggaran/')->with('success', 'Data has been successfully deleted');
     }
 }

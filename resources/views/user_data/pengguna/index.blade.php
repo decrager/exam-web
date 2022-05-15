@@ -39,7 +39,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">DataTable</h4>
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <h4 class="header-title">Data Pengguna</h4>
                         <a href="{{ route('data.pengguna.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                             Tambah Data
                         </a>
@@ -56,19 +61,51 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Aldo Bramantio</td>
-                                        <td>aldonugroho@apps.ipb.ac.id</td>
-                                        <td>Data</td>
-                                        <td>-</td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach ($pengguna as $pengguna)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $pengguna->name }}</td>
+                                            <td>{{ $pengguna->email }}</td>
+                                            <td>
+                                                @if ($pengguna->role == 'data')
+                                                    Data
+                                                @elseif ($pengguna->role == 'pj_ujian')
+                                                    PJ Ujian
+                                                @elseif ($pengguna->role == 'prodi')
+                                                    Program Studi
+                                                @elseif ($pengguna->role == 'pj_lokasi')
+                                                    PJ Lokasi
+                                                @elseif ($pengguna->role == 'berkas')
+                                                    Berkas
+                                                @elseif ($pengguna->role == 'assisten')
+                                                    Asisten Perlokasi
+                                                @elseif ($pengguna->role == 'pj_susulan')
+                                                    PJ Susulan
+                                                @elseif ($pengguna->role == 'supervisor')
+                                                    Supervisor
+                                                @elseif ($pengguna->role == 'pj_online')
+                                                    PJ Online
+                                                @elseif ($pengguna->role == 'mahasiswa')
+                                                    Mahasiswa
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($pengguna->lokasi == null)
+                                                    -
+                                                @else
+                                                    {{ $pengguna->Lokasi }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('data.pengguna.destroy', $pengguna->id) }}" method="POST" class="btn-group" role="group">
+                                                    <a href="{{ route('data.pengguna.edit', $pengguna->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus pengguna ini?')"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

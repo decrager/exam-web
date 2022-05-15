@@ -61,7 +61,7 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Jenis</th>
+                                        <th>Tipe</th>
                                         <th>Lokasi</th>
                                         <th>Ruang</th>
                                         <th>Jumlah</th>

@@ -32,14 +32,13 @@ class assistenController extends Controller
         }
 
         return view('assisten.berkas', [
-            "title" => env('APP_NAME'),
             "berkas" => $ujian
         ]);
     }
 
     public function berkasUpdate($id)
     {
-        $berkas = Berkas::find($id);
+        $berkas = Berkas::where($id);
 
         if ($berkas->asisten == 'Belum')
         {

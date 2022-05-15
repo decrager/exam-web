@@ -27,7 +27,6 @@ class mahasiswaController extends Controller
         $ujian1 = $ujian;
 
         return view('mahasiswa.dashboard', [
-            "title" => env('APP_NAME'),
             "ketentuan" => $ketentuan,
             "ujian" => $ujian,
             "ujian1" => $ujian1
@@ -50,7 +49,6 @@ class mahasiswaController extends Controller
         $detail = $susulan;
 
         return view('mahasiswa.ujian', [
-            "title" => env('APP_NAME'),
             "susulan" => $susulan,
             "detail" => $detail
         ]);
@@ -66,7 +64,6 @@ class mahasiswaController extends Controller
         ->get();
 
         return view('mahasiswa.pengajuan.index', [
-            "title" => env('APP_NAME'),
             "susulan" => $pengajuan
         ]);
     }
@@ -83,7 +80,6 @@ class mahasiswaController extends Controller
             ->get();
 
         return view('mahasiswa.pengajuan.form', [
-            "title" => env('APP_NAME'),
             "matkul" => $matkul
         ]);
     }
@@ -170,7 +166,6 @@ class mahasiswaController extends Controller
         ->get();
 
         return view('mahasiswa.pengajuan.edit', [
-            "title" => env('APP_NAME'),
             "pengajuan" => $pengajuan,
             "matkul" => $matkul
         ]);

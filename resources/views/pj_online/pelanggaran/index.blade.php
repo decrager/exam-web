@@ -98,116 +98,90 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="max-height: 600px;">
-                    <div class="row">
-                        <!-- Textual inputs start -->
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body p-2">
-                                    <div class="row">
-                                        <div class="col-5">
-                                            <div class="form-group">
-                                                <h6>Nama</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>NIM</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Program Studi</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Semester</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <h6>Kelas - Praktikum</h6>
-                                                <p>Value - value</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-7">
-                                            <div class="row">
-                                                <div class="col-7">
-                                                    <h6 class="mb-2 pt-1">Pelanggaran 1:</h6>
+    @foreach ($mhs2 as $mhs)
+        <div class="modal fade" id="{{ 'detail' . $mhs->mhs_id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detail Pelanggaran</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="max-height: 600px;">
+                        <div class="row">
+                            <!-- Textual inputs start -->
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body p-2">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="form-group">
+                                                    <h6>Nama</h6>
+                                                    <p>{{ $mhs->nama }}</p>
                                                 </div>
-                                                <div class="col-5">
-                                                    <div class="btn-group" role="group">
-                                                        <button class="btn btn-warning btn-sm"><i class="fas fa-pen"></i></button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                                    </div>
+                                                <div class="form-group">
+                                                    <h6>NIM</h6>
+                                                    <p>{{ $mhs->nim }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Program Studi</h6>
+                                                    <p>{{ $mhs->nama_prodi }}
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Semester</h6>
+                                                    <p>{{ $mhs->semester }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Kelas - Praktikum</h6>
+                                                    <p>{{ $mhs->kelas }} -
+                                                        {{ $mhs->praktikum }}</p>
                                                 </div>
                                             </div>
-                                            <div class="form-group pl-3">
-                                                <h6>Mata Kuliah</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group pl-3 mb-2">
-                                                <h6>Pelanggaran</h6>
-                                                <p>Value</p>
-                                            </div>
+                                            <div class="col-7">
+                                                @foreach ($allPelanggaran as $pelanggaran)
+                                                    @if ($pelanggaran->mhs_id == $mhs->mhs_id)
+                                                        <div class="row">
+                                                            <div class="col-7">
+                                                                <h6 class="mb-2 pt-1">Pelanggaran:</h6>
+                                                            </div>
+                                                            <div class="col-5">
+                                                                <a href="pelanggaran/{{ $pelanggaran->id }}/edit" class="btn btn-warning btn-sm"><i
+                                                                    class="fas fa-pen"></i></a>
+                                                                <form class="btn-group" role="group" action="pelanggaran/{{ $pelanggaran->id }}/" method="POST">
+                                                                    @csrf
+                                                                    @method('delete')
 
-                                            <div class="row">
-                                                <div class="col-7">
-                                                    <h6 class="mb-2 pt-1">Pelanggaran 2:</h6>
-                                                </div>
-                                                <div class="col-5">
-                                                    <div class="btn-group" role="group">
-                                                        <button class="btn btn-warning btn-sm"><i class="fas fa-pen"></i></button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group pl-3">
-                                                <h6>Mata Kuliah</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group pl-3 mb-2">
-                                                <h6>Pelanggaran</h6>
-                                                <p>Value</p>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-7">
-                                                    <h6 class="mb-2 pt-1">Pelanggaran 3:</h6>
-                                                </div>
-                                                <div class="col-5">
-                                                    <div class="btn-group" role="group">
-                                                        <button class="btn btn-warning btn-sm"><i class="fas fa-pen"></i></button>
-                                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group pl-3">
-                                                <h6>Mata Kuliah</h6>
-                                                <p>Value</p>
-                                            </div>
-                                            <div class="form-group pl-3 mb-2">
-                                                <h6>Pelanggaran</h6>
-                                                <p>Value</p>
+                                                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                                                            class="fas fa-trash"></i></button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group pl-3">
+                                                            <h6>Mata Kuliah</h6>
+                                                            <p>{{ $pelanggaran->Ujian->Matkul->nama_matkul }}</p>
+                                                        </div>
+                                                        <div class="form-group pl-3 mb-2">
+                                                            <h6>Pelanggaran</h6>
+                                                            <p>{{ $pelanggaran->pelanggaran }}</p>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Textual inputs end -->
                         </div>
-                        <!-- Textual inputs end -->
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                        Close
-                    </button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
 @endsection

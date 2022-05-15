@@ -40,6 +40,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">BAP</h4>
                         <div class="row justify-content-start">
                             @include('layouts.filter')
@@ -56,7 +61,7 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Jenis</th>
+                                        <th>Tipe</th>
                                         <th>Lokasi</th>
                                         <th>Ruang</th>
                                         <th>Print</th>
@@ -64,25 +69,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($bap as $ujian)
                                     <tr>
-                                        <td>1</td>
-                                        <td>04-05-2022</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>A</td>
-                                        <td>2</td>
-                                        <td>RPL</td>
-                                        <td>Responsi</td>
-                                        <td>K-35</td>
-                                        <td>Lab. Komputer</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $ujian->tanggal }}</td>
+                                        <td>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                        <td>{{ $ujian->Matkul->Semester->semester }}</td>
+                                        <td>{{ $ujian->Praktikum->Kelas->kelas }}</td>
+                                        <td>{{ $ujian->Praktikum->praktikum }}</td>
+                                        <td>{{ $ujian->Matkul->nama_matkul }}</td>
+                                        <td>{{ $ujian->tipe_mk }}</td>
+                                        <td>{{ $ujian->lokasi }}</td>
+                                        <td>{{ $ujian->ruang }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                                <button class="btn btn-danger btn-sm">Belum diprint</button>
-                                                <button class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
-                                            </div>
+                                            <form action="{{ route('data.bap.update', $ujian->Bap->id) }}" method="POST" class="btn-group" role="group">
+                                                @if ($ujian->Bap->print == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum diprint</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Sudah diprint</button>
+                                                @endif
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin mengubah status BAP?')"><i class="fas fa-check"></i></button>
+                                            </form>
                                         </td>
-                                        <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
+                                        <td>
+                                            @if ($ujian->Bap->pengambilan == 'Belum')
+                                                <button class="btn btn-danger btn-sm">Belum diambil</button>
+                                            @else
+                                                <button class="btn btn-success btn-sm">Sudah diambil</button>
+                                            @endif
+                                        </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

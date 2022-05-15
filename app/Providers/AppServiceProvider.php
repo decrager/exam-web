@@ -82,6 +82,7 @@ class AppServiceProvider extends ServiceProvider
             'mhs' => $count,
             'mhs2' => $count2,
             'master' => $master,
+            "title" => env('APP_NAME')
         ]);
     }
 }

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ketentuan;
-use App\Models\Susulan;
+use App\Models\Bap;
 use App\Models\Ujian;
+use App\Models\Amplop;
+use App\Models\Berkas;
+use App\Models\Susulan;
+use App\Models\Ketentuan;
+
+use App\Models\Pelanggaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
-
 use function PHPUnit\Framework\isEmpty;
 
 class pjSusulanController extends Controller
@@ -30,7 +34,6 @@ class pjSusulanController extends Controller
         }
 
         return view('pj_susulan.dashboard', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -40,7 +43,6 @@ class pjSusulanController extends Controller
         $ketentuan = Ketentuan::all();
 
         return view('pj_susulan.ketentuan.index', [
-            "title" => env('APP_NAME'),
             "ketentuan" => $ketentuan
         ]);
     }
@@ -55,7 +57,6 @@ class pjSusulanController extends Controller
         $ketentuan = Ketentuan::find($id);
 
         return view('pj_susulan.ketentuan.edit', [
-            "title" => env('APP_NAME'),
             "ketentuan" => $ketentuan
         ]);
     }
@@ -97,7 +98,6 @@ class pjSusulanController extends Controller
         $mahasiswas = $mahasiswa;
 
         return view('pj_susulan.mahasiswa', [
-            "title" => env('APP_NAME'),
             "mahasiswa" => $mahasiswa,
             "mahasiswas" => $mahasiswas
         ]);
@@ -134,7 +134,6 @@ class pjSusulanController extends Controller
         ->get();
 
         return view('pj_susulan.penjadwalan.index', [
-            "title" => env('APP_NAME'),
             "jadwal" => $mahasiswa
         ]);
     }
@@ -142,7 +141,6 @@ class pjSusulanController extends Controller
     public function penjadwalanForm(Request $request)
     {
         return view('pj_susulan.penjadwalan.form', [
-            "title" => env('APP_NAME'),
             "prodi_id" => $request->prodi_id,
             "semester_id" => $request->semester_id,
             "kelas_id" => $request->kelas_id,
@@ -197,6 +195,33 @@ class pjSusulanController extends Controller
         $jadwal->sesi = $request->sesi;
         $jadwal->pelaksanaan = $request->pelaksanaan;
         $jadwal->save();
+
+        $late = Ujian::orderBy('id', 'DESC')->take(1)->get();
+        foreach ($late as $IDUjian) {
+            $latest = $IDUjian->id;
+        }
+        
+        $amplop = new Amplop;
+        $amplop->ujian_id = $latest;
+        $amplop->print = "Belum";
+        $amplop->pengambilan = "Belum";
+        $amplop->save();
+
+        $bap = new Bap;
+        $bap->ujian_id = $latest;
+        $bap->print = "Belum";
+        $bap->pengambilan = "Belum";
+        $bap->save();
+
+        $berkas = new Berkas;
+        $berkas->ujian_id = $latest;
+        $berkas->jml_berkas = "0";
+        $berkas->pengambilan = "Belum";
+        $berkas->fotokopi = "Belum";
+        $berkas->lengkap = "Belum";
+        $berkas->asisten = "Belum";
+        $berkas->serah_terima = "Belum";
+        $berkas->save();
 
         Susulan::join('mahasiswas', 'susulans.mhs_id', 'mahasiswas.id')
         ->join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
@@ -255,6 +280,11 @@ class pjSusulanController extends Controller
         ->where('susulans.matkul_id', $request->matkul_id)
         ->delete();
 
+        Amplop::where('ujian_id', $id)->delete();
+        Bap::where('ujian_id', $id)->delete();
+        Berkas::where('ujian_id', $id)->delete();
+        Pelanggaran::where('ujian_id', $id)->delete();
+
         return redirect()->route('pjSusulan.jadwal.index')->with('success', 'Jadwal ujian susulan berhasil dihapus!');
     }
 
@@ -273,7 +303,6 @@ class pjSusulanController extends Controller
         $susulans = $susulan;
 
         return view('pj_susulan.jadwal.index', [
-            "title" => env('APP_NAME'),
             "susulan" => $susulan,
             "susulans" => $susulans,
         ]);
@@ -282,7 +311,6 @@ class pjSusulanController extends Controller
     public function jadwalEdit($id)
     {
         return view('pj_susulan.jadwal.edit', [
-            "title" => env('APP_NAME'),
             "ujian" => Ujian::find($id)
         ]);
     }

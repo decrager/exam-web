@@ -33,7 +33,6 @@ class berkasController extends Controller
         }
 
         return view('berkas.dashboard', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -56,7 +55,6 @@ class berkasController extends Controller
         }
 
         return view('berkas.amplop', [
-            "title" => env('APP_NAME'),
             "amplop" => $ujian
         ]);
     }
@@ -93,7 +91,6 @@ class berkasController extends Controller
         }
 
         return view('berkas.bap', [
-            "title" => env('APP_NAME'),
             "bap" => $ujian
         ]);
     }
@@ -130,7 +127,6 @@ class berkasController extends Controller
         }
 
         return view('berkas.berkas', [
-            "title" => env('APP_NAME'),
             "berkas" => $ujian
         ]);
     }
@@ -192,7 +188,6 @@ class berkasController extends Controller
         ->get();
 
         return view('berkas.soal', [
-            "title" => env('APP_NAME'),
             "soal" => $ujian
         ]);
     }

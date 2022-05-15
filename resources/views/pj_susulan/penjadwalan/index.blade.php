@@ -39,6 +39,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">Penjadwalan Ujian Susulan</h4>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">

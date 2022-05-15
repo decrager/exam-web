@@ -23,11 +23,12 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Ubah Data Mahasiswa</h4>
+                    <h4 class="page-title pull-left">Ubah Praktikum</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
-                        <li><a href=""><span>Mahasiswa</span></a></li>
-                        <li><span>Ubah Data Mahasiswa</span></li>
+                        <li><a><span>Akademik</span></a></li>
+                        <li><a href=""><span>Praktikum</span></a></li>
+                        <li><span>Ubah Data</span></li>
                     </ul>
                 </div>
             </div>
@@ -42,15 +43,14 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('data.mahasiswa.update', $mahasiswa->id) }}" method="POST">
-                                    <h4 class="header-title">Tambah Data Mahasiswa</h4>
+                                <form action="" method="POST">
+                                    <h4 class="header-title">Ubah Praktikum</h4>
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
                                         <label class="col-form-label">Program Studi</label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
-                                            <option>Pilih Program Studi</option>
-                                            <option selected="selected" value="{{ $mahasiswa->Praktikum->Kelas->Semester->Prodi->id }}">{{ $mahasiswa->Praktikum->Kelas->Semester->Prodi->nama_prodi }}</option>
+                                            <option selected="selected">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
                                                 <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
                                             @endforeach
@@ -61,43 +61,24 @@
                                         <label class="col-form-label">Semester</label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option>Pilih Semester</option>
-                                            <option selected="selected" value="{{ $mahasiswa->Praktikum->Kelas->Semester->id }}">{{ $mahasiswa->Praktikum->Kelas->Semester->semester }}</option>
+                                            <option selected="selected" value="{{ $praktikum->Kelas->Semester->id }}">{{ $praktikum->Kelas->Semester->semester }}</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Kelas</label>
+                                        <label class="col-form-label">Kelas</label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
                                             <option>Pilih Kelas</option>
-                                            <option selected="selected" value="{{ $mahasiswa->Praktikum->Kelas->id }}">{{ $mahasiswa->Praktikum->Kelas->kelas }}</option>
+                                            <option selected="selected" value="{{ $praktikum->Kelas->id }}">{{ $praktikum->Kelas->kelas }}</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Praktikum</label>
-                                        <select class="custom-select" name="praktikum" id="kelas" required>
-                                            <option>Pilih Praktikum</option>
-                                            <option selected="selected" value="{{ $mahasiswa->Praktikum->id }}">{{ $mahasiswa->Praktikum->praktikum }}</option>
-                                        </select>
+                                        <label for="praktikum" class="col-form-label">Praktikum</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="praktikum" name="praktikum" value="{{ $praktikum->praktikum }}"/>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="nama" class="col-form-label">Nama Mahasiswa</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nama..." id="nama" name="nama" value="{{ $mahasiswa->nama }}" required/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="nim" class="col-form-label">Nim Mahasiswa</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nim..." id="nim" name="nim" value="{{ $mahasiswa->nim }}" required/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email" class="col-form-label">Email</label>
-                                        <input class="form-control" type="email" placeholder="Ketik email..." value="{{ $mahasiswa->email }}" name="email"
-                                            id="email" required/>
-                                    </div>
-
-                                    <button class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                         </div>

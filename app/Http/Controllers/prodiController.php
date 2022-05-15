@@ -28,7 +28,6 @@ class prodiController extends Controller
         }
 
         return view('prodi.dashboard', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -51,7 +50,6 @@ class prodiController extends Controller
         }
 
         return view('prodi.ujian.index', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian,
         ]);
     }
@@ -59,7 +57,6 @@ class prodiController extends Controller
     public function ujianEdit($id)
     {
         return view('prodi.ujian.edit', [
-            "title" => env('APP_NAME'),
             "ujian" => Ujian::find($id)
         ]);
     }
@@ -126,7 +123,6 @@ class prodiController extends Controller
         }
 
         return view('prodi.daftar_pengawas', [
-            "title" => env('APP_NAME'),
             "pengawas" => $pengawas
         ]);
     }
@@ -149,7 +145,6 @@ class prodiController extends Controller
         }
 
         return view('prodi.penugasan.index', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -157,7 +152,6 @@ class prodiController extends Controller
     public function penugasanForm($id)
     {
         return view('prodi.penugasan.form', [
-            "title" => env('APP_NAME'),
             "ujian" => Ujian::find($id)
         ]);
     }
@@ -165,7 +159,6 @@ class prodiController extends Controller
     public function penugasanEdit($id)
     {
         return view('prodi.penugasan.edit', [
-            "title" => env('APP_NAME'),
             "pengawas" => Pengawas::find($id)
         ]);
     }
@@ -223,7 +216,6 @@ class prodiController extends Controller
         }
 
         return view('prodi.berkas', [
-            "title" => env('APP_NAME'),
             "berkas" => $ujian
         ]);
     }

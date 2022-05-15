@@ -39,6 +39,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                     <h4 class="header-title">Mahasiswa</h4>
                     <a href="{{ Route('data.mahasiswa.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                         Tambah Data
@@ -59,22 +64,26 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($mahasiswa as $mahasiswa)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Manajemen Informatika</td>
-                                    <td>4</td>
-                                    <td>A</td>
-                                    <td>2</td>
-                                    <td>Irfan Zafar</td>
-                                    <td>J3C219155</td>
-                                    <td>01.irfanzafar@gmail.com</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $mahasiswa->Praktikum->Kelas->Semester->Prodi->nama_prodi }}</td>
+                                    <td>{{ $mahasiswa->Praktikum->Kelas->Semester->semester }}</td>
+                                    <td>{{ $mahasiswa->Praktikum->Kelas->kelas }}</td>
+                                    <td>{{ $mahasiswa->Praktikum->praktikum }}</td>
+                                    <td>{{ $mahasiswa->nama }}</td>
+                                    <td>{{ $mahasiswa->nim }}</td>
+                                    <td>{{ $mahasiswa->email }}</td>
                                     <td>
-                                        <div class="btn-group" role="group">
-                                            <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                        <form action="{{ route('data.mahasiswa.destroy', $mahasiswa->id) }}" method="POST" class="btn-group" role="group">
+                                            <a href="{{ route('data.mahasiswa.edit', $mahasiswa->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                            @csrf
+                                            @method('DELETE')
                                             <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
+                                        </form>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -43,9 +43,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Ubah Data Pelanggaran</h4>
-                                <form action="pj_lokasi/pelanggaran/" method="POST">
+                                <form method="post" action="/pj_lokasi/pelanggaran/{{ $pelanggarans->id }}">
                                     @csrf
-                                    @method('PUT')
+                                    @method('put')
                                     <div class="form-group">
                                         <label class="col-form-label">Ujian</label>
                                         <select class="custom-select ujian-select" name="ujian_id" id="ujian_id">
@@ -100,7 +100,7 @@
                                         <input class="form-control" type="text" id="example-text-input" name="pelanggaran"
                                             value="{{ $pelanggarans->pelanggaran }}" />
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-primary">Perbarui</button>
                                 </form>
                             </div>
                         </div>

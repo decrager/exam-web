@@ -23,11 +23,12 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Tambah Data Mahasiswa</h4>
+                    <h4 class="page-title pull-left">Tambah Praktikum</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="">Beranda</a></li>
-                        <li><a href=""><span>Mahasiswa</span></a></li>
-                        <li><span>Tambah Data Mahasiswa</span></li>
+                        <li><a><span>Akademik</span></a></li>
+                        <li><a href=""><span>Praktikum</span></a></li>
+                        <li><span>Tambah Data</span></li>
                     </ul>
                 </div>
             </div>
@@ -42,8 +43,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('data.mahasiswa.create') }}" method="POST">
-                                    <h4 class="header-title">Tambah Data Mahasiswa</h4>
+                                <form action="" method="POST">
+                                    <h4 class="header-title">Tambah Praktikum</h4>
                                     @csrf
 
                                     <div class="form-group">
@@ -64,36 +65,19 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Kelas</label>
+                                        <label class="col-form-label">Kelas</label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
                                             <option selected="selected">Pilih Kelas</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Praktikum</label>
-                                        <select class="custom-select" name="praktikum" id="kelas" required>
-                                            <option selected="selected">Pilih Praktikum</option>
-                                        </select>
+                                        <label for="praktikum" class="col-form-label">Praktikum</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="praktikum" name="praktikum" />
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="nama" class="col-form-label">Nama Mahasiswa</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nama..." id="nama" name="nama" required/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="nim" class="col-form-label">Nim Mahasiswa</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nim..." id="nim" name="nim" required/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email" class="col-form-label">Email</label>
-                                        <input class="form-control" type="email" placeholder="Ketik email..." name="email" required
-                                            id="email" />
-                                    </div>
-
-                                    <button class="btn btn-primary">Simpan</button>
+                                    <input type="text" hidden name="jml_mhs" value=0>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                         </div>

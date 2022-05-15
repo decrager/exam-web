@@ -74,6 +74,34 @@ Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
     Route::get('/data/pengguna/tambah', [dataController::class, 'penggunaForm'])->name('data.pengguna.form');
     Route::get('/data/pengguna/edit/{id}', [dataController::class, 'penggunaEdit'])->name('data.pengguna.edit');
     Route::get('/data/pelanggaran', [dataController::class, 'pelanggaran'])->name('data.pelanggaran');
+    
+    Route::get('/data/periode', [dataController::class, 'periodeIndex'])->name('data.periode.index');
+    Route::get('/data/periode/edit/{id}', [dataController::class, 'periodeEdit'])->name('data.periode.edit');
+    Route::get('/data/akademik/prodi', [dataController::class, 'prodiIndex'])->name('data.akademik.prodi.index');
+    Route::get('/data/akademik/prodi/tambah', [dataController::class, 'prodiForm'])->name('data.akademik.prodi.form');
+    Route::get('/data/akademik/prodi/edit/{id}', [dataController::class, 'prodiEdit'])->name('data.akademik.prodi.edit');
+    Route::get('/data/akademik/semester', [dataController::class, 'semesterIndex'])->name('data.akademik.semester.index');
+    Route::get('/data/akademik/semester/tambah', [dataController::class, 'semesterForm'])->name('data.akademik.semester.form');
+    Route::get('/data/akademik/semester/edit/{id}', [dataController::class, 'semesterEdit'])->name('data.akademik.semester.edit');
+    Route::get('/data/akademik/kelas', [dataController::class, 'kelasIndex'])->name('data.akademik.kelas.index');
+    Route::get('/data/akademik/kelas/tambah', [dataController::class, 'kelasForm'])->name('data.akademik.kelas.form');
+    Route::get('/data/akademik/kelas/edit/{id}', [dataController::class, 'kelasEdit'])->name('data.akademik.kelas.edit');
+    Route::get('/data/akademik/praktikum', [dataController::class, 'praktikumIndex'])->name('data.akademik.praktikum.index');
+    Route::get('/data/akademik/praktikum/tambah', [dataController::class, 'praktikumForm'])->name('data.akademik.praktikum.form');
+    Route::get('/data/akademik/praktikum/edit/{id}', [dataController::class, 'praktikumEdit'])->name('data.akademik.praktikum.edit');
+    Route::get('/data/akademik/matkul', [dataController::class, 'matkulIndex'])->name('data.akademik.matkul.index');
+    Route::get('/data/akademik/matkul/tambah', [dataController::class, 'matkulForm'])->name('data.akademik.matkul.form');
+    Route::get('/data/akademik/matkul/edit/{id}', [dataController::class, 'matkulEdit'])->name('data.akademik.matkul.edit');
+
+    Route::put('/data/bap/update/{id}', [dataController::class, 'bapUpdate'])->name('data.bap.update');
+    Route::put('/data/amplop/update/{id}', [dataController::class, 'amplopUpdate'])->name('data.amplop.update');
+
+    Route::post('/data/pengguna/create', [dataController::class, 'penggunaCreate'])->name('data.pengguna.create');
+    Route::put('/data/pengguna/update/{id}', [dataController::class, 'penggunaUpdate'])->name('data.pengguna.update');
+    Route::delete('/data/pengguna/delete/{id}', [dataController::class, 'penggunaDestroy'])->name('data.pengguna.destroy');
+    Route::post('/data/mahasiswa/create', [dataController::class, 'mahasiswaCreate'])->name('data.mahasiswa.create');
+    Route::put('/data/mahasiswa/update/{id}', [dataController::class, 'mahasiswaUpdate'])->name('data.mahasiswa.update');
+    Route::delete('/data/mahasiswa/delete/{id}', [dataController::class, 'mahasiswaDestroy'])->name('data.mahasiswa.destroy');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {

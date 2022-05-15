@@ -36,7 +36,6 @@ class pjUjianController extends Controller
         }
 
         return view('pj_ujian.dashboard', [
-            "title" => env('APP_NAME'),
             "filter" => $ujian
         ]);
     }
@@ -60,7 +59,6 @@ class pjUjianController extends Controller
         }
 
         return view('pj_ujian.ujian.index', [
-            "title" => env('APP_NAME'),
             "jadwal" => $ujian
         ]);
     }
@@ -78,7 +76,6 @@ class pjUjianController extends Controller
     {
         $ujian = Ujian::find($id);
         return view('pj_ujian.ujian.edit', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -251,7 +248,6 @@ class pjUjianController extends Controller
         }
 
         return view('pj_ujian.pengawas.index', [
-            "title" => env('APP_NAME'),
             "dataPengawas" => $pengawas
         ]);
     }
@@ -261,7 +257,6 @@ class pjUjianController extends Controller
         $pengawas = Pengawas::find($id);
 
         return view('pj_ujian.pengawas.edit', [
-            "title" => env('APP_NAME'),
             "pengawas" => $pengawas
         ]);
     }
@@ -307,7 +302,6 @@ class pjUjianController extends Controller
         }
 
         return view('pj_ujian.penugasan.index', [
-            "title" => env('APP_NAME'),
             "penugasan" => $ujian
         ]);
     }
@@ -317,7 +311,6 @@ class pjUjianController extends Controller
         $ujian = Ujian::find($id);
 
         return view('pj_ujian.penugasan.form', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -353,7 +346,6 @@ class pjUjianController extends Controller
         }
 
         return view('pj_ujian.amplop', [
-            "title" => env('APP_NAME'),
             "amplop" => $ujian
         ]);
     }
@@ -376,7 +368,6 @@ class pjUjianController extends Controller
         }
 
         return view('pj_ujian.bap', [
-            "title" => env('APP_NAME'),
             "bap" => $ujian
         ]);
     }
@@ -399,7 +390,6 @@ class pjUjianController extends Controller
         }
 
         return view('pj_ujian.berkas', [
-            "title" => env('APP_NAME'),
             "berkas" => $ujian
         ]);
     }
@@ -458,7 +448,6 @@ class pjUjianController extends Controller
         }
 
         return view('pj_ujian.susulan', [
-            "title" => env('APP_NAME'),
             "susulan" => $susulan
         ]);
     }

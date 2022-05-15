@@ -112,12 +112,12 @@ class pelanggaranController extends Controller
      */
     public function edit(Pelanggaran $pelanggaran)
     {
-        $pelanggaran = Pelanggaran::join('mahasiswas', 'pelanggarans.mhs_id', 'mahasiswas.id')
-        ->join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
-        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
-        ->join('semesters', 'kelas.semester_id', 'semesters.id')
-        ->join('prodis', 'semesters.prodi_id', 'prodis.id')->where('pelanggarans.id', $pelanggaran);
-
+        // $pelanggaran = Pelanggaran::join('mahasiswas', 'pelanggarans.mhs_id', 'mahasiswas.id')
+        // ->join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
+        // ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        // ->join('semesters', 'kelas.semester_id', 'semesters.id')
+        // ->join('prodis', 'semesters.prodi_id', 'prodis.id')->where('pelanggarans.id', $pelanggaran);
+        // $pelanggaran = Pelanggaran::find($id);
         return view('pj_lokasi.pelanggaran.edit', [
             'pelanggarans' => $pelanggaran,
             'ujians' => Ujian::all(),
@@ -133,11 +133,21 @@ class pelanggaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pelanggaran $pelanggaran)
     {
-        $pelanggaran = Pelanggaran::find($id);
-        $pelanggaran->update($request->except('_token','submit'));
-        return redirect('/pj_lokasi/pelanggaran/crud')->with('success', 'Data has been successfully updated');
+        // $pelanggaran = Pelanggaran::find($id);
+        // $pelanggaran->update($request->except('_token','submit'));
+
+        $validatedData = $request->validate([
+            'ujian_id' => 'required',
+            'mhs_id' => 'required',
+            'pelanggaran' => 'required',
+        ]);
+
+
+        Pelanggaran::where('id', $pelanggaran->id)
+        ->update($validatedData);
+        return redirect('/pj_lokasi/pelanggaran')->with('success', 'Data has been successfully updated');
     }
 
     /**
@@ -146,10 +156,9 @@ class pelanggaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pelanggaran $pelanggaran)
     {
-        $pelanggaran = Pelanggaran::find($id);
-        $pelanggaran->delete();
-        return redirect('/pj_lokasi/pelanggaran/crud')->with('success', 'Data has been successfully deleted');
+        Pelanggaran::destroy($pelanggaran->id);
+        return redirect('/pj_lokasi/pelanggaran/')->with('success', 'Data has been successfully deleted');
     }
 }

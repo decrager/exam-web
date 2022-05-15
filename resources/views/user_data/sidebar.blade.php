@@ -21,9 +21,31 @@
                             <span>Beranda</span></a>
                     </li>
 
+                    <li class="{{ Request::routeIs('data.pengguna.*') ? 'active' : '' }} m-1">
+                        <a href="{{ route('data.pengguna.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Pengguna</span></a>
+                    </li>
+
                     <li class="{{ Request::routeIs('data.mahasiswa.*') ? 'active' : '' }} m-1">
                         <a href="{{ route('data.mahasiswa.view') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Mahasiswa</span></a>
+                    </li>
+
+                    <li class="{{ Request::routeIs('data.periode.*') ? 'active' : '' }} m-1">
+                        <a href="{{ route('data.periode.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Periode</span></a>
+                    </li>
+
+                    <li class="{{ Request::routeIs('data.akademik.*') ? 'active' : '' }} m-1">
+                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Akademik</span></a>
+                        <ul class="collapse">
+                            <li class="{{ Request::routeIs('data.akademik.prodi.*') ? 'active' : '' }} m-1"><a href="{{ route('data.akademik.prodi.index') }}">Program Studi</a></li>
+                            <li class="{{ Request::routeIs('data.akademik.semester.*') ? 'active' : '' }} m-1"><a href="{{ route('data.akademik.semester.index') }}">Semester</a></li>
+                            <li class="{{ Request::routeIs('data.akademik.kelas.*') ? 'active' : '' }} m-1"><a href="{{ route('data.akademik.kelas.index') }}">Kelas</a></li>
+                            <li class="{{ Request::routeIs('data.akademik.praktikum.*') ? 'active' : '' }} m-1"><a href="{{ route('data.akademik.praktikum.index') }}">Praktikum</a></li>
+                            <li class="{{ Request::routeIs('data.akademik.matkul.*') ? 'active' : '' }} m-1"><a href="{{ route('data.akademik.matkul.index') }}">Mata Kuliah</a></li>
+                        </ul>
                     </li>
 
                     <li class="{{ Request::routeIs('data.ketersediaan.*') ? 'active' : '' }} m-1">
@@ -35,11 +57,6 @@
                         </ul>
                     </li>
 
-                    <li class="{{ Request::routeIs('data.pengguna.*') ? 'active' : '' }} m-1">
-                        <a href="{{ route('data.pengguna.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Pengguna</span></a>
-                    </li>
-                    
                     <li class="{{ Request::routeIs('data.pelanggaran') ? 'active' : '' }} m-1">
                         <a href="{{ route('data.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>

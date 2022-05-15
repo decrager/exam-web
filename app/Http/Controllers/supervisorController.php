@@ -30,7 +30,6 @@ class supervisorController extends Controller
         }
         
         return view('supervisor.dashboard', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -53,7 +52,6 @@ class supervisorController extends Controller
         }
 
         return view('supervisor.ujian', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -124,7 +122,6 @@ class supervisorController extends Controller
         }
         
         return view('supervisor.pengawas', [
-            "title" => env('APP_NAME'),
             "pengawas" => $pengawas
         ]);
     }
@@ -157,7 +154,6 @@ class supervisorController extends Controller
         }
 
         return view('supervisor.mahasiswa', [
-            "title" => env('APP_NAME'),
             "mahasiswa" => $mahasiswa
         ]);
     }
@@ -180,7 +176,6 @@ class supervisorController extends Controller
         }
 
         return view('supervisor.matkul', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -203,7 +198,6 @@ class supervisorController extends Controller
         }
 
         return view('supervisor.amplop', [
-            "title" => env('APP_NAME'),
             "amplop" => $ujian
         ]);
     }
@@ -226,7 +220,6 @@ class supervisorController extends Controller
         }
         
         return view('supervisor.bap', [
-            "title" => env('APP_NAME'),
             "bap" => $ujian
         ]);
     }
@@ -249,7 +242,6 @@ class supervisorController extends Controller
         }
 
         return view('supervisor.berkas', [
-            "title" => env('APP_NAME'),
             "berkas" => $ujian
         ]);
     }
@@ -258,7 +250,6 @@ class supervisorController extends Controller
     {
         $pengguna = User::all();
         return view('supervisor.pengguna', [
-            "title" => env('APP_NAME'),
             "pengguna" => $pengguna
         ]);
     }

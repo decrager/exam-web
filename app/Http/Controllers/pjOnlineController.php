@@ -26,7 +26,6 @@ class pjOnlineController extends Controller
         }
 
         return view('pj_online.dashboard', [
-            "title" => env('APP_NAME'),
             "ujian" => $ujian
         ]);
     }
@@ -43,7 +42,7 @@ class pjOnlineController extends Controller
             $praktikum = $request->praktikum;
             $tanggal = $request->tanggal;
             $ruang = $request->ruang;
-
+{{  }}
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
             $ujian->where('ujians.pelaksanaan', 'like', '%Online%')->get();
         }
