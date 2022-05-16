@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Ujian;
 use App\Models\Pengawas;
+use App\Models\Master;
+use App\Exports\UjianExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use function PHPUnit\Framework\isEmpty;
 
 class prodiController extends Controller
 {
     public function dashboard(Request $request)
     {
+        $now = Carbon::now()->toDateString();
+        
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {
@@ -34,6 +39,12 @@ class prodiController extends Controller
 
     public function ujianIndex(Request $request)
     {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {
@@ -46,7 +57,7 @@ class prodiController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian->whereBetween('ujians.tanggal', [$from, $to])->get();
         }
 
         return view('prodi.ujian.index', [
@@ -59,6 +70,10 @@ class prodiController extends Controller
         return view('prodi.ujian.edit', [
             "ujian" => Ujian::find($id)
         ]);
+    }
+
+    public function export(){
+        return Excel::download(new UjianExport, 'dataujian.xlsx');
     }
 
     public function UjianUpdate(Request $request, $id)
@@ -84,8 +99,14 @@ class prodiController extends Controller
 
     public function pengawasList(Request $request)
     {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
         if (isEmpty($request)) {
-            $pengawas = Pengawas::all();
+            $pengawas = Pengawas::all()->whereBetween('ujians.tanggal', [$from, $to]);
         } else {
             $pengawas = Ujian::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
                 ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
@@ -119,7 +140,7 @@ class prodiController extends Controller
                 $pengawas->where('ruang', 'like', '%' . $request->ruang . '%');
             }
 
-            $pengawas->get();
+            $pengawas->whereBetween('ujians.tanggal', [$from, $to])->get();
         }
 
         return view('prodi.daftar_pengawas', [
@@ -129,8 +150,14 @@ class prodiController extends Controller
 
     public function penugasanIndex(Request $request)
     {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
         if (isEmpty($request)) {
-            $ujian = Ujian::all();
+            $ujian = Ujian::all()->whereBetween('ujians.tanggal', [$from, $to]);
         } else {
             $prodi = $request->prodi;
             $semester = $request->semester;
@@ -141,7 +168,7 @@ class prodiController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian->whereBetween('ujians.tanggal', [$from, $to])->get();
         }
 
         return view('prodi.penugasan.index', [

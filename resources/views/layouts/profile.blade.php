@@ -20,6 +20,10 @@
                 <?php $role = 'Supervisor' ?>
             @elseif (auth()->user()->role == 'pj_online')
                 <?php $role = 'PJ Online' ?>
+            @elseif (auth()->user()->role == 'pj_labkom')
+                <?php $role = 'PJ Lab Komputer' ?>
+            @elseif (auth()->user()->role == 'superadmin')
+                <?php $role = 'Superadmin' ?>
             @elseif (auth()->user()->role == 'mahasiswa')
                 <?php $role = 'Mahasiswa' ?>
             @endif

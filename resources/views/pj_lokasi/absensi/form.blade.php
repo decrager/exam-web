@@ -47,29 +47,35 @@
 
                                 <div class="form-group">
                                     <label for="nama" class="col-form-label">Nama</label>
-                                    <input class="form-control" type="text" readonly value="Aldo Bramantio" id="nama"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas->nama }}" id="nama"
                                         name="nama" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="prodi" class="col-form-label">Program Studi</label>
-                                    <input class="form-control" type="text" readonly value="Manajemen Informatika"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas->Ujian->Matkul->Semester->Prodi->nama_prodi }}"
                                         id="prodi" name="prodi" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="matkul" class="col-form-label">Mata Kuliah</label>
-                                    <input class="form-control" type="text" readonly value="RPL" id="matkul"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas->Ujian->Matkul->nama_matkul }}" id="matkul"
                                         name="matkul" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="lokasi" class="col-form-label">Lokasi</label>
-                                    <input class="form-control" type="text" readonly value="K-35" id="lokasi"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas->Ujian->lokasi }}" id="lokasi"
                                         name="lokasi" />
                                 </div>
 
-                                <div class="col-md-12 bg-danger">
+                                <div class="form-group">
+                                    <label for="ruang" class="col-form-label">Kode Ruang</label>
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas->Ujian->ruang }}" id="ruang"
+                                        name="ruang" />
+                                </div>
+
+                                <div class="col-md-12">
                                     <label class="" for="">Signature:</label>
                                     <br />
                                     <div id="sig"></div>

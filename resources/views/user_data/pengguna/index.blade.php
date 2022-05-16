@@ -85,8 +85,8 @@
                                                     Supervisor
                                                 @elseif ($pengguna->role == 'pj_online')
                                                     PJ Online
-                                                @elseif ($pengguna->role == 'mahasiswa')
-                                                    Mahasiswa
+                                                @elseif ($pengguna->role == 'pj_labkom')
+                                                    PJ Lab Kom
                                                 @endif
                                             </td>
                                             <td>

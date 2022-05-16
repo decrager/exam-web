@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Amplop;
+use Carbon\Carbon;
 use App\Models\Bap;
+use App\Models\User;
 use App\Models\Kelas;
+use App\Models\Prodi;
 use App\Models\Ujian;
-use App\Models\Mahasiswa;
+use App\Models\Amplop;
 use App\Models\Master;
 use App\Models\Matkul;
-use App\Models\Praktikum;
-use App\Models\Prodi;
 use App\Models\Semester;
-use App\Models\User;
+use App\Models\Mahasiswa;
+use App\Models\Praktikum;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Hash;
 use function PHPUnit\Framework\isEmpty;
 
 class dataController extends Controller
 {
     public function dashboard(Request $request)
     {
+        $now = Carbon::now()->toDateString();
+        
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {
@@ -153,6 +156,8 @@ class dataController extends Controller
 
     public function bap(Request $request)
     {
+        $now = Carbon::now()->toDateString();
+
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {
@@ -189,6 +194,8 @@ class dataController extends Controller
 
     public function amplop(Request $request)
     {
+        $now = Carbon::now()->toDateString();
+
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {

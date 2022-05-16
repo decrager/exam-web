@@ -141,6 +141,13 @@
     max-width: 200px;
 }
 
+.metismenu {
+    /* padding-right: 20px; */
+    height: 550px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
 .metismenu>li>a {
     padding-left: 32px !important;
 }
@@ -225,6 +232,21 @@
 
 .metismenu li li a:after {
     top: 6px;
+}
+
+.scroll2::-webkit-scrollbar {
+    width: 10px;
+    margin-right: 20px;
+  }
+   
+.scroll2::-webkit-scrollbar-track {
+background: #fff;
+border-radius: 5px;
+}
+
+.scroll2::-webkit-scrollbar-thumb {
+background: #fff; 
+border-radius: 5px;
 }
 
 /*-------------------- END Sidebar Menu -------------------*/

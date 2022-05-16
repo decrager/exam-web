@@ -48,23 +48,31 @@
                                         <th>Tanggal</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
+                                        <th>Tipe Mata Kuliah</th>
                                         <th>Perbanyak</th>
+                                        <th>Jumlah Fotokopi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>04-05-2022</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>A</td>
-                                        <td>2</td>
-                                        <td>RPL</td>
-                                        <td><span class="badge bg-success">Perbanyak</span></td>
-                                    </tr>
+                                    @foreach ($matkul as $ujian)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $ujian->tanggal }}</td>
+                                            <td>{{ $ujian->nama_prodi }}</td>
+                                            <td>{{ $ujian->semester }}</td>
+                                            <td>{{ $ujian->nama_matkul }}</td>
+                                            <td>{{ $ujian->tipe_mk }}</td>
+                                            <td>
+                                                @if ($ujian->perbanyak == 1)
+                                                    <span class="badge bg-success">Perbanyak</span>
+                                                @else
+                                                    <span class="badge bg-danger">Tidak</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $ujian->jumlah }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

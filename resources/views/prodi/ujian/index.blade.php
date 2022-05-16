@@ -46,8 +46,8 @@
                         @endif
                         <h4 class="header-title">Daftar Jadwal Ujian</h4>
                         <div class="float-right">
-                            <button class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
-                                    class="fas fa-file-excel-o"></i></button>
+                            <a href="/prodi/jadwal/export" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
+                                class="fas fa-file-excel-o"></i></a>
                         </div>
                         <div class="row justify-content-start">
                             @include('layouts.filter')

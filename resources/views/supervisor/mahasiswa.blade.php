@@ -49,22 +49,24 @@
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
-                                        <th>Nama Mahasiswa</th>
+                                        <th>Nama</th>
                                         <th>NIM</th>
                                         <th>Email</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($mahasiswa as $mahasiswa)
                                     <tr>
-                                        <td>1</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>A</td>
-                                        <td>2</td>
-                                        <td>Irfan Zafar</td>
-                                        <td>J3C219155</td>
-                                        <td>01.irfanzafar@apps.ipb.ac.id</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $mahasiswa->Praktikum->Kelas->Semester->Prodi->nama_prodi }}</td>
+                                        <td>{{ $mahasiswa->Praktikum->Kelas->Semester->semester }}</td>
+                                        <td>{{ $mahasiswa->Praktikum->Kelas->kelas }}</td>
+                                        <td>{{ $mahasiswa->Praktikum->praktikum }}</td>
+                                        <td>{{ $mahasiswa->nama }}</td>
+                                        <td>{{ $mahasiswa->nim }}</td>
+                                        <td>{{ $mahasiswa->email }}</td>
                                     </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

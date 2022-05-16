@@ -18,7 +18,9 @@ class Berkas extends Model
         'fotokopi',
         'lengkap',
         'asisten',
-        'serah_terima'
+        'serah_terima',
+        'ttd_penerima',
+        'ttd_penyerah'
     ];
 
     public function Ujian()

@@ -1,27 +1,29 @@
 <?php
 
+use App\Models\Kelas;
+use App\Models\Prodi;
+use App\Models\Ujian;
+use App\Models\Matkul;
+use App\Models\Semester;
+use App\Models\Praktikum;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\loginController;
 use App\Http\Controllers\dataController;
-use App\Http\Controllers\pjUjianController;
+use App\Http\Controllers\loginController;
 use App\Http\Controllers\prodiController;
-use App\Http\Controllers\pjLokasiController;
 use App\Http\Controllers\berkasController;
+use App\Http\Controllers\pjUjianController;
 use App\Http\Controllers\assistenController;
-use App\Http\Controllers\pjSusulanController;
-use App\Http\Controllers\supervisorController;
+use App\Http\Controllers\pjLabkomController;
+use App\Http\Controllers\pjLokasiController;
 use App\Http\Controllers\pjOnlineController;
 use App\Http\Controllers\mahasiswaController;
+use App\Http\Controllers\pjSusulanController;
+use App\Http\Controllers\superadminController;
+use App\Http\Controllers\supervisorController;
 use App\Http\Controllers\pelanggaranController;
 use App\Http\Controllers\pelanggaranOnlineController;
-use Illuminate\Support\Facades\DB;
-use App\Models\Prodi;
-use App\Models\Semester;
-use App\Models\Kelas;
-use App\Models\Praktikum;
-use App\Models\Matkul;
-use App\Models\Ujian;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,6 +137,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::get('/pj_ujian/susulan', [pjUjianController::class, 'susulan'])->name('pjUjian.susulan');
     Route::get('/pj_ujian/pelanggaran', [pjUjianController::class, 'pelanggaran'])->name('pjUjian.pelanggaran');
 
+    Route::put('/pj_ujian/susulan/update/{id}', [pjUjianController::class, 'susulanUpdate'])->name('pjUjian.susulan.update');
     Route::post('/pj_ujian/pengawas/penugasan/create', [pjUjianController::class, 'penugasanCreate'])->name('pjUjian.pengawas.penugasan.create');
     Route::put('/pj_ujian/pengawas/update/{id}', [pjUjianController::class, 'pengawasUpdate'])->name('pjUjian.pengawas.update');
     Route::delete('/pj_ujian/pengawas/destroy/{id}', [pjUjianController::class, 'pengawasDestroy'])->name('pjUjian.pengawas.destroy');
@@ -161,6 +164,8 @@ Route::group(['middleware' => ['auth', 'cekrole:prodi']], function () {
     Route::post('/prodi/pengawas/create', [prodiController::class, 'pengawasCreate'])->name('prodi.pengawas.create');
     Route::put('/prodi/pengawas/update/{id}', [prodiController::class, 'pengawasUpdate'])->name('prodi.pengawas.update');
     Route::delete('/prodi/pengawas/destroy/{id}', [prodiController::class, 'pengawasDestroy'])->name('prodi.pengawas.destroy');
+
+    Route::get('/prodi/jadwal/export', [prodiController::class, 'export'])->name('prodi.jadwal.export');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
@@ -254,4 +259,13 @@ Route::group(['middleware' => ['auth', 'cekrole:mahasiswa']], function () {
     Route::post('/mahasiswa/susulan/create', [mahasiswaController::class, 'pengajuanCreate'])->name('mahasiswa.susulan.create');
     Route::put('/mahasiswa/susulan/update/{id}', [mahasiswaController::class, 'pengajuanUpdate'])->name('mahasiswa.susulan.update');
     Route::delete('/mahasiswa/susulan/delete/{id}', [mahasiswaController::class, 'pengajuanDestroy'])->name('mahasiswa.susulan.delete');
+});
+
+Route::group(['middleware' => ['auth', 'cekrole:pj_labkom']], function () {
+    Route::get('/pj_labkom', [pjLabkomController::class, 'dashboard'])->name('pjLabkomDashboard');
+    Route::get('/pj_labkom/ujian', [pjLabkomController::class, 'ujian'])->name('pjLabkom.ujian');
+});
+
+Route::group(['middleware' => ['auth', 'cekrole:superadmin']], function () {
+    Route::get('/superadmin', [superadminController::class, 'dashboard'])->name('superadminDashboard');
 });

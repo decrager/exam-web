@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Bap;
 use App\Models\Ujian;
 use App\Models\Amplop;
 use App\Models\Berkas;
 use App\Models\Susulan;
+use App\Models\Master;
 use App\Models\Ketentuan;
-
 use App\Models\Pelanggaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -18,6 +19,8 @@ class pjSusulanController extends Controller
 {
     public function dashboard(Request $request)
     {
+        $now = Carbon::now()->toDateString();
+        
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {
@@ -95,11 +98,10 @@ class pjSusulanController extends Controller
     public function mahasiswaIndex()
     {
         $mahasiswa = Susulan::all();
-        $mahasiswas = $mahasiswa;
 
         return view('pj_susulan.mahasiswa', [
             "mahasiswa" => $mahasiswa,
-            "mahasiswas" => $mahasiswas
+            "mahasiswas" => $mahasiswa
         ]);
     }
 

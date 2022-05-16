@@ -71,6 +71,7 @@
                                             <option value="pj_susulan">PJ Susulan</option>
                                             <option value="pj_ujian">PJ Ujian</option>
                                             <option value="prodi">Program Studi</option>
+                                            <option value="pj_labkom">PJ Lab Komputer</option>
                                             <option value="supervisor">Supervisor (Komdik/Pembina)</option>
                                         </select>
                                     </div>

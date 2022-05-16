@@ -68,7 +68,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tbody>
                                     @foreach ($berkas as $ujian)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>

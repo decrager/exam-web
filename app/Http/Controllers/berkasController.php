@@ -9,7 +9,7 @@ use App\Models\Berkas;
 use App\Models\Master;
 use App\Models\Matkul;
 use App\Models\Mahasiswa;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
 
@@ -17,6 +17,8 @@ class berkasController extends Controller
 {
     public function dashboard(Request $request)
     {
+        $now = Carbon::now()->toDateString();
+
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {
@@ -39,6 +41,7 @@ class berkasController extends Controller
     
     public function amplop(Request $request)
     {
+        $now = Carbon::now()->toDateString();
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {
@@ -75,6 +78,8 @@ class berkasController extends Controller
 
     public function bap(Request $request)
     {
+        $now = Carbon::now()->toDateString();
+
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {
@@ -111,6 +116,8 @@ class berkasController extends Controller
 
     public function berkas(Request $request)
     {
+        $now = Carbon::now()->toDateString();
+
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {
@@ -177,6 +184,8 @@ class berkasController extends Controller
 
     public function soal(Request $request)
     {
+        $now = Carbon::now()->toDateString();
+
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
         ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')

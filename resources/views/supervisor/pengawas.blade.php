@@ -60,18 +60,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>09/05/2022</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>A</td>
-                                        <td>2</td>
-                                        <td>RPL</td>
-                                        <td>K-35</td>
-                                        <td>Lab. Komputer</td>
-                                        <td>-</td>
-                                    </tr>
+                                    @foreach ($pengawas as $row)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $row->Ujian->tanggal }}</td>
+                                            <td>{{ $row->Ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                            <td>{{ $row->Ujian->Matkul->Semester->semester }}</td>
+                                            <td>{{ $row->Ujian->Praktikum->Kelas->kelas }}</td>
+                                            <td>{{ $row->Ujian->Praktikum->praktikum }}</td>
+                                            <td>{{ $row->Ujian->Matkul->nama_matkul }}</td>
+                                            <td>{{ $row->Ujian->lokasi }}</td>
+                                            <td>{{ $row->Ujian->ruang }}</td>
+                                            <td>{{ $row->nama }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

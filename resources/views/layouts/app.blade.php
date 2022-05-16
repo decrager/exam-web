@@ -97,6 +97,10 @@
             @include('pj_susulan.sidebar')
         @elseif (auth()->user()->role == 'supervisor')
             @include('supervisor.sidebar')
+        @elseif (auth()->user()->role == 'pj_labkom')
+            @include('pj_labkom.sidebar')
+        @elseif (auth()->user()->role == 'superadmin')
+            @include('superadmin.sidebar')
         @endif
         <!-- sidebar menu area end -->
 
@@ -168,7 +172,8 @@
             $("#example").DataTable();
         });
 
-
+        var label = <?php echo json_encode ($label) ?>;
+        var data = <?php echo json_encode ($data) ?>;
 
         Highcharts.chart("container", {
             title: {

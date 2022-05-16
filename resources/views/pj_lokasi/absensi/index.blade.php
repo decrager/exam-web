@@ -98,7 +98,7 @@
                                             </td>
                                             <td>
                                                 @if ($pengawas->pns != 'PNS')
-                                                    <i class="fas fa-xmark"></i>
+                                                    <i class="fas fa-check"></i>
                                                 @endif
                                             </td>
                                             <td>{{ $pengawas->Ujian->Matkul->Semester->Prodi->nama_prodi }}</td>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Ujian;
 use App\Models\Pengawas;
+use App\Models\Master;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
 
@@ -11,6 +13,8 @@ class pjLokasiController extends Controller
 {
     public function dashboard(Request $request)
     {
+        $now = Carbon::now()->toDateString();
+        
         if (isEmpty($request)) {
             $ujian = Ujian::all();
         } else {

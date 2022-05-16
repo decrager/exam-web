@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ketentuan;
-use App\Models\Matkul;
-use App\Models\Susulan;
-use App\Models\Ujian;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Ujian;
+use App\Models\Matkul;
+use App\Models\Master;
+use App\Models\Susulan;
+use App\Models\Ketentuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -15,6 +17,8 @@ class mahasiswaController extends Controller
 {
     public function dashboard()
     {
+        $now = Carbon::now()->toDateString();
+        
         $ketentuan = Ketentuan::all();
         $prak = Auth::user()->Mahasiswa->Praktikum->id;
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', 'matkuls.id')

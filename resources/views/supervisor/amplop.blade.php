@@ -64,20 +64,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>04-05-2022</td>
-                                        <td>Manajemen Informatika</td>
-                                        <td>4</td>
-                                        <td>A</td>
-                                        <td>2</td>
-                                        <td>RPL</td>
-                                        <td>Responsi</td>
-                                        <td>K-35</td>
-                                        <td>Lab. Komputer</td>
-                                        <td><button class="btn btn-danger btn-sm">Belum diprint</button></td>
-                                        <td><button class="btn btn-danger btn-sm">Belum diambil</button></td>
-                                    </tr>
+                                    @foreach ($amplop as $ujian)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $ujian->tanggal }}</td>
+                                            <td>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
+                                            <td>{{ $ujian->Matkul->Semester->semester }}</td>
+                                            <td>{{ $ujian->Praktikum->Kelas->kelas }}</td>
+                                            <td>{{ $ujian->Praktikum->praktikum }}</td>
+                                            <td>{{ $ujian->Matkul->nama_matkul }}</td>
+                                            <td>{{ $ujian->tipe_mk }}</td>
+                                            <td>{{ $ujian->lokasi }}</td>
+                                            <td>{{ $ujian->ruang }}</td>
+                                            <td>
+                                                @if ($ujian->Amplop->print == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum diprint</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Sudah diprint</button>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($ujian->Amplop->pengambilan == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum diambil</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Sudah diambil</button>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

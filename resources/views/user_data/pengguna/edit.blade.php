@@ -79,6 +79,8 @@
                                             <option selected="selected" value="{{ $pengguna->role }}">Supervisor (Komdik/Pembina)</option>
                                             @elseif ($pengguna->role == 'pj_online')
                                             <option selected="selected" value="{{ $pengguna->role }}">PJ Online</option>
+                                            @elseif ($pengguna->role == 'pj_labkom')
+                                            <option selected="selected" value="{{ $pengguna->role }}">PJ Lab Komputer</option>
                                             @endif
                                             <option value="assisten">Assisten Lokasi</option>
                                             <option value="berkas">Berkas</option>
@@ -89,6 +91,7 @@
                                             <option value="pj_ujian">PJ Ujian</option>
                                             <option value="prodi">Program Studi</option>
                                             <option value="supervisor">Supervisor (Komdik/Pembina)</option>
+                                            <option value="pj_labkom">PJ Lab Komputer</option>
                                         </select>
                                     </div>
 

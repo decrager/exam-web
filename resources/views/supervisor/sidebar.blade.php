@@ -15,7 +15,7 @@
     <div class="main-menu">
         <div class="menu-inner">
             <nav>
-                <ul class="metismenu" id="menu">    
+                <ul class="metismenu scroll2" id="menu">    
                     <li class="{{ Request::routeIs('supervisorDashboard') ? 'active' : '' }} m-1">
                         <a href="{{ route('supervisorDashboard') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Beranda</span></a>
