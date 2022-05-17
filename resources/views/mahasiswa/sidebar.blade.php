@@ -1,16 +1,14 @@
 <div class="sidebar-menu">
     <div class="sidebar-header">
-        <div class="logo mb-3 d-flex justify-content-center">
-            <img
-                src="{{ asset('images/icon/ipb.png') }}"
+        <div class="logo my-1 d-flex justify-content-center">
+            <a href="{{ route('mahasiswaDashboard') }}"><img
+                src="{{ asset('images/icon/SV_IPB.png') }}"
                 class="d-block"
                 alt=""
-                width="60px"
-            />
+                width="100%"
+            /></a>
         </div>
-        <a href="{{ route('mahasiswaDashboard') }}" class="text-dark text-center d-block"
-            >Aplikasi Ujian SV IPB</a
-        >
+        
     </div>
     <div class="main-menu">
         <div class="menu-inner">
@@ -22,7 +20,7 @@
                     </li>
 
                     <li class="{{ Request::routeIs('mahasiswa.susulan.*') ? 'active' : '' }} m-1">
-                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Susulan</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('mahasiswa.susulan.jadwal') ? 'active' : '' }} m-1"><a href="{{ route('mahasiswa.susulan.jadwal') }}">Jadwal</a></li>

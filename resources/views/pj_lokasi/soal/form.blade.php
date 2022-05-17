@@ -109,6 +109,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="jml_berkas" class="col-form-label">Jumlah Berkas</label>
+                                    <input class="form-control" type="date" name="jml_berkas" id="jml_berkas" required />
+                                </div>
+
+                                <div class="form-group">
                                     <label for="nama_serah" class="col-form-label">Nama yang menyerahkan</label>
                                     <input class="form-control" type="text" placeholder="Ketik nama penyerah..."
                                         id="nama_serah" name="nama_serah" />

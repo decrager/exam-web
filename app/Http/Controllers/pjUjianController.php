@@ -167,7 +167,6 @@ class pjUjianController extends Controller
             'matkul' => 'required',
             'isuas' => 'required',
             'hari' => 'required',
-            'lokasi' => 'nullable',
             'ruang' => 'nullable',
             'kapasitas' => 'nullable',
             'jam_mulai' => 'required',
@@ -175,8 +174,6 @@ class pjUjianController extends Controller
             'tanggal' => 'required',
             'tahun' => 'required',
             'tipe_mk' => 'required',
-            'software' => 'nullable',
-            'perbanyak' => 'nullable',
             'sesi' => 'required',
             'pelaksanaan' => 'nullable',
         ]);
@@ -188,7 +185,6 @@ class pjUjianController extends Controller
             'matkul_id' => $request->matkul,
             'isuas' => $request->isuas,
             'hari' => $request->hari,
-            'lokasi' => $request->lokasi,
             'ruang' => $request->ruang,
             'kapasitas' => $request->kapasitas,
             'jam_mulai' => $request->jam_mulai,
@@ -196,8 +192,6 @@ class pjUjianController extends Controller
             'tanggal' => $request->tanggal,
             'tahun' => $request->tahun,
             'tipe_mk' => $request->tipe_mk,
-            'software' => $request->software,
-            'perbanyak' => $request->perbanyak,
             'sesi' => $request->sesi,
             'susulan' => "0",
             'pelaksanaan' => $request->pelaksanaan,
@@ -225,9 +219,17 @@ class pjUjianController extends Controller
         $to = $dataTanggalSelesai->periode_akhir;
 
         if (isEmpty($request)) {
-            $pengawas = Pengawas::all()->whereBetween('ujians.tanggal', [$from, $to]);
+            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+            ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+            ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+            ->whereBetween('ujians.tanggal', [$from, $to])
+            ->get();
         } else {
-            $pengawas = Ujian::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
                 ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
                 ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
                 ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
@@ -429,7 +431,7 @@ class pjUjianController extends Controller
             ]);
         }
 
-        return redirect()->route('pjUjian.kelengkapan.berkas')->with('success', 'Status pengambil soal ujian berhasil diubah!');
+        return redirect()->route('pjUjian.kelengkapan.berkas.index')->with('success', 'Status pengambil soal ujian berhasil diubah!');
     }
 
     public function ttd()

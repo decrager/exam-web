@@ -116,6 +116,16 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="col-form-label">Ruang</label>
+                                        <select class="custom-select" name="ruang">
+                                            <option selected="selected">Pilih ruang</option>
+                                            @foreach ($dbRuang as $ruang)
+                                                <option value="{{ $ruang?->ruang }}">{{ $ruang?->ruang }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
                                         <label class="col-form-label">Hari</label>
                                         <select class="custom-select" name="hari" required>
                                             <option selected="selected">
@@ -172,7 +182,6 @@
                                     </div>
 
                                     <input hidden type="text" name="lokasi" value="-">
-                                    <input hidden type="text" name="ruang" value="">
                                     <input hidden type="text" name="perbanyak" value="0">
                                     <input hidden type="text" name="software" value="-">
                                     <input hidden type="text" name="isuas" value="{{ $master->isuas }}">

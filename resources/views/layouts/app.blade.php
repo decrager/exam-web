@@ -59,11 +59,15 @@
 
     <!-- modernizr css -->
     <script src="{{ asset('js/vendor/modernizr-2.8.3.min.js') }}"></script>
-   
+
     <!-- select2 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+        integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
@@ -167,128 +171,129 @@
         });
     </script>
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function() {
             $("#example").DataTable();
-        });
 
-        var label = <?php echo json_encode ($label) ?>;
-        var data = <?php echo json_encode ($data) ?>;
+            let datas = <?php echo json_encode($data); ?>;
+            let labels = <?php echo json_encode($label); ?>;
 
-        Highcharts.chart("container", {
-            title: {
-                text: "Grafik Pelanggaran",
-            },
+            var data = datas.map(function(v) { return parseInt(v, 10); });
+            var label = labels.map(function(v) { return parseInt(v, 10); });
 
-            subtitle: {
-                text: "Keterangan",
-            },
-
-            yAxis: {
+            Highcharts.chart("container", {
                 title: {
-                    text: "Jumlah",
+                    text: "Grafik Pelanggaran",
                 },
-            },
 
-            xAxis: {
-                title: {
-                    text: "Date",
-                    style: {
-                        color: "#000"
+                subtitle: {
+                    text: "Keterangan",
+                },
+
+                yAxis: {
+                    title: {
+                        text: "Jumlah",
                     },
                 },
-                categories: label,
-                labels: {
-                    style: {
-                        color: "#000",
-                    },
-                },
-            },
 
-            legend: {
-                layout: "vertical",
-                align: "right",
-                verticalAlign: "middle",
-            },
-
-            series: [{
-                    name: "Pelanggaran",
-                    data: data,
-                },
-            ],
-
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500,
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: "horizontal",
-                            align: "center",
-                            verticalAlign: "bottom",
+                xAxis: {
+                    title: {
+                        text: "Date",
+                        style: {
+                            color: "#000"
                         },
                     },
-                }, ],
-            },
-        });
-
-        Highcharts.chart("pjonlinechart", {
-            title: {
-                text: "Grafik Pelanggaran",
-            },
-
-            subtitle: {
-                text: "Keterangan",
-            },
-
-            yAxis: {
-                title: {
-                    text: "Jumlah",
-                },
-            },
-
-            xAxis: {
-                title: {
-                    text: "Date",
-                    style: {
-                        color: "#000"
-                    },
-                },
-                categories: label,
-                labels: {
-                    style: {
-                        color: "#000",
-                    },
-                },
-            },
-
-            legend: {
-                layout: "vertical",
-                align: "right",
-                verticalAlign: "middle",
-            },
-
-            series: [{
-                    name: "Pelanggaran",
-                    data: data,
-                },
-            ],
-
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500,
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: "horizontal",
-                            align: "center",
-                            verticalAlign: "bottom",
+                    categories: label,
+                    labels: {
+                        style: {
+                            color: "#000",
                         },
                     },
+                },
+
+                legend: {
+                    layout: "vertical",
+                    align: "right",
+                    verticalAlign: "middle",
+                },
+
+                series: [{
+                    name: "Pelanggaran",
+                    data: data,
                 }, ],
-            },
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500,
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: "horizontal",
+                                align: "center",
+                                verticalAlign: "bottom",
+                            },
+                        },
+                    }, ],
+                },
+            });
+
+            Highcharts.chart("pjonlinechart", {
+                title: {
+                    text: "Grafik Pelanggaran",
+                },
+
+                subtitle: {
+                    text: "Keterangan",
+                },
+
+                yAxis: {
+                    title: {
+                        text: "Jumlah",
+                    },
+                },
+
+                xAxis: {
+                    title: {
+                        text: "Date",
+                        style: {
+                            color: "#000"
+                        },
+                    },
+                    categories: label,
+                    labels: {
+                        style: {
+                            color: "#000",
+                        },
+                    },
+                },
+
+                legend: {
+                    layout: "vertical",
+                    align: "right",
+                    verticalAlign: "middle",
+                },
+
+                series: [{
+                    name: "Pelanggaran",
+                    data: data,
+                }, ],
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500,
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: "horizontal",
+                                align: "center",
+                                verticalAlign: "bottom",
+                            },
+                        },
+                    }, ],
+                },
+            });
         });
     </script>
 
@@ -311,64 +316,74 @@
                                 $('#semester').append(
                                     '<option selected="selected">Pilih Semester</option>');
                                 $.each(data, function(key, semester) {
-                                    $('select[name="semester"]').append('<option value="' + semester.id + '">' + semester.semester + '</option>');
+                                    $('select[name="semester"]').append(
+                                        '<option value="' + semester.id + '">' +
+                                        semester.semester + '</option>');
                                 });
-                            }else{
+                            } else {
                                 $('#semester').empty();
                             }
                         }
                     });
-                }else{
+                } else {
                     $('#semester').empty();
                 }
             });
-    
+
             $('#semester').on('change', function() {
                 var semester_id = $(this).val();
-                if(semester_id) {
+                if (semester_id) {
                     $.ajax({
                         url: '/getKelas/' + semester_id,
                         type: "GET",
-                        data: {"_token":"{{ csrf_token() }}"},
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
                         dataType: "json",
-                        success:function(data)
-                        {
-                            if(data){
+                        success: function(data) {
+                            if (data) {
                                 $('#kelas').empty();
-                                $('#kelas').append('<option selected="selected">Pilih Kelas</option>');
-                                $.each(data, function(key, kelas){
-                                    $('select[name="kelas"]').append('<option value="'+ kelas.id +'">' + kelas.kelas + '</option>');
+                                $('#kelas').append(
+                                    '<option selected="selected">Pilih Kelas</option>');
+                                $.each(data, function(key, kelas) {
+                                    $('select[name="kelas"]').append('<option value="' +
+                                        kelas.id + '">' + kelas.kelas + '</option>');
                                 });
-                            }else{
+                            } else {
                                 $('#kelas').empty();
                             }
                         }
                     });
-    
+
                     $.ajax({
                         url: '/getMatkul/' + semester_id,
                         type: "GET",
-                        data: {"_token":"{{ csrf_token() }}"},
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
                         dataType: "json",
-                        success:function(data)
-                        {
-                            if(data){
+                        success: function(data) {
+                            if (data) {
                                 $('#matkul').empty();
-                                $('#matkul').append('<option selected="selected">Pilih Mata Kuliah</option>');
-                                $.each(data, function(key, matkul){
-                                    $('select[name="matkul"]').append('<option value="'+ matkul.id +'">' + matkul.nama_matkul + '</option>');
+                                $('#matkul').append(
+                                    '<option selected="selected">Pilih Mata Kuliah</option>'
+                                    );
+                                $.each(data, function(key, matkul) {
+                                    $('select[name="matkul"]').append(
+                                        '<option value="' + matkul.id + '">' +
+                                        matkul.nama_matkul + '</option>');
                                 });
-                            }else{
+                            } else {
                                 $('#matkul').empty();
                             }
                         }
                     });
-                }else{
+                } else {
                     $('#kelas').empty();
                     $('#matkul').empty();
                 }
             });
-    
+
             $('#kelas').on('change', function() {
                 var kelas_id = $(this).val();
                 if (kelas_id) {
@@ -385,14 +400,16 @@
                                 $('#praktikum').append(
                                     '<option selected="selected">Pilih Praktikum</option>');
                                 $.each(data, function(key, praktikum) {
-                                    $('select[name="praktikum"]').append('<option value="' + praktikum.id + '">' + praktikum.praktikum + '</option>');
+                                    $('select[name="praktikum"]').append(
+                                        '<option value="' + praktikum.id + '">' +
+                                        praktikum.praktikum + '</option>');
                                 });
-                            }else{
+                            } else {
                                 $('#praktikum').empty();
                             }
                         }
                     });
-                }else{
+                } else {
                     $('#praktikum').empty();
                 }
             });

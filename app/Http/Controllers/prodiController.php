@@ -45,30 +45,32 @@ class prodiController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
-
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->whereBetween('ujians.tanggal', [$from, $to])->get();
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', 'b.id')
+        ->join('prodis', 'b.prodi_id', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', 'ujians.id')
+        ->selectRaw('prodis.nama_prodi, b.semester, ujians.matkul_id, matkuls.nama_matkul, ujians.tipe_mk, ujians.lokasi, ujians.perbanyak, ujians.software, count(ujians.id) AS total')
+        ->groupBy('prodis.nama_prodi', 'b.semester', 'ujians.matkul_id', 'matkuls.nama_matkul', 'ujians.tipe_mk', 'ujians.lokasi', 'ujians.perbanyak', 'ujians.software')
+        ->whereBetween('ujians.tanggal', [$from, $to])->get();
 
         return view('prodi.ujian.index', [
             "ujian" => $ujian,
         ]);
     }
 
-    public function ujianEdit($id)
+    public function ujianEdit(Request $request)
     {
         return view('prodi.ujian.edit', [
-            "ujian" => Ujian::find($id)
+            "prodi" => $request->prodi,
+            "semester" => $request->semester,
+            "matkul_id" => $request->matkul_id,
+            "matkul" => $request->matkul,
+            "tipe_mk" => $request->tipe_mk
         ]);
     }
 
@@ -80,21 +82,19 @@ class prodiController extends Controller
     {
         $request->validate([
             'lokasi' => 'nullable',
-            'ruang' => 'nullable',
             'software' => 'nullable',
             'perbanyak' => 'nullable'
         ]);
         
-        $ujian = Ujian::find($id);
-        // $ujian['prak_id'] = $request->praktikum;
+        $ujian = Ujian::where('matkul_id', $id);
+
         $ujian->update([
             'lokasi' => $request->lokasi,
-            'ruang' => $request->ruang,
             'software' => $request->software,
             'perbanyak' => $request->perbanyak
         ]);
 
-        return redirect()->route('prodi.jadwal.index')->with('success', 'Jadwal berhasil diubah!');
+        return redirect()->route('prodi.jadwal.index')->with('success', 'Detail Jadwal berhasil ditambah!');
     }
 
     public function pengawasList(Request $request)

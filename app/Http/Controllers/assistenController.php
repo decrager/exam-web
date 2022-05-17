@@ -58,7 +58,7 @@ class assistenController extends Controller
 
     public function berkasUpdate($id)
     {
-        $berkas = Berkas::where($id);
+        $berkas = Berkas::find($id);
 
         if ($berkas->asisten == 'Belum')
         {

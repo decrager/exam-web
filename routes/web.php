@@ -154,8 +154,8 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
 
 Route::group(['middleware' => ['auth', 'cekrole:prodi']], function () {
     Route::get('/prodi', [prodiController::class, 'dashboard'])->name('prodiDashboard');
-    Route::get('/prodi/jadwal', [prodiController::class, 'ujianIndex'])->name('prodi.jadwal.index');
-    Route::get('/prodi/jadwal/edit/{id}', [prodiController::class, 'ujianEdit'])->name('prodi.jadwal.edit');
+    Route::get('/prodi/ujian', [prodiController::class, 'ujianIndex'])->name('prodi.jadwal.index');
+    Route::get('/prodi/ujian/edit', [prodiController::class, 'ujianEdit'])->name('prodi.jadwal.edit');
     Route::get('/prodi/pengawas/daftar', [prodiController::class, 'pengawasList'])->name('prodi.pengawas.list');
     Route::get('/prodi/pengawas/penugasan', [prodiController::class, 'penugasanIndex'])->name('prodi.pengawas.penugasan.index');
     Route::get('/prodi/pengawas/penugasan/tambah/{id}', [prodiController::class, 'penugasanForm'])->name('prodi.pengawas.penugasan.form');

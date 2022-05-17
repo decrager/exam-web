@@ -37,8 +37,22 @@ class pjLokasiController extends Controller
 
     public function pengawasIndex(Request $request)
     {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+        
         if (isEmpty($request)) {
-            $pengawas = Pengawas::all();
+            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+            ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+            ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+            ->whereBetween('ujians.tanggal', [$from, $to])
+            ->get();
         } else {
             $pengawas = Ujian::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
                 ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')

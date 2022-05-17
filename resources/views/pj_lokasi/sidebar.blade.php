@@ -1,16 +1,13 @@
 <div class="sidebar-menu">
     <div class="sidebar-header">
-        <div class="logo mb-3 d-flex justify-content-center">
-            <img
-                src="{{ asset('images/icon/ipb.png') }}"
+        <div class="logo my-1 d-flex justify-content-center">
+            <a href="{{ route('pjLokasiDashboard') }}"><img
+                src="{{ asset('images/icon/SV_IPB.png') }}"
                 class="d-block"
                 alt=""
-                width="60px"
-            />
+                width="100%"
+            /></a>
         </div>
-        <a href="{{ route('pjLokasiDashboard') }}" class="text-dark text-center d-block"
-            >Aplikasi Ujian SV IPB</a
-        >
     </div>
     <div class="main-menu">
         <div class="menu-inner">
@@ -22,7 +19,7 @@
                     </li>
 
                     <li class="{{ Request::routeIs('pjLokasi.pengawas.*') ? 'active' : '' }} m-1">
-                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengawas</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('pjLokasi.pengawas.daftar.*') ? 'active' : '' }} m-1"><a href="{{ route('pjLokasi.pengawas.daftar.index') }}">Daftar Pengawas</a></li>

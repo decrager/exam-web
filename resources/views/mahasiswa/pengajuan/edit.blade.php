@@ -79,7 +79,6 @@
                                             </option>
                                             <option value="K">Kuliah</option>
                                             <option value="P">Praktikum</option>
-                                            <option value="R">Responsi</option>
                                         </select>
                                         @error('tipe_mk')
                                             <div class="invalid-feedback">

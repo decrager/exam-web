@@ -1,16 +1,13 @@
 <div class="sidebar-menu">
     <div class="sidebar-header">
-        <div class="logo mb-3 d-flex justify-content-center">
-            <img
-                src="{{ asset('images/icon/ipb.png') }}"
+        <div class="logo my-1 d-flex justify-content-center">
+            <a href="{{ route('superadminDashboard') }}"><img
+                src="{{ asset('images/icon/SV_IPB.png') }}"
                 class="d-block"
                 alt=""
-                width="60px"
-            />
+                width="100%"
+            /></a>
         </div>
-        <a href="{{ route('superadminDashboard') }}" class="text-dark text-center d-block"
-            >Aplikasi Ujian SV IPB</a
-        >
     </div>
     <div class="main-menu">
         <div class="menu-inner">

@@ -151,7 +151,7 @@ class berkasController extends Controller
             $berkas->update(['fotokopi' => 'Belum']);
         }
 
-        return redirect()->route('berkas.kelengkapan.berkas')->with('success', 'Status Fotokopi Berkas berhasil diubah!');
+        return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Status Fotokopi Berkas berhasil diubah!');
     }
 
     public function berkasLengkap($id)
@@ -165,7 +165,7 @@ class berkasController extends Controller
             $berkas->update(['lengkap' => 'Belum']);
         }
 
-        return redirect()->route('berkas.kelengkapan.berkas')->with('success', 'Status Kelengkapan Berkas berhasil diubah!');
+        return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Status Kelengkapan Berkas berhasil diubah!');
     }
 
     public function berkasSerahTerima($id)
@@ -179,7 +179,7 @@ class berkasController extends Controller
             $berkas->update(['serah_terima' => 'Belum']);
         }
 
-        return redirect()->route('berkas.kelengkapan.berkas')->with('success', 'Status Serah Terima Berkas berhasil diubah!');
+        return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Status Serah Terima Berkas berhasil diubah!');
     }
 
     public function ttd()

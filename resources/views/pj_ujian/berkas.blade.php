@@ -46,7 +46,7 @@
                             </div>
                         @endif
                         <h4 class="header-title">Soal Ujian</h4>
-                        <a href="{{ route('pjUjian.ttd') }}" class="btn btn-success justify-content-end text-sm px-3 mb-3">Serah Terima Berkas</a>
+                        <a href="{{ route('pjUjian.kelengkapan.berkas.ttd') }}" class="btn btn-success justify-content-end text-sm px-3 mb-3">Serah Terima Berkas</a>
                         <div class="row justify-content-start">
                             @include('layouts.filter')
                         </div>

@@ -42,7 +42,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('prodi.ujian.update', $ujian?->id) }}" method="POST">
+                                <form action="{{ route('prodi.ujian.update', $matkul_id) }}" method="POST">
                                     <h4 class="header-title">Ubah Jadwal Ujian Periode
                                         @if ($master?->isuas == 1)
                                             UAS
@@ -63,61 +63,27 @@
                                     <div class="form-group">
                                         <label for="prodi" class="col-form-label">Program Studi</label>
                                         <input class="form-control" type="text" readonly id="prodi"
-                                            value="{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}" />
+                                            value="{{ $prodi }}" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="semester" class="col-form-label">Semester</label>
                                         <input class="form-control" type="text" readonly id="semester"
-                                            value="{{ $ujian?->Matkul?->Semester?->semester }}" />
+                                            value="{{ $semester }}" />
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="Kelas" class="col-form-label">Kelas - Praktikum</label>
-                                        <input class="form-control" type="text" readonly id="Kelas"
-                                            value="{{ $ujian?->Praktikum?->Kelas?->kelas }} - {{ $ujian?->Praktikum?->praktikum }}" />
-                                    </div>
+                                    @if ($tipe_mk == 'K')
+                                        <?php $tipe = 'Kuliah' ?>
+                                    @elseif ($tipe_mk == 'P')
+                                        <?php $tipe = 'Praktikum' ?>
+                                    @else
+                                        <?php $tipe = 'Responsi' ?>
+                                    @endif
 
                                     <div class="form-group">
                                         <label for="MataKuliah" class="col-form-label">Mata Kuliah - Tipe</label>
                                         <input class="form-control" type="text" readonly id="MataKuliah"
-                                            value="{{ $ujian?->Matkul?->nama_matkul }} - {{ $ujian?->tipe_mk }}" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="Hari" class="col-form-label">Hari</label>
-                                        <input class="form-control" type="text" readonly id="Hari"
-                                            value="{{ $ujian?->hari }}" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="Tanggal" class="col-form-label">Tanggal</label>
-                                        <input class="form-control" type="text" readonly id="Tanggal"
-                                            value="{{ $ujian?->tanggal }}" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="Jam_Mulai" class="col-form-label">Jam Mulai</label>
-                                        <input class="form-control" type="text" readonly id="Jam_Mulai"
-                                            value="{{ $ujian?->jam_mulai }}" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="Jam_Mulai" class="col-form-label">Jam Selesai</label>
-                                        <input class="form-control" type="text" readonly id="Jam_Mulai"
-                                            value="{{ $ujian?->jam_selesai }}" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="Sesi" class="col-form-label">Sesi</label>
-                                        <input class="form-control" type="text" readonly id="Sesi"
-                                            value="{{ $ujian?->sesi }}" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="Pelaksanaan" class="col-form-label">Pelaksanaan</label>
-                                        <input class="form-control" type="text" readonly id="Pelaksanaan"
-                                            value="{{ $ujian?->pelaksanaan }}" />
+                                            value="{{ $matkul }} - {{ $tipe }}" />
                                     </div>
 
                                     <div class="form-group">
@@ -133,18 +99,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Ruang</label>
-                                        <select class="custom-select" name="ruang">
-                                            <option selected="selected">Pilih ruang</option>
-                                            @foreach ($dbRuang as $ruang)
-                                                <option value="{{ $ruang?->ruang }}">{{ $ruang?->ruang }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Software yang Dibutuhkan</label>
-                                        <input class="form-control" type="text"
+                                        <input class="form-control" type="text" name="software"
                                             placeholder="Ketik software yang dibutuhkan..." id="example-text-input" />
                                     </div>
 
@@ -159,7 +115,7 @@
                                         </select>
                                     </div>
 
-                                    <button class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                         </div>
