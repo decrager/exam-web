@@ -91,16 +91,16 @@
                                     @foreach ($ujian as $ujian)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                            <td>{{ $ujian->Matkul->Semester->semester }}</td>
-                                            <td>{{ $ujian->Matkul->nama_matkul }}</td>
-                                            <td>{{ $ujian->Praktikum->Kelas->kelas }}</td>
-                                            <td>{{ $ujian->Praktikum->praktikum }}</td>
+                                            <td>{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $ujian?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>
+                                            <td>{{ $ujian?->Praktikum?->praktikum }}</td>
                                             <td>
-                                                @if ($ujian->tipe_mk == 'K')
-                                                    <?php $berkas = $ujian->Praktikum->Kelas->jml_mhs + 6; ?>
+                                                @if ($ujian?->tipe_mk == 'K')
+                                                    <?php $berkas = $ujian?->Praktikum?->Kelas?->jml_mhs + 6; ?>
                                                 @else
-                                                    <?php $berkas = $ujian->Praktikum->jml_mhs + 3; ?>
+                                                    <?php $berkas = $ujian?->Praktikum?->jml_mhs + 3; ?>
                                                 @endif
                                                 {{ $berkas }}
                                             </td>

@@ -43,77 +43,75 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Absensi Pengawas Ujian</h4>
+                                <h4 class="header-title">Tanda Terima Berkas</h4>
 
                                 <div class="form-group">
                                     <label for="thn_ajaran" class="col-form-label">Tahun Ajaran</label>
-                                    <input class="form-control" type="text" readonly value="" id="thn_ajaran"
-                                        name="thn_ajaran" />
+                                    <input class="form-control" type="text" readonly value="{{ $master->thn_ajaran }}"
+                                        id="thn_ajaran" name="thn_ajaran" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="hari" class="col-form-label">Hari</label>
-                                    <input class="form-control" type="text" readonly value="" id="hari"
-                                        name="hari" />
+                                    <label class="col-form-label">Program Studi</label>
+                                    <select class="custom-select" name="prodi" id="prodi" required>
+                                        <option selected="selected">Pilih Program Studi</option>
+                                        @foreach ($dbProdi as $prodi)
+                                            <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="jam" class="col-form-label">Jam</label>
-                                    <input class="form-control" type="text" readonly value="" id="jam"
-                                        name="jam" />
+                                    <label class="col-form-label">Semester</label>
+                                    <select class="custom-select" name="semester" id="semester" required>
+                                        <option selected="selected">Pilih Semester</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Mata Kuliah</label>
+                                    <select class="custom-select" name="ttdMatkul" id="ttdMatkul" required>
+                                        <option selected="selected">Pilih Mata Kuliah</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label" id="cbKelas">Kelas</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Hari</label>
+                                    <select class="custom-select" name="hari" required>
+                                        <option selected="selected" value="-">Pilih hari</option>
+                                        <option value="senin">Senin</option>
+                                        <option value="selasa">Selasa</option>
+                                        <option value="rabu">Rabu</option>
+                                        <option value="kamis">Kamis</option>
+                                        <option value="jumat">Jumat</option>
+                                        <option value="sabtu">Sabtu</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="jam" class="col-form-label">Jam Mulai - Jam Selesai</label>
+                                    <input class="form-control" type="text" id="jam" name="jam" placeholder="Ketik..." required/>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="tanggal" class="col-form-label">Tanggal</label>
-                                    <input class="form-control" type="text" readonly value="" id="tanggal"
-                                        name="tanggal" />
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="prodi" class="col-form-label">Program Studi</label>
-                                    <input class="form-control" type="text" readonly value=""
-                                        id="prodi" name="prodi" />
+                                    <input class="form-control" type="date" name="tanggal" id="tanggal" required />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="semester" class="col-form-label">Semester</label>
-                                    <input class="form-control" type="text" readonly value=""
-                                        id="semester" name="semester" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="kelas" class="col-form-label">Kelas</label>
-                                    <input class="form-control" type="text" readonly value=""
-                                        id="kelas" name="kelas" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="matkul" class="col-form-label">Mata Kuliah</label>
-                                    <input class="form-control" type="text" readonly value="" id="matkul"
-                                        name="matkul" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="jml_berkas" class="col-form-label">Jumlah Lembar Soal</label>
-                                    <input class="form-control" type="text" placeholder="Ketik jumlah..." id="jml_berkas"
-                                        name="jml_berkas" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="bulan" class="col-form-label">Bulan</label>
-                                    <input class="form-control" type="month" id="bulan" name="bulan" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="tahun" class="col-form-label">Tahun</label>
-                                    <input class="form-control" type="text" placeholder="Ketik tahun..." id="tahun"
-                                        name="tahun" />
+                                    <label for="tglbln" class="col-form-label">Tanggal Bulan, Tahun</label>
+                                    <input class="form-control" type="text" readonly value="{{ $tglbln }}"
+                                        id="tglbln" name="tglbln" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="nama_serah" class="col-form-label">Nama yang menyerahkan</label>
-                                    <input class="form-control" type="text" placeholder="Ketik nama penyerah..." id="nama_serah"
-                                        name="nama_serah" />
+                                    <input class="form-control" type="text" placeholder="Ketik nama penyerah..."
+                                        id="nama_serah" name="nama_serah" />
                                 </div>
                                 <div class="form-group">
                                     <label class="" for="">Tanda Tangan yang Menyerahkan:</label>
@@ -123,11 +121,11 @@
                                     <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
                                     <textarea id="signature64" style="display: none"></textarea>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="nama_terima" class="col-form-label">Nama yang menerima</label>
-                                    <input class="form-control" type="text" placeholder="Ketik nama penerima..." id="nama_terima"
-                                        name="nama_terima" />
+                                    <input class="form-control" type="text" placeholder="Ketik nama penerima..."
+                                        id="nama_terima" name="nama_terima" />
                                 </div>
 
                                 <div class="form-group">
@@ -168,6 +166,54 @@
             e.preventDefault();
             sign2.signature('clear');
             $("#signature65").val('');
+        });
+
+        $('#semester').on('change', function() {
+            var semester_id = $(this).val();
+            if (semester_id) {
+                $.ajax({
+                    url: '/getKelas/' + semester_id,
+                    type: "GET",
+                    data: {
+                        "_token": "{{ csrf_token() }}"
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        if (data) {
+                            $('#cbKelas').empty();
+                            $('#cbKelas').append('Kelas');
+                            $.each(data, function(key, kelas) {
+                                $('#cbKelas').append('<div class="form-check"><input class="form-check-input" type="checkbox" value="' + kelas.id +
+                                    '" id="' + kelas.kelas + '"><label class="form-check-label" for="' + kelas.kelas +'">'+ kelas.kelas + '</label></div>');
+                            });
+                        } else {
+                            $('#cbKelas').empty();
+                        }
+                    }
+                });
+
+                $.ajax({
+                        url: '/getMatkul/' + semester_id,
+                        type: "GET",
+                        data: {"_token":"{{ csrf_token() }}"},
+                        dataType: "json",
+                        success:function(data)
+                        {
+                            if(data){
+                                $('#ttdMatkul').empty();
+                                $('#ttdMatkul').append('<option selected="selected">Pilih Mata Kuliah</option>');
+                                $.each(data, function(key, matkul){
+                                    $('select[name="ttdMatkul"]').append('<option value="'+ matkul.nama_matkul +'">' + matkul.nama_matkul + '</option><input type="text" hidden name="matkul" value="' + matkul.nama_matkul +'">');
+                                });
+                            }else{
+                                $('#ttdMatkul').empty();
+                            }
+                        }
+                    });
+            } else {
+                $('#cbKelas').empty();
+                $('#ttdMatkul').empty();
+            }
         });
     </script>
 @endsection

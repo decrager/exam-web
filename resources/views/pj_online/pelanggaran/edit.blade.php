@@ -43,30 +43,30 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Ubah Data Pelanggaran</h4>
-                                <form method="post" action="/pj_online/pelanggaran/{{ $pelanggarans->id }}">
+                                <form method="post" action="/pj_online/pelanggaran/{{ $pelanggarans?->id }}">
                                     @csrf
                                     @method('put')
                                     <div class="form-group">
                                         <label class="col-form-label">Ujian</label>
                                         <select class="custom-select ujian-select" name="ujian_id" id="ujian_id">
                                             <option>Select</option>
-                                            <option selected="selected" value="{{ $pelanggarans->Ujian->id }}">
-                                                {{ $pelanggarans->Ujian->Matkul->Semester->Prodi->nama_prodi }} -
-                                                {{ $pelanggarans->Ujian->Matkul->nama_matkul }} - Kelas
-                                                {{ $pelanggarans->Ujian->Praktikum->Kelas->kelas }}/P{{ $pelanggarans->Ujian->Praktikum->praktikum }}
+                                            <option selected="selected" value="{{ $pelanggarans?->Ujian?->id }}">
+                                                {{ $pelanggarans?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }} -
+                                                {{ $pelanggarans?->Ujian?->Matkul?->nama_matkul }} - Kelas
+                                                {{ $pelanggarans?->Ujian?->Praktikum?->Kelas?->kelas }}/P{{ $pelanggarans?->Ujian?->Praktikum?->praktikum }}
                                             </option>
                                             @foreach ($ujians as $ujian)
-                                                @if (old('ujian_id') === $ujian->id)
-                                                    <option value="{{ $ujian->id }}" selected>
-                                                        {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} -
-                                                        {{ $ujian->Matkul->nama_matkul }} - Kelas
-                                                        {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}
+                                                @if (old('ujian_id') === $ujian?->id)
+                                                    <option value="{{ $ujian?->id }}" selected>
+                                                        {{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }} -
+                                                        {{ $ujian?->Matkul?->nama_matkul }} - Kelas
+                                                        {{ $ujian?->Praktikum?->Kelas?->kelas }}/P{{ $ujian?->Praktikum?->praktikum }}
                                                     </option>
                                                 @else
-                                                    <option value="{{ $ujian->id }}">
-                                                        {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} -
-                                                        {{ $ujian->Matkul->nama_matkul }} - Kelas
-                                                        {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}
+                                                    <option value="{{ $ujian?->id }}">
+                                                        {{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }} -
+                                                        {{ $ujian?->Matkul?->nama_matkul }} - Kelas
+                                                        {{ $ujian?->Praktikum?->Kelas?->kelas }}/P{{ $ujian?->Praktikum?->praktikum }}
                                                     </option>
                                                 @endif
                                             @endforeach
@@ -76,20 +76,20 @@
                                         <label class="col-form-label">Nama Mahasiswa</label>
                                         <select class="custom-select mhs-select" name="mhs_id" id="mhs_id">
                                             <option>Select</option>
-                                            <option selected="selected" value="{{ $pelanggarans->Mahasiswa->id }}">
-                                                {{ $pelanggarans->Mahasiswa->nama }} - Kelas
-                                                {{ $pelanggarans->Mahasiswa->Praktikum->Kelas->kelas }}/P{{ $pelanggarans->Mahasiswa->Praktikum->praktikum }}
+                                            <option selected="selected" value="{{ $pelanggarans?->Mahasiswa?->id }}">
+                                                {{ $pelanggarans?->Mahasiswa?->nama }} - Kelas
+                                                {{ $pelanggarans?->Mahasiswa?->Praktikum?->Kelas?->kelas }}/P{{ $pelanggarans?->Mahasiswa?->Praktikum?->praktikum }}
                                             </option>
                                             @foreach ($mahasiswas as $mahasiswa)
-                                                @if (old('mhs_id') === $mahasiswa->id)
-                                                    <option value="{{ $mahasiswa->id }}" selected>
-                                                        {{ $mahasiswa->nama }} - Kelas
-                                                        {{ $mahasiswa->Praktikum->Kelas->kelas }}/P{{ $mahasiswa->Praktikum->praktikum }}
+                                                @if (old('mhs_id') === $mahasiswa?->id)
+                                                    <option value="{{ $mahasiswa?->id }}" selected>
+                                                        {{ $mahasiswa?->nama }} - Kelas
+                                                        {{ $mahasiswa?->Praktikum?->Kelas?->kelas }}/P{{ $mahasiswa?->Praktikum?->praktikum }}
                                                     </option>
                                                 @else
-                                                    <option value="{{ $mahasiswa->id }}">{{ $mahasiswa->nama }} -
+                                                    <option value="{{ $mahasiswa?->id }}">{{ $mahasiswa?->nama }} -
                                                         Kelas
-                                                        {{ $mahasiswa->Praktikum->Kelas->kelas }}/P{{ $mahasiswa->Praktikum->praktikum }}
+                                                        {{ $mahasiswa?->Praktikum?->Kelas?->kelas }}/P{{ $mahasiswa?->Praktikum?->praktikum }}
                                                     </option>
                                                 @endif
                                             @endforeach
@@ -98,7 +98,7 @@
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Pelanggaran</label>
                                         <input class="form-control" type="text" id="example-text-input" name="pelanggaran"
-                                            value="{{ $pelanggarans->pelanggaran }}" />
+                                            value="{{ $pelanggarans?->pelanggaran }}" />
                                     </div>
                                     <button type="submit" class="btn btn-primary">Perbarui</button>
                                 </form>

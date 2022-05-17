@@ -45,7 +45,7 @@
                         </div>
                     @endif
                     <h4 class="header-title">Periode Ujian</h4>
-                    <a href="{{ Route('data.periode.edit', $master->id) }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                    <a href="{{ Route('data.periode.edit', $master?->id) }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                         Perbarui Data
                     </a>
                     <div class="table-responsive">
@@ -61,13 +61,13 @@
                                 <tr>
                                     <th>1</th>
                                     <th>Tahun Ajaran</th>
-                                    <th>{{ $master->thn_ajaran }}</th>
+                                    <th>{{ $master?->thn_ajaran }}</th>
                                 </tr>
                                 <tr>
                                     <th>2</th>
                                     <th>Semester Akademik</th>
                                     <th>
-                                        @if ($master->smt_akademik == 1)
+                                        @if ($master?->smt_akademik == 1)
                                             Ganjil
                                         @else
                                             Genap
@@ -78,7 +78,7 @@
                                     <th>3</th>
                                     <th>Periode</th>
                                     <th>
-                                        @if ($master->isuas == 1)
+                                        @if ($master?->isuas == 1)
                                             UAS
                                         @else
                                             UTS
@@ -88,12 +88,12 @@
                                 <tr>
                                     <th>4</th>
                                     <th>Periode Mulai</th>
-                                    <th>{{ $master->periode_mulai }}</th>
+                                    <th>{{ $master?->periode_mulai }}</th>
                                 </tr>
                                 <tr>
                                     <th>5</th>
                                     <th>Periode Akhir</th>
-                                    <th>{{ $master->periode_akhir }}</th>
+                                    <th>{{ $master?->periode_akhir }}</th>
                                 </tr>
                             </tbody>
                         </table>

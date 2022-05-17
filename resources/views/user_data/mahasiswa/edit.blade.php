@@ -42,7 +42,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('data.mahasiswa.update', $mahasiswa->id) }}" method="POST">
+                                <form action="{{ route('data.mahasiswa.update', $mahasiswa?->id) }}" method="POST">
                                     <h4 class="header-title">Tambah Data Mahasiswa</h4>
                                     @csrf
                                     @method('PUT')
@@ -50,9 +50,9 @@
                                         <label class="col-form-label">Program Studi</label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option>Pilih Program Studi</option>
-                                            <option selected="selected" value="{{ $mahasiswa->Praktikum->Kelas->Semester->Prodi->id }}">{{ $mahasiswa->Praktikum->Kelas->Semester->Prodi->nama_prodi }}</option>
+                                            <option selected="selected" value="{{ $mahasiswa?->Praktikum?->Kelas?->Semester?->Prodi?->id }}">{{ $mahasiswa?->Praktikum?->Kelas?->Semester?->Prodi?->nama_prodi }}</option>
                                             @foreach ($dbProdi as $prodi)
-                                                <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                                <option value="{{ $prodi?->id }}">{{ $prodi?->nama_prodi }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -61,7 +61,7 @@
                                         <label class="col-form-label">Semester</label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option>Pilih Semester</option>
-                                            <option selected="selected" value="{{ $mahasiswa->Praktikum->Kelas->Semester->id }}">{{ $mahasiswa->Praktikum->Kelas->Semester->semester }}</option>
+                                            <option selected="selected" value="{{ $mahasiswa?->Praktikum?->Kelas?->Semester?->id }}">{{ $mahasiswa?->Praktikum?->Kelas?->Semester?->semester }}</option>
                                         </select>
                                     </div>
 
@@ -69,7 +69,7 @@
                                         <label class="col-form-label-sm">Kelas</label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
                                             <option>Pilih Kelas</option>
-                                            <option selected="selected" value="{{ $mahasiswa->Praktikum->Kelas->id }}">{{ $mahasiswa->Praktikum->Kelas->kelas }}</option>
+                                            <option selected="selected" value="{{ $mahasiswa?->Praktikum?->Kelas?->id }}">{{ $mahasiswa?->Praktikum?->Kelas?->kelas }}</option>
                                         </select>
                                     </div>
 
@@ -77,23 +77,23 @@
                                         <label class="col-form-label-sm">Praktikum</label>
                                         <select class="custom-select" name="praktikum" id="kelas" required>
                                             <option>Pilih Praktikum</option>
-                                            <option selected="selected" value="{{ $mahasiswa->Praktikum->id }}">{{ $mahasiswa->Praktikum->praktikum }}</option>
+                                            <option selected="selected" value="{{ $mahasiswa?->Praktikum?->id }}">{{ $mahasiswa?->Praktikum?->praktikum }}</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="nama" class="col-form-label">Nama Mahasiswa</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nama..." id="nama" name="nama" value="{{ $mahasiswa->nama }}" required/>
+                                        <input class="form-control" type="text" placeholder="Ketik nama..." id="nama" name="nama" value="{{ $mahasiswa?->nama }}" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="nim" class="col-form-label">Nim Mahasiswa</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nim..." id="nim" name="nim" value="{{ $mahasiswa->nim }}" required/>
+                                        <input class="form-control" type="text" placeholder="Ketik nim..." id="nim" name="nim" value="{{ $mahasiswa?->nim }}" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email" class="col-form-label">Email</label>
-                                        <input class="form-control" type="email" placeholder="Ketik email..." value="{{ $mahasiswa->email }}" name="email"
+                                        <input class="form-control" type="email" placeholder="Ketik email..." value="{{ $mahasiswa?->email }}" name="email"
                                             id="email" required/>
                                     </div>
 

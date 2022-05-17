@@ -63,11 +63,11 @@
                                     @foreach ($prodi as $prodi)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $prodi->kode_prodi }}</td>
-                                        <td>{{ $prodi->nama_prodi }}</td>
+                                        <td>{{ $prodi?->kode_prodi }}</td>
+                                        <td>{{ $prodi?->nama_prodi }}</td>
                                         <td>
-                                            <form action="{{ route('data.prodi.destroy', $prodi->id) }}" method="POST" class="btn-group" role="group">
-                                                <a href="{{ route('data.akademik.prodi.edit', $prodi->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                            <form action="{{ route('data.prodi.destroy', $prodi?->id) }}" method="POST" class="btn-group" role="group">
+                                                <a href="{{ route('data.akademik.prodi.edit', $prodi?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus Program Studi ini?')"><i class="fas fa-trash"></i></button>

@@ -42,9 +42,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('pjUjian.jadwal.update', $ujian->id) }}" method="POST">
+                                <form action="{{ route('pjUjian.jadwal.update', $ujian?->id) }}" method="POST">
                                     <h4 class="header-title">Ubah Jadwal Ujian Periode
-                                        @if ($master->isuas == 1)
+                                        @if ($master?->isuas == 1)
                                             UAS
                                         @else
                                             UTS
@@ -57,17 +57,17 @@
                                     <div class="form-group">
                                         <label for="tahun" class="col-form-label">Tahun Ajaran</label>
                                         <input class="form-control" type="text" readonly name="tahun"
-                                            value="{{ $master->thn_ajaran }}" id="tahun" />
+                                            value="{{ $master?->thn_ajaran }}" id="tahun" />
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Program Studi</label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option>Pilih Program Studi</option>
-                                            <option selected="selected" value="{{ $ujian->Matkul->Semester->Prodi->id }}">
-                                                {{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</option>
+                                            <option selected="selected" value="{{ $ujian?->Matkul?->Semester?->Prodi?->id }}">
+                                                {{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</option>
                                             @foreach ($dbProdi as $prodi)
-                                                <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                                <option value="{{ $prodi?->id }}">{{ $prodi?->nama_prodi }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -76,8 +76,8 @@
                                         <label class="col-form-label">Semester</label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option>Pilih Semester</option>
-                                            <option selected="selected" value="{{ $ujian->Matkul->Semester->id }}">
-                                                {{ $ujian->Matkul->Semester->semester }}</option>
+                                            <option selected="selected" value="{{ $ujian?->Matkul?->Semester?->id }}">
+                                                {{ $ujian?->Matkul?->Semester?->semester }}</option>
                                         </select>
                                     </div>
 
@@ -85,8 +85,8 @@
                                         <label class="col-form-label-sm">Kelas</label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
                                             <option>Pilih Kelas</option>
-                                            <option selected="selected" value="{{ $ujian->Praktikum->Kelas->id }}">
-                                                {{ $ujian->Praktikum->Kelas->kelas }}</option>
+                                            <option selected="selected" value="{{ $ujian?->Praktikum?->Kelas?->id }}">
+                                                {{ $ujian?->Praktikum?->Kelas?->kelas }}</option>
                                         </select>
                                     </div>
 
@@ -94,8 +94,8 @@
                                         <label class="col-form-label-sm">Praktikum</label>
                                         <select class="custom-select" name="praktikum" id="kelas" required>
                                             <option>Pilih Praktikum</option>
-                                            <option selected="selected" value="{{ $ujian->Praktikum->id }}">
-                                                {{ $ujian->Praktikum->praktikum }}</option>
+                                            <option selected="selected" value="{{ $ujian?->Praktikum?->id }}">
+                                                {{ $ujian?->Praktikum?->praktikum }}</option>
                                         </select>
                                     </div>
 
@@ -103,8 +103,8 @@
                                         <label class="col-form-label">Mata Kuliah</label>
                                         <select class="custom-select" name="matkul" id="matkul" required>
                                             <option>Pilih Mata Kuliah</option>
-                                            <option selected="selected" value="{{ $ujian->Matkul->id }}">
-                                                {{ $ujian->Matkul->nama_matkul }}</option>
+                                            <option selected="selected" value="{{ $ujian?->Matkul?->id }}">
+                                                {{ $ujian?->Matkul?->nama_matkul }}</option>
                                         </select>
                                     </div>
 
@@ -112,8 +112,8 @@
                                         <label class="col-form-label">Hari</label>
                                         <select class="custom-select" name="hari" required>
                                             <option> Pilih Hari</option>
-                                            <option selected="selected" value="{{ $ujian->hari }}">
-                                                {{ $ujian->hari }}
+                                            <option selected="selected" value="{{ $ujian?->hari }}">
+                                                {{ $ujian?->hari }}
                                             </option>
                                             <option value="Senin">Senin</option>
                                             <option value="Selasa">Selasa</option>
@@ -127,17 +127,17 @@
                                     <div class="form-group">
                                         <label for="tanggal" class="col-form-label">Tanggal</label>
                                         <input class="form-control" type="date" name="tanggal" id="tanggal"
-                                            value="{{ $ujian->id }}" required />
+                                            value="{{ $ujian?->id }}" required />
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Tipe Mata Kuliah</label>
                                         <select class="custom-select" name="tipe_mk" required>
                                             <option>PIlih Tipe Mata Kuliah</option>
-                                            <option selected="selected" value="{{ $ujian->tipe_mk }}">
-                                                @if ($ujian->tipe_mk == 'K')
+                                            <option selected="selected" value="{{ $ujian?->tipe_mk }}">
+                                                @if ($ujian?->tipe_mk == 'K')
                                                     Kuliah
-                                                @elseif ($ujian->tipe_mk == 'P')
+                                                @elseif ($ujian?->tipe_mk == 'P')
                                                     Praktikum
                                                 @else
                                                     Responsi
@@ -152,20 +152,20 @@
                                     <div class="form-group">
                                         <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
                                         <input class="form-control" type="time" name="jam_mulai" id="jam_mulai"
-                                            value="{{ $ujian->jam_mulai }}" required />
+                                            value="{{ $ujian?->jam_mulai }}" required />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
                                         <input class="form-control" type="time" name="jam_selesai" id="jam_selesai"
-                                            value="{{ $ujian->jam_selesai }}" required />
+                                            value="{{ $ujian?->jam_selesai }}" required />
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Sesi</label>
                                         <select class="custom-select" name="sesi" required>
-                                            <option selected="selected" value="{{ $ujian->sesi }}">
-                                                {{ $ujian->sesi }}
+                                            <option selected="selected" value="{{ $ujian?->sesi }}">
+                                                {{ $ujian?->sesi }}
                                             </option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -177,8 +177,8 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Pelaksanaan</label>
                                         <select class="custom-select" name="pelaksanaan">
-                                            <option selected="selected" value="{{ $ujian->pelaksanaan }}">
-                                                {{ $ujian->pelaksanaan }}
+                                            <option selected="selected" value="{{ $ujian?->pelaksanaan }}">
+                                                {{ $ujian?->pelaksanaan }}
                                             </option>
                                             <option value="Online">Online</option>
                                             <option value="Offline">Offline</option>
@@ -189,7 +189,7 @@
                                     <input hidden type="text" name="ruang" value="">
                                     <input hidden type="text" name="perbanyak" value="0">
                                     <input hidden type="text" name="software" value="-">
-                                    <input hidden type="text" name="isuas" value="{{ $master->isuas }}">
+                                    <input hidden type="text" name="isuas" value="{{ $master?->isuas }}">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>

@@ -43,22 +43,24 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="{{ route('pjLokasi.pengawas.update', $pengawas->id) }}" method="POST">
                                     <h4 class="header-title">Penugasan Pengawas Ujian</h4>
-
                                     @csrf
-
+                                    @method('PUT')
                                     <div class="form-group">
                                         <label for="nama" class="col-form-label">Nama Pengawas</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nama pengawas..." id="nama" />
+                                        <input class="form-control" type="text" placeholder="Ketik nama pengawas..." id="nama" name="nama" value="{{ $pengawas->nama }}"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">PNS</label>
-                                        <select class="custom-select">
-                                            <option selected="selected">
-                                                Pilih
-                                            </option>
+                                        <select class="custom-select" name="pns">
+                                            <option>Pilih</option>
+                                            @if ($pengawas->pns == 'pns')
+                                            <option selected="selected" value="pns">PNS</option>
+                                            @else
+                                            <option selected="selected" value="nonpns">NON PNS</option>
+                                            @endif
                                             <option value="pns">PNS</option>
                                             <option value="nonpns">NON PNS</option>
                                         </select>

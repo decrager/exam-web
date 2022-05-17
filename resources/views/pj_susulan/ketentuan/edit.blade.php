@@ -42,14 +42,14 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('pjSusulan.ketentuan.update', $ketentuan->id) }}" method="POST">
+                                <form action="{{ route('pjSusulan.ketentuan.update', $ketentuan?->id) }}" method="POST">
                                     <h4 class="header-title">Tambah Ketentuan Ujian Susulan</h4>
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
                                         <label for="ketentuan" class="col-form-label">Ketentuan</label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="ketentuan"
-                                            name="ketentuan" value="{{ $ketentuan->ketentuan }}" />
+                                            name="ketentuan" value="{{ $ketentuan?->ketentuan }}" />
                                     </div>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>

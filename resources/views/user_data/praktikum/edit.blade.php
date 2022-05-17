@@ -43,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('data.praktikum.update', $praktikum->id) }}" method="POST">
+                                <form action="{{ route('data.praktikum.update', $praktikum?->id) }}" method="POST">
                                     <h4 class="header-title">Ubah Praktikum</h4>
                                     @csrf
                                     @method('PUT')
@@ -52,7 +52,7 @@
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option selected="selected">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
-                                                <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                                <option value="{{ $prodi?->id }}">{{ $prodi?->nama_prodi }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -61,7 +61,7 @@
                                         <label class="col-form-label">Semester</label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option>Pilih Semester</option>
-                                            <option selected="selected" value="{{ $praktikum->Kelas->Semester->id }}">{{ $praktikum->Kelas->Semester->semester }}</option>
+                                            <option selected="selected" value="{{ $praktikum?->Kelas?->Semester?->id }}">{{ $praktikum?->Kelas?->Semester?->semester }}</option>
                                         </select>
                                     </div>
 
@@ -69,18 +69,18 @@
                                         <label class="col-form-label">Kelas</label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
                                             <option>Pilih Kelas</option>
-                                            <option selected="selected" value="{{ $praktikum->Kelas->id }}">{{ $praktikum->Kelas->kelas }}</option>
+                                            <option selected="selected" value="{{ $praktikum?->Kelas?->id }}">{{ $praktikum?->Kelas?->kelas }}</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="praktikum" class="col-form-label">Praktikum</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="praktikum" name="praktikum" value="{{ $praktikum->praktikum }}"/>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="praktikum" name="praktikum" value="{{ $praktikum?->praktikum }}"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="jml_mhs" class="col-form-label">Jumlah Mahasiswa</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="jml_mhs" name="jml_mhs" value="{{ $praktikum->jml_mhs }}" />
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="jml_mhs" name="jml_mhs" value="{{ $praktikum?->jml_mhs }}" />
                                     </div>
 
                                     {{-- <input type="text" hidden name="jml_mhs" value=0> --}}

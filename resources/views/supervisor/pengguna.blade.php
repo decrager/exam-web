@@ -56,38 +56,38 @@
                                     @foreach ($pengguna as $pengguna)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pengguna->name }}</td>
-                                            <td>{{ $pengguna->email }}</td>
+                                            <td>{{ $pengguna?->name }}</td>
+                                            <td>{{ $pengguna?->email }}</td>
                                             <td>
-                                                @if ($pengguna->role == 'data')
+                                                @if ($pengguna?->role == 'data')
                                                     Data
-                                                @elseif ($pengguna->role == 'pj_ujian')
+                                                @elseif ($pengguna?->role == 'pj_ujian')
                                                     PJ Ujian
-                                                @elseif ($pengguna->role == 'prodi')
+                                                @elseif ($pengguna?->role == 'prodi')
                                                     Program Studi
-                                                @elseif ($pengguna->role == 'pj_lokasi')
+                                                @elseif ($pengguna?->role == 'pj_lokasi')
                                                     PJ Lokasi
-                                                @elseif ($pengguna->role == 'berkas')
+                                                @elseif ($pengguna?->role == 'berkas')
                                                     Berkas
-                                                @elseif ($pengguna->role == 'assisten')
+                                                @elseif ($pengguna?->role == 'assisten')
                                                     Asisten Perlokasi
-                                                @elseif ($pengguna->role == 'pj_susulan')
+                                                @elseif ($pengguna?->role == 'pj_susulan')
                                                     PJ Susulan
-                                                @elseif ($pengguna->role == 'supervisor')
+                                                @elseif ($pengguna?->role == 'supervisor')
                                                     Supervisor
-                                                @elseif ($pengguna->role == 'pj_online')
+                                                @elseif ($pengguna?->role == 'pj_online')
                                                     PJ Online
-                                                @elseif ($pengguna->role == 'pj_labkom')
+                                                @elseif ($pengguna?->role == 'pj_labkom')
                                                     PJ Lab Kom
-                                                @elseif ($pengguna->role == 'superadmin')
+                                                @elseif ($pengguna?->role == 'superadmin')
                                                     Superadmin
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($pengguna->lokasi == null)
+                                                @if ($pengguna?->lokasi == null)
                                                     -
                                                 @else
-                                                    {{ $pengguna->Lokasi }}
+                                                    {{ $pengguna?->Lokasi }}
                                                 @endif
                                             </td>
                                         </tr>

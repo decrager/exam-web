@@ -110,14 +110,14 @@
                                     @foreach ($matkul as $ujian)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $ujian->tanggal }}</td>
-                                            <td>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                            <td>{{ $ujian->Matkul->Semester->semester }}</td>
-                                            <td>{{ $ujian->Praktikum->Kelas->kelas }}</td>
-                                            <td>{{ $ujian->Praktikum->praktikum }}</td>
-                                            <td>{{ $ujian->Matkul->nama_matkul }}</td>
+                                            <td>{{ $ujian?->tanggal }}</td>
+                                            <td>{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $ujian?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>
+                                            <td>{{ $ujian?->Praktikum?->praktikum }}</td>
+                                            <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
                                             <td>
-                                                @if ($ujian->perbanyak == 1)
+                                                @if ($ujian?->perbanyak == 1)
                                                 <span class="badge bg-success">Perbanyak</span>
                                                 @else
                                                 <span class="badge bg-danger">Tidak</span>

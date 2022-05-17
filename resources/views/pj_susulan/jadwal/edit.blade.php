@@ -42,7 +42,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('pjSusulan.jadwal.update', $ujian->id) }}" method="POST">
+                                <form action="{{ route('pjSusulan.jadwal.update', $ujian?->id) }}" method="POST">
                                     <h4 class="header-title">Penjadwalan Ujian Susulan</h4>
                                     @csrf
                                     @method('PUT')
@@ -50,50 +50,50 @@
                                     <div class="form-group">
                                         <label for="tahun" class="col-form-label">Tahun Ajaran</label>
                                         <input class="form-control" type="text" readonly name="tahun"
-                                            value="{{ $master->thn_ajaran }}" id="tahun" />
+                                            value="{{ $master?->thn_ajaran }}" id="tahun" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="prodi" class="col-form-label">Program Studi</label>
                                         <input class="form-control" type="text" readonly
-                                            value="{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}" id="prodi"
+                                            value="{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}" id="prodi"
                                             name="prodi" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="semester" class="col-form-label">Semester</label>
-                                        <input class="form-control" type="text" readonly value="{{ $ujian->Matkul->Semester->semester }}"
+                                        <input class="form-control" type="text" readonly value="{{ $ujian?->Matkul?->Semester?->semester }}"
                                             id="semester" name="semester" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="kelas" class="col-form-label">Kelas</label>
-                                        <input class="form-control" type="text" readonly value="{{ $ujian->Praktikum->Kelas->kelas }}"
+                                        <input class="form-control" type="text" readonly value="{{ $ujian?->Praktikum?->Kelas?->kelas }}"
                                             id="kelas" name="kelas" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="praktikum" class="col-form-label">Praktikum</label>
-                                        <input class="form-control" type="text" readonly value="{{ $ujian->Praktikum->praktikum }}"
+                                        <input class="form-control" type="text" readonly value="{{ $ujian?->Praktikum?->praktikum }}"
                                             id="praktikum" name="praktikum" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="matkul" class="col-form-label">Mata Kuliah</label>
-                                        <input class="form-control" type="text" readonly value="{{ $ujian->Matkul->nama_matkul }}"
+                                        <input class="form-control" type="text" readonly value="{{ $ujian?->Matkul?->nama_matkul }}"
                                             id="matkul" name="matkul" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="tipe_mk" class="col-form-label">Tipe Mata Kuliah</label>
-                                        <input class="form-control" type="text" readonly value="{{ $ujian->tipe_mk }}"
+                                        <input class="form-control" type="text" readonly value="{{ $ujian?->tipe_mk }}"
                                             id="tipe_mk" name="tipe_mk" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Kapasitas</label>
                                         <input class="form-control @error('kapasitas') is-invalid @enderror" type="text"
-                                            placeholder="Ketik kapasitas" id="example-text-input" name="kapasitas" value="{{ $ujian->kapasitas }}"
+                                            placeholder="Ketik kapasitas" id="example-text-input" name="kapasitas" value="{{ $ujian?->kapasitas }}"
                                             required />
                                         @error('kapasitas')
                                             <div class="invalid-feedback">
@@ -106,7 +106,7 @@
                                         <label class="col-form-label">Lokasi</label>
                                         <select class="custom-select @error('lokasi') is-invalid @enderror" name="lokasi">
                                             <option value="-">Pilih lokasi</option>
-                                            <option selected="selected" value="{{ $ujian->lokasi }}">{{ $ujian->lokasi }}</option>
+                                            <option selected="selected" value="{{ $ujian?->lokasi }}">{{ $ujian?->lokasi }}</option>
                                             <option value="Lab. Komputer">Lab. Komputer</option>
                                             <option value="Lab. Prodi">Lab. Prodi</option>
                                             <option value="Ruang Kelas">Ruang Kelas</option>
@@ -122,9 +122,9 @@
                                         <label class="col-form-label">Ruang</label>
                                         <select class="custom-select @error('ruang') is-invalid @enderror" name="ruang">
                                             <option value="-">Pilih ruang</option>
-                                            <option selected="selected" value="{{ $ujian->ruang }}">{{ $ujian->ruang }}</option>
+                                            <option selected="selected" value="{{ $ujian?->ruang }}">{{ $ujian?->ruang }}</option>
                                             @foreach ($dbRuang as $ruang)
-                                                <option value="{{ $ruang->ruang }}">{{ $ruang->ruang }}</option>
+                                                <option value="{{ $ruang?->ruang }}">{{ $ruang?->ruang }}</option>
                                             @endforeach
                                         </select>
                                         @error('ruang')
@@ -139,7 +139,7 @@
                                         <select class="custom-select @error('hari') is-invalid @enderror" name="hari"
                                             required>
                                             <option value="-">Pilih hari</option>
-                                            <option selected="selected" value="{{ $ujian->hari }}">{{ $ujian->hari }}</option>
+                                            <option selected="selected" value="{{ $ujian?->hari }}">{{ $ujian?->hari }}</option>
                                             <option value="senin">Senin</option>
                                             <option value="selasa">Selasa</option>
                                             <option value="rabu">Rabu</option>
@@ -168,7 +168,7 @@
                                     <div class="form-group">
                                         <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
                                         <input class="form-control @error('jam_mulai') is-invalid @enderror" type="time"
-                                            id="jam_mulai" name="jam_mulai" value="{{ $ujian->jam_mulai }}" required />
+                                            id="jam_mulai" name="jam_mulai" value="{{ $ujian?->jam_mulai }}" required />
                                         @error('jam_mulai')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -179,7 +179,7 @@
                                     <div class="form-group">
                                         <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
                                         <input class="form-control @error('jam_selesai') is-invalid @enderror" type="time"
-                                            id="jam_selesai" name="jam_selesai" value="{{ $ujian->jam_selesai }}" required />
+                                            id="jam_selesai" name="jam_selesai" value="{{ $ujian?->jam_selesai }}" required />
                                         @error('jam_selesai')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -190,7 +190,7 @@
                                     <div class="form-group">
                                         <label for="software" class="col-form-label">Software</label>
                                         <input class="form-control @error('software') is-invalid @enderror" type="text"
-                                            placeholder="Ketik..." id="software" name="software" value="{{ $ujian->software }}"/>
+                                            placeholder="Ketik..." id="software" name="software" value="{{ $ujian?->software }}"/>
                                         @error('software')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -203,7 +203,7 @@
                                         <select class="custom-select @error('perbanyak') is-invalid @enderror"
                                             name="perbanyak">
                                             <option value="0">Pilih opsi</option>
-                                            <option selected="selected" value="{{ $ujian->perbanyak }}">{{ $ujian->perbanyak }}</option>
+                                            <option selected="selected" value="{{ $ujian?->perbanyak }}">{{ $ujian?->perbanyak }}</option>
                                             <option value="1">Perbanyak</option>
                                             <option value="0">Tidak</option>
                                         </select>
@@ -219,7 +219,7 @@
                                         <select class="custom-select @error('sesi') is-invalid @enderror" name="sesi"
                                             required>
                                             <option value="1">Pilih sesi</option>
-                                            <option selected="selected" value="{{ $ujian->sesi }}">{{ $ujian->sesi }}</option>
+                                            <option selected="selected" value="{{ $ujian?->sesi }}">{{ $ujian?->sesi }}</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -237,7 +237,7 @@
                                         <select class="custom-select @error('pelaksanaan') is-invalid @enderror"
                                             name="pelaksanaan" required>
                                             <option value="-">Pilih pelaksanaan</option>
-                                            <option selected="selected" value="{{ $ujian->pelaksanaan }}">{{ $ujian->pelaksanaan }}</option>
+                                            <option selected="selected" value="{{ $ujian?->pelaksanaan }}">{{ $ujian?->pelaksanaan }}</option>
                                             <option value="Online">Online</option>
                                             <option value="Offline">Offline</option>
                                         </select>
@@ -248,9 +248,9 @@
                                         @enderror
                                     </div>
 
-                                    <input hidden type="text" name="matkul_id" value="{{ $ujian->matkul_id }}">
-                                    <input hidden type="text" name="prak_id" value="{{ $ujian->prak_id }}">
-                                    <input hidden type="text" name="isuas" value="{{ $master->isuas }}">
+                                    <input hidden type="text" name="matkul_id" value="{{ $ujian?->matkul_id }}">
+                                    <input hidden type="text" name="prak_id" value="{{ $ujian?->prak_id }}">
+                                    <input hidden type="text" name="isuas" value="{{ $master?->isuas }}">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>

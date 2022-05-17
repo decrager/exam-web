@@ -43,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('data.kelas.update', $kelas->id) }}" method="POST">
+                                <form action="{{ route('data.kelas.update', $kelas?->id) }}" method="POST">
                                     <h4 class="header-title">Ubah Kelas</h4>
                                     @csrf
                                     @method('PUT')
@@ -51,9 +51,9 @@
                                         <label class="col-form-label">Program Studi</label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option>Pilih Program Studi</option>
-                                            <option selected="selected" value="{{ $kelas->Semester->Prodi->id }}">{{ $kelas->Semester->Prodi->nama_prodi }}</option>
+                                            <option selected="selected" value="{{ $kelas?->Semester?->Prodi?->id }}">{{ $kelas?->Semester?->Prodi?->nama_prodi }}</option>
                                             @foreach ($dbProdi as $prodi)
-                                                <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                                <option value="{{ $prodi?->id }}">{{ $prodi?->nama_prodi }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -62,18 +62,18 @@
                                         <label class="col-form-label">Semester</label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option>Pilih Semester</option>
-                                            <option selected="selected" value="{{ $kelas->Semester->id }}">{{ $kelas->Semester->semester }}</option>
+                                            <option selected="selected" value="{{ $kelas?->Semester?->id }}">{{ $kelas?->Semester?->semester }}</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="kelas" class="col-form-label">Kelas</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="kelas" name="kelas" value="{{ $kelas->kelas }}" required/>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="kelas" name="kelas" value="{{ $kelas?->kelas }}" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="jml_mhs" class="col-form-label">Jumlah Mahasiswa</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="jml_mhs" name="jml_mhs" value="{{ $kelas->jml_mhs }}" required/>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="jml_mhs" name="jml_mhs" value="{{ $kelas?->jml_mhs }}" required/>
                                     </div>
 
                                     {{-- <input type="text" hidden name="jml_mhs" value=0> --}}

@@ -43,19 +43,19 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('data.prodi.update', $prodi->id) }}" method="POST">
+                                <form action="{{ route('data.prodi.update', $prodi?->id) }}" method="POST">
                                     <h4 class="header-title">Tambah Program Studi</h4>
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
                                         <label for="kode_prodi" class="col-form-label">Kode Program Studi</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $prodi->kode_prodi }}" name="kode_prodi"
+                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $prodi?->kode_prodi }}" name="kode_prodi"
                                             id="kode_prodi" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="nama_prodi" class="col-form-label">Nama Program Studi</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="nama_prodi" value="{{ $prodi->nama_prodi }}" name="nama_prodi" />
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="nama_prodi" value="{{ $prodi?->nama_prodi }}" name="nama_prodi" />
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Simpan</button>

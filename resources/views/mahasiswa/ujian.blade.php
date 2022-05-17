@@ -65,18 +65,18 @@
                                     @foreach ($susulan as $susulan)
                                         <tr>
                                             <td scope="row">{{ $loop->iteration }}</td>
-                                            <td>{{ $susulan->tanggal }}</td>
-                                            <td>{{ $susulan->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                            <td>{{ $susulan->Matkul->Semester->semester }}</td>
-                                            <td>{{ $susulan->Praktikum->Kelas->kelas }}</td>
-                                            <td>{{ $susulan->Praktikum->praktikum }}</td>
-                                            <td>{{ $susulan->Matkul->nama_matkul }}</td>
-                                            <td>{{ $susulan->lokasi }}</td>
-                                            <td>{{ $susulan->ruang }}</td>
-                                            <td>{{ $susulan->jam_mulai }}</td>
-                                            <td>{{ $susulan->jam_selesai }}</td>
+                                            <td>{{ $susulan?->tanggal }}</td>
+                                            <td>{{ $susulan?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $susulan?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $susulan?->Praktikum?->Kelas?->kelas }}</td>
+                                            <td>{{ $susulan?->Praktikum?->praktikum }}</td>
+                                            <td>{{ $susulan?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $susulan?->lokasi }}</td>
+                                            <td>{{ $susulan?->ruang }}</td>
+                                            <td>{{ $susulan?->jam_mulai }}</td>
+                                            <td>{{ $susulan?->jam_selesai }}</td>
                                             <td><button class="btn btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="{{ '#detail' . $susulan->id }}"><i
+                                                    data-bs-target="{{ '#detail' . $susulan?->id }}"><i
                                                         class="fas fa-info"></i></button></td>
                                         </tr>
                                     @endforeach
@@ -92,7 +92,7 @@
 
     <!-- Modal -->
     @foreach ($detail as $susulan)
-        <div class="modal fade" id="{{ 'detail' . $susulan->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="{{ 'detail' . $susulan?->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
@@ -110,58 +110,58 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <h6>Tanggal</h6>
-                                                    <p>{{ $susulan->tanggal }}</p>
+                                                    <p>{{ $susulan?->tanggal }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Program Studi</h6>
-                                                    <p>{{ $susulan->Matkul->Semester->Prodi->nama_prodi }}</p>
+                                                    <p>{{ $susulan?->Matkul?->Semester?->Prodi?->nama_prodi }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Semester</h6>
-                                                    <p>{{ $susulan->Matkul->Semester->semester }}</p>
+                                                    <p>{{ $susulan?->Matkul?->Semester?->semester }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Kelas - Praktikum</h6>
-                                                    <p>{{ $susulan->Praktikum->Kelas->kelas }} -
-                                                        {{ $susulan->Praktikum->praktikum }}</p>
+                                                    <p>{{ $susulan?->Praktikum?->Kelas?->kelas }} -
+                                                        {{ $susulan?->Praktikum?->praktikum }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Kode Mata Kuliah</h6>
-                                                    <p>{{ $susulan->Matkul->kode_matkul }}</p>
+                                                    <p>{{ $susulan?->Matkul?->kode_matkul }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Mata Kuliah</h6>
-                                                    <p>{{ $susulan->Matkul->nama_matkul }}</p>
+                                                    <p>{{ $susulan?->Matkul?->nama_matkul }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Lokasi</h6>
-                                                    <p>{{ $susulan->lokasi }}</p>
+                                                    <p>{{ $susulan?->lokasi }}</p>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <h6>Ruang</h6>
-                                                    <p>{{ $susulan->ruang }}</p>
+                                                    <p>{{ $susulan?->ruang }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Jam Mulai - Jam Selesai</h6>
-                                                    <p>{{ $susulan->jam_mulai }} - {{ $susulan->jam_selesai }}</p>
+                                                    <p>{{ $susulan?->jam_mulai }} - {{ $susulan?->jam_selesai }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Tipe Mata Kuliah</h6>
-                                                    <p>{{ $susulan->tipe_mk }}</p>
+                                                    <p>{{ $susulan?->tipe_mk }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Sesi</h6>
-                                                    <p>{{ $susulan->sesi }}</p>
+                                                    <p>{{ $susulan?->sesi }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Software</h6>
-                                                    <p>{{ $susulan->software }}</p>
+                                                    <p>{{ $susulan?->software }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Pelaksanaan</h6>
-                                                    <p>{{ $susulan->pelaksanaan }}</p>
+                                                    <p>{{ $susulan?->pelaksanaan }}</p>
                                                 </div>
                                             </div>
                                         </div>

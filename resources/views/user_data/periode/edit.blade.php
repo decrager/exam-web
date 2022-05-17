@@ -42,25 +42,25 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('data.periode.update', $master->id) }}" method="POST">
+                                <form action="{{ route('data.periode.update', $master?->id) }}" method="POST">
                                     <h4 class="header-title">Perbarui Data Periode Ujian</h4>
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
                                         <label for="thn_ajaran" class="col-form-label">Tahun Ajaran</label>
-                                        <input class="form-control" type="text" placeholder="yyyy/yyyy" value="{{ $master->thn_ajaran }}" id="thn_ajaran" name="thn_ajaran" required/>
+                                        <input class="form-control" type="text" placeholder="yyyy/yyyy" value="{{ $master?->thn_ajaran }}" id="thn_ajaran" name="thn_ajaran" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="smt_akademik" class="col-form-label">Semester Akademik</label>
                                         <div class="form-check" id="smt_akademik">
-                                            <input class="form-check-input" type="radio" name="smt_akademik" id="ganjil" value=1 @if($master->smt_akademik == 1) checked @endif>
+                                            <input class="form-check-input" type="radio" name="smt_akademik" id="ganjil" value=1 @if($master?->smt_akademik == 1) checked @endif>
                                             <label class="form-check-label" for="ganjil">
                                               Ganjil
                                             </label>
                                           </div>
                                           <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="smt_akademik" id="genap" value=2 @if($master->smt_akademik == 2) checked @endif>
+                                            <input class="form-check-input" type="radio" name="smt_akademik" id="genap" value=2 @if($master?->smt_akademik == 2) checked @endif>
                                             <label class="form-check-label" for="genap">
                                               Genap
                                             </label>
@@ -70,13 +70,13 @@
                                     <div class="form-group">
                                         <label for="isuas" class="col-form-label">Periode</label>
                                         <div class="form-check" id="isuas">
-                                            <input class="form-check-input" type="radio" name="isuas" id="uts" value=0 @if($master->isuas == 0) checked @endif>
+                                            <input class="form-check-input" type="radio" name="isuas" id="uts" value=0 @if($master?->isuas == 0) checked @endif>
                                             <label class="form-check-label" for="uts">
                                               UTS
                                             </label>
                                         </div>
                                         <div class="form-check" id="isuas">
-                                            <input class="form-check-input" type="radio" name="isuas" id="uas" value=1 @if($master->isuas == 1) checked @endif>
+                                            <input class="form-check-input" type="radio" name="isuas" id="uas" value=1 @if($master?->isuas == 1) checked @endif>
                                             <label class="form-check-label" for="uas">
                                               UAS
                                             </label>
@@ -85,12 +85,12 @@
 
                                     <div class="form-group">
                                         <label for="periode_mulai" class="col-form-label">Periode Mulai</label>
-                                        <input class="form-control" type="date" value="{{ $master->periode_mulai }}" id="periode_mulai" name="periode_mulai" required/>
+                                        <input class="form-control" type="date" value="{{ $master?->periode_mulai }}" id="periode_mulai" name="periode_mulai" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="periode_akhir" class="col-form-label">Periode Akhir</label>
-                                        <input class="form-control" type="date" value="{{ $master->periode_akhir }}" id="periode_akhir" name="periode_akhir" required/>
+                                        <input class="form-control" type="date" value="{{ $master?->periode_akhir }}" id="periode_akhir" name="periode_akhir" required/>
                                     </div>
 
                                     <button class="btn btn-primary">Simpan</button>

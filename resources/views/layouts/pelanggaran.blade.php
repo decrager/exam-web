@@ -43,13 +43,13 @@
                                 @foreach ($mhs as $mhs)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $mhs->nama }}</td>
-                                        <td>{{ $mhs->nim }}</td>
-                                        <td>{{ $mhs->nama_prodi }}</td>
-                                        <td>{{ $mhs->semester }}</td>
-                                        <td>{{ $mhs->total }}</td>
+                                        <td>{{ $mhs?->nama }}</td>
+                                        <td>{{ $mhs?->nim }}</td>
+                                        <td>{{ $mhs?->nama_prodi }}</td>
+                                        <td>{{ $mhs?->semester }}</td>
+                                        <td>{{ $mhs?->total }}</td>
                                         <td><button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="{{ '#detail' . $mhs->mhs_id }}"><i
+                                                data-bs-target="{{ '#detail' . $mhs?->mhs_id }}"><i
                                                     class=" fas fa-info"></i></button></td>
                                     </tr>
                                 @endforeach
@@ -65,7 +65,7 @@
 
 <!-- Modal -->
 @foreach ($mhs2 as $mhs)
-    <div class="modal fade" id="{{ 'detail' . $mhs->mhs_id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="{{ 'detail' . $mhs?->mhs_id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -83,39 +83,39 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <h6>Nama</h6>
-                                                <p>{{ $mhs->nama }}</p>
+                                                <p>{{ $mhs?->nama }}</p>
                                             </div>
                                             <div class="form-group">
                                                 <h6>NIM</h6>
-                                                <p>{{ $mhs->nim }}</p>
+                                                <p>{{ $mhs?->nim }}</p>
                                             </div>
                                             <div class="form-group">
                                                 <h6>Program Studi</h6>
-                                                <p>{{ $mhs->nama_prodi }}
+                                                <p>{{ $mhs?->nama_prodi }}
                                                 </p>
                                             </div>
                                             <div class="form-group">
                                                 <h6>Semester</h6>
-                                                <p>{{ $mhs->semester }}</p>
+                                                <p>{{ $mhs?->semester }}</p>
                                             </div>
                                             <div class="form-group">
                                                 <h6>Kelas - Praktikum</h6>
-                                                <p>{{ $mhs->kelas }} -
-                                                    {{ $mhs->praktikum }}</p>
+                                                <p>{{ $mhs?->kelas }} -
+                                                    {{ $mhs?->praktikum }}</p>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             @foreach ($allPelanggaran as $pelanggaran)
-                                                @if ($pelanggaran->mhs_id == $mhs->mhs_id)
+                                                @if ($pelanggaran?->mhs_id == $mhs?->mhs_id)
                                                     <h6 class="mb-2">Pelanggaran:
                                                     </h6>
                                                     <div class="form-group pl-3">
                                                         <h6>Mata Kuliah</h6>
-                                                        <p>{{ $pelanggaran->Ujian->Matkul->nama_matkul }}</p>
+                                                        <p>{{ $pelanggaran?->Ujian?->Matkul?->nama_matkul }}</p>
                                                     </div>
                                                     <div class="form-group pl-3 mb-2">
                                                         <h6>Pelanggaran</h6>
-                                                        <p>{{ $pelanggaran->pelanggaran }}</p>
+                                                        <p>{{ $pelanggaran?->pelanggaran }}</p>
                                                     </div>
                                                 @endif
                                             @endforeach

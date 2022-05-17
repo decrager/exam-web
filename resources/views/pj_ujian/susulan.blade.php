@@ -63,24 +63,24 @@
                                     @foreach ($mahasiswa as $mahasiswa)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $mahasiswa->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                            <td>{{ $mahasiswa->Matkul->Semester->semester }}</td>
-                                            <td>{{ $mahasiswa->Matkul->nama_matkul }}</td>
-                                            <td>{{ $mahasiswa->Mahasiswa->nama }}</td>
-                                            <td>{{ $mahasiswa->Mahasiswa->nim }}</td>
+                                            <td>{{ $mahasiswa?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $mahasiswa?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $mahasiswa?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $mahasiswa?->Mahasiswa?->nama }}</td>
+                                            <td>{{ $mahasiswa?->Mahasiswa?->nim }}</td>
                                             <td>
-                                                @if ($mahasiswa->status == 'Belum')
+                                                @if ($mahasiswa?->status == 'Belum')
                                                     <span class="badge bg-warning">Belum disetujui</span>
-                                                @elseif ($mahasiswa->status == 'Ditolak')
+                                                @elseif ($mahasiswa?->status == 'Ditolak')
                                                     <span class="badge bg-danger">Ditolak</span>
-                                                @elseif ($mahasiswa->status == 'Disetujui')
+                                                @elseif ($mahasiswa?->status == 'Disetujui')
                                                     <span class="badge bg-success">Disetujui</span>
                                                 @else
                                                     <span class="badge bg-green">Terjadwal</span>
                                                 @endif
                                             </td>
                                             <td><Button class="btn btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="{{ '#detail' . $mahasiswa->id }}"><i
+                                                    data-bs-target="{{ '#detail' . $mahasiswa?->id }}"><i
                                                         class="fas fa-info"></i></Button></td>
                                         </tr>
                                     @endforeach
@@ -96,7 +96,7 @@
 
     <!-- Modal -->
     @foreach ($mahasiswas as $mahasiswa)
-        <div class="modal fade" id="{{ "detail" . $mahasiswa->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="{{ "detail" . $mahasiswa?->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -113,37 +113,37 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <h6>Program Studi</h6>
-                                                    <p>{{ $mahasiswa->Matkul->Semester->Prodi->nama_prodi }}</p>
+                                                    <p>{{ $mahasiswa?->Matkul?->Semester?->Prodi?->nama_prodi }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Semester</h6>
-                                                    <p>{{ $mahasiswa->Matkul->Semester->semester }}</p>
+                                                    <p>{{ $mahasiswa?->Matkul?->Semester?->semester }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Nama Mahasiswa</h6>
-                                                    <p>{{ $mahasiswa->Mahasiswa->nama }}</p>
+                                                    <p>{{ $mahasiswa?->Mahasiswa?->nama }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>NIM</h6>
-                                                    <p>{{ $mahasiswa->Mahasiswa->nim }}</p>
+                                                    <p>{{ $mahasiswa?->Mahasiswa?->nim }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Kelas - Praktikum</h6>
-                                                    <p>{{ $mahasiswa->Mahasiswa->Praktikum->Kelas->kelas }} -
-                                                        {{ $mahasiswa->Mahasiswa->Praktikum->praktikum }}</p>
+                                                    <p>{{ $mahasiswa?->Mahasiswa?->Praktikum?->Kelas?->kelas }} -
+                                                        {{ $mahasiswa?->Mahasiswa?->Praktikum?->praktikum }}</p>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <h6>Mata Kuliah</h6>
-                                                    <p>{{ $mahasiswa->Matkul->nama_matkul }}</p>
+                                                    <p>{{ $mahasiswa?->Matkul?->nama_matkul }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Tipe Mata Kuliah</h6>
                                                     <p>
-                                                        @if ($mahasiswa->tipe_mk == 'K')
+                                                        @if ($mahasiswa?->tipe_mk == 'K')
                                                             Kuliah
-                                                        @elseif ($mahasiswa->tipe_mk == 'P')
+                                                        @elseif ($mahasiswa?->tipe_mk == 'P')
                                                             Praktikum
                                                         @else
                                                             Responsi
@@ -153,11 +153,11 @@
                                                 <div class="form-group">
                                                     <h6>Status</h6>
                                                     <p>
-                                                        @if ($mahasiswa->status == 'Belum')
+                                                        @if ($mahasiswa?->status == 'Belum')
                                                             <span class="badge bg-warning">Belum disetujui</span>
-                                                        @elseif ($mahasiswa->status == 'Ditolak')
+                                                        @elseif ($mahasiswa?->status == 'Ditolak')
                                                             <span class="badge bg-danger">Ditolak</span>
-                                                        @elseif ($mahasiswa->status == 'Disetujui')
+                                                        @elseif ($mahasiswa?->status == 'Disetujui')
                                                             <span class="badge bg-success">Disetujui</span>
                                                         @else
                                                             <span class="badge bg-success bg-green">Terjadwal</span>
@@ -166,12 +166,12 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Bukti Persyaratan</h6>
-                                                    <a href="{{ asset('storage/files/syarat/'. $mahasiswa->file) }}" target="_blank" class="btn btn-success btn-sm mt-1"><i class="fas fa-eye"></i>&ensp; Lihat</a>
+                                                    <a href="{{ asset('storage/files/syarat/'. $mahasiswa?->file) }}" target="_blank" class="btn btn-success btn-sm mt-1"><i class="fas fa-eye"></i>&ensp; Lihat</a>
                                                 </div>
                                                 <div class="form-group">
-                                                    @if ($mahasiswa->status == 'Belum')
+                                                    @if ($mahasiswa?->status == 'Belum')
                                                         <h6>Persetujuan</h6>
-                                                        <form action="{{ route('pjUjian.susulan.update', $mahasiswa->id) }}" class="btn-group mt-1" role="group" method="POST">
+                                                        <form action="{{ route('pjUjian.susulan.update', $mahasiswa?->id) }}" class="btn-group mt-1" role="group" method="POST">
                                                             <button type="submit" class="btn btn-success btn-sm" name="status" value="Disetujui" onclick="return confirm('Yakin ingin menyetujui pengajuan?')"><i
                                                                     class="fas fa-check" ></i>&ensp; Setujui</button>
                                                             @csrf
@@ -179,17 +179,17 @@
                                                             <button type="submit" class="btn btn-danger btn-sm" name="status" value="Ditolak" onclick="return confirm('Yakin ingin menolak pengajuan?')"><i
                                                                     class="fas fa-xmark" ></i>&ensp; Tolak</button>
                                                         </form>
-                                                    @elseif ($mahasiswa->status == 'Disetujui')
+                                                    @elseif ($mahasiswa?->status == 'Disetujui')
                                                         <h6>Ubah Persetujuan</h6>
-                                                        <form action="{{ route('pjUjian.susulan.update', $mahasiswa->id) }}" method="POST">
+                                                        <form action="{{ route('pjUjian.susulan.update', $mahasiswa?->id) }}" method="POST">
                                                             @csrf
                                                             @method('PUT')
                                                             <button type="submit" class="btn btn-danger btn-sm" name="status" value="Ditolak" onclick="return confirm('Yakin ingin menolak pengajuan?')"><i
                                                                     class="fas fa-xmark" ></i>&ensp; Tolak</button>
                                                         </form>
-                                                    @elseif ($mahasiswa->status == 'Ditolak')
+                                                    @elseif ($mahasiswa?->status == 'Ditolak')
                                                         <h6>Ubah Persetujuan</h6>
-                                                        <form action="{{ route('pjUjian.susulan.update', $mahasiswa->id) }}" method="POST">
+                                                        <form action="{{ route('pjUjian.susulan.update', $mahasiswa?->id) }}" method="POST">
                                                             @csrf
                                                             @method('PUT')
                                                             <button type="submit" class="btn btn-success btn-sm" name="status" value="Disetujui" onclick="return confirm('Yakin ingin menyetujui pengajuan?')">

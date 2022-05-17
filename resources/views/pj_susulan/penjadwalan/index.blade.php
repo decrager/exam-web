@@ -64,37 +64,37 @@
                                     @foreach ($jadwal as $jadwal)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $jadwal->nama_prodi }}</td>
-                                            <td>{{ $jadwal->semester }}</td>
-                                            <td>{{ $jadwal->kelas }}</td>
-                                            <td>{{ $jadwal->praktikum }}</td>
-                                            <td>{{ $jadwal->nama_matkul }}</td>
-                                            <td>{{ $jadwal->tipe_mk }}</td>
-                                            <td>{{ $jadwal->total_mhs }}</td>
+                                            <td>{{ $jadwal?->nama_prodi }}</td>
+                                            <td>{{ $jadwal?->semester }}</td>
+                                            <td>{{ $jadwal?->kelas }}</td>
+                                            <td>{{ $jadwal?->praktikum }}</td>
+                                            <td>{{ $jadwal?->nama_matkul }}</td>
+                                            <td>{{ $jadwal?->tipe_mk }}</td>
+                                            <td>{{ $jadwal?->total_mhs }}</td>
                                             <td>
                                                 <form action="{{ route('pjSusulan.penjadwalan.form') }}" method="GET">
                                                     @csrf
                                                     <input hidden type="text" name="prodi_id"
-                                                        value="{{ $jadwal->prodi_id }}">
+                                                        value="{{ $jadwal?->prodi_id }}">
                                                     <input hidden type="text" name="semester_id"
-                                                        value="{{ $jadwal->semester_id }}">
+                                                        value="{{ $jadwal?->semester_id }}">
                                                     <input hidden type="text" name="kelas_id"
-                                                        value="{{ $jadwal->kelas_id }}">
+                                                        value="{{ $jadwal?->kelas_id }}">
                                                     <input hidden type="text" name="praktikum_id"
-                                                        value="{{ $jadwal->prak_id }}">
+                                                        value="{{ $jadwal?->prak_id }}">
                                                     <input hidden type="text" name="matkul_id"
-                                                        value="{{ $jadwal->matkul_id }}">
+                                                        value="{{ $jadwal?->matkul_id }}">
                                                     <input hidden type="text" name="tipe_mk"
-                                                        value="{{ $jadwal->tipe_mk }}">
+                                                        value="{{ $jadwal?->tipe_mk }}">
                                                     <input hidden type="text" name="nama_prodi"
-                                                        value="{{ $jadwal->nama_prodi }}">
+                                                        value="{{ $jadwal?->nama_prodi }}">
                                                     <input hidden type="text" name="semester"
-                                                        value="{{ $jadwal->semester }}">
-                                                    <input hidden type="text" name="kelas" value="{{ $jadwal->kelas }}">
+                                                        value="{{ $jadwal?->semester }}">
+                                                    <input hidden type="text" name="kelas" value="{{ $jadwal?->kelas }}">
                                                     <input hidden type="text" name="praktikum"
-                                                        value="{{ $jadwal->praktikum }}">
+                                                        value="{{ $jadwal?->praktikum }}">
                                                     <input hidden type="text" name="nama_matkul"
-                                                        value="{{ $jadwal->nama_matkul }}">
+                                                        value="{{ $jadwal?->nama_matkul }}">
                                                     <button type="submit" class="btn btn-primary"><i
                                                             class="fas fa-calendar-plus"></i></button>
                                                 </form>

@@ -64,12 +64,12 @@
                                     @foreach ($semester as $semester)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $semester->Prodi->kode_prodi }}</td>
-                                        <td>{{ $semester->Prodi->nama_prodi }}</td>
-                                        <td>{{ $semester->semester }}</td>
+                                        <td>{{ $semester?->Prodi?->kode_prodi }}</td>
+                                        <td>{{ $semester?->Prodi?->nama_prodi }}</td>
+                                        <td>{{ $semester?->semester }}</td>
                                         <td>
-                                            <form action="{{ route('data.semester.destroy', $semester->id) }}" method="POST" class="btn-group" role="group">
-                                                <a href="{{ route('data.akademik.semester.edit', $semester->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                            <form action="{{ route('data.semester.destroy', $semester?->id) }}" method="POST" class="btn-group" role="group">
+                                                <a href="{{ route('data.akademik.semester.edit', $semester?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>

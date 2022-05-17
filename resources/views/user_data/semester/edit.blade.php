@@ -43,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('data.semester.update', $semester->id) }}" method="POST">
+                                <form action="{{ route('data.semester.update', $semester?->id) }}" method="POST">
                                     <h4 class="header-title">Ubah Semester</h4>
                                     @csrf
                                     @method('PUT')
@@ -51,9 +51,9 @@
                                         <label class="col-form-label">Program Studi</label>
                                         <select class="custom-select" name="prodi_id" required>
                                             <option>Pilih Program Studi</option>
-                                            <option selected="selected" value="{{ $semester->Prodi->id }}">{{ $semester->Prodi->nama_prodi }}</option>
+                                            <option selected="selected" value="{{ $semester?->Prodi?->id }}">{{ $semester?->Prodi?->nama_prodi }}</option>
                                             @foreach ($dbProdi as $prodi)
-                                                <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
+                                                <option value="{{ $prodi?->id }}">{{ $prodi?->nama_prodi }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -62,7 +62,7 @@
                                         <label class="col-form-label">Semester</label>
                                         <select class="custom-select" name="semester" required>
                                             <option value="0">Pilih Semester</option>
-                                            <option selected="selected" value="{{ $semester->semester }}">{{ $semester->semester }}</option>
+                                            <option selected="selected" value="{{ $semester?->semester }}">{{ $semester?->semester }}</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>

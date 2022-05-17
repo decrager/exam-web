@@ -89,6 +89,23 @@ class pjLokasiController extends Controller
         ]);
     }
 
+    public function pengawasUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'pns' => 'required'
+        ]);
+
+        $pengawas = Pengawas::find($id);
+
+        $pengawas->update([
+            'nama' => $request->nama,
+            'pns' => $request->pns,
+        ]);
+        
+        return redirect()->route('pjLokasi.pengawas.daftar.index')->with('success', 'Data Pengawas berhasil diperbarui!');
+    }
+
     public function absensiIndex(Request $request)
     {
         if (isEmpty($request)) {
@@ -167,7 +184,11 @@ class pjLokasiController extends Controller
 
     public function soalForm()
     {
-        return view('pj_lokasi.soal.form', ["title" => env('APP_NAME')]);
+        $tglbln = Carbon::now()->format('d F, Y');
+        return view('pj_lokasi.soal.form', [
+            'master' => Master::find(1),
+            'tglbln' => $tglbln
+        ]);
     }
 
     public function pelanggaranIndex()

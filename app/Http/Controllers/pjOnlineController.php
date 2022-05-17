@@ -57,7 +57,10 @@ class pjOnlineController extends Controller
             $ujian->where('ujians.pelaksanaan', 'like', '%Online%')->whereBetween('ujians.tanggal', [$from, $to])->get();
         }
 
-        return view('pj_online.ujian', ["title" => env('APP_NAME')]);
+        return view('pj_online.ujian', [
+            'ujian' => $ujian,
+            'ujians' => $ujian
+        ]);
     }
 
     public function pelanggaranIndex()

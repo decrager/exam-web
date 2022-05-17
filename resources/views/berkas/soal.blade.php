@@ -92,19 +92,19 @@
                                     @foreach ($soal as $ujian)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $ujian->tanggal }}</td>
-                                            <td>{{ $ujian->nama_prodi }}</td>
-                                            <td>{{ $ujian->semester }}</td>
-                                            <td>{{ $ujian->nama_matkul }}</td>
-                                            <td>{{ $ujian->tipe_mk }}</td>
+                                            <td>{{ $ujian?->tanggal }}</td>
+                                            <td>{{ $ujian?->nama_prodi }}</td>
+                                            <td>{{ $ujian?->semester }}</td>
+                                            <td>{{ $ujian?->nama_matkul }}</td>
+                                            <td>{{ $ujian?->tipe_mk }}</td>
                                             <td>
-                                                @if ($ujian->perbanyak == 1)
+                                                @if ($ujian?->perbanyak == 1)
                                                     <span class="badge bg-success">Perbanyak</span>
                                                 @else
                                                     <span class="badge bg-danger">Tidak</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $ujian->jumlah }}</td>
+                                            <td>{{ $ujian?->jumlah }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

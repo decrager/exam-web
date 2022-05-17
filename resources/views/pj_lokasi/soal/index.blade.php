@@ -40,7 +40,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">Soal ujian</h4>
+                        <a href="{{ route('pjLokasi.soal.form') }}" class="btn btn-primary justify-content-end text-sm px-3 mb-3">Tambah
+                            Data</a>
                         <div class="row justify-content-start">
                             @include('layouts.filter')
                         </div>

@@ -75,13 +75,13 @@
                                         name="ruang" />
                                 </div>
 
-                                <div class="col-md-12">
-                                    <label class="" for="">Signature:</label>
+                                <div class="form-group">
+                                    <label class="" for="">Tanda Tangan:</label>
                                     <br />
-                                    <div id="sig"></div>
+                                    <div id="sign"> </div>
                                     <br />
                                     <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
-                                    <textarea id="signature64" name="signed" style="display: none"></textarea>
+                                    <textarea id="signature65" style="display: none"></textarea>
                                 </div>
 
                                 <button class="btn btn-primary">Simpan</button>
@@ -93,4 +93,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var sign = $('#sign').signature({
+            syncField: '#signature64',
+            syncFormat: 'PNG'
+        });
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sign.signature('clear');
+            $("#signature64").val('');
+        });
+    </script>
 @endsection

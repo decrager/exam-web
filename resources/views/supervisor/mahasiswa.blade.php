@@ -58,13 +58,13 @@
                                     @foreach ($mahasiswa as $mahasiswa)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $mahasiswa->Praktikum->Kelas->Semester->Prodi->nama_prodi }}</td>
-                                        <td>{{ $mahasiswa->Praktikum->Kelas->Semester->semester }}</td>
-                                        <td>{{ $mahasiswa->Praktikum->Kelas->kelas }}</td>
-                                        <td>{{ $mahasiswa->Praktikum->praktikum }}</td>
-                                        <td>{{ $mahasiswa->nama }}</td>
-                                        <td>{{ $mahasiswa->nim }}</td>
-                                        <td>{{ $mahasiswa->email }}</td>
+                                        <td>{{ $mahasiswa?->Praktikum?->Kelas?->Semester?->Prodi?->nama_prodi }}</td>
+                                        <td>{{ $mahasiswa?->Praktikum?->Kelas?->Semester?->semester }}</td>
+                                        <td>{{ $mahasiswa?->Praktikum?->Kelas?->kelas }}</td>
+                                        <td>{{ $mahasiswa?->Praktikum?->praktikum }}</td>
+                                        <td>{{ $mahasiswa?->nama }}</td>
+                                        <td>{{ $mahasiswa?->nim }}</td>
+                                        <td>{{ $mahasiswa?->email }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

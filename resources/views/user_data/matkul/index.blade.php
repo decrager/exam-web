@@ -69,17 +69,17 @@
                                     @foreach ($matkul as $matkul)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $matkul->Semester->Prodi->kode_prodi }}</td>
-                                        <td>{{ $matkul->Semester->Prodi->nama_prodi }}</td>
-                                        <td>{{ $matkul->Semester->semester }}</td>
-                                        <td>{{ $matkul->nama_matkul }}</td>
-                                        <td>{{ $matkul->kode_matkul }}</td>
-                                        <td>{{ $matkul->sks }}</td>
-                                        <td>{{ $matkul->sks_kul }}</td>
-                                        <td>{{ $matkul->sks_prak }}</td>
+                                        <td>{{ $matkul?->Semester?->Prodi?->kode_prodi }}</td>
+                                        <td>{{ $matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                        <td>{{ $matkul?->Semester?->semester }}</td>
+                                        <td>{{ $matkul?->nama_matkul }}</td>
+                                        <td>{{ $matkul?->kode_matkul }}</td>
+                                        <td>{{ $matkul?->sks }}</td>
+                                        <td>{{ $matkul?->sks_kul }}</td>
+                                        <td>{{ $matkul?->sks_prak }}</td>
                                         <td>
-                                            <form action="{{ route('data.matkul.destroy', $matkul->id) }}" method="POST" class="btn-group" role="group">
-                                                <a href="{{ route('data.akademik.matkul.edit', $matkul->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                            <form action="{{ route('data.matkul.destroy', $matkul?->id) }}" method="POST" class="btn-group" role="group">
+                                                <a href="{{ route('data.akademik.matkul.edit', $matkul?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus praktikum ini?')"><i class="fas fa-trash"></i></button>

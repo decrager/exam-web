@@ -44,7 +44,7 @@
                         <div class="card">
                             <div class="card-body">
                                 @foreach ($pengajuan as $pengajuan)
-                                <form action="{{ route('mahasiswa.susulan.update', $pengajuan->id) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('mahasiswa.susulan.update', $pengajuan?->id) }}" method="POST" enctype="multipart/form-data">
                                     <h4 class="header-title">Masukkan Pengajuan</h4>
                                     @csrf
                                     @method('PUT')
@@ -52,9 +52,9 @@
                                         <label class="col-form-label">Mata Kuliah</label>
                                         <select class="custom-select @error('matkul_id') is-invalid @enderror" name="matkul_id" required>
                                             <option>Select</option>
-                                            <option selected="selected" value="{{ $pengajuan->matkul_id }}">{{ $pengajuan->Matkul->nama_matkul }}</option>
+                                            <option selected="selected" value="{{ $pengajuan?->matkul_id }}">{{ $pengajuan?->Matkul?->nama_matkul }}</option>
                                             @foreach ($matkul as $matkul)
-                                                <option value="{{ $matkul->id }}">{{ $matkul->nama_matkul }}</option>
+                                                <option value="{{ $matkul?->id }}">{{ $matkul?->nama_matkul }}</option>
                                             @endforeach
                                         </select>
                                         @error('matkul_id')
@@ -68,10 +68,10 @@
                                             <label class="col-form-label">Tipe Mata Kuliah</label>
                                         <select class="custom-select @error('tipe_mk') is-invalid @enderror" name="tipe_mk" required>
                                             <option>Select</option>
-                                            <option selected="{{ $pengajuan->tipe_mk }}">
-                                                @if ($pengajuan->tipe_mk == 'K')
+                                            <option selected="{{ $pengajuan?->tipe_mk }}">
+                                                @if ($pengajuan?->tipe_mk == 'K')
                                                 Kuliah
-                                                @elseif ($pengajuan->tipe_mk == 'P')
+                                                @elseif ($pengajuan?->tipe_mk == 'P')
                                                 Praktikum
                                                 @else
                                                 Responsi

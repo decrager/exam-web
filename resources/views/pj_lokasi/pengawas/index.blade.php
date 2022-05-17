@@ -39,6 +39,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="header-title">Daftar Pengawas</h4>
                         <div class="row justify-content-start">
                             @include('layouts.filter')
@@ -74,10 +79,7 @@
                                             <td>{{ $pengawas->Ujian->ruang }}</td>
                                             <td>{{ $pengawas->nama }}</td>
                                             <td>
-                                                <div class="btn-group" role="group">
-                                                    <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                                </div>
+                                                <a href="{{ route('pjLokasi.pengawas.daftar.edit', $pengawas->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

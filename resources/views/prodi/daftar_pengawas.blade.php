@@ -69,19 +69,19 @@
                                     @foreach ($pengawas as $pengawas)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pengawas->Ujian->tanggal }}</td>
-                                            <td>{{ $pengawas->Ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                            <td>{{ $pengawas->Ujian->Matkul->Semester->semester }}</td>
-                                            <td>{{ $pengawas->Ujian->Praktikum->Kelas->kelas }}</td>
-                                            <td>{{ $pengawas->Ujian->Praktikum->praktikum }}</td>
-                                            <td>{{ $pengawas->Ujian->Matkul->nama_matkul }}</td>
-                                            <td>{{ $pengawas->Ujian->lokasi }}</td>
-                                            <td>{{ $pengawas->Ujian->ruang }}</td>
-                                            <td>{{ $pengawas->nama }}</td>
+                                            <td>{{ $pengawas?->Ujian?->tanggal }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Praktikum?->Kelas?->kelas }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Praktikum?->praktikum }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $pengawas?->Ujian?->lokasi }}</td>
+                                            <td>{{ $pengawas?->Ujian?->ruang }}</td>
+                                            <td>{{ $pengawas?->nama }}</td>
                                             <td>
-                                                <form action="{{ route('prodi.pengawas.destroy', $pengawas->id) }}"
+                                                <form action="{{ route('prodi.pengawas.destroy', $pengawas?->id) }}"
                                                     method="POST" class="btn-group" role="group">
-                                                    <a href="{{ route('prodi.pengawas.penugasan.edit', $pengawas->id) }}"
+                                                    <a href="{{ route('prodi.pengawas.penugasan.edit', $pengawas?->id) }}"
                                                         class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                                     @csrf
                                                     @method('DELETE')

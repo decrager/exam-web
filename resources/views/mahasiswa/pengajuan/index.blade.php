@@ -67,22 +67,22 @@
                                     @foreach ($susulan as $pengajuan)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $pengajuan->nama_matkul }}</td>
-                                        <td><a href="{{ asset('storage/files/syarat/' . $pengajuan->file) }}" target="_blank" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a></td>
+                                        <td>{{ $pengajuan?->nama_matkul }}</td>
+                                        <td><a href="{{ asset('storage/files/syarat/' . $pengajuan?->file) }}" target="_blank" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a></td>
                                         <td>
-                                            @if ($pengajuan->status == 'Belum')
+                                            @if ($pengajuan?->status == 'Belum')
                                                 <span class="badge badge-warning">Belum disetujui</span>
-                                            @elseif ($pengajuan->status == 'Ditolak')
+                                            @elseif ($pengajuan?->status == 'Ditolak')
                                                 <span class="badge badge-danger">Ditolak</span>
-                                            @elseif ($pengajuan->status == 'Disetujui')
+                                            @elseif ($pengajuan?->status == 'Disetujui')
                                                 <span class="badge badge-success">Disetujui</span>
                                             @else
                                                 <span class="badge badge-success bg-green">Terjadwal</span>
                                             @endif
                                         </td>
                                         <td>
-                                            <form action="{{ route('mahasiswa.susulan.delete', $pengajuan->id) }}" class="btn-group" role="group" method="POST">
-                                                <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                            <form action="{{ route('mahasiswa.susulan.delete', $pengajuan?->id) }}" class="btn-group" role="group" method="POST">
+                                                <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"><i class="fas fa-trash"></i></button>

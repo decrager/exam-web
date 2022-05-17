@@ -66,14 +66,14 @@
                                     @foreach ($praktikum as $praktikum)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $praktikum->Kelas->Semester->Prodi->kode_prodi }}</td>
-                                        <td>{{ $praktikum->Kelas->Semester->Prodi->nama_prodi }}</td>
-                                        <td>{{ $praktikum->Kelas->Semester->semester }}</td>
-                                        <td>{{ $praktikum->Kelas->kelas }}</td>
-                                        <td>{{ $praktikum->praktikum }}</td>
+                                        <td>{{ $praktikum?->Kelas?->Semester?->Prodi?->kode_prodi }}</td>
+                                        <td>{{ $praktikum?->Kelas?->Semester?->Prodi?->nama_prodi }}</td>
+                                        <td>{{ $praktikum?->Kelas?->Semester?->semester }}</td>
+                                        <td>{{ $praktikum?->Kelas?->kelas }}</td>
+                                        <td>{{ $praktikum?->praktikum }}</td>
                                         <td>
-                                            <form action="{{ route('data.praktikum.destroy', $praktikum->id) }}" method="POST" class="btn-group" role="group">
-                                                <a href="{{ route('data.akademik.praktikum.edit', $praktikum->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                            <form action="{{ route('data.praktikum.destroy', $praktikum?->id) }}" method="POST" class="btn-group" role="group">
+                                                <a href="{{ route('data.akademik.praktikum.edit', $praktikum?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>

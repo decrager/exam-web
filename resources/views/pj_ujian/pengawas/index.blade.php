@@ -69,19 +69,19 @@
                                     @foreach ($dataPengawas as $pengawas)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pengawas->Ujian->tanggal }}</td>
-                                            <td>{{ $pengawas->Ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                            <td>{{ $pengawas->Ujian->Matkul->Semester->semester }}</td>
-                                            <td>{{ $pengawas->Ujian->Praktikum->Kelas->kelas }}</td>
-                                            <td>{{ $pengawas->Ujian->Praktikum->praktikum }}</td>
-                                            <td>{{ $pengawas->Ujian->Matkul->nama_matkul }}</td>
-                                            <td>{{ $pengawas->Ujian->lokasi }}</td>
-                                            <td>{{ $pengawas->Ujian->ruang }}</td>
-                                            <td>{{ $pengawas->nama }}</td>
+                                            <td>{{ $pengawas?->Ujian?->tanggal }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Praktikum?->Kelas?->kelas }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Praktikum?->praktikum }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $pengawas?->Ujian?->lokasi }}</td>
+                                            <td>{{ $pengawas?->Ujian?->ruang }}</td>
+                                            <td>{{ $pengawas?->nama }}</td>
                                             <td>
-                                                <form action="{{ route('pjUjian.pengawas.destroy', $pengawas->id) }}" method="POST">
+                                                <form action="{{ route('pjUjian.pengawas.destroy', $pengawas?->id) }}" method="POST">
                                                     <div class="btn-group" role="group">
-                                                        <a href="{{ route('pjUjian.pengawas.pengawas.edit', $pengawas->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                        <a href="{{ route('pjUjian.pengawas.pengawas.edit', $pengawas?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data?')"><i class="fas fa-trash"></i></button>

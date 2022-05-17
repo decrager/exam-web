@@ -63,15 +63,15 @@
                                     @foreach ($pengawas as $row)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $row->Ujian->tanggal }}</td>
-                                            <td>{{ $row->Ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                            <td>{{ $row->Ujian->Matkul->Semester->semester }}</td>
-                                            <td>{{ $row->Ujian->Praktikum->Kelas->kelas }}</td>
-                                            <td>{{ $row->Ujian->Praktikum->praktikum }}</td>
-                                            <td>{{ $row->Ujian->Matkul->nama_matkul }}</td>
-                                            <td>{{ $row->Ujian->lokasi }}</td>
-                                            <td>{{ $row->Ujian->ruang }}</td>
-                                            <td>{{ $row->nama }}</td>
+                                            <td>{{ $row?->Ujian?->tanggal }}</td>
+                                            <td>{{ $row?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $row?->Ujian?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $row?->Ujian?->Praktikum?->Kelas?->kelas }}</td>
+                                            <td>{{ $row?->Ujian?->Praktikum?->praktikum }}</td>
+                                            <td>{{ $row?->Ujian?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $row?->Ujian?->lokasi }}</td>
+                                            <td>{{ $row?->Ujian?->ruang }}</td>
+                                            <td>{{ $row?->nama }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

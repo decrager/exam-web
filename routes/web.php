@@ -179,6 +179,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
     Route::resource('/pj_lokasi/pelanggaran', pelanggaranController::class);
     Route::get('/pj_lokasi/pelanggaran/tambah', [pjLokasiController::class, 'pelanggaranForm'])->name('pjLokasi.pelanggaran.form');
     Route::get('/pj_lokasi/pelanggaran/edit/{id}', [pjLokasiController::class, 'pelanggaranEdit'])->name('pjLokasi.pelanggaran.edit');
+    Route::put('/pj_lokasi/pengawas/update/{id}', [pjLokasiController::class, 'pengawasUpdate'])->name('pjLokasi.pengawas.update');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {

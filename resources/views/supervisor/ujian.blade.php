@@ -67,17 +67,17 @@
                                     @foreach ($ujian as $jadwal)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $jadwal->tanggal }}</td>
-                                            <td>{{ $jadwal->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                            <td>{{ $jadwal->Matkul->Semester->semester }}</td>
-                                            <td>{{ $jadwal->Praktikum->Kelas->kelas }}</td>
-                                            <td>{{ $jadwal->Praktikum->praktikum }}</td>
-                                            <td>{{ $jadwal->Matkul->nama_matkul }}</td>
-                                            <td>{{ $jadwal->lokasi }}</td>
-                                            <td>{{ $jadwal->ruang }}</td>
-                                            <td>{{ $jadwal->jam_mulai }}</td>
-                                            <td>{{ $jadwal->jam_selesai }}</td>
-                                            <td><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="{{ '#detail' . $jadwal->id }}"><i class="fas fa-info text-white"></i></a></td>
+                                            <td>{{ $jadwal?->tanggal }}</td>
+                                            <td>{{ $jadwal?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $jadwal?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $jadwal?->Praktikum?->Kelas?->kelas }}</td>
+                                            <td>{{ $jadwal?->Praktikum?->praktikum }}</td>
+                                            <td>{{ $jadwal?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $jadwal?->lokasi }}</td>
+                                            <td>{{ $jadwal?->ruang }}</td>
+                                            <td>{{ $jadwal?->jam_mulai }}</td>
+                                            <td>{{ $jadwal?->jam_selesai }}</td>
+                                            <td><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="{{ '#detail' . $jadwal?->id }}"><i class="fas fa-info text-white"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -92,7 +92,7 @@
 
     <!-- Modal -->
     @foreach ($ujian as $jadwal)
-        <div class="modal fade" id="{{ 'detail' . $jadwal->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="{{ 'detail' . $jadwal?->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
@@ -110,58 +110,58 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <h6>Tanggal</h6>
-                                                    <p>{{ $jadwal->tanggal }}</p>
+                                                    <p>{{ $jadwal?->tanggal }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Program Studi</h6>
-                                                    <p>{{ $jadwal->Matkul->Semester->Prodi->nama_prodi }}</p>
+                                                    <p>{{ $jadwal?->Matkul?->Semester?->Prodi?->nama_prodi }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Semester</h6>
-                                                    <p>{{ $jadwal->Matkul->Semester->semester }}</p>
+                                                    <p>{{ $jadwal?->Matkul?->Semester?->semester }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Kelas - Praktikum</h6>
-                                                    <p>{{ $jadwal->Praktikum->Kelas->kelas }} -
-                                                        {{ $jadwal->Praktikum->praktikum }}</p>
+                                                    <p>{{ $jadwal?->Praktikum?->Kelas?->kelas }} -
+                                                        {{ $jadwal?->Praktikum?->praktikum }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Kode Mata Kuliah</h6>
-                                                    <p>{{ $jadwal->Matkul->kode_matkul }}</p>
+                                                    <p>{{ $jadwal?->Matkul?->kode_matkul }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Mata Kuliah</h6>
-                                                    <p>{{ $jadwal->Matkul->nama_matkul }}</p>
+                                                    <p>{{ $jadwal?->Matkul?->nama_matkul }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Lokasi</h6>
-                                                    <p>{{ $jadwal->lokasi }}</p>
+                                                    <p>{{ $jadwal?->lokasi }}</p>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <h6>Kode Ruang</h6>
-                                                    <p>{{ $jadwal->ruang }}</p>
+                                                    <p>{{ $jadwal?->ruang }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Jam Mulai - Jam Selesai</h6>
-                                                    <p>{{ $jadwal->jam_mulai }} - {{ $jadwal->jam_selesai }}</p>
+                                                    <p>{{ $jadwal?->jam_mulai }} - {{ $jadwal?->jam_selesai }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Tipe Mata Kuliah</h6>
-                                                    <p>{{ $jadwal->tipe_mk }}</p>
+                                                    <p>{{ $jadwal?->tipe_mk }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Sesi</h6>
-                                                    <p>{{ $jadwal->sesi }}</p>
+                                                    <p>{{ $jadwal?->sesi }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Software</h6>
-                                                    <p>{{ $jadwal->software }}</p>
+                                                    <p>{{ $jadwal?->software }}</p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Pelaksanaan</h6>
-                                                    <p>{{ $jadwal->pelaksanaan }}</p>
+                                                    <p>{{ $jadwal?->pelaksanaan }}</p>
                                                 </div>
                                             </div>
                                         </div>

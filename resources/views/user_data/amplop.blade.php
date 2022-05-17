@@ -72,18 +72,18 @@
                                     @foreach ($amplop as $ujian)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $ujian->tanggal }}</td>
-                                        <td>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                        <td>{{ $ujian->Matkul->Semester->semester }}</td>
-                                        <td>{{ $ujian->Praktikum->Kelas->kelas }}</td>
-                                        <td>{{ $ujian->Praktikum->praktikum }}</td>
-                                        <td>{{ $ujian->Matkul->nama_matkul }}</td>
-                                        <td>{{ $ujian->tipe_mk }}</td>
-                                        <td>{{ $ujian->lokasi }}</td>
-                                        <td>{{ $ujian->ruang }}</td>
+                                        <td>{{ $ujian?->tanggal }}</td>
+                                        <td>{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                        <td>{{ $ujian?->Matkul?->Semester?->semester }}</td>
+                                        <td>{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>
+                                        <td>{{ $ujian?->Praktikum?->praktikum }}</td>
+                                        <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
+                                        <td>{{ $ujian?->tipe_mk }}</td>
+                                        <td>{{ $ujian?->lokasi }}</td>
+                                        <td>{{ $ujian?->ruang }}</td>
                                         <td>
-                                            <form action="{{ route('data.amplop.update', $ujian->Amplop->id) }}" method="POST" class="btn-group" role="group">
-                                                @if ($ujian->Amplop->print == 'Belum')
+                                            <form action="{{ route('data.amplop.update', $ujian?->Amplop?->id) }}" method="POST" class="btn-group" role="group">
+                                                @if ($ujian?->Amplop?->print == 'Belum')
                                                     <button class="btn btn-danger btn-sm">Belum diprint</button>
                                                 @else
                                                     <button class="btn btn-success btn-sm">Sudah diprint</button>
@@ -94,7 +94,7 @@
                                             </form>
                                         </td>
                                         <td>
-                                            @if ($ujian->Amplop->pengambilan == 'Belum')
+                                            @if ($ujian?->Amplop?->pengambilan == 'Belum')
                                                 <button class="btn btn-danger btn-sm">Belum diambil</button>
                                             @else
                                                 <button class="btn btn-success btn-sm">Sudah diambil</button>

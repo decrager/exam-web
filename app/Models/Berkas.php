@@ -19,7 +19,9 @@ class Berkas extends Model
         'lengkap',
         'asisten',
         'serah_terima',
+        'penerima',
         'ttd_penerima',
+        'penyerah',
         'ttd_penyerah'
     ];
 

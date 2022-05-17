@@ -70,16 +70,16 @@
                                     @foreach ($ujian as $ujian)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                            <td>{{ $ujian->Matkul->Semester->semester }}</td>
-                                            <td>{{ $ujian->Praktikum->Kelas->kelas }}</td>
-                                            <td>{{ $ujian->Praktikum->praktikum }}</td>
-                                            <td>{{ $ujian->Matkul->nama_matkul }}</td>
-                                            <td>{{ $ujian->tipe_mk }}</td>
-                                            <td>{{ $ujian->lokasi }}</td>
-                                            <td>{{ $ujian->ruang }}</td>
+                                            <td>{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $ujian?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>
+                                            <td>{{ $ujian?->Praktikum?->praktikum }}</td>
+                                            <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $ujian?->tipe_mk }}</td>
+                                            <td>{{ $ujian?->lokasi }}</td>
+                                            <td>{{ $ujian?->ruang }}</td>
                                             <td><a class="btn btn-primary"
-                                                    href="{{ route('prodi.pengawas.penugasan.form', $ujian->id) }}"><i
+                                                    href="{{ route('prodi.pengawas.penugasan.form', $ujian?->id) }}"><i
                                                         class="fas fa-user-plus"></i></a></td>
                                         </tr>
                                     @endforeach
