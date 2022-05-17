@@ -25,7 +25,7 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Jadwal Ujian</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
+                        <li><a >Beranda</a></li>
                         <li><span>Jadwal Ujian</span></li>
                     </ul>
                 </div>
@@ -97,7 +97,9 @@
                                                     <a href="{{ route('pjUjian.jadwal.edit', $ujian?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus jadwal ujian ini?')"><i class="fas fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus jadwal ujian ini?')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>

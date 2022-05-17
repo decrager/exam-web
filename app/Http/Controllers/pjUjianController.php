@@ -432,6 +432,15 @@ class pjUjianController extends Controller
         return redirect()->route('pjUjian.kelengkapan.berkas')->with('success', 'Status pengambil soal ujian berhasil diubah!');
     }
 
+    public function ttd()
+    {
+        $tglbln = Carbon::now()->format('d F, Y');
+        return view('pj_ujian.ttd', [
+            'master' => Master::find(1),
+            'tglbln' => $tglbln
+        ]);
+    }
+
     public function susulan(Request $request)
     {
         $mahasiswa = Susulan::all();

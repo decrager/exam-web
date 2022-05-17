@@ -25,8 +25,8 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Ubah Pengguna</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
-                        <li><a href=""><span>Pengguna</span></a></li>
+                        <li><a >Beranda</a></li>
+                        <li><a ><span>Pengguna</span></a></li>
                         <li><span>Ubah Pengguna</span></li>
                     </ul>
                 </div>
@@ -95,9 +95,9 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="col-form-label">Lokasi (Optional)</label>
-                                        <select class="custom-select" name="id_lokasi">
+                                        <select class="custom-select" name="lokasi">
                                             <option value="-">Pilih lokasi</option>
                                             <option selected="selected" value="{{ $pengguna?->lokasi }}">{{ $pengguna?->lokasi }}</option>
                                             <option value="BS B01-B06">BS B01-B06</option>
@@ -108,8 +108,9 @@
                                             <option value="CB & Lab Kom">CB & Lab Kom</option>
                                             <option value="Sukabumi">Sukabumi</option>
                                         </select>
-                                    </div>
+                                    </div> --}}
 
+                                    <input hidden type="text" name="lokasi" value="-">
                                     <button class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>

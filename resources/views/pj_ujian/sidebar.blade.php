@@ -32,7 +32,7 @@
                     </li> --}}
 
                     <li class="{{ Request::routeIs('pjUjian.pengawas.*') ? 'active' : '' }} m-1 mb-1">
-                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengawas</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('pjUjian.pengawas.pengawas.*') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.pengawas.pengawas.index') }}">Daftar pengawas</a></li>
@@ -41,12 +41,12 @@
                     </li>
 
                     <li class="{{ Request::routeIs('pjUjian.kelengkapan.*') ? 'active' : '' }} m-1 mb-1">
-                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Kelengkapan</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('pjUjian.kelengkapan.amplop') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.kelengkapan.amplop') }}">Amplop</a></li>
                             <li class="{{ Request::routeIs('pjUjian.kelengkapan.bap') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.kelengkapan.bap') }}">BAP</a></li>
-                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.berkas') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.kelengkapan.berkas') }}">Soal Ujian</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.kelengkapan.berkas.*') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.kelengkapan.berkas.index') }}">Soal Ujian</a></li>
                         </ul>
                     </li>
 

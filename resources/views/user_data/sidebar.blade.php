@@ -21,6 +21,11 @@
                             <span>Beranda</span></a>
                     </li>
 
+                    <li class="{{ Request::routeIs('data.ujian') ? 'active' : '' }} m-1">
+                        <a href="{{ route('data.ujian') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Jadwal Ujian</span></a>
+                    </li>
+
                     <li class="{{ Request::routeIs('data.pengguna.*') ? 'active' : '' }} m-1">
                         <a href="{{ route('data.pengguna.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengguna</span></a>
@@ -37,7 +42,7 @@
                     </li>
 
                     <li class="{{ Request::routeIs('data.akademik.*') ? 'active' : '' }} m-1">
-                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Akademik</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('data.akademik.prodi.*') ? 'active' : '' }} m-1"><a href="{{ route('data.akademik.prodi.index') }}">Program Studi</a></li>
@@ -49,7 +54,7 @@
                     </li>
 
                     <li class="{{ Request::routeIs('data.ketersediaan.*') ? 'active' : '' }} m-1">
-                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Ketersediaan</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('data.ketersediaan.amplop') ? 'active' : '' }} m-1"><a href="{{ route('data.ketersediaan.amplop') }}">Amplop</a></li>

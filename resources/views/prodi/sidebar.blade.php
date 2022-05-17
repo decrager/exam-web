@@ -27,7 +27,7 @@
                     </li>
 
                     <li class="{{ Request::routeIs('prodi.pengawas.*') ? 'active' : '' }} m-1">
-                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengawas</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('prodi.pengawas.list') ? 'active' : '' }} m-1"><a href="{{ route('prodi.pengawas.list') }}">Daftar Pengawas</a></li>

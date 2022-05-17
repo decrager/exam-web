@@ -25,7 +25,7 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Soal ujian</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
+                        <li><a >Beranda</a></li>
                         <li><a><span>Kelengkapan</span></a></li>
                         <li><span>Soal ujian</span></li>
                     </ul>
@@ -46,8 +46,7 @@
                             </div>
                         @endif
                         <h4 class="header-title">Soal ujian</h4>
-                        <a href="{{ route('pjLokasi.soal.form') }}" class="btn btn-primary justify-content-end text-sm px-3 mb-3">Tambah
-                            Data</a>
+                        <a href="{{ route('pjLokasi.soal.form') }}" class="btn btn-success justify-content-end text-sm px-3 mb-3">Serah Terima Berkas</a>
                         <div class="row justify-content-start">
                             @include('layouts.filter')
                         </div>
@@ -126,15 +125,11 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <div class="btn-group" role="group">
-                                                    @if ($ujian->Berkas->serah_terima == 'Belum')
+                                                @if ($ujian->Berkas->serah_terima == 'Belum')
                                                         <button class="btn btn-danger btn-sm">Belum diserahkan</button>
                                                     @else
                                                         <button class="btn btn-success btn-sm">Sudah diserahkan</button>
                                                     @endif
-                                                    <button class="btn btn-success btn-sm"><i
-                                                            class="fas fa-check"></i></button>
-                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

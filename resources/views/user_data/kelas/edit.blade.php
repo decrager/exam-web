@@ -25,9 +25,9 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Ubah Kelas</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
+                        <li><a >Beranda</a></li>
                         <li><a><span>Akademik</span></a></li>
-                        <li><a href=""><span>Kelas</span></a></li>
+                        <li><a ><span>Kelas</span></a></li>
                         <li><span>Ubah Data</span></li>
                     </ul>
                 </div>

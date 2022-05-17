@@ -25,7 +25,7 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Soal Ujian</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
+                        <li><a >Beranda</a></li>
                         <li><a><span>Kelengkapan</span></a></li>
                         <li><span>Soal Ujian</span></li>
                     </ul>
@@ -46,6 +46,7 @@
                             </div>
                         @endif
                         <h4 class="header-title">Soal Ujian</h4>
+                        <a href="{{ route('berkas.kelengkapan.berkas.ttd') }}" class="btn btn-success justify-content-end text-sm px-3 mb-3">Serah Terima Berkas</a>
                         <div class="row justify-content-start">
                             @include('layouts.filter')
                         </div>

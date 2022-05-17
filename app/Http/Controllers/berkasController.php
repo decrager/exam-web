@@ -182,6 +182,15 @@ class berkasController extends Controller
         return redirect()->route('berkas.kelengkapan.berkas')->with('success', 'Status Serah Terima Berkas berhasil diubah!');
     }
 
+    public function ttd()
+    {
+        $tglbln = Carbon::now()->format('d F, Y');
+        return view('berkas.ttd', [
+            'master' => Master::find(1),
+            'tglbln' => $tglbln
+        ]);
+    }
+
     public function soal(Request $request)
     {
         $now = Carbon::now()->toDateString();

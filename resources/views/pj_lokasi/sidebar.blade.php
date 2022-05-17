@@ -22,7 +22,7 @@
                     </li>
 
                     <li class="{{ Request::routeIs('pjLokasi.pengawas.*') ? 'active' : '' }} m-1">
-                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pengawas</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('pjLokasi.pengawas.daftar.*') ? 'active' : '' }} m-1"><a href="{{ route('pjLokasi.pengawas.daftar.index') }}">Daftar Pengawas</a></li>

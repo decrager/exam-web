@@ -25,7 +25,7 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Pengajuan Ujian Susulan</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
+                        <li><a >Beranda</a></li>
                         <li><a>Susulan</a></li>
                         <li><span>Pengajuan</span></li>
                     </ul>
@@ -80,6 +80,7 @@
                                                 <span class="badge badge-success bg-green">Terjadwal</span>
                                             @endif
                                         </td>
+                                        @if ($pengajuan?->status == 'Belum')
                                         <td>
                                             <form action="{{ route('mahasiswa.susulan.delete', $pengajuan?->id) }}" class="btn-group" role="group" method="POST">
                                                 <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
@@ -88,6 +89,12 @@
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
+                                        @else
+                                        <td>
+                                            <button href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

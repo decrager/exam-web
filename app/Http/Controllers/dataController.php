@@ -14,6 +14,7 @@ use App\Models\Matkul;
 use App\Models\Semester;
 use App\Models\Mahasiswa;
 use App\Models\Praktikum;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +44,38 @@ class dataController extends Controller
         return view('user_data.dashboard', [
             "ujian" => $ujian
         ]);
+    }
+
+    public function ujian(Request $request)
+    {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        if (isEmpty($request)) {
+            $ujian = Ujian::all();
+        } else {
+            $prodi = $request->prodi;
+            $semester = $request->semester;
+            $matkul = $request->matkul;
+            $kelas = $request->kelas;
+            $praktikum = $request->praktikum;
+            $tanggal = $request->tanggal;
+            $ruang = $request->ruang;
+
+            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
+            $ujian->whereBetween('ujians.tanggal', [$from, $to])->get();
+        }
+
+        return view('user_data.ujian', [
+            "ujian" => $ujian,
+        ]);
+    }
+
+    public function export(){
+        return Excel::download(new UjianExport, 'dataujian.xlsx');
     }
 
     public function mahasiswaIndex(Request $request)
@@ -232,7 +265,7 @@ class dataController extends Controller
 
     public function penggunaIndex()
     {
-        $pengguna = User::where('role', '!=', 'mahasiswa')->get();
+        $pengguna = User::where('role', '!=', 'mahasiswa')->where('role', '!=', 'superadmin')->get();
 
         return view('user_data.pengguna.index', [
             "pengguna" => $pengguna

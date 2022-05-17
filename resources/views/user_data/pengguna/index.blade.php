@@ -25,7 +25,7 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Pengguna</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
+                        <li><a >Beranda</a></li>
                         <li><span>Pengguna</span></li>
                     </ul>
                 </div>
@@ -56,7 +56,7 @@
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <th>Lokasi</th>
+                                        {{-- <th>Lokasi</th> --}}
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -89,13 +89,13 @@
                                                     PJ Lab Kom
                                                 @endif
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($pengguna?->lokasi == null)
                                                     -
                                                 @else
                                                     {{ $pengguna?->Lokasi }}
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <form action="{{ route('data.pengguna.destroy', $pengguna?->id) }}" method="POST" class="btn-group" role="group">
                                                     <a href="{{ route('data.pengguna.edit', $pengguna?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>

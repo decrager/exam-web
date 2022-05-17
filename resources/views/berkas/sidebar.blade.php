@@ -22,7 +22,7 @@
                     </li>
 
                     {{-- <li class="{{ Request::routeIs('berkas.rekapitulasi.*') ? 'active' : '' }} m-1">
-                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Rekapitulasi</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('berkas.rekapitulasi.mahasiswa') ? 'active' : '' }} m-1"><a href="{{ route('berkas.rekapitulasi.mahasiswa') }}">Mahasiswa</a></li>
@@ -36,12 +36,12 @@
                     </li>
 
                     <li class="{{ Request::routeIs('berkas.kelengkapan.*') ? 'active' : '' }} m-1">
-                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Kelengkapan</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('berkas.kelengkapan.amplop') ? 'active' : '' }} m-1"><a href="{{ route('berkas.kelengkapan.amplop') }}">Amplop</a></li>
                             <li class="{{ Request::routeIs('berkas.kelengkapan.bap') ? 'active' : '' }} m-1"><a href="{{ route('berkas.kelengkapan.bap') }}">BAP</a></li>
-                            <li class="{{ Request::routeIs('berkas.kelengkapan.berkas') ? 'active' : '' }} m-1"><a href="{{ route('berkas.kelengkapan.berkas') }}">Soal Ujian</a></li>
+                            <li class="{{ Request::routeIs('berkas.kelengkapan.berkas.*') ? 'active' : '' }} m-1"><a href="{{ route('berkas.kelengkapan.berkas.index') }}">Soal Ujian</a></li>
                         </ul>
                     </li>
 

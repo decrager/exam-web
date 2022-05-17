@@ -23,10 +23,10 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Jadwal Ujian Susulan</h4>
+                    <h4 class="page-title pull-left">Jadwal Ujian</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><span>Jadwal Ujian Susulan</span></li>
+                        <li><span>Jadwal Ujian</span></li>
                     </ul>
                 </div>
             </div>
@@ -44,11 +44,14 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <h4 class="header-title pt-2">Jadwal Ujian Susulan</h4>
-                        <div class="row mb-1 justify-content-start">
+                        <h4 class="header-title">Daftar Jadwal Ujian</h4>
+                        <div class="float-right">
+                            <a href="/data/jadwal/export" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
+                                class="fas fa-file-excel-o"></i></a>
+                        </div>
+                        <div class="row justify-content-start">
                             @include('layouts.filter')
                         </div>
-                        <!-- <i class="fa fa-check text-danger"></i> -->
 
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
@@ -62,40 +65,41 @@
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Lokasi</th>
-                                        <th>Ruang</th>
+                                        <th>Kode Ruang</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
+                                        <th>Perbanyak</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($susulan as $susulan)
+                                    @foreach ($ujian as $ujian)
                                         <tr>
-                                            <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $susulan?->tanggal }}</td>
-                                            <td>{{ $susulan?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
-                                            <td>{{ $susulan?->Matkul?->Semester?->semester }}</td>
-                                            <td>{{ $susulan?->Praktikum?->Kelas?->kelas }}</td>
-                                            <td>{{ $susulan?->Praktikum?->praktikum }}</td>
-                                            <td>{{ $susulan?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $susulan?->lokasi }}</td>
-                                            <td>{{ $susulan?->ruang }}</td>
-                                            <td>{{ $susulan?->jam_mulai }}</td>
-                                            <td>{{ $susulan?->jam_selesai }}</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $ujian?->tanggal }}</td>
+                                            <td>{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $ujian?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>
+                                            <td>{{ $ujian?->Praktikum?->praktikum }}</td>
+                                            <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $ujian?->lokasi }}</td>
+                                            <td>{{ $ujian?->ruang }}</td>
+                                            <td>{{ $ujian?->jam_mulai }}</td>
+                                            <td>{{ $ujian?->jam_selesai }}</td>
                                             <td>
-                                                <form action="{{ route('pjSusulan.jadwal.destroy', $susulan?->id) }}"
-                                                    method="POST" class="btn-group" role="group">
-                                                    <a class="btn btn-primary" data-bs-toggle="modal"
-                                                        data-bs-target="{{ '#detail' . $susulan?->id }}"><i
-                                                            class="fas fa-info text-white"></i></a>
-                                                    <a href="{{ route('pjSusulan.jadwal.edit', $susulan?->id) }}"
-                                                        class="btn btn-warning"><i class="fas fa-pen"></i></a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="text" hidden name="prak_id" value="{{ $susulan?->prak_id }}">
-                                                    <input type="text" hidden name="matkul_id" value="{{ $susulan?->matkul_id }}">
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus jadwal ujian susulan ini?')"><i class="fas fa-trash"></i></button>
-                                                </form>
+                                                @if ($ujian?->perbanyak == 1)
+                                                    <span class="badge badge-success">Perbanyak</span>
+                                                @else
+                                                    <span class="badge badge-danger">Tidak</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-primary" data-bs-toggle="modal"
+                                                        data-bs-target="{{ '#detail' . $ujian?->id }}"><i
+                                                            class="fas fa-info text-white"></i></button>
+                                                    <a href="{{ route('prodi.jadwal.edit', $ujian?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -109,8 +113,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    @foreach ($susulans as $ujian)
+    @foreach ($dbUjian as $ujian)
         <div class="modal fade" id="{{ 'detail' . $ujian?->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

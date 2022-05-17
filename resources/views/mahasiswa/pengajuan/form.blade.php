@@ -25,9 +25,9 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Tambah Pengajuan Ujian Susulan</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
+                        <li><a >Beranda</a></li>
                         <li><a>Susulan</a></li>
-                        <li><a href=""><span>Pengajuan</span></a></li>
+                        <li><a ><span>Pengajuan</span></a></li>
                         <li><span>Tambah Pengajuan</span></li>
                     </ul>
                 </div>

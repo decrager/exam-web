@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
     Route::get('/data', [dataController::class, 'dashboard'])->name('dashboardData');
+    Route::get('/data/ujian', [dataController::class, 'ujian'])->name('data.ujian');
+    Route::get('/data/jadwal/export', [prodiController::class, 'export'])->name('data.ujian.export');
     Route::get('/data/mahasiswa', [dataController::class, 'mahasiswaIndex'])->name('data.mahasiswa.view');
     Route::get('/data/mahasiswa/tambah', [dataController::class, 'mahasiswaForm'])->name('data.mahasiswa.form');
     Route::get('/data/mahasiswa/edit/{id}', [dataController::class, 'mahasiswaEdit'])->name('data.mahasiswa.edit');
@@ -133,7 +135,8 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::get('/pj_ujian/pengawas/penugasan/tambah/{id}', [pjUjianController::class, 'penugasanForm'])->name('pjUjian.pengawas.penugasan.form');
     Route::get('/pj_ujian/kelengkapan/amplop', [pjUjianController::class, 'amplop'])->name('pjUjian.kelengkapan.amplop');
     Route::get('/pj_ujian/kelengkapan/bap', [pjUjianController::class, 'bap'])->name('pjUjian.kelengkapan.bap');
-    Route::get('/pj_ujian/kelengkapan/berkas', [pjUjianController::class, 'berkas'])->name('pjUjian.kelengkapan.berkas');
+    Route::get('/pj_ujian/kelengkapan/berkas', [pjUjianController::class, 'berkas'])->name('pjUjian.kelengkapan.berkas.index');
+    Route::get('/pj_ujian/kelengkapan/berkas/ttd', [pjUjianController::class, 'ttd'])->name('pjUjian.kelengkapan.berkas.ttd');
     Route::get('/pj_ujian/susulan', [pjUjianController::class, 'susulan'])->name('pjUjian.susulan');
     Route::get('/pj_ujian/pelanggaran', [pjUjianController::class, 'pelanggaran'])->name('pjUjian.pelanggaran');
 
@@ -187,7 +190,8 @@ Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {
     Route::get('/berkas/soal', [berkasController::class, 'soal'])->name('berkas.soal');
     Route::get('/berkas/kelengkapan/amplop', [berkasController::class, 'amplop'])->name('berkas.kelengkapan.amplop');
     Route::get('/berkas/kelengkapan/bap', [berkasController::class, 'bap'])->name('berkas.kelengkapan.bap');
-    Route::get('/berkas/kelengkapan/berkas', [berkasController::class, 'berkas'])->name('berkas.kelengkapan.berkas');
+    Route::get('/berkas/kelengkapan/berkas', [berkasController::class, 'berkas'])->name('berkas.kelengkapan.berkas.index');
+    Route::get('/berkas/kelengkapan/berkas/ttd', [berkasController::class, 'ttd'])->name('berkas.kelengkapan.berkas.ttd');
     Route::get('/berkas/pelanggaran', [berkasController::class, 'pelanggaran'])->name('berkas.pelanggaran');
 
     Route::put('/berkas/amplop/{id}', [berkasController::class, 'amplopUpdate'])->name('berkas.amplop.update');

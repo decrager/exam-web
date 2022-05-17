@@ -52,7 +52,7 @@
                     </li>
 
                     <li class="{{ Request::routeIs('supervisor.kelengkapan.*') ? 'active' : '' }} m-1">
-                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Kelengkapan</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('supervisor.kelengkapan.amplop') ? 'active' : '' }} m-1"><a href="{{ route('supervisor.kelengkapan.amplop') }}">Amplop</a></li>

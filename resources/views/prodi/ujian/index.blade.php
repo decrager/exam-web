@@ -25,7 +25,7 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Jadwal Ujian</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
+                        <li><a >Beranda</a></li>
                         <li><span>Jadwal Ujian</span></li>
                     </ul>
                 </div>
@@ -45,10 +45,10 @@
                             </div>
                         @endif
                         <h4 class="header-title">Daftar Jadwal Ujian</h4>
-                        <div class="float-right">
+                        {{-- <div class="float-right">
                             <a href="/prodi/jadwal/export" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
                                 class="fas fa-file-excel-o"></i></a>
-                        </div>
+                        </div> --}}
                         <div class="row justify-content-start">
                             @include('layouts.filter')
                         </div>

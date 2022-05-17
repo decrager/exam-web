@@ -25,8 +25,8 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Tambah Jadwal Ujian</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
-                        <li><a href=""><span>Jadwal Ujian</span></a></li>
+                        <li><a >Beranda</a></li>
+                        <li><a ><span>Jadwal Ujian</span></a></li>
                         <li><span>Tambah Jadwal Ujian</span></li>
                     </ul>
                 </div>

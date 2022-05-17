@@ -25,8 +25,8 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Ubah Data Mahasiswa</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a href="">Beranda</a></li>
-                        <li><a href=""><span>Mahasiswa</span></a></li>
+                        <li><a >Beranda</a></li>
+                        <li><a ><span>Mahasiswa</span></a></li>
                         <li><span>Ubah Data Mahasiswa</span></li>
                     </ul>
                 </div>

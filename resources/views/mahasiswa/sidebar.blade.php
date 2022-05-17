@@ -22,7 +22,7 @@
                     </li>
 
                     <li class="{{ Request::routeIs('mahasiswa.susulan.*') ? 'active' : '' }} m-1">
-                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
+                        <a  aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Susulan</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('mahasiswa.susulan.jadwal') ? 'active' : '' }} m-1"><a href="{{ route('mahasiswa.susulan.jadwal') }}">Jadwal</a></li>
