@@ -23,10 +23,11 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Susulan</h4>
+                    <h4 class="page-title pull-left">Mahasiswa Yang Mengajukan Susulan</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><span>Susulan</span></li>
+                        <li><a></a><span>Susulan</span></li>
+                        <li><span>Mahasiswa</span></li>
                     </ul>
                 </div>
             </div>

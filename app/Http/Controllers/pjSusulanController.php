@@ -33,11 +33,11 @@ class pjSusulanController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('pj_susulan.dashboard', [
-            "ujian" => $ujian
+            "dbUjian" => $ujian
         ]);
     }
 
@@ -205,24 +205,15 @@ class pjSusulanController extends Controller
         
         $amplop = new Amplop;
         $amplop->ujian_id = $latest;
-        $amplop->print = "Belum";
-        $amplop->pengambilan = "Belum";
         $amplop->save();
 
         $bap = new Bap;
         $bap->ujian_id = $latest;
-        $bap->print = "Belum";
-        $bap->pengambilan = "Belum";
         $bap->save();
 
         $berkas = new Berkas;
         $berkas->ujian_id = $latest;
         $berkas->jml_berkas = "0";
-        $berkas->pengambilan = "Belum";
-        $berkas->fotokopi = "Belum";
-        $berkas->lengkap = "Belum";
-        $berkas->asisten = "Belum";
-        $berkas->serah_terima = "Belum";
         $berkas->save();
 
         Susulan::join('mahasiswas', 'susulans.mhs_id', 'mahasiswas.id')

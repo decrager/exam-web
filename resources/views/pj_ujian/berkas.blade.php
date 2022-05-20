@@ -63,10 +63,11 @@
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Tipe</th>
-                                        <th>Lokasi</th>
+                                        <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Jumlah</th>
-                                        <th>Pengambilan</th>
+                                        <th>Verifikasi</th>
+                                        <th>Validasi</th>
                                         <th>Fotokopi</th>
                                         <th>Lengkap</th>
                                         <th>Asisten</th>
@@ -95,12 +96,19 @@
                                                 {{ $berkas }}
                                             </td>
                                             <td>
+                                                @if ($ujian?->Berkas?->verifikasi == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum diverifikasi</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Terverifikasi</button>
+                                                @endif
+                                            </td>
+                                            <td>
                                                 <form action="{{ route('pjUjian.berkas.update', $ujian?->Berkas?->id) }}"
                                                     method="POST" class="btn-group" role="group">
-                                                    @if ($ujian?->Berkas?->pengambilan == 'Belum')
-                                                        <button class="btn btn-danger btn-sm">Belum diambil</button>
+                                                    @if ($ujian?->Berkas?->validasi == 'Belum')
+                                                        <button class="btn btn-danger btn-sm">Belum divalidasi</button>
                                                     @else
-                                                        <button class="btn btn-success btn-sm">Sudah diambil</button>
+                                                        <button class="btn btn-success btn-sm">Tervalidasi</button>
                                                     @endif
                                                     @csrf
                                                     @method('PUT')

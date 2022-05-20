@@ -26,11 +26,11 @@ class pjOnlineController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('pj_online.dashboard', [
-            "ujian" => $ujian
+            "dbUjian" => $ujian
         ]);
     }
 
@@ -54,7 +54,9 @@ class pjOnlineController extends Controller
             $ruang = $request->ruang;
             
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->where('ujians.pelaksanaan', 'like', '%Online%')->whereBetween('ujians.tanggal', [$from, $to])->get();
+            $ujian->where('ujians.pelaksanaan', 'like', '%Online%')->whereBetween('ujians.tanggal', [$from, $to]);
+
+            $ujian = $ujian->get();
         }
 
         return view('pj_online.ujian', [

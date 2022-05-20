@@ -58,7 +58,7 @@
         <select class="custom-select" name="dbRuang">
             <option selected="selected">Kode Ruang</option>
             @foreach ($dbRuang as $ruang)
-                <option value="{{ $ruang->ruang }}">{{ $ruang->ruang }}</option>
+                <option value="{{ $ruang->ruangan }}">{{ $ruang->ruangan }}</option>
             @endforeach
         </select>
     </div>

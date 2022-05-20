@@ -47,9 +47,14 @@
                         </ul>
                     </li>
 
-                    <li class="{{ Request::routeIs('pjUjian.susulan') ? 'active' : '' }} m-1">
-                        <a href="{{ route('pjUjian.susulan') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                    <li class="{{ Request::routeIs('pjUjian.susulan.*') ? 'active' : '' }} m-1">
+                        <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Susulan</span></a>
+                        <ul class="collapse">
+                            <li class="{{ Request::routeIs('pjUjian.susulan.mahasiswa') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.susulan.mahasiswa') }}">Mahasiswa</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.susulan.penjadwalan.*') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.susulan.penjadwalan.index') }}">Penjadwalan</a></li>
+                            <li class="{{ Request::routeIs('pjUjian.susulan.susulan.*') ? 'active' : '' }} m-1"><a href="{{ route('pjUjian.susulan.susulan.index') }}">Jadwal Susulan</a></li>
+                        </ul>
                     </li>
 
                     <li class="{{ Request::routeIs('pjUjian.pelanggaran') ? 'active' : '' }} m-1">

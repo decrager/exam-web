@@ -54,7 +54,7 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Lokasi</th>
+                                        <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Pengawas</th>
                                     </tr>

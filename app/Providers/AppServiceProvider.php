@@ -18,6 +18,7 @@ use App\Models\Mahasiswa;
 use App\Models\Matkul;
 use App\Models\Praktikum;
 use App\Models\Pelanggaran;
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
 
 use PhpParser\Node\Stmt\Foreach_;
@@ -87,13 +88,14 @@ class AppServiceProvider extends ServiceProvider
         $label =  array_keys($data);
         $data = array_values($data);
 
-        $ujian = Ujian::all()->whereBetween('tanggal', [$from, $to]);
+        // $ujian = Ujian::all()->whereBetween('tanggal', [$from, $to]);
         $prodi = Prodi::all();
         $semester = Semester::select('semester', DB::raw('count(*) as total'))->groupBy('semester')->get();
         $kelas = Kelas::select('kelas', DB::raw('count(*) as total'))->groupBy('kelas')->get();
         $praktikum = Praktikum::select('praktikum', DB::raw('count(*) as total'))->groupBy('praktikum')->get();
         $matkul = Matkul::select('nama_matkul', DB::raw('count(*) as total'))->groupBy('nama_matkul')->get();
-        $ruang = Ujian::select('ruang', DB::raw('count(id) as total'))->groupBy('ruang')->get();
+        $ruang = Ruangan::all();
+        $lokasi = Ruangan::selectRaw('lokasi, count(*) as total')->groupBy('lokasi')->get();
         $pelanggaran = Pelanggaran::join('mahasiswas', 'pelanggarans.mhs_id', 'mahasiswas.id')
         ->join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
         ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
@@ -114,10 +116,11 @@ class AppServiceProvider extends ServiceProvider
         ->get();
 
         View::share([
-            'dbUjian' => $ujian,
+            // 'dbUjian' => $ujian,
             'dbProdi' => $prodi,
             'dbSemester' => $semester,
             'dbRuang' => $ruang,
+            'dbLokasi' => $lokasi,
             'dbKelas' => $kelas,
             'dbPraktikum' => $praktikum,
             'dbMatkul' => $matkul,

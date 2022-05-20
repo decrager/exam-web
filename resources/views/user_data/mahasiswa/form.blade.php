@@ -72,7 +72,7 @@
 
                                     <div class="form-group">
                                         <label class="col-form-label-sm">Praktikum</label>
-                                        <select class="custom-select" name="praktikum" id="kelas" required>
+                                        <select class="custom-select" name="praktikum" id="praktikum" required>
                                             <option selected="selected">Pilih Praktikum</option>
                                         </select>
                                     </div>

@@ -101,7 +101,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Lokasi</label>
+                                        <label class="col-form-label">Usulan Ruang</label>
                                         <select class="custom-select @error('lokasi') is-invalid @enderror" name="lokasi">
                                             <option selected="selected" value="-">Pilih lokasi</option>
                                             <option value="Lab. Komputer">Lab. Komputer</option>
@@ -120,7 +120,7 @@
                                         <select class="custom-select @error('ruang') is-invalid @enderror" name="ruang">
                                             <option selected="selected" value="-">Pilih ruang</option>
                                             @foreach ($dbRuang as $ruang)
-                                                <option value="{{ $ruang->ruang }}">{{ $ruang->ruang }}</option>
+                                                <option value="{{ $ruang?->ruangan }}">{{ $ruang?->ruangan }}</option>
                                             @endforeach
                                         </select>
                                         @error('ruang')

@@ -75,7 +75,7 @@
 
                                     <div class="form-group">
                                         <label class="col-form-label-sm">Praktikum</label>
-                                        <select class="custom-select" name="praktikum" id="kelas" required>
+                                        <select class="custom-select" name="praktikum" id="praktikum" required>
                                             <option>Pilih Praktikum</option>
                                             <option selected="selected" value="{{ $mahasiswa?->Praktikum?->id }}">{{ $mahasiswa?->Praktikum?->praktikum }}</option>
                                         </select>

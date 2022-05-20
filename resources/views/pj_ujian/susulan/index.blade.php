@@ -23,80 +23,83 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Beranda</h4>
+                    <h4 class="page-title pull-left">Jadwal Ujian Susulan</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><span></span></li>
+                        <li><a>Beranda</a></li>
+                        <li><a><span>Susulan</span></a></li>
+                        <li><span>Jadwal Susulan</span></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    
     <!-- page title area end -->
     <div class="main-content-inner">
-        <div class="row mb-3">
-            <!-- data table start -->
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="header-title pt-2">Ketentuan Ujian Susulan:</h4>
-                        <ul>
-                            @foreach ($ketentuan as $ketentuan)
-                            <li style="font-size: 16px">&bull;&nbsp;{{ $ketentuan->ketentuan }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- data table end -->
-        </div>
-
         <div class="row">
             <!-- data table start -->
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title pt-2">Jadwal Ujian</h4>
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <h4 class="header-title pt-2">Jadwal Ujian Susulan</h4>
+                        <div class="row mb-1 justify-content-start">
+                            @include('layouts.filter')
+                        </div>
                         <!-- <i class="fa fa-check text-danger"></i> -->
 
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
-                                        <th class="border-0" scope="col">No</th>
-                                        <th class="border-0" scope="col">Tanggal</th>
-                                        <th class="border-0 col-2" scope="col">Program Studi</th>
-                                        <th class="border-0" scope="col">Semester</th>
-                                        <th class="border-0" scope="col">Kelas</th>
-                                        <th class="border-0" scope="col">Praktikum</th>
-                                        <th class="border-0 col-2" scope="col">Mata Kuliah</th>
-                                        <th class="border-0" scope="col">Usulan Ruang</th>
-                                        <th class="border-0" scope="col">Ruang</th>
-                                        <th class="border-0" scope="col">Jam Mulai</th>
-                                        <th class="border-0" scope="col">Jam Selesai</th>
-                                        <th class="border-0" scope="col">Aksi</th>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th class="col-2">Program Studi</th>
+                                        <th>Semester</th>
+                                        <th>Kelas</th>
+                                        <th>Praktikum</th>
+                                        <th class="col-2">Mata Kuliah</th>
+                                        <th>Usulan Ruang</th>
+                                        <th>Ruang</th>
+                                        <th>Jam Mulai</th>
+                                        <th>Jam Selesai</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($ujian as $ujian)
-                                    <tr>
-                                        <td class="border-0" scope="row">{{ $loop->iteration }}</td>
-                                        <td class="border-0">{{ $ujian?->tanggal }}</td>
-                                        <td class="border-0">{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}
-                                        </td>
-                                        <td class="border-0">{{ $ujian?->Matkul?->Semester?->semester }}</td>
-                                        <td class="border-0">{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>
-                                        <td class="border-0">{{ $ujian?->Praktikum?->praktikum }}</td>
-                                        <td class="border-0">{{ $ujian?->Matkul?->nama_matkul }}</td>
-                                        <td class="border-0">{{ $ujian?->lokasi }}</td>
-                                        <td class="border-0">{{ $ujian?->ruang }}</td>
-                                        <td class="border-0">{{ $ujian?->jam_mulai }}</td>
-                                        <td class="border-0">{{ $ujian?->jam_selesai }}</td>
-                                        <td class="border-0"><button class="btn btn-primary"
-                                                data-bs-toggle="modal" data-bs-target="{{ '#detail' . $ujian?->id }}"><i
-                                                    class="fas fa-info"></i></button></td>
-                                    </tr>
-                                @endforeach
+                                    @foreach ($susulan as $susulan)
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td>{{ $susulan?->tanggal }}</td>
+                                            <td>{{ $susulan?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $susulan?->Matkul?->Semester?->semester }}</td>
+                                            <td>{{ $susulan?->Praktikum?->Kelas?->kelas }}</td>
+                                            <td>{{ $susulan?->Praktikum?->praktikum }}</td>
+                                            <td>{{ $susulan?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $susulan?->lokasi }}</td>
+                                            <td>{{ $susulan?->ruang }}</td>
+                                            <td>{{ $susulan?->jam_mulai }}</td>
+                                            <td>{{ $susulan?->jam_selesai }}</td>
+                                            <td>
+                                                <form action="{{ route('pjUjian.susulan.jadwal.destroy', $susulan?->id) }}"
+                                                    method="POST" class="btn-group" role="group">
+                                                    <a class="btn btn-primary" data-bs-toggle="modal"
+                                                        data-bs-target="{{ '#detail' . $susulan?->id }}"><i
+                                                            class="fas fa-info text-white"></i></a>
+                                                    <a href="{{ route('pjUjian.susulan.susulan.edit', $susulan?->id) }}"
+                                                        class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="text" hidden name="prak_id" value="{{ $susulan?->prak_id }}">
+                                                    <input type="text" hidden name="matkul_id" value="{{ $susulan?->matkul_id }}">
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus jadwal ujian susulan ini?')"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -108,15 +111,14 @@
     </div>
 
     <!-- Modal -->
-    @foreach ($ujian1 as $ujian)
-        <div class="modal fade" id="{{ 'detail' . $ujian?->id }}" tabindex="-1"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
+    @foreach ($susulans as $ujian)
+        <div class="modal fade" id="{{ 'detail' . $ujian?->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -158,7 +160,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <h6>Ruang</h6>
+                                                    <h6>Kode Ruang</h6>
                                                     <p>{{ $ujian?->ruang }}</p>
                                                 </div>
                                                 <div class="form-group">

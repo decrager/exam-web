@@ -56,7 +56,7 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Lokasi</th>
+                                        <th>Usulan Ruang</th>
                                         <th>Kode Ruang</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
@@ -134,7 +134,7 @@
                                                     <p>{{ $jadwal?->Matkul?->nama_matkul }}</p>
                                                 </div>
                                                 <div class="form-group">
-                                                    <h6>Lokasi</h6>
+                                                    <h6>Usulan Ruang</h6>
                                                     <p>{{ $jadwal?->lokasi }}</p>
                                                 </div>
                                             </div>
@@ -154,6 +154,16 @@
                                                 <div class="form-group">
                                                     <h6>Sesi</h6>
                                                     <p>{{ $jadwal?->sesi }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6>Perbanyak</h6>
+                                                    <p>
+                                                        @if ($jadwal?->perbanyak == 1)
+                                                            <span class="badge bg-success">Perbanyak</span>
+                                                        @else
+                                                            <span class="badge bg-danger">Tidak</span>
+                                                        @endif
+                                                    </p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Software</h6>

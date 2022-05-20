@@ -87,10 +87,10 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Lokasi</label>
+                                        <label class="col-form-label">Usulan Ruang</label>
                                         <select class="custom-select" name="lokasi">
                                             <option selected="selected">
-                                                Pilih Lokasi
+                                                Pilih Usulan Ruang
                                             </option>
                                             <option value="Lab. Komputer">Lab. Komputer</option>
                                             <option value="Lab. Prodi">Lab. Prodi</option>

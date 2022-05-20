@@ -159,6 +159,10 @@
                                                         </div>
                                                         <div class="form-group pl-3">
                                                             <h6>Mata Kuliah</h6>
+                                                            <p>{{ $pelanggaran?->Ujian?->tanggal }}</p>
+                                                        </div>
+                                                        <div class="form-group pl-3">
+                                                            <h6>Mata Kuliah</h6>
                                                             <p>{{ $pelanggaran?->Ujian?->Matkul?->nama_matkul }}</p>
                                                         </div>
                                                         <div class="form-group pl-3 mb-2">

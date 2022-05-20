@@ -23,7 +23,7 @@
                             <span>Pengawas</span></a>
                         <ul class="collapse">
                             <li class="{{ Request::routeIs('pjLokasi.pengawas.daftar.*') ? 'active' : '' }} m-1"><a href="{{ route('pjLokasi.pengawas.daftar.index') }}">Daftar Pengawas</a></li>
-                            <li class="{{ Request::routeIs('pjLokasi.pengawas.absensi.*') ? 'active' : '' }} m-1"><a href="{{ route('pjLokasi.pengawas.absensi.index') }}">Absensi</a></li>
+                            <li class="{{ Request::routeIs('pjLokasi.pengawas.absensi.*') ? 'active' : '' }} m-1"><a href="{{ route('pjLokasi.pengawas.absensi.index') }}">Kehadiran</a></li>
                         </ul>
                     </li>
 

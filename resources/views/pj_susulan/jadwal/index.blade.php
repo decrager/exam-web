@@ -26,7 +26,7 @@
                     <h4 class="page-title pull-left">Jadwal Ujian Susulan</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><span>Jadwal Ujian Susulan</span></li>
+                        <li><span>Jadwal Susulan</span></li>
                     </ul>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Lokasi</th>
+                                        <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
@@ -153,7 +153,7 @@
                                                     <p>{{ $ujian?->Matkul?->nama_matkul }}</p>
                                                 </div>
                                                 <div class="form-group">
-                                                    <h6>Lokasi</h6>
+                                                    <h6>Usulan Ruang</h6>
                                                     <p>{{ $ujian?->lokasi }}</p>
                                                 </div>
                                             </div>

@@ -71,7 +71,7 @@
                                     <th class="border-0" scope="col">Kelas</th>
                                     <th class="border-0" scope="col">Praktikum</th>
                                     <th class="border-0 col-2" scope="col">Mata Kuliah</th>
-                                    <th class="border-0" scope="col">Lokasi</th>
+                                    <th class="border-0" scope="col">Usulan Ruang</th>
                                     <th class="border-0" scope="col">Ruang</th>
                                     <th class="border-0" scope="col">Jam Mulai</th>
                                     <th class="border-0" scope="col">Jam Selesai</th>
@@ -153,7 +153,7 @@
                                                     <p>{{ $ujian?->Matkul?->nama_matkul }}</p>
                                                 </div>
                                                 <div class="form-group">
-                                                    <h6>Lokasi</h6>
+                                                    <h6>Usulan Ruang</h6>
                                                     <p>{{ $ujian?->lokasi }}</p>
                                                 </div>
                                             </div>

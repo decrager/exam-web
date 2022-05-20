@@ -25,8 +25,9 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Ubah Jadwal Ujian Susulan</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a >Beranda</a></li>
-                        <li><a ><span>Jadwal Susulan</span></a></li>
+                        <li><a>Beranda</a></li>
+                        <li><a>Susulan</a></li>
+                        <li><a><span>Jadwal Susulan</span></a></li>
                         <li><span>Ubah Jadwal</span></li>
                     </ul>
                 </div>
@@ -42,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('pjSusulan.jadwal.update', $ujian?->id) }}" method="POST">
+                                <form action="{{ route('pjUjian.susulan.jadwal.update', $ujian?->id) }}" method="POST">
                                     <h4 class="header-title">Penjadwalan Ujian Susulan</h4>
                                     @csrf
                                     @method('PUT')

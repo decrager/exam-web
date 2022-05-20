@@ -23,11 +23,11 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Absensi</h4>
+                    <h4 class="page-title pull-left">Kehadiran</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
                         <li><a>Pengawas</a></li>
-                        <li><span>Absensi</span></li>
+                        <li><span>Kehadiran</span></li>
                     </ul>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <h4 class="header-title">Absensi</h4>
+                        <h4 class="header-title">Kehadiran</h4>
                         <a href="#" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
                             <i class="fas fa-file-pdf"></i>
                         </a>
@@ -85,7 +85,7 @@
                                         <th>NON PNS</th>
                                         <th class="col-2">Program Studi</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Lokasi</th>
+                                        <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Tanda Tangan</th>
                                         <th>Aksi</th>

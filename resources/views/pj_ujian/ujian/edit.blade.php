@@ -114,7 +114,7 @@
                                             <option>Pilih ruang</option>
                                             <option selected="selected" value="{{ $ujian?->ruang }}">{{ $ujian->ruang }}</option>
                                             @foreach ($dbRuang as $ruang)
-                                                <option value="{{ $ruang?->ruang }}">{{ $ruang?->ruang }}</option>
+                                                <option value="{{ $ruang?->ruangan }}">{{ $ruang?->ruangan }}</option>
                                             @endforeach
                                         </select>
                                     </div>

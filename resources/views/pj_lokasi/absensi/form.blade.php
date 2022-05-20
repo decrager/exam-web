@@ -23,12 +23,12 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Tambah Absensi</h4>
+                    <h4 class="page-title pull-left">Tambah Kehadiran</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
                         <li><a>Pengawas</a></li>
-                        <li><a ><span>Absensi</span></a></li>
-                        <li><span>Tambah Absensi</span></li>
+                        <li><a ><span>Kehadiran</span></a></li>
+                        <li><span>Tambah Kehadiran</span></li>
                     </ul>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Absensi Pengawas Ujian</h4>
+                                <h4 class="header-title">Kehadiran Pengawas Ujian</h4>
 
                                 <div class="form-group">
                                     <label for="nama" class="col-form-label">Nama</label>
@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="lokasi" class="col-form-label">Lokasi</label>
+                                    <label for="lokasi" class="col-form-label">Usulan Ruang</label>
                                     <input class="form-control" type="text" readonly value="{{ $pengawas->Ujian->lokasi }}" id="lokasi"
                                         name="lokasi" />
                                 </div>

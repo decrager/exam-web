@@ -31,11 +31,11 @@ class supervisorController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
         
         return view('supervisor.dashboard', [
-            "ujian" => $ujian
+            "dbUjian" => $ujian
         ]);
     }
 
@@ -48,7 +48,7 @@ class supervisorController extends Controller
         $to = $dataTanggalSelesai->periode_akhir;
 
         if (isEmpty($request)) {
-            $ujian = Ujian::where('susulan', '0')->get();
+            $ujian = Ujian::where('susulan', '0');
         } else {
             $prodi = $request->prodi;
             $semester = $request->semester;
@@ -59,11 +59,11 @@ class supervisorController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->where('susulan', '0')->whereBetween('ujians.tanggal', [$from, $to])->get();
+            $ujian->where('susulan', '0')->whereBetween('ujians.tanggal', [$from, $to]);
         }
 
         return view('supervisor.ujian', [
-            "ujian" => $ujian
+            "ujian" => $ujian->get()
         ]);
     }
 
@@ -76,7 +76,7 @@ class supervisorController extends Controller
         $to = $dataTanggalSelesai->periode_akhir;
 
         if (isEmpty($request)) {
-            $ujian = Ujian::where('susulan', '1')->get();
+            $ujian = Ujian::where('susulan', '1');
         } else {
             $prodi = $request->prodi;
             $semester = $request->semester;
@@ -87,10 +87,10 @@ class supervisorController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->where('susulan', '1')->whereBetween('ujians.tanggal', [$from, $to])->get();
+            $ujian->where('susulan', '1')->whereBetween('ujians.tanggal', [$from, $to]);
         }
 
-        return view('supervisor.susulan', ['ujian' => $ujian]);
+        return view('supervisor.susulan', ['ujian' => $ujian->get()]);
     }
 
     public function mhs_susulan()
@@ -105,10 +105,23 @@ class supervisorController extends Controller
 
     public function pengawas(Request $request)
     {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
         if (isEmpty($request)) {
-            $pengawas = Pengawas::all();
+            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+            ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+            ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+            ->whereBetween('ujians.tanggal', [$from, $to]);
         } else {
-            $pengawas = Ujian::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
                 ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
                 ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
                 ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
@@ -140,9 +153,10 @@ class supervisorController extends Controller
                 $pengawas->where('ruang', 'like', '%' . $request->ruang . '%');
             }
 
-            $pengawas->get();
+            $pengawas->whereBetween('ujians.tanggal', [$from, $to]);
         }
         
+        $pengawas = $pengawas->get();
         return view('supervisor.pengawas', [
             "pengawas" => $pengawas
         ]);
@@ -188,7 +202,7 @@ class supervisorController extends Controller
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, count(kelas.jml_mhs) * 3 + SUM(kelas.jml_mhs) AS jumlah')
+        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, count(kelas.jml_mhs) * 6 + SUM(kelas.jml_mhs) AS jumlah')
         ->groupBy('ujians.tanggal', 'ujians.tipe_mk', 'ujians.perbanyak', 'prodis.nama_prodi', 'b.semester', 'matkuls.nama_matkul')
         ->get();
 
@@ -213,7 +227,7 @@ class supervisorController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('supervisor.amplop', [
@@ -237,7 +251,7 @@ class supervisorController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
         
         return view('supervisor.bap', [
@@ -261,7 +275,7 @@ class supervisorController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('supervisor.berkas', [

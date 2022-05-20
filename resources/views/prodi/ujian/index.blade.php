@@ -58,7 +58,7 @@
                                         <th>Semester</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Tipe</th>
-                                        <th>Lokasi</th>
+                                        <th>Usulan Ruang</th>
                                         <th>Perbanyak</th>
                                         <th>Software</th>
                                         <th>Aksi</th>

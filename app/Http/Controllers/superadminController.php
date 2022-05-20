@@ -25,11 +25,11 @@ class superadminController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('pj_labkom.dashboard', [
-            "ujian" => $ujian
+            "dbUjian" => $ujian
         ]);
     }
 }

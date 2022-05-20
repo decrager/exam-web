@@ -62,7 +62,7 @@
                                         <select class="custom-select" name="role" required>
                                             <option>Pilih jenis pengguna</option>
                                             @if ($pengguna?->role == 'data')
-                                            <option selected="selected" value="{{ $pengguna?->role }}">Data</option>
+                                            <option selected="selected" value="{{ $pengguna?->role }}">Data & Akademik</option>
                                             @elseif ($pengguna?->role == 'pj_ujian')
                                             <option selected="selected" value="{{ $pengguna?->role }}">PJ Ujian</option>
                                             @elseif ($pengguna?->role == 'prodi')
@@ -95,22 +95,17 @@
                                         </select>
                                     </div>
 
-                                    {{-- <div class="form-group">
+                                    <div class="form-group">
                                         <label class="col-form-label">Lokasi (Optional)</label>
                                         <select class="custom-select" name="lokasi">
                                             <option value="-">Pilih lokasi</option>
                                             <option selected="selected" value="{{ $pengguna?->lokasi }}">{{ $pengguna?->lokasi }}</option>
-                                            <option value="BS B01-B06">BS B01-B06</option>
-                                            <option value="BS B07-B010">BS B07-B010</option>
-                                            <option value="BS BOTANI, FISIKA, KIMIA">BS BOTANI, FISIKA, KIMIA</option>
-                                            <option value="BS P01-P03">BS P01-P03</option>
-                                            <option value="CA & Lab Kom">CA & Lab Kom</option>
-                                            <option value="CB & Lab Kom">CB & Lab Kom</option>
-                                            <option value="Sukabumi">Sukabumi</option>
+                                            @foreach ($dbLokasi as $lokasi)
+                                                <option value="{{ $lokasi?->lokasi }}">{{ $lokasi?->lokasi }}</option>
+                                            @endforeach
                                         </select>
-                                    </div> --}}
+                                    </div>
 
-                                    <input hidden type="text" name="lokasi" value="-">
                                     <button class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>

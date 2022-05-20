@@ -16,6 +16,7 @@ use App\Models\Mahasiswa;
 use App\Models\Praktikum;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Hash;
 use function PHPUnit\Framework\isEmpty;
@@ -38,11 +39,11 @@ class dataController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('user_data.dashboard', [
-            "ujian" => $ujian
+            "dbUjian" => $ujian
         ]);
     }
 
@@ -71,6 +72,7 @@ class dataController extends Controller
 
         return view('user_data.ujian', [
             "ujian" => $ujian,
+            "ujians" => $ujian
         ]);
     }
 
@@ -102,7 +104,7 @@ class dataController extends Controller
                 }
             }
 
-            $mahasiswa->get();
+            $mahasiswa = $mahasiswa->get();
         }
 
         return view('user_data.mahasiswa.index', [
@@ -203,7 +205,7 @@ class dataController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('user_data.bap', [
@@ -241,7 +243,7 @@ class dataController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('user_data.amplop', [

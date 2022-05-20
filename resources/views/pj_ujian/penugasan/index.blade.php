@@ -62,7 +62,7 @@
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Jenis MK</th>
-                                        <th>Lokasi</th>
+                                        <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Aksi</th>
                                     </tr>

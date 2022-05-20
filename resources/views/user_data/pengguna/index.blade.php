@@ -56,7 +56,7 @@
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        {{-- <th>Lokasi</th> --}}
+                                        <th>Lokasi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -68,7 +68,7 @@
                                             <td>{{ $pengguna?->email }}</td>
                                             <td>
                                                 @if ($pengguna?->role == 'data')
-                                                    Data
+                                                    Data & Akademik
                                                 @elseif ($pengguna?->role == 'pj_ujian')
                                                     PJ Ujian
                                                 @elseif ($pengguna?->role == 'prodi')
@@ -89,13 +89,7 @@
                                                     PJ Lab Kom
                                                 @endif
                                             </td>
-                                            {{-- <td>
-                                                @if ($pengguna?->lokasi == null)
-                                                    -
-                                                @else
-                                                    {{ $pengguna?->Lokasi }}
-                                                @endif
-                                            </td> --}}
+                                            <td>{{ $pengguna?->lokasi }}</td>
                                             <td>
                                                 <form action="{{ route('data.pengguna.destroy', $pengguna?->id) }}" method="POST" class="btn-group" role="group">
                                                     <a href="{{ route('data.pengguna.edit', $pengguna?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>

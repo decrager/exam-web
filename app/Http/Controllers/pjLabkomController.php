@@ -25,11 +25,11 @@ class pjLabkomController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('pj_labkom.dashboard', [
-            "ujian" => $ujian
+            "dbUjian" => $ujian
         ]);
     }
 
@@ -49,9 +49,12 @@ class pjLabkomController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
-        return view('pj_labkom.ujian', ['ujian' => $ujian]);
+        return view('pj_labkom.ujian', [
+            'ujian' => $ujian,
+            'ujians' => $ujian,
+    ]);
     }
 }

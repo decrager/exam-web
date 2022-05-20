@@ -26,10 +26,10 @@ class assistenController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
-        return view('assisten.dashboard', ["ujian" => $ujian]);
+        return view('assisten.dashboard', ["dbUjian" => $ujian]);
     }
     
     public function berkas(Request $request)
@@ -48,7 +48,7 @@ class assistenController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('assisten.berkas', [

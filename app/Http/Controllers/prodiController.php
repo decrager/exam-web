@@ -29,11 +29,11 @@ class prodiController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('prodi.dashboard', [
-            "ujian" => $ujian
+            "dbUjian" => $ujian
         ]);
     }
 
@@ -106,9 +106,16 @@ class prodiController extends Controller
         $to = $dataTanggalSelesai->periode_akhir;
 
         if (isEmpty($request)) {
-            $pengawas = Pengawas::all()->whereBetween('ujians.tanggal', [$from, $to]);
+            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+            ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+            ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+            ->whereBetween('ujians.tanggal', [$from, $to]);
         } else {
-            $pengawas = Ujian::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
                 ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
                 ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
                 ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
@@ -140,11 +147,11 @@ class prodiController extends Controller
                 $pengawas->where('ruang', 'like', '%' . $request->ruang . '%');
             }
 
-            $pengawas->whereBetween('ujians.tanggal', [$from, $to])->get();
+            $pengawas->whereBetween('ujians.tanggal', [$from, $to]);
         }
 
         return view('prodi.daftar_pengawas', [
-            "pengawas" => $pengawas
+            "pengawas" => $pengawas->get()
         ]);
     }
 
@@ -157,7 +164,7 @@ class prodiController extends Controller
         $to = $dataTanggalSelesai->periode_akhir;
 
         if (isEmpty($request)) {
-            $ujian = Ujian::all()->whereBetween('ujians.tanggal', [$from, $to]);
+            $ujian = Ujian::all()->whereBetween('tanggal', [$from, $to]);
         } else {
             $prodi = $request->prodi;
             $semester = $request->semester;
@@ -168,7 +175,9 @@ class prodiController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->whereBetween('ujians.tanggal', [$from, $to])->get();
+            $ujian->whereBetween('ujians.tanggal', [$from, $to]);
+
+            $ujian = $ujian->get();
         }
 
         return view('prodi.penugasan.index', [
@@ -239,7 +248,7 @@ class prodiController extends Controller
             $ruang = $request->ruang;
 
             $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->get();
+            $ujian = $ujian->get();
         }
 
         return view('prodi.berkas', [

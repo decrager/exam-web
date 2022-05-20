@@ -49,7 +49,7 @@
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <th>Lokasi</th>
+                                        <th>Usulan Ruang</th>
                                     </tr>
                                 </thead>
                                 <tbody>
