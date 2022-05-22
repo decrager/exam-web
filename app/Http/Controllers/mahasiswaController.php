@@ -17,7 +17,11 @@ class mahasiswaController extends Controller
 {
     public function dashboard()
     {
-        $now = Carbon::now()->toDateString();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
         
         $ketentuan = Ketentuan::all();
         $prak = Auth::user()->Mahasiswa->Praktikum->id;
@@ -27,18 +31,24 @@ class mahasiswaController extends Controller
             ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
             ->join('semesters AS b', 'kelas.semester_id', 'b.id')
             ->join('prodis', 'b.prodi_id', 'prodis.id')
-            ->where('praktikums.id', $prak)->get();
-        $ujian1 = $ujian;
+            ->where('praktikums.id', $prak)
+            ->whereBetween('ujians.tanggal', [$from, $to])->get();
 
         return view('mahasiswa.dashboard', [
             "ketentuan" => $ketentuan,
             "ujian" => $ujian,
-            "ujian1" => $ujian1
+            "ujian1" => $ujian
         ]);
     }
 
     public function ujian()
     {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
         $prak = Auth::user()->Mahasiswa->Praktikum->id;
         $susulan = Ujian::join('matkuls', 'ujians.matkul_id', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
@@ -48,6 +58,7 @@ class mahasiswaController extends Controller
         ->join('prodis', 'b.prodi_id', 'prodis.id')
         ->where('praktikums.id', $prak)
         ->where('ujians.susulan', '1')
+        ->whereBetween('ujians.tanggal', [$from, $to])
         ->get();
 
         $detail = $susulan;
@@ -108,6 +119,8 @@ class mahasiswaController extends Controller
         $susulan->status = "Belum";
         $susulan->save();
 
+        $matkul = Matkul::find($request->matkul_id);
+        $this->Activity(' mengajukan susulan untuk Mata Kuliah ' . $matkul->nama_matkul);
         return redirect()->route('mahasiswa.susulan.pengajuan.index')->with('success', 'Ujian susulan telah diajukan!');
     }
 
@@ -136,12 +149,16 @@ class mahasiswaController extends Controller
             'file' => $fileName
         ]);
 
+        $matkul = Matkul::find($request->matkul_id);
+        $this->Activity(' memperbarui pengajuan susulan untuk Mata Kuliah ' . $matkul->nama_matkul);
         return redirect()->route('mahasiswa.susulan.pengajuan.index')->with('success', 'Pengajuan susulan berhasil diubah!');
     }
 
     public function pengajuanDestroy($id)
     {
         $susulan = Susulan::find($id);
+        $matkul = Matkul::find($susulan->matkul_id);
+        $this->Activity(' menghapus pengajuan susulan untuk Mata Kuliah ' . $matkul->nama_matkul);
         $destination = 'files/syarat/' . $susulan->file;
         
         if ($destination) {

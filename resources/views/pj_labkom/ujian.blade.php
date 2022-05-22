@@ -40,9 +40,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Daftar Jadwal Ujian</h4>
-                        <div class="row justify-content-start">
+                        <form action="/pj_labkom/ujian" class="row justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
 
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
@@ -58,6 +58,7 @@
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
                                         <th>Software</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,6 +74,10 @@
                                             <td>{{ $ujian?->jam_mulai }}</td>
                                             <td>{{ $ujian?->jam_selesai }}</td>
                                             <td>{{ $ujian?->software }}</td>
+                                            <td><button class="btn btn-primary"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="{{ '#detail' . $ujian?->id }}"><i
+                                                    class="fas fa-info"></i></button></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -40,9 +40,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Daftar Pengawas</h4>
-                        <div class="row justify-content-start">
+                        <form action="/supervisor/pengawas" class="row justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
@@ -57,6 +57,8 @@
                                         <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Pengawas</th>
+                                        <th>No. Rekening</th>
+                                        <th>Bank</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,6 +74,8 @@
                                             <td>{{ $row?->Ujian?->lokasi }}</td>
                                             <td>{{ $row?->Ujian?->ruang }}</td>
                                             <td>{{ $row?->nama }}</td>
+                                            <td>{{ $row?->norek }}</td>
+                                            <td>{{ $row?->bank }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -46,9 +46,9 @@
                             </div>
                         @endif
                         <h4 class="header-title">Amplop</h4>
-                        <div class="row justify-content-start">
+                        <form action="/data/amplop" class="row justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
 
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">

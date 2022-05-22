@@ -42,9 +42,9 @@
                     <div class="card-body">
                         <h4 class="header-title">Soal Ujian</h4>
 
-                        <div class="row justify-content-start">
+                        <form action="/supervisor/kelengkapan/berkas" class="row justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
 
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
@@ -58,9 +58,7 @@
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Tipe</th>
-                                        <th>Usulan Ruang</th>
                                         <th>Ruang</th>
-                                        <th>Jumlah</th>
                                         <th>Verifikasi</th>
                                         <th>Validasi</th>
                                         <th>Fotokopi</th>
@@ -80,16 +78,7 @@
                                             <td>{{ $ujian?->Praktikum?->praktikum }}</td>
                                             <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
                                             <td>{{ $ujian?->tipe_mk }}</td>
-                                            <td>{{ $ujian?->lokasi }}</td>
                                             <td>{{ $ujian?->ruang }}</td>
-                                            <td>
-                                                @if ($ujian?->tipe_mk == 'K')
-                                                    <?php $berkas = $ujian?->Praktikum?->Kelas?->jml_mhs + 6; ?>
-                                                @else
-                                                    <?php $berkas = $ujian?->Praktikum?->jml_mhs + 3; ?>
-                                                @endif
-                                                {{ $berkas }}
-                                            </td>
                                             <td>
                                                 @if ($ujian?->Berkas?->verifikasi == 'Belum')
                                                     <button class="btn btn-danger btn-sm">Belum diverifikasi</button>

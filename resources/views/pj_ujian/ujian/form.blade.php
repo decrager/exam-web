@@ -62,7 +62,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Program Studi</label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
-                                            <option selected="selected">Pilih Program Studi</option>
+                                            <option selected="selected" value="">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
                                                 <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
                                             @endforeach
@@ -72,35 +72,35 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Semester</label>
                                         <select class="custom-select" name="semester" id="semester" required>
-                                            <option selected="selected">Pilih Semester</option>
+                                            <option selected="selected" value="">Pilih Semester</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label-sm">Kelas</label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
-                                            <option selected="selected">Pilih Kelas</option>
+                                            <option selected="selected" value="">Pilih Kelas</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label-sm">Praktikum</label>
                                         <select class="custom-select" name="praktikum" id="kelas" required>
-                                            <option selected="selected">Pilih Praktikum</option>
+                                            <option selected="selected" value="">Pilih Praktikum</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Mata Kuliah</label>
                                         <select class="custom-select" name="matkul" id="matkul" required>
-                                            <option selected="selected">Pilih Mata Kuliah</option>
+                                            <option selected="selected" value="">Pilih Mata Kuliah</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Tipe Mata Kuliah</label>
                                         <select class="custom-select" name="tipe_mk" required>
-                                            <option selected="selected">
+                                            <option selected="selected" value="">
                                                 Pilih Tipe Mata Kuliah
                                             </option>
                                             <option value="K">Kuliah</option>
@@ -118,7 +118,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Ruang</label>
                                         <select class="custom-select" name="ruang">
-                                            <option selected="selected">Pilih ruang</option>
+                                            <option selected="selected" value="">Pilih ruang</option>
                                             @foreach ($dbRuang as $ruang)
                                                 <option value="{{ $ruang?->ruangan }}">{{ $ruang?->ruangan }}</option>
                                             @endforeach
@@ -128,7 +128,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Hari</label>
                                         <select class="custom-select" name="hari" required>
-                                            <option selected="selected">
+                                            <option selected="selected" value="">
                                                 Pilih Hari
                                             </option>
                                             <option value="Senin">Senin</option>
@@ -147,20 +147,20 @@
 
                                     <div class="form-group">
                                         <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
-                                        <input class="form-control" type="time" name="jam_mulai" id="jam_mulai"
+                                        <input class="form-control" type="text" placeholder="Ketik..." name="jam_mulai" id="jam_mulai"
                                             required />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
-                                        <input class="form-control" type="time" name="jam_selesai" id="jam_selesai"
+                                        <input class="form-control" type="text" placeholder="Ketik..." name="jam_selesai" id="jam_selesai"
                                             required />
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Sesi</label>
                                         <select class="custom-select" name="sesi" required>
-                                            <option selected="selected">
+                                            <option selected="selected" value="">
                                                 Pilih Sesi
                                             </option>
                                             <option value="1">1</option>
@@ -173,7 +173,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Pelaksanaan</label>
                                         <select class="custom-select" name="pelaksanaan">
-                                            <option selected="selected">
+                                            <option selected="selected" value="">
                                                 Pilih Pelaksanaan
                                             </option>
                                             <option value="Online">Online</option>

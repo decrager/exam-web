@@ -64,6 +64,24 @@
                                         </select>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="norek" class="col-form-label">Nomor Rekening (Optional)</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="norek" name="norek" value="{{ $pengawas?->norek }}"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="bank" class="col-form-label">Bank (Optional)</label>
+                                        <select class="custom-select" name="bank">
+                                            <option>Pilih bank</option>
+                                            @if ($pengawas?->bank)
+                                                <option selected="selected" value="{{ $pengawas?->bank }}">{{ $pengawas->bank }}</option>
+                                            @endif
+                                            <option value="BRI">BRI</option>
+                                            <option value="BNI">BNI</option>
+                                            <option value="Mandiri">Mandiri</option>
+                                        </select>
+                                    </div>
+
                                     <input hidden type="text" value="{{ $pengawas?->ujian_id }}" name="ujian_id" id="ujian_id">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>

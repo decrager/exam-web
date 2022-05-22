@@ -1,37 +1,57 @@
 <div class="col-md-2">
     <div class="form-group">
         <select class="custom-select" name="dbProdi" id="dbProdi">
-            <option selected="selected">Program Studi</option>
+            @if (request('dbProdi'))
+                <option value="">Program Studi</option>
+                <option selected="selected" value="{{ request('dbProdi') }}">{{ request('dbProdi') }}</option>
+            @else
+                <option selected="selected" value="">Program Studi</option>
+            @endif
             @foreach ($dbProdi as $prodi)
                 <option value="{{ $prodi->nama_prodi }}">{{ $prodi->nama_prodi }}</option>
             @endforeach
         </select>
     </div>
 </div>
-<div class="col-md-2">
+<div class="col-auto">
     <div class="form-group">
         <select class="custom-select" name="dbSemester" id="dbSemester">
-            <option selected="selected">Semester</option>
+            @if (request('dbSemester'))
+                <option value="">Semester</option>
+                <option selected="selected" value="{{ request('dbSemester') }}">{{ request('dbSemester') }}</option>
+            @else
+                <option selected="selected" value="">Semester</option>
+            @endif
             @foreach ($dbSemester as $semester)
                 <option value="{{ $semester->semester }}">{{ $semester->semester }}</option>
             @endforeach
         </select>
     </div>
 </div>
-<div class="col-md-2">
+<div class="col-auto">
     <div class="form-group">
         <select class="custom-select" name="dbKelas" id="dbKelas">
-            <option selected="selected">Kelas</option>
+            @if (request('dbKelas'))
+                <option value="">Kelas</option>
+                <option selected="selected" value="{{ request('dbKelas') }}">{{ request('dbKelas') }}</option>
+            @else
+                <option selected="selected" value="">Kelas</option>
+            @endif
             @foreach ($dbKelas as $kelas)
                 <option value="{{ $kelas->kelas }}">{{ $kelas->kelas }}</option>
             @endforeach
         </select>
     </div>
 </div>
-<div class="col-md-2">
+<div class="col-auto">
     <div class="form-group">
         <select class="custom-select" name="dbPraktikum" id="dbPraktikum">
-            <option selected="selected">Praktikum</option>
+            @if (request('dbPraktikum'))
+                <option value="">Praktikum</option>
+                <option selected="selected" value="{{ request('dbPraktikum') }}">{{ request('dbPraktikum') }}</option>
+            @else
+                <option selected="selected" value="">Praktikum</option>
+            @endif
             @foreach ($dbPraktikum as $praktikum)
                 <option value="{{ $praktikum->praktikum }}">{{ $praktikum->praktikum }}</option>
             @endforeach
@@ -41,22 +61,32 @@
 <div class="col-md-2">
     <div class="form-group">
         <select class="custom-select" name="dbMatkul" id="dbMatkul">
-            <option selected="selected">Mata Kuliah</option>
+            @if (request('dbMatkul'))
+                <option value="">Mata Kuliah</option>
+                <option selected="selected" value="{{ request('dbMatkul') }}">{{ request('dbMatkul') }}</option>
+            @else
+                <option selected="selected" value="">Mata Kuliah</option>
+            @endif
             @foreach ($dbMatkul as $matkul)
                 <option value="{{ $matkul->nama_matkul }}">{{ $matkul->nama_matkul }}</option>
             @endforeach
         </select>
     </div>
 </div>
-<div class="col-md-2">
+<div class="col-auto">
     <div class="form-group">
         <input type="date" name="dbTanggal" id="tanggal" class="form-control">
     </div>
 </div>
-<div class="col-md-2">
+<div class="col-auto">
     <div class="form-group">
         <select class="custom-select" name="dbRuang">
-            <option selected="selected">Kode Ruang</option>
+            @if (request('dbRuang'))
+                <option value="">Ruang</option>
+                <option selected="selected" value="{{ request('dbRuang') }}">{{ request('dbRuang') }}</option>
+            @else
+                <option selected="selected" value="">Kode Ruang</option>
+            @endif
             @foreach ($dbRuang as $ruang)
                 <option value="{{ $ruang->ruangan }}">{{ $ruang->ruangan }}</option>
             @endforeach
@@ -86,7 +116,7 @@
                         if (data) {
                             $('#dbSemester').empty();
                             $('#dbSemester').append(
-                                '<option selected="selected">Semester</option>');
+                                '<option selected="selected" value="">Semester</option>');
                             $.each(data, function(key, semester) {
                                 $('select[name="dbSemester"]').append('<option value="' + semester.id + '">' + semester.semester + '</option>');
                             });
@@ -112,7 +142,7 @@
                     {
                         if(data){
                             $('#dbKelas').empty();
-                            $('#dbKelas').append('<option selected="selected">Kelas</option>');
+                            $('#dbKelas').append('<option selected="selected" value="">Kelas</option>');
                             $.each(data, function(key, kelas){
                                 $('select[name="dbKelas"]').append('<option value="'+ kelas.id +'">' + kelas.kelas + '</option>');
                             });
@@ -131,7 +161,7 @@
                     {
                         if(data){
                             $('#dbMatkul').empty();
-                            $('#dbMatkul').append('<option selected="selected">Mata Kuliah</option>');
+                            $('#dbMatkul').append('<option selected="selected" value="">Mata Kuliah</option>');
                             $.each(data, function(key, matkul){
                                 $('select[name="dbMatkul"]').append('<option value="'+ matkul.id +'">' + matkul.nama_matkul + '</option>');
                             });
@@ -160,7 +190,7 @@
                         if (data) {
                             $('#dbPraktikum').empty();
                             $('#dbPraktikum').append(
-                                '<option selected="selected">Praktikum</option>');
+                                '<option selected="selected" value="">Praktikum</option>');
                             $.each(data, function(key, praktikum) {
                                 $('select[name="dbPraktikum"]').append('<option value="' + praktikum.id + '">' + praktikum.praktikum + '</option>');
                             });

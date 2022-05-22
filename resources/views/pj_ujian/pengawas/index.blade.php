@@ -45,9 +45,9 @@
                             </div>
                         @endif
                         <h4 class="header-title">Daftar Pengawas</h4>
-                        <div class="row justify-content-start">
+                        <form action="/pj_ujian/pengawas" class="row justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
@@ -62,6 +62,8 @@
                                         <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Pengawas</th>
+                                        <th>No. Rekening</th>
+                                        <th>Bank</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -78,6 +80,8 @@
                                             <td>{{ $pengawas?->Ujian?->lokasi }}</td>
                                             <td>{{ $pengawas?->Ujian?->ruang }}</td>
                                             <td>{{ $pengawas?->nama }}</td>
+                                            <td>{{ $pengawas?->norek }}</td>
+                                            <td>{{ $pengawas?->bank }}</td>
                                             <td>
                                                 <form action="{{ route('pjUjian.pengawas.destroy', $pengawas?->id) }}" method="POST">
                                                     <div class="btn-group" role="group">

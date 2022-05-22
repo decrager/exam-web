@@ -6,38 +6,164 @@ use App\Models\Ujian;
 use App\Models\Pengawas;
 use App\Models\Master;
 use App\Exports\UjianExport;
+use App\Models\Berkas;
+use App\Models\Matkul;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use function PHPUnit\Framework\isEmpty;
 
 class prodiController extends Controller
 {
-    public function dashboard(Request $request)
+    public function dashboard()
     {
         $now = Carbon::now()->toDateString();
         
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
+        
+        if (request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang'])) {
+            $ujian->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang']));
+        }
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
+        if (request(['dbTanggal'])) {
+            $ujian->filter(request(['dbTanggal']));
+        } else {
+            $ujian->where('ujians.tanggal', '2022-06-08');
+        }
+
+        if (Auth::user()->name == 'Komunikasi') {
+            $ujian->where('prodis.kode_prodi', 'A');
+        } elseif (Auth::user()->name == 'Ekowisata') {
+            $ujian->where('prodis.kode_prodi', 'B');
+        } elseif (Auth::user()->name == 'Manajemen Informatika') {
+            $ujian->where('prodis.kode_prodi', 'C');
+        } elseif (Auth::user()->name == 'Teknik Komputer') {
+            $ujian->where('prodis.kode_prodi', 'D');
+        } elseif (Auth::user()->name == 'Supervisor Jaminan Mutu Pangan') {
+            $ujian->where('prodis.kode_prodi', 'E');
+        } elseif (Auth::user()->name == 'Manajemen Industri Jasa Makanan dan Gizi') {
+            $ujian->where('prodis.kode_prodi', 'F');
+        } elseif (Auth::user()->name == 'Teknologi Industri Benih') {
+            $ujian->where('prodis.kode_prodi', 'G');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perikanan Budidaya') {
+            $ujian->where('prodis.kode_prodi', 'H');
+        } elseif (Auth::user()->name == 'Teknologi dan Manajemen Ternak') {
+            $ujian->where('prodis.kode_prodi', 'I');
+        } elseif (Auth::user()->name == 'Manajemen Agribisnis') {
+            $ujian->where('prodis.kode_prodi', 'J');
+        } elseif (Auth::user()->name == 'Manajemen Industri') {
+            $ujian->where('prodis.kode_prodi', 'K');
+        } elseif (Auth::user()->name == 'Analisis Kimia') {
+            $ujian->where('prodis.kode_prodi', 'L');
+        } elseif (Auth::user()->name == 'Teknik dan Manajemen Lingkungan') {
+            $ujian->where('prodis.kode_prodi', 'M');
+        } elseif (Auth::user()->name == 'Akuntansi') {
+            $ujian->where('prodis.kode_prodi', 'N');
+        } elseif (Auth::user()->name == 'Paramedik Veteriner') {
+            $ujian->where('prodis.kode_prodi', 'P');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perebunan') {
+            $ujian->where('prodis.kode_prodi', 'T');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Pengembangan Masyarakat Pertanian') {
+            $ujian->where('prodis.kode_prodi', 'W');
         }
 
         return view('prodi.dashboard', [
-            "dbUjian" => $ujian
+            "dbUjian" => $ujian->get()
         ]);
     }
 
-    public function ujianIndex(Request $request)
+    public function jadwal()
+    {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
+
+        $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id');
+
+        if (Auth::user()->name == 'Komunikasi') {
+            $ujian->where('prodis.kode_prodi', 'A');
+            $matkul->where('prodis.kode_prodi', 'A');
+        } elseif (Auth::user()->name == 'Ekowisata') {
+            $ujian->where('prodis.kode_prodi', 'B');
+            $matkul->where('prodis.kode_prodi', 'B');
+        } elseif (Auth::user()->name == 'Manajemen Informatika') {
+            $ujian->where('prodis.kode_prodi', 'C');
+            $matkul->where('prodis.kode_prodi', 'C');
+        } elseif (Auth::user()->name == 'Teknik Komputer') {
+            $ujian->where('prodis.kode_prodi', 'D');
+            $matkul->where('prodis.kode_prodi', 'D');
+        } elseif (Auth::user()->name == 'Supervisor Jaminan Mutu Pangan') {
+            $ujian->where('prodis.kode_prodi', 'E');
+            $matkul->where('prodis.kode_prodi', 'E');
+        } elseif (Auth::user()->name == 'Manajemen Industri Jasa Makanan dan Gizi') {
+            $ujian->where('prodis.kode_prodi', 'F');
+            $matkul->where('prodis.kode_prodi', 'F');
+        } elseif (Auth::user()->name == 'Teknologi Industri Benih') {
+            $ujian->where('prodis.kode_prodi', 'G');
+            $matkul->where('prodis.kode_prodi', 'G');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perikanan Budidaya') {
+            $ujian->where('prodis.kode_prodi', 'H');
+            $matkul->where('prodis.kode_prodi', 'H');
+        } elseif (Auth::user()->name == 'Teknologi dan Manajemen Ternak') {
+            $ujian->where('prodis.kode_prodi', 'I');
+            $matkul->where('prodis.kode_prodi', 'I');
+        } elseif (Auth::user()->name == 'Manajemen Agribisnis') {
+            $ujian->where('prodis.kode_prodi', 'J');
+            $matkul->where('prodis.kode_prodi', 'J');
+        } elseif (Auth::user()->name == 'Manajemen Industri') {
+            $ujian->where('prodis.kode_prodi', 'K');
+            $matkul->where('prodis.kode_prodi', 'K');
+        } elseif (Auth::user()->name == 'Analisis Kimia') {
+            $ujian->where('prodis.kode_prodi', 'L');
+            $matkul->where('prodis.kode_prodi', 'L');
+        } elseif (Auth::user()->name == 'Teknik dan Manajemen Lingkungan') {
+            $ujian->where('prodis.kode_prodi', 'M');
+            $matkul->where('prodis.kode_prodi', 'M');
+        } elseif (Auth::user()->name == 'Akuntansi') {
+            $ujian->where('prodis.kode_prodi', 'N');
+            $matkul->where('prodis.kode_prodi', 'N');
+        } elseif (Auth::user()->name == 'Paramedik Veteriner') {
+            $ujian->where('prodis.kode_prodi', 'P');
+            $matkul->where('prodis.kode_prodi', 'P');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perebunan') {
+            $ujian->where('prodis.kode_prodi', 'T');
+            $matkul->where('prodis.kode_prodi', 'T');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Pengembangan Masyarakat Pertanian') {
+            $ujian->where('prodis.kode_prodi', 'W');
+            $matkul->where('prodis.kode_prodi', 'W');
+        }
+
+        return view('prodi.jadwal', [
+            "ujian" => $ujian->get(),
+            "matkuls" => $matkul->get()
+        ]);
+    }
+
+    public function ujianIndex()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -55,11 +181,46 @@ class prodiController extends Controller
         ->join('baps', 'baps.ujian_id', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', 'ujians.id')
         ->selectRaw('prodis.nama_prodi, b.semester, ujians.matkul_id, matkuls.nama_matkul, ujians.tipe_mk, ujians.lokasi, ujians.perbanyak, ujians.software, count(ujians.id) AS total')
-        ->groupBy('prodis.nama_prodi', 'b.semester', 'ujians.matkul_id', 'matkuls.nama_matkul', 'ujians.tipe_mk', 'ujians.lokasi', 'ujians.perbanyak', 'ujians.software')
-        ->whereBetween('ujians.tanggal', [$from, $to])->get();
+        ->groupBy('prodis.nama_prodi', 'b.semester', 'ujians.matkul_id', 'matkuls.nama_matkul', 'ujians.tipe_mk', 'ujians.lokasi', 'ujians.perbanyak', 'ujians.software');
+
+        if (Auth::user()->name == 'Komunikasi') {
+            $ujian->where('prodis.kode_prodi', 'A');
+        } elseif (Auth::user()->name == 'Ekowisata') {
+            $ujian->where('prodis.kode_prodi', 'B');
+        } elseif (Auth::user()->name == 'Manajemen Informatika') {
+            $ujian->where('prodis.kode_prodi', 'C');
+        } elseif (Auth::user()->name == 'Teknik Komputer') {
+            $ujian->where('prodis.kode_prodi', 'D');
+        } elseif (Auth::user()->name == 'Supervisor Jaminan Mutu Pangan') {
+            $ujian->where('prodis.kode_prodi', 'E');
+        } elseif (Auth::user()->name == 'Manajemen Industri Jasa Makanan dan Gizi') {
+            $ujian->where('prodis.kode_prodi', 'F');
+        } elseif (Auth::user()->name == 'Teknologi Industri Benih') {
+            $ujian->where('prodis.kode_prodi', 'G');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perikanan Budidaya') {
+            $ujian->where('prodis.kode_prodi', 'H');
+        } elseif (Auth::user()->name == 'Teknologi dan Manajemen Ternak') {
+            $ujian->where('prodis.kode_prodi', 'I');
+        } elseif (Auth::user()->name == 'Manajemen Agribisnis') {
+            $ujian->where('prodis.kode_prodi', 'J');
+        } elseif (Auth::user()->name == 'Manajemen Industri') {
+            $ujian->where('prodis.kode_prodi', 'K');
+        } elseif (Auth::user()->name == 'Analisis Kimia') {
+            $ujian->where('prodis.kode_prodi', 'L');
+        } elseif (Auth::user()->name == 'Teknik dan Manajemen Lingkungan') {
+            $ujian->where('prodis.kode_prodi', 'M');
+        } elseif (Auth::user()->name == 'Akuntansi') {
+            $ujian->where('prodis.kode_prodi', 'N');
+        } elseif (Auth::user()->name == 'Paramedik Veteriner') {
+            $ujian->where('prodis.kode_prodi', 'P');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perebunan') {
+            $ujian->where('prodis.kode_prodi', 'T');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Pengembangan Masyarakat Pertanian') {
+            $ujian->where('prodis.kode_prodi', 'W');
+        }
 
         return view('prodi.ujian.index', [
-            "ujian" => $ujian,
+            "ujian" => $ujian->whereBetween('ujians.tanggal', [$from, $to])->get()
         ]);
     }
 
@@ -75,6 +236,7 @@ class prodiController extends Controller
     }
 
     public function export(){
+        $this->Activity(' mengeksport jadwal ujian ke excel');
         return Excel::download(new UjianExport, 'dataujian.xlsx');
     }
 
@@ -94,10 +256,11 @@ class prodiController extends Controller
             'perbanyak' => $request->perbanyak
         ]);
 
+        $this->Activity(' memperbarui jadwal ujian');
         return redirect()->route('prodi.jadwal.index')->with('success', 'Detail Jadwal berhasil ditambah!');
     }
 
-    public function pengawasList(Request $request)
+    public function pengawasList()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -105,57 +268,80 @@ class prodiController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        if (isEmpty($request)) {
-            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-            ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-            ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-            ->whereBetween('ujians.tanggal', [$from, $to]);
-        } else {
-            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-                ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-                ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-                ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-                ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-                ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-                ->join('prodis', 'b.prodi_id', '=', 'prodis.id');
+        $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+        ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
-            if ($request->prodi) {
-                $pengawas->where('prodis.nama_prodi', 'like', '%' . $request->prodi . '%');
-                if ($request->semester) {
-                    $pengawas->where('b.semester', 'like', '%' . $request->semester . '%');
-                    if ($request->kelas) {
-                        $pengawas->where('kelas.kelas', 'like', '%' . $request->kelas . '%');
-                        if ($request->praktikum) {
-                            $pengawas->where('praktikums.praktikum', 'like', '%' . $request->praktikum . '%');
-                        }
-                    }
-                    if ($request->matkul) {
-                        $pengawas->where('matkuls.nama_matkul', 'like', '%' . $request->matkul . '%');
-                    }
-                }
-            }
+        $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id');
 
-            if ($request->tanggal) {
-                $pengawas->where('tanggal', 'like', '%' . $request->tanggal . '%');
-            }
-
-            if ($request->ruang) {
-                $pengawas->where('ruang', 'like', '%' . $request->ruang . '%');
-            }
-
-            $pengawas->whereBetween('ujians.tanggal', [$from, $to]);
+        if (Auth::user()->name == 'Komunikasi') {
+            $pengawas->where('prodis.kode_prodi', 'A');
+            $matkul->where('prodis.kode_prodi', 'A');
+        } elseif (Auth::user()->name == 'Ekowisata') {
+            $pengawas->where('prodis.kode_prodi', 'B');
+            $matkul->where('prodis.kode_prodi', 'B');
+        } elseif (Auth::user()->name == 'Manajemen Informatika') {
+            $pengawas->where('prodis.kode_prodi', 'C');
+            $matkul->where('prodis.kode_prodi', 'C');
+        } elseif (Auth::user()->name == 'Teknik Komputer') {
+            $pengawas->where('prodis.kode_prodi', 'D');
+            $matkul->where('prodis.kode_prodi', 'D');
+        } elseif (Auth::user()->name == 'Supervisor Jaminan Mutu Pangan') {
+            $pengawas->where('prodis.kode_prodi', 'E');
+            $matkul->where('prodis.kode_prodi', 'E');
+        } elseif (Auth::user()->name == 'Manajemen Industri Jasa Makanan dan Gizi') {
+            $pengawas->where('prodis.kode_prodi', 'F');
+            $matkul->where('prodis.kode_prodi', 'F');
+        } elseif (Auth::user()->name == 'Teknologi Industri Benih') {
+            $pengawas->where('prodis.kode_prodi', 'G');
+            $matkul->where('prodis.kode_prodi', 'G');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perikanan Budidaya') {
+            $pengawas->where('prodis.kode_prodi', 'H');
+            $matkul->where('prodis.kode_prodi', 'H');
+        } elseif (Auth::user()->name == 'Teknologi dan Manajemen Ternak') {
+            $pengawas->where('prodis.kode_prodi', 'I');
+            $matkul->where('prodis.kode_prodi', 'I');
+        } elseif (Auth::user()->name == 'Manajemen Agribisnis') {
+            $pengawas->where('prodis.kode_prodi', 'J');
+            $matkul->where('prodis.kode_prodi', 'J');
+        } elseif (Auth::user()->name == 'Manajemen Industri') {
+            $pengawas->where('prodis.kode_prodi', 'K');
+            $matkul->where('prodis.kode_prodi', 'K');
+        } elseif (Auth::user()->name == 'Analisis Kimia') {
+            $pengawas->where('prodis.kode_prodi', 'L');
+            $matkul->where('prodis.kode_prodi', 'L');
+        } elseif (Auth::user()->name == 'Teknik dan Manajemen Lingkungan') {
+            $pengawas->where('prodis.kode_prodi', 'M');
+            $matkul->where('prodis.kode_prodi', 'M');
+        } elseif (Auth::user()->name == 'Akuntansi') {
+            $pengawas->where('prodis.kode_prodi', 'N');
+            $matkul->where('prodis.kode_prodi', 'N');
+        } elseif (Auth::user()->name == 'Paramedik Veteriner') {
+            $pengawas->where('prodis.kode_prodi', 'P');
+            $matkul->where('prodis.kode_prodi', 'P');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perebunan') {
+            $pengawas->where('prodis.kode_prodi', 'T');
+            $matkul->where('prodis.kode_prodi', 'T');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Pengembangan Masyarakat Pertanian') {
+            $pengawas->where('prodis.kode_prodi', 'W');
+            $matkul->where('prodis.kode_prodi', 'W');
         }
 
         return view('prodi.daftar_pengawas', [
-            "pengawas" => $pengawas->get()
+            "pengawas" => $pengawas->get(),
+            "matkuls" => $matkul->get()
         ]);
     }
 
-    public function penugasanIndex(Request $request)
+    public function penugasanIndex()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -163,25 +349,77 @@ class prodiController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all()->whereBetween('tanggal', [$from, $to]);
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->whereBetween('ujians.tanggal', [$from, $to]);
+        $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id');
 
-            $ujian = $ujian->get();
+        if (Auth::user()->name == 'Komunikasi') {
+            $ujian->where('prodis.kode_prodi', 'A');
+            $matkul->where('prodis.kode_prodi', 'A');
+        } elseif (Auth::user()->name == 'Ekowisata') {
+            $ujian->where('prodis.kode_prodi', 'B');
+            $matkul->where('prodis.kode_prodi', 'B');
+        } elseif (Auth::user()->name == 'Manajemen Informatika') {
+            $ujian->where('prodis.kode_prodi', 'C');
+            $matkul->where('prodis.kode_prodi', 'C');
+        } elseif (Auth::user()->name == 'Teknik Komputer') {
+            $ujian->where('prodis.kode_prodi', 'D');
+            $matkul->where('prodis.kode_prodi', 'D');
+        } elseif (Auth::user()->name == 'Supervisor Jaminan Mutu Pangan') {
+            $ujian->where('prodis.kode_prodi', 'E');
+            $matkul->where('prodis.kode_prodi', 'E');
+        } elseif (Auth::user()->name == 'Manajemen Industri Jasa Makanan dan Gizi') {
+            $ujian->where('prodis.kode_prodi', 'F');
+            $matkul->where('prodis.kode_prodi', 'F');
+        } elseif (Auth::user()->name == 'Teknologi Industri Benih') {
+            $ujian->where('prodis.kode_prodi', 'G');
+            $matkul->where('prodis.kode_prodi', 'G');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perikanan Budidaya') {
+            $ujian->where('prodis.kode_prodi', 'H');
+            $matkul->where('prodis.kode_prodi', 'H');
+        } elseif (Auth::user()->name == 'Teknologi dan Manajemen Ternak') {
+            $ujian->where('prodis.kode_prodi', 'I');
+            $matkul->where('prodis.kode_prodi', 'I');
+        } elseif (Auth::user()->name == 'Manajemen Agribisnis') {
+            $ujian->where('prodis.kode_prodi', 'J');
+            $matkul->where('prodis.kode_prodi', 'J');
+        } elseif (Auth::user()->name == 'Manajemen Industri') {
+            $ujian->where('prodis.kode_prodi', 'K');
+            $matkul->where('prodis.kode_prodi', 'K');
+        } elseif (Auth::user()->name == 'Analisis Kimia') {
+            $ujian->where('prodis.kode_prodi', 'L');
+            $matkul->where('prodis.kode_prodi', 'L');
+        } elseif (Auth::user()->name == 'Teknik dan Manajemen Lingkungan') {
+            $ujian->where('prodis.kode_prodi', 'M');
+            $matkul->where('prodis.kode_prodi', 'M');
+        } elseif (Auth::user()->name == 'Akuntansi') {
+            $ujian->where('prodis.kode_prodi', 'N');
+            $matkul->where('prodis.kode_prodi', 'N');
+        } elseif (Auth::user()->name == 'Paramedik Veteriner') {
+            $ujian->where('prodis.kode_prodi', 'P');
+            $matkul->where('prodis.kode_prodi', 'P');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perebunan') {
+            $ujian->where('prodis.kode_prodi', 'T');
+            $matkul->where('prodis.kode_prodi', 'T');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Pengembangan Masyarakat Pertanian') {
+            $ujian->where('prodis.kode_prodi', 'W');
+            $matkul->where('prodis.kode_prodi', 'W');
         }
 
         return view('prodi.penugasan.index', [
-            "ujian" => $ujian
+            "ujian" => $ujian->get(),
+            "matkuls" => $matkul->get()
         ]);
     }
 
@@ -204,11 +442,13 @@ class prodiController extends Controller
         $request->validate([
             'nama' => 'required',
             'pns' => 'required',
+            'norek' => 'nullable',
+            'bank' => 'nullable',
             'ujian_id' => 'required'
         ]);
 
         Pengawas::create($request->all());
-
+        $this->Activity(' menugaskan pengawas ' . $request->nama);
         return redirect()->route('prodi.pengawas.penugasan.index')->with('success', 'Pengawas berhasil ditambahkan!');
     }
 
@@ -216,44 +456,126 @@ class prodiController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'pns' => 'required'
+            'pns' => 'required',
+            'norek' => 'nullable',
+            'bank' => 'nullable'
         ]);
 
         $pengawas = Pengawas::find($id);
         $pengawas->update([
             'nama' => $request->nama,
-            'pns' => $request->pns
+            'pns' => $request->pns,
+            'norek' => $request->norek,
+            'bank' => $request->bank
         ]);
 
+        $this->Activity(' memperbarui data pengawas ' . $request->nama);
         return redirect()->route('prodi.pengawas.list')->with('success', 'Pengawas sudah diperbarui!');
     }
 
     public function pengawasDestroy($id)
     {
-        Pengawas::find($id)->delete();
+        $pengawas = Pengawas::find($id);
+        $this->Activity(' menugaskan pengawas ' . $pengawas->nama);
+        $pengawas->delete();
         return redirect()->route('prodi.pengawas.list')->with('success', 'Pengawas sudah dihapus!');
     }
 
-    public function berkas(Request $request)
+    public function berkas()
     {
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
+
+        $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id');
+
+        if (Auth::user()->name == 'Komunikasi') {
+            $ujian->where('prodis.kode_prodi', 'A');
+            $matkul->where('prodis.kode_prodi', 'A');
+        } elseif (Auth::user()->name == 'Ekowisata') {
+            $ujian->where('prodis.kode_prodi', 'B');
+            $matkul->where('prodis.kode_prodi', 'B');
+        } elseif (Auth::user()->name == 'Manajemen Informatika') {
+            $ujian->where('prodis.kode_prodi', 'C');
+            $matkul->where('prodis.kode_prodi', 'C');
+        } elseif (Auth::user()->name == 'Teknik Komputer') {
+            $ujian->where('prodis.kode_prodi', 'D');
+            $matkul->where('prodis.kode_prodi', 'D');
+        } elseif (Auth::user()->name == 'Supervisor Jaminan Mutu Pangan') {
+            $ujian->where('prodis.kode_prodi', 'E');
+            $matkul->where('prodis.kode_prodi', 'E');
+        } elseif (Auth::user()->name == 'Manajemen Industri Jasa Makanan dan Gizi') {
+            $ujian->where('prodis.kode_prodi', 'F');
+            $matkul->where('prodis.kode_prodi', 'F');
+        } elseif (Auth::user()->name == 'Teknologi Industri Benih') {
+            $ujian->where('prodis.kode_prodi', 'G');
+            $matkul->where('prodis.kode_prodi', 'G');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perikanan Budidaya') {
+            $ujian->where('prodis.kode_prodi', 'H');
+            $matkul->where('prodis.kode_prodi', 'H');
+        } elseif (Auth::user()->name == 'Teknologi dan Manajemen Ternak') {
+            $ujian->where('prodis.kode_prodi', 'I');
+            $matkul->where('prodis.kode_prodi', 'I');
+        } elseif (Auth::user()->name == 'Manajemen Agribisnis') {
+            $ujian->where('prodis.kode_prodi', 'J');
+            $matkul->where('prodis.kode_prodi', 'J');
+        } elseif (Auth::user()->name == 'Manajemen Industri') {
+            $ujian->where('prodis.kode_prodi', 'K');
+            $matkul->where('prodis.kode_prodi', 'K');
+        } elseif (Auth::user()->name == 'Analisis Kimia') {
+            $ujian->where('prodis.kode_prodi', 'L');
+            $matkul->where('prodis.kode_prodi', 'L');
+        } elseif (Auth::user()->name == 'Teknik dan Manajemen Lingkungan') {
+            $ujian->where('prodis.kode_prodi', 'M');
+            $matkul->where('prodis.kode_prodi', 'M');
+        } elseif (Auth::user()->name == 'Akuntansi') {
+            $ujian->where('prodis.kode_prodi', 'N');
+            $matkul->where('prodis.kode_prodi', 'N');
+        } elseif (Auth::user()->name == 'Paramedik Veteriner') {
+            $ujian->where('prodis.kode_prodi', 'P');
+            $matkul->where('prodis.kode_prodi', 'P');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Manajemen Perebunan') {
+            $ujian->where('prodis.kode_prodi', 'T');
+            $matkul->where('prodis.kode_prodi', 'T');
+        } elseif (Auth::user()->name == 'Teknologi Produksi dan Pengembangan Masyarakat Pertanian') {
+            $ujian->where('prodis.kode_prodi', 'W');
+            $matkul->where('prodis.kode_prodi', 'W');
         }
 
         return view('prodi.berkas', [
-            "berkas" => $ujian
+            "berkas" => $ujian->whereBetween('ujians.tanggal', [$from, $to])->get(),
+            "matkuls" => $matkul->get()
         ]);
+    }
+
+    public function berkasUpdate($id)
+    {
+        $berkas = Berkas::find($id);
+
+        if ($berkas->verifikasi == 'Belum') {
+            $berkas->update(['verifikasi' => 'Sudah']);
+            $this->Activity(' memperbarui status Verifikasi pada Soal Ujian menjadi Sudah diverifikasi');
+        } else {
+            $berkas->update(['verifikasi' => 'Belum']);
+            $this->Activity(' memperbarui status Verifikasi pada Soal Ujian menjadi Belum diverifikasi');
+        }
+
+        return redirect()->route('prodi.berkas')->with('success', 'Status Verifikasi Soal Ujian berhasil diubah');
     }
 
     public function pelanggaran()

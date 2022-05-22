@@ -40,9 +40,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Kelengkapan Soal Ujian</h4>
-                        <div class="row justify-content-start">
+                        <form action="/assisten/berkas" class="row justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
 
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
@@ -56,7 +56,6 @@
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Tipe</th>
-                                        <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Jumlah</th>
                                         <th>Verifikasi</th>
@@ -78,7 +77,6 @@
                                             <td>{{ $ujian?->Praktikum?->praktikum }}</td>
                                             <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
                                             <td>{{ $ujian?->tipe_mk }}</td>
-                                            <td>{{ $ujian?->lokasi }}</td>
                                             <td>{{ $ujian?->ruang }}</td>
                                             <td>
                                                 @if ($ujian?->tipe_mk == 'K')

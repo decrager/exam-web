@@ -20,7 +20,12 @@
 
                     <li class="{{ Request::routeIs('prodi.jadwal.*') ? 'active' : '' }} m-1">
                         <a href="{{ route('prodi.jadwal.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Ujian</span></a>
+                            <span>Data Ujian</span></a>
+                    </li>
+
+                    <li class="{{ Request::routeIs('prodi.jadwalUjian') ? 'active' : '' }} m-1">
+                        <a href="{{ route('prodi.jadwalUjian') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Jadwal Ujian</span></a>
                     </li>
 
                     <li class="{{ Request::routeIs('prodi.pengawas.*') ? 'active' : '' }} m-1">

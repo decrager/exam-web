@@ -44,18 +44,20 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <h4 class="header-title">Daftar Jadwal Ujian</h4>
-                        <div class="float-right">
-                            <a href="/pj_ujian/jadwal/export" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
-                                class="fas fa-file-excel-o"></i></a>
-                            <a href="{{ route('pjUjian.jadwal.tambah') }}"
-                                class="btn btn-primary bg-blue float-right mb-3 py-2">
-                                Tambah Jadwal
-                            </a>
+                        <div class="justify-content-start">
+                            <h4 class="header-title justify-content-start">Daftar Jadwal Ujian</h4>
+                            <div class="justify-content-end">
+                                <a href="/pj_ujian/jadwal/export" class="btn btn-success mb-3 py-2 mr-2">Export &nbsp;&nbsp;<i
+                                    class="fas fa-file-excel-o"></i></a>
+                                <a href="{{ route('pjUjian.jadwal.tambah') }}"
+                                    class="btn btn-primary bg-blue mb-3 py-2">
+                                    Tambah Jadwal
+                                </a>
+                            </div>
                         </div>
-                        <div class="row justify-content-start">
+                        <form action="/pj_ujian/jadwal" class="row justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
 
                         <div class="table-responsive">
                             <table id="dataTable" class="table" style="width: 100%">

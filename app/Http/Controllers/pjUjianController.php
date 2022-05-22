@@ -13,38 +13,45 @@ use App\Models\Susulan;
 use App\Models\Pengawas;
 use App\Models\Pelanggaran;
 use App\Exports\UjianExport;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Redis;
 use function PHPUnit\Framework\isEmpty;
 
 class pjUjianController extends Controller
 {
-    public function dashboard(Request $request)
+    public function dashboard()
     {
         $now = Carbon::now()->toDateString();
         
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
+        
+        if (request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang'])) {
+            $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang']));
+        }
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
+        if (request(['dbTanggal'])) {
+            $ujian->filter(request(['dbTanggal']));
+        } else {
+            $ujian->where('ujians.tanggal', '2022-06-08');
         }
 
         return view('pj_ujian.dashboard', [
-            "dbUjian" => $ujian
+            "dbUjian" => $ujian->get()
         ]);
     }
 
-    public function ujianIndex(Request $request)
+    public function ujianIndex()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -52,29 +59,26 @@ class pjUjianController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
-
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->whereBetween('ujians.tanggal', [$from, $to]);
-
-            $ujian = $ujian->get();
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->where('ujians.susulan', '0')
+        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('pj_ujian.ujian.index', [
-            "jadwal" => $ujian
+            "jadwal" => $ujian->get()
         ]);
     }
 
     public function export(){
+        $this->Activity(' mengeksport jadwal ujian ke excel');
         return Excel::download(new UjianExport, 'dataujian.xlsx');
     }
 
@@ -150,6 +154,7 @@ class pjUjianController extends Controller
         $berkas->jml_berkas = "0";
         $berkas->save();
 
+        $this->Activity(' menambahkan jadwal ujian baru');
         return redirect()->route('pjUjian.jadwal.index')->with('success', 'Jadwal baru telah ditambahkan!');
     }
 
@@ -190,6 +195,7 @@ class pjUjianController extends Controller
             'pelaksanaan' => $request->pelaksanaan,
         ]);
 
+        $this->Activity(' memperbarui jadwal ujian');
         return redirect()->route('pjUjian.jadwal.index')->with('success', 'Jadwal berhasil diubah!');
     }
 
@@ -201,10 +207,11 @@ class pjUjianController extends Controller
         Berkas::where('ujian_id', $id)->delete();
         Pelanggaran::where('ujian_id', $id)->delete();
         Pengawas::where('ujian_id', $id)->delete();
+        $this->Activity(' menghapus jadwal ujian');
         return redirect()->route('pjUjian.jadwal.index')->with('success', 'Jadwal sudah dihapus!');
     }
 
-    public function pengawasIndex(Request $request)
+    public function pengawasIndex()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -212,47 +219,15 @@ class pjUjianController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        if (isEmpty($request)) {
-            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-            ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-            ->join('prodis', 'b.prodi_id', '=', 'prodis.id');
-        } else {
-            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-                ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-                ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-                ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-                ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-                ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-                ->join('prodis', 'b.prodi_id', '=', 'prodis.id');
-
-            if ($request->prodi) {
-                $pengawas->where('prodis.nama_prodi', 'like', '%' . $request->prodi . '%');
-                if ($request->semester) {
-                    $pengawas->where('b.semester', 'like', '%' . $request->semester . '%');
-                    if ($request->kelas) {
-                        $pengawas->where('kelas.kelas', 'like', '%' . $request->kelas . '%');
-                        if ($request->praktikum) {
-                            $pengawas->where('praktikums.praktikum', 'like', '%' . $request->praktikum . '%');
-                        }
-                    }
-                    if ($request->matkul) {
-                        $pengawas->where('matkuls.nama_matkul', 'like', '%' . $request->matkul . '%');
-                    }
-                }
-            }
-
-            if ($request->tanggal) {
-                $pengawas->where('tanggal', 'like', '%' . $request->tanggal . '%');
-            }
-
-            if ($request->ruang) {
-                $pengawas->where('ruang', 'like', '%' . $request->ruang . '%');
-            }
-        }
+        $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+        ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*')
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         $pengawas = $pengawas->whereBetween('ujians.tanggal', [$from, $to])->get();
 
@@ -274,44 +249,53 @@ class pjUjianController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'pns' => 'required'
+            'pns' => 'required',
+            'norek' => 'nullable',
+            'bank' => 'nullable'
         ]);
 
         $pengawas = Pengawas::find($id);
         $pengawas->update([
             'nama' => $request->nama,
-            'pns' => $request->pns
+            'pns' => $request->pns,
+            'norek' => $request->norek,
+            'bank' => $request->bank
         ]);
 
+        $this->Activity(' memperbarui data pengawas ' . $request->nama);
         return redirect()->route('pjUjian.pengawas.pengawas.index')->with('success', 'Pengawas sudah diperbarui!');
     }
 
     public function pengawasDestroy($id)
     {
-        Pengawas::find($id)->delete();
-
+        $pengawas = Pengawas::find($id);
+        $this->Activity(' memperbarui data pengawas ' . $pengawas->nama);
+        $pengawas->delete();
         return redirect()->route('pjUjian.pengawas.pengawas.index')->with('success', 'Pengawas sudah dihapus!');
     }
 
-    public function penugasanIndex(Request $request)
+    public function penugasanIndex()
     {
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
-        }
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('pj_ujian.penugasan.index', [
-            "penugasan" => $ujian
+            "penugasan" => $ujian->get()
         ]);
     }
 
@@ -329,83 +313,88 @@ class pjUjianController extends Controller
         $request->validate([
             'nama' => 'required',
             'pns' => 'required',
+            'norek' => 'nullable',
+            'bank' => 'nullable',
             'ujian_id' => 'required'
         ]);
 
         Pengawas::create($request->all());
-
+        $this->Activity(' menugaskan pengawas ' . $request->nama);
         return redirect()->route('pjUjian.pengawas.penugasan.index')->with('success', 'Pengawas berhasil ditambahkan!');
     }
 
-    public function amplop(Request $request)
+    public function amplop()
     {
-        $now = Carbon::now()->toDateString();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('pj_ujian.amplop', [
-            "amplop" => $ujian
+            "amplop" => $ujian->get()
         ]);
     }
 
-    public function bap(Request $request)
+    public function bap()
     {
-        $now = Carbon::now()->toDateString();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-        if (isEmpty()) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('pj_ujian.bap', [
-            "bap" => $ujian
+            "bap" => $ujian->get()
         ]);
     }
 
-    public function berkas(Request $request)
+    public function berkas()
     {
-        $now = Carbon::now()->toDateString();
-        
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
-        }
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('pj_ujian.berkas', [
-            "berkas" => $ujian
+            "berkas" => $ujian->get()
         ]);
     }
 
@@ -413,14 +402,16 @@ class pjUjianController extends Controller
     {
         $berkas = Berkas::find($id);
         
-        if ($berkas->pengambilan == "Belum") {
+        if ($berkas->validasi == "Belum") {
             $berkas->update([
-                'pengambilan' => 'Sudah'
+                'validasi' => 'Sudah'
             ]);
+            $this->Activity(' memperbarui status Validasi untuk Soal Ujian menjadi Sudah divalidasi');
         } else {
             $berkas->update([
-                'pengambilan' => 'Belum'
+                'validasi' => 'Belum'
             ]);
+            $this->Activity(' memperbarui status Validasi untuk Soal Ujian menjadi Belum divalidasi');
         }
 
         return redirect()->route('pjUjian.kelengkapan.berkas.index')->with('success', 'Status pengambil soal ujian berhasil diubah!');
@@ -435,7 +426,7 @@ class pjUjianController extends Controller
         ]);
     }
 
-    public function susulan(Request $request)
+    public function susulan()
     {
         $mahasiswa = Susulan::all();
 
@@ -448,14 +439,17 @@ class pjUjianController extends Controller
     public function susulanUpdate(Request $request, $id)
     {
         $susulan = Susulan::find($id);
+        $mahasiswa = Mahasiswa::find($susulan->mhs_id);
         $susulan->update([
             'status' => $request->status
         ]);
 
         if ($request->status == 'Disetujui'){
             $message = "Pengajuan berhasil disetujui!";
+            $this->Activity(' menyetujui pengajuan susulan untuk ' . $mahasiswa->nama);
         } else {
             $message = "Pengajuan berhasil ditolak!";
+            $this->Activity(' menolak pengajuan susulan untuk ' . $mahasiswa->nama);
         }
 
         return redirect()->route('pjUjian.susulan.mahasiswa')->with('success', $message);
@@ -567,20 +561,30 @@ class pjUjianController extends Controller
         ->where('susulans.matkul_id', $request->matkul_id)
         ->update(['status' => 'Terjadwal']);
 
+        $this->Activity(' menambahkan jadwal ujian susulan baru');
         return redirect()->route('pjUjian.susulan.penjadwalan.index')->with('success', 'Jadwal ujian susulan baru telah ditambahkan!');
     }
 
     public function susulanIndex()
     {
-        $susulan = Ujian::join('matkuls', 'ujians.matkul_id', 'matkuls.id')
-        ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
-        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
-        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
-        ->join('semesters AS b', 'kelas.semester_id', 'b.id')
-        ->join('prodis', 'b.prodi_id', 'prodis.id')
-        ->select('b.*', 'matkuls.*', 'prodis.*', 'praktikums.*', 'kelas.*', 'ujians.*')
-        ->where('ujians.susulan', '=', '1')
-        ->get();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        $susulan = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->where('ujians.susulan', '1')
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         $susulans = $susulan;
 
@@ -633,6 +637,7 @@ class pjUjianController extends Controller
             'pelaksanaan' => $request->pelaksanaan
         ]);
 
+        $this->Activity(' memperbarui jadwal ujian susulan');
         return redirect()->route('pjUjian.susulan.susulan.index')->with('success', 'Jadwal ujian telah berhasil diubah!');
     }
 
@@ -650,6 +655,7 @@ class pjUjianController extends Controller
         Berkas::where('ujian_id', $id)->delete();
         Pelanggaran::where('ujian_id', $id)->delete();
 
+        $this->Activity(' memperbarui jadwal ujian susulan');
         return redirect()->route('pjUjian.susulan.susulan.index')->with('success', 'Jadwal ujian susulan berhasil dihapus!');
     }
 }

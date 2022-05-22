@@ -40,6 +40,56 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Mata Kuliah</h4>
+                        <form action="/supervisor/matkul" class="row justify-content-start">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select" name="dbProdi" id="dbProdi">
+                                        @if (request('dbProdi'))
+                                            <option value="">Program Studi</option>
+                                            <option selected="selected" value="{{ request('dbProdi') }}">{{ request('dbProdi') }}</option>
+                                        @else
+                                            <option selected="selected" value="">Program Studi</option>
+                                        @endif
+                                        @foreach ($dbProdi as $prodi)
+                                            <option value="{{ $prodi->nama_prodi }}">{{ $prodi->nama_prodi }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="form-group">
+                                    <select class="custom-select" name="dbSemester" id="dbSemester">
+                                        @if (request('dbSemester'))
+                                            <option value="">Semester</option>
+                                            <option selected="selected" value="{{ request('dbSemester') }}">{{ request('dbSemester') }}</option>
+                                        @else
+                                            <option selected="selected" value="">Semester</option>
+                                        @endif
+                                        @foreach ($dbSemester as $semester)
+                                            <option value="{{ $semester->semester }}">{{ $semester->semester }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select" name="dbMatkul" id="dbMatkul">
+                                        @if (request('dbMatkul'))
+                                            <option value="">Mata Kuliah</option>
+                                            <option selected="selected" value="{{ request('dbMatkul') }}">{{ request('dbMatkul') }}</option>
+                                        @else
+                                            <option selected="selected" value="">Mata Kuliah</option>
+                                        @endif
+                                        @foreach ($dbMatkul as $matkul)
+                                            <option value="{{ $matkul->nama_matkul }}">{{ $matkul->nama_matkul }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1 align-content-center">
+                                <button type="submit" class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                            </div>
+                        </form>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
@@ -55,7 +105,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($matkul as $ujian)
+                                    @foreach ($soal as $ujian)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $ujian?->tanggal }}</td>

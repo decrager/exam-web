@@ -176,10 +176,10 @@
             $("#example").DataTable();
 
             let datas = <?php echo json_encode($data); ?>;
-            let labels = <?php echo json_encode($label); ?>;
+            let label = <?php echo json_encode($label); ?>;
 
             var data = datas.map(function(v) { return parseInt(v, 10); });
-            var label = labels.map(function(v) { return parseInt(v, 10); });
+            // var label = labels.map(function(v) { return parseInt(v, 10); });
 
             Highcharts.chart("container", {
                 title: {
@@ -314,7 +314,7 @@
                             if (data) {
                                 $('#semester').empty();
                                 $('#semester').append(
-                                    '<option selected="selected">Pilih Semester</option>');
+                                    '<option selected="selected" value="">Pilih Semester</option>');
                                 $.each(data, function(key, semester) {
                                     $('select[name="semester"]').append(
                                         '<option value="' + semester.id + '">' +
@@ -344,7 +344,7 @@
                             if (data) {
                                 $('#kelas').empty();
                                 $('#kelas').append(
-                                    '<option selected="selected">Pilih Kelas</option>');
+                                    '<option selected="selected" value="">Pilih Kelas</option>');
                                 $.each(data, function(key, kelas) {
                                     $('select[name="kelas"]').append('<option value="' +
                                         kelas.id + '">' + kelas.kelas + '</option>');
@@ -366,7 +366,7 @@
                             if (data) {
                                 $('#matkul').empty();
                                 $('#matkul').append(
-                                    '<option selected="selected">Pilih Mata Kuliah</option>'
+                                    '<option selected="selected" value="">Pilih Mata Kuliah</option>'
                                     );
                                 $.each(data, function(key, matkul) {
                                     $('select[name="matkul"]').append(
@@ -398,7 +398,7 @@
                             if (data) {
                                 $('#praktikum').empty();
                                 $('#praktikum').append(
-                                    '<option selected="selected">Pilih Praktikum</option>');
+                                    '<option selected="selected" value="">Pilih Praktikum</option>');
                                 $.each(data, function(key, praktikum) {
                                     $('select[name="praktikum"]').append(
                                         '<option value="' + praktikum.id + '">' +

@@ -19,6 +19,25 @@ class Mahasiswa extends Model
         'email'
     ];
 
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['dbProdi'] ?? false, function($query, $prodi) {
+            return $query->where('prodis.nama_prodi', 'like', '%' . $prodi . '%');
+        });
+        
+        $query->when($filters['dbSemester'] ?? false, function($query, $semester) {
+            return $query->where('semesters.semester', 'like', '%' . $semester . '%');
+        });
+
+        $query->when($filters['dbKelas'] ?? false, function($query, $kelas) {
+            return $query->where('kelas.kelas', 'like', '%' . $kelas . '%');
+        });
+
+        $query->when($filters['dbPraktikum'] ?? false, function($query, $praktikum) {
+            return $query->where('praktikums.praktikum', 'like', '%' . $praktikum . '%');
+        });
+    }
+
     public function Praktikum()
     {
         return $this->belongsTo(Praktikum::class, 'prak_id', 'id');

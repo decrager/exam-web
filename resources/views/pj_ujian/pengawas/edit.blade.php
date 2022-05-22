@@ -58,9 +58,31 @@
                                         <label class="col-form-label">PNS</label>
                                         <select class="custom-select" name="pns" required>
                                             <option>Pilih</option>
-                                            <option selected="selected" value="{{ $pengawas?->pns }}">{{ $pengawas?->pns }}</option>
-                                            <option value="PNS">PNS</option>
-                                            <option value="NON PNS">NON PNS</option>
+                                            @if ($pengawas->pns == 'pns')
+                                            <option selected="selected" value="pns">PNS</option>
+                                            @else
+                                            <option selected="selected" value="nonpns">NON PNS</option>
+                                            @endif
+                                            <option value="pns">PNS</option>
+                                            <option value="nonpns">NON PNS</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="norek" class="col-form-label">Nomor Rekening (Option)</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="norek" name="norek" value="{{ $pengawas->norek }}"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="bank" class="col-form-label">Bank (Option)</label>
+                                        <select class="custom-select" name="bank">
+                                            <option>Pilih bank</option>
+                                            @if ($pengawas?->bank)
+                                                <option selected="selected" value="{{ $pengawas?->bank }}">{{ $pengawas->bank }}</option>
+                                            @endif
+                                            <option value="BRI">BRI</option>
+                                            <option value="BNI">BNI</option>
+                                            <option value="Mandiri">Mandiri</option>
                                         </select>
                                     </div>
 

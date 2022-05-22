@@ -13,17 +13,18 @@ use App\Models\Ujian;
 use App\Models\Amplop;
 use App\Models\Berkas;
 use App\Models\Master;
+use App\Models\Matkul;
+use App\Models\Ruangan;
 use App\Models\Semester;
 use App\Models\Mahasiswa;
-use App\Models\Matkul;
 use App\Models\Praktikum;
 use App\Models\Pelanggaran;
-use App\Models\Ruangan;
 use Illuminate\Http\Request;
 
 use PhpParser\Node\Stmt\Foreach_;
 use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\Promise\all;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -111,7 +112,9 @@ class AppServiceProvider extends ServiceProvider
         ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
         ->join('semesters', 'kelas.semester_id', 'semesters.id')
         ->join('prodis', 'semesters.prodi_id', 'prodis.id')
+        ->join('ujians', 'pelanggarans.ujian_id', 'ujians.id')
         ->groupBy('mhs_id', 'mahasiswas.nim', 'mahasiswas.nama', 'praktikums.praktikum', 'kelas.kelas', 'semesters.semester', 'prodis.nama_prodi')
+        ->whereBetween('ujians.tanggal', [$from, $to])
         ->selectRaw('mhs_id, count(*) as total, mahasiswas.nim, mahasiswas.nama, praktikums.praktikum, kelas.kelas, semesters.semester, prodis.nama_prodi')
         ->get();
 

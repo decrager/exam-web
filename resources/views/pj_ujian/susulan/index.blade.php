@@ -46,9 +46,9 @@
                             </div>
                         @endif
                         <h4 class="header-title pt-2">Jadwal Ujian Susulan</h4>
-                        <div class="row mb-1 justify-content-start">
+                        <form action="/pj_ujian/susulan/susulan" class="row mb-1 justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
                         <!-- <i class="fa fa-check text-danger"></i> -->
 
                         <div class="table-responsive">

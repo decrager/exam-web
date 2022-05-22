@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
-use App\Models\Prodi;
 use App\Models\Kelas;
-use App\Models\Praktikum;
-use App\Models\Matkul;
+use App\Models\Prodi;
 use App\Models\Ujian;
+use App\Models\Matkul;
+use App\Models\Praktikum;
+use App\Models\LogActivities;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
@@ -53,5 +55,13 @@ class Controller extends BaseController
         }
 
         return $ujian;
+    }
+
+    public function Activity($message)
+    {
+        $user = Auth::user()->name;
+        // $log = new LogActivities;
+        // $log->activity = $user . $message;
+        // $log->save();
     }
 }

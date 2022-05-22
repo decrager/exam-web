@@ -45,7 +45,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <select class="custom-select">
-                                        <option selected="selected">Program Studi</option>
+                                        <option selected="selected" value="">Program Studi</option>
                                         <option value="#">-</option>
                                         <option value="#">-</option>
                                     </select>
@@ -54,7 +54,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <select class="custom-select">
-                                        <option selected="selected">Semester</option>
+                                        <option selected="selected" value="">Semester</option>
                                         <option value="#">-</option>
                                         <option value="#">-</option>
                                     </select>
@@ -63,7 +63,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <select class="custom-select">
-                                        <option selected="selected">Mata Kuliah</option>
+                                        <option selected="selected" value="">Mata Kuliah</option>
                                         <option value="#">-</option>
                                         <option value="#">-</option>
                                     </select>

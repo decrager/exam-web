@@ -23,11 +23,11 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Ubah Jadwal Ujian</h4>
+                    <h4 class="page-title pull-left">Ubah Data Ujian</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><a ><span>Jadwal Ujian</span></a></li>
-                        <li><span>Ubah Jadwal Ujian</span></li>
+                        <li><a ><span>Data Ujian</span></a></li>
+                        <li><span>Ubah Data Ujian</span></li>
                     </ul>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Usulan Ruang</label>
                                         <select class="custom-select" name="lokasi">
-                                            <option selected="selected">
+                                            <option selected="selected" value="">
                                                 Pilih Usulan Ruang
                                             </option>
                                             <option value="Lab. Komputer">Lab. Komputer</option>
@@ -107,7 +107,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Perbanyak Soal</label>
                                         <select class="custom-select" name="perbanyak">
-                                            <option selected="selected">
+                                            <option selected="selected" value="">
                                                 Pilih Perbanyak atau Tidak
                                             </option>
                                             <option value="1">Perbanyak</option>

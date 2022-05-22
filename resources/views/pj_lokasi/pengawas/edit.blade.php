@@ -49,12 +49,12 @@
                                     @method('PUT')
                                     <div class="form-group">
                                         <label for="nama" class="col-form-label">Nama Pengawas</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nama pengawas..." id="nama" name="nama" value="{{ $pengawas->nama }}"/>
+                                        <input class="form-control" type="text" placeholder="Ketik nama pengawas..." id="nama" name="nama" value="{{ $pengawas->nama }}" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">PNS</label>
-                                        <select class="custom-select" name="pns">
+                                        <select class="custom-select" name="pns" required>
                                             <option>Pilih</option>
                                             @if ($pengawas->pns == 'pns')
                                             <option selected="selected" value="pns">PNS</option>
@@ -66,7 +66,25 @@
                                         </select>
                                     </div>
 
-                                    <button class="btn btn-primary">Simpan</button>
+                                    <div class="form-group">
+                                        <label for="norek" class="col-form-label">Nomor Rekening</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="norek" name="norek" value="{{ $pengawas->norek }}"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="bank" class="col-form-label">Bank</label>
+                                        <select class="custom-select" name="bank">
+                                            <option>Pilih bank</option>
+                                            @if ($pengawas?->bank)
+                                                <option selected="selected" value="{{ $pengawas?->bank }}">{{ $pengawas->bank }}</option>
+                                            @endif
+                                            <option value="BRI">BRI</option>
+                                            <option value="BNI">BNI</option>
+                                            <option value="Mandiri">Mandiri</option>
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
                         </div>

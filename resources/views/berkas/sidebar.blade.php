@@ -29,7 +29,7 @@
 
                     <li class="{{ Request::routeIs('berkas.soal') ? 'active' : '' }} m-1">
                         <a href="{{ route('berkas.soal') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Soal Ujian</span></a>
+                            <span>Data Berkas</span></a>
                     </li>
 
                     <li class="{{ Request::routeIs('berkas.kelengkapan.*') ? 'active' : '' }} m-1">

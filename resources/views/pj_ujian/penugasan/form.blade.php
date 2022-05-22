@@ -56,11 +56,26 @@
                                     <div class="form-group">
                                         <label class="col-form-label">PNS</label>
                                         <select class="custom-select" name="pns" required>
-                                            <option selected="selected">
+                                            <option selected="selected" value="">
                                                 Pilih
                                             </option>
                                             <option value="PNS">PNS</option>
                                             <option value="NON PNS">NON PNS</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="norek" class="col-form-label">Nomor Rekening (Optional)</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." id="norek" name="norek"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="bank" class="col-form-label">Bank (Optional)</label>
+                                        <select class="custom-select" name="bank">
+                                            <option selected="selected" value="">Pilih bank</option>
+                                            <option value="BRI">BRI</option>
+                                            <option value="BNI">BNI</option>
+                                            <option value="Mandiri">Mandiri</option>
                                         </select>
                                     </div>
 

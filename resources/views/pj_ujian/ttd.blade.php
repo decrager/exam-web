@@ -54,7 +54,7 @@
                                 <div class="form-group">
                                     <label class="col-form-label">Program Studi</label>
                                     <select class="custom-select" name="prodi" id="prodi" required>
-                                        <option selected="selected">Pilih Program Studi</option>
+                                        <option selected="selected" value="">Pilih Program Studi</option>
                                         @foreach ($dbProdi as $prodi)
                                             <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
                                         @endforeach
@@ -64,14 +64,14 @@
                                 <div class="form-group">
                                     <label class="col-form-label">Semester</label>
                                     <select class="custom-select" name="semester" id="semester" required>
-                                        <option selected="selected">Pilih Semester</option>
+                                        <option selected="selected" value="">Pilih Semester</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Mata Kuliah</label>
                                     <select class="custom-select" name="ttdMatkul" id="ttdMatkul" required>
-                                        <option selected="selected">Pilih Mata Kuliah</option>
+                                        <option selected="selected" value="">Pilih Mata Kuliah</option>
                                     </select>
                                 </div>
 
@@ -206,7 +206,7 @@
                         {
                             if(data){
                                 $('#ttdMatkul').empty();
-                                $('#ttdMatkul').append('<option selected="selected">Pilih Mata Kuliah</option>');
+                                $('#ttdMatkul').append('<option selected="selected" value="">Pilih Mata Kuliah</option>');
                                 $.each(data, function(key, matkul){
                                     $('select[name="ttdMatkul"]').append('<option value="'+ matkul.nama_matkul +'">' + matkul.nama_matkul + '</option><input type="text" hidden name="matkul" value="' + matkul.nama_matkul +'">');
                                 });

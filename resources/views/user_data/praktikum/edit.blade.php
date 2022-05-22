@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Program Studi</label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
-                                            <option selected="selected">Pilih Program Studi</option>
+                                            <option selected="selected" value="">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
                                                 <option value="{{ $prodi?->id }}">{{ $prodi?->nama_prodi }}</option>
                                             @endforeach

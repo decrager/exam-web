@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ujian extends Model
 {
@@ -30,6 +30,37 @@ class Ujian extends Model
         'sesi',
         'pelaksanaan'
     ];
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['dbProdi'] ?? false, function($query, $prodi) {
+            return $query->where('prodis.nama_prodi', 'like', '%' . $prodi . '%');
+        });
+        
+        $query->when($filters['dbSemester'] ?? false, function($query, $semester) {
+            return $query->where('b.semester', 'like', '%' . $semester . '%');
+        });
+
+        $query->when($filters['dbKelas'] ?? false, function($query, $kelas) {
+            return $query->where('kelas.kelas', 'like', '%' . $kelas . '%');
+        });
+
+        $query->when($filters['dbPraktikum'] ?? false, function($query, $praktikum) {
+            return $query->where('praktikums.praktikum', 'like', '%' . $praktikum . '%');
+        });
+
+        $query->when($filters['dbMatkul'] ?? false, function($query, $matkul) {
+            return $query->where('matkuls.nama_matkul', 'like', '%' . $matkul . '%');
+        });
+
+        $query->when($filters['dbTanggal'] ?? false, function($query, $tanggal) {
+            return $query->where('ujians.tanggal', 'like', '%' . $tanggal . '%');
+        });
+
+        $query->when($filters['dbRuang'] ?? false, function($query, $ruang) {
+            return $query->where('ujians.ruang', 'like', '%' . $ruang . '%');
+        });
+    }
 
     public function Matkul()
     {

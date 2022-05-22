@@ -41,9 +41,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">BAP</h4>
-                        <div class="row justify-content-start">
+                        <form action="/pj_ujian/kelengkapan/bap" class="row justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
 
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">

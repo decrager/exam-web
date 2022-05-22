@@ -60,7 +60,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Jenis Pengguna</label>
                                         <select class="custom-select" name="role" required>
-                                            <option selected="selected">
+                                            <option selected="selected" value="">
                                                 Pilih jenis pengguna
                                             </option>
                                             <option value="assisten">Assisten Lokasi</option>

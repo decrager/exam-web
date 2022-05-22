@@ -15,31 +15,36 @@ use function PHPUnit\Framework\isEmpty;
 
 class supervisorController extends Controller
 {
-    public function dashboard(Request $request)
+    public function dashboard()
     {
         $now = Carbon::now()->toDateString();
+        
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
+        
+        if (request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang'])) {
+            $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang']));
+        }
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
+        if (request(['dbTanggal'])) {
+            $ujian->filter(request(['dbTanggal']));
         } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
-
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
+            $ujian->where('ujians.tanggal', '2022-06-08');
         }
         
         return view('supervisor.dashboard', [
-            "dbUjian" => $ujian
+            "dbUjian" => $ujian->get()
         ]);
     }
 
-    public function ujian(Request $request)
+    public function ujian()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -47,27 +52,25 @@ class supervisorController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::where('susulan', '0');
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
-
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->where('susulan', '0')->whereBetween('ujians.tanggal', [$from, $to]);
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->where('susulan', '0')
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('supervisor.ujian', [
             "ujian" => $ujian->get()
         ]);
     }
 
-    public function susulan(Request $request)
+    public function susulan()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -75,20 +78,18 @@ class supervisorController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::where('susulan', '1');
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
-
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->where('susulan', '1')->whereBetween('ujians.tanggal', [$from, $to]);
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->where('susulan', '1')
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('supervisor.susulan', ['ujian' => $ujian->get()]);
     }
@@ -103,7 +104,7 @@ class supervisorController extends Controller
         ]);
     }
 
-    public function pengawas(Request $request)
+    public function pengawas()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -111,91 +112,43 @@ class supervisorController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        if (isEmpty($request)) {
-            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-            ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-            ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-            ->whereBetween('ujians.tanggal', [$from, $to]);
-        } else {
-            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-                ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-                ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-                ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-                ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-                ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-                ->join('prodis', 'b.prodi_id', '=', 'prodis.id');
-
-            if ($request->prodi) {
-                $pengawas->where('prodis.nama_prodi', 'like', '%' . $request->prodi . '%');
-                if ($request->semester) {
-                    $pengawas->where('b.semester', 'like', '%' . $request->semester . '%');
-                    if ($request->kelas) {
-                        $pengawas->where('kelas.kelas', 'like', '%' . $request->kelas . '%');
-                        if ($request->praktikum) {
-                            $pengawas->where('praktikums.praktikum', 'like', '%' . $request->praktikum . '%');
-                        }
-                    }
-                    if ($request->matkul) {
-                        $pengawas->where('matkuls.nama_matkul', 'like', '%' . $request->matkul . '%');
-                    }
-                }
-            }
-
-            if ($request->tanggal) {
-                $pengawas->where('tanggal', 'like', '%' . $request->tanggal . '%');
-            }
-
-            if ($request->ruang) {
-                $pengawas->where('ruang', 'like', '%' . $request->ruang . '%');
-            }
-
-            $pengawas->whereBetween('ujians.tanggal', [$from, $to]);
-        }
+        $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+        ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
         
-        $pengawas = $pengawas->get();
         return view('supervisor.pengawas', [
-            "pengawas" => $pengawas
+            "pengawas" => $pengawas->get()
         ]);
     }
 
-    public function mahasiswa(Request $request)
+    public function mahasiswa()
     {
-        if (isEmpty($request))
-        {
-            $mahasiswa = Mahasiswa::all();
-        } else {
-            $mahasiswa = Mahasiswa::join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        $mahasiswa = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', '=', 'praktikums.id')
             ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
             ->join('semesters', 'kelas.semester_id', '=', 'semesters.id')
-            ->join('prodis', 'semesters.prodi_id', '=', 'prodis.id');
-
-            if ($request->prodi) {
-                $mahasiswa->where('prodis.nama_prodi', 'like', '%' . $request->prodi . '%');
-                if ($request->semester) {
-                    $mahasiswa->where('semesters.semester', 'like', '%' . $request->semester . '%');
-                    if ($request->kelas) {
-                        $mahasiswa->where('kelas.kelas', 'like', '%' . $request->kelas . '%');
-                        if ($request->praktikum) {
-                            $mahasiswa->where('praktikums.praktikum', 'like', '%' . $request->praktikum . '%');
-                        }
-                    }
-                }
-            }
-
-            $mahasiswa->get();
-        }
+            ->join('prodis', 'semesters.prodi_id', '=', 'prodis.id')
+            ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas']));
 
         return view('supervisor.mahasiswa', [
-            "mahasiswa" => $mahasiswa
+            "mahasiswa" => $mahasiswa->get()
         ]);
     }
 
-    public function matkul(Request $request)
+    public function matkul()
     {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
         ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
@@ -204,82 +157,87 @@ class supervisorController extends Controller
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, count(kelas.jml_mhs) * 6 + SUM(kelas.jml_mhs) AS jumlah')
         ->groupBy('ujians.tanggal', 'ujians.tipe_mk', 'ujians.perbanyak', 'prodis.nama_prodi', 'b.semester', 'matkuls.nama_matkul')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbMatkul']))
         ->get();
 
         return view('supervisor.matkul', [
-            "matkul" => $ujian
+            "soal" => $ujian
         ]);
     }
 
-    public function amplop(Request $request)
+    public function amplop()
     {
-        $now = Carbon::now()->toDateString();
-        
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
-        }
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+        
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('supervisor.amplop', [
-            "amplop" => $ujian
+            "amplop" => $ujian->get()
         ]);
     }
 
-    public function bap(Request $request)
+    public function bap()
     {
-        $now = Carbon::now()->toDateString();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
         
         return view('supervisor.bap', [
-            "bap" => $ujian
+            "bap" => $ujian->get()
         ]);
     }
 
-    public function berkas(Request $request)
+    public function berkas()
     {
-        $now = Carbon::now()->toDateString();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('supervisor.berkas', [
-            "berkas" => $ujian
+            "berkas" => $ujian->get()
         ]);
     }
 

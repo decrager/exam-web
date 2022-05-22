@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Program Studi</label>
                                         <select class="custom-select" name="prodi_id" required>
-                                            <option selected="selected">Pilih Program Studi</option>
+                                            <option selected="selected" value="">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
                                                 <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
                                             @endforeach
@@ -60,7 +60,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Semester</label>
                                         <select class="custom-select" name="semester" required>
-                                            <option selected="selected">Pilih Semester</option>
+                                            <option selected="selected" value="">Pilih Semester</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>

@@ -162,14 +162,14 @@
 
                                     <div class="form-group">
                                         <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
-                                        <input class="form-control" type="time" name="jam_mulai" id="jam_mulai"
-                                            value="{{ $ujian?->jam_mulai }}" required />
+                                        <input class="form-control" type="text" name="jam_mulai" id="jam_mulai"
+                                            value="{{ $ujian?->jam_mulai }}" placeholder="Ketik..." required />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
-                                        <input class="form-control" type="time" name="jam_selesai" id="jam_selesai"
-                                            value="{{ $ujian?->jam_selesai }}" required />
+                                        <input class="form-control" type="text" name="jam_selesai" id="jam_selesai"
+                                            value="{{ $ujian?->jam_selesai }}" placeholder="Ketik..." required />
                                     </div>
 
                                     <div class="form-group">

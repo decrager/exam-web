@@ -90,6 +90,8 @@ class pelanggaranController extends Controller
         ]);
   
         Pelanggaran::create($validatedData);
+        $mahasiswa = Mahasiswa::find($request->mhs_id);
+        $this->Activity(' menambahkan data pelanggaran untuk ' . $mahasiswa->nama);
         return redirect('/pj_lokasi/pelanggaran')->with('success', 'Data has been successfully added');
     }
 
@@ -147,6 +149,8 @@ class pelanggaranController extends Controller
 
         Pelanggaran::where('id', $pelanggaran->id)
         ->update($validatedData);
+        $mahasiswa = Mahasiswa::find($request->mhs_id);
+        $this->Activity(' memperbarui data pelanggaran untuk ' . $mahasiswa->nama);
         return redirect('/pj_lokasi/pelanggaran')->with('success', 'Data has been successfully updated');
     }
 
@@ -158,6 +162,8 @@ class pelanggaranController extends Controller
      */
     public function destroy(Pelanggaran $pelanggaran)
     {
+        $mahasiswa = Mahasiswa::find($pelanggaran->mhs_id);
+        $this->Activity(' menghapus data pelanggaran untuk ' . $mahasiswa->nama);
         Pelanggaran::destroy($pelanggaran->id);
         return redirect('/pj_lokasi/pelanggaran/')->with('success', 'Data has been successfully deleted');
     }

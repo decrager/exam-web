@@ -4,55 +4,64 @@ namespace App\Http\Controllers;
 
 use App\Models\Berkas;
 use App\Models\Ujian;
+use App\Models\Master;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use function PHPUnit\Framework\isEmpty;
 
 class assistenController extends Controller
 {
-    public function dashboard(Request $request)
+    public function dashboard()
     {
         $now = Carbon::now()->toDateString();
-
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
-
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
+        
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
+        
+        if (request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang'])) {
+            $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang']));
         }
 
-        return view('assisten.dashboard', ["dbUjian" => $ujian]);
+        if (request(['dbTanggal'])) {
+            $ujian->filter(request(['dbTanggal']));
+        } else {
+            $ujian->where('ujians.tanggal', '2022-06-08');
+        }
+
+        return view('assisten.dashboard', ["dbUjian" => $ujian->get()]);
     }
     
     public function berkas(Request $request)
     {
-        $now = Carbon::now()->toDateString();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('assisten.berkas', [
-            "berkas" => $ujian
+            "berkas" => $ujian->get()
         ]);
     }
 
@@ -63,8 +72,10 @@ class assistenController extends Controller
         if ($berkas->asisten == 'Belum')
         {
             $berkas->update(['asisten' => 'Sudah']);
+            $this->Activity(' memperbarui status Asisten pada Soal Ujian menjadi Sudah diambil');
         } else {
             $berkas->update(['asisten' => 'Belum']);
+            $this->Activity(' memperbarui status Asisten pada Soal Ujian menjadi Belum diambil');
         }
 
         return redirect()->route('assisten.berkas')->with('success', 'Status Asisten Berkas berhasil diubah!');

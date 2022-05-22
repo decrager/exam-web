@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Mata Kuliah</label>
                                         <select class="custom-select @error('matkul_id') is-invalid @enderror" name="matkul_id" required>
-                                            <option selected="selected">Select</option>
+                                            <option selected="selected" value="">Select</option>
                                             @foreach ($matkul as $matkul)
                                                 <option value="{{ $matkul->id }}">{{ $matkul->nama_matkul }}</option>
                                             @endforeach
@@ -64,7 +64,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Tipe Mata Kuliah</label>
                                         <select class="custom-select @error('tipe_mk') is-invalid @enderror" name="tipe_mk" required>
-                                            <option selected="selected">Select</option>
+                                            <option selected="selected" value="">Select</option>
                                             <option value="K">Kuliah</option>
                                             <option value="P">Praktikum</option>
                                         </select>

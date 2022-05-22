@@ -55,9 +55,31 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title pt-2">Jadwal Ujian</h4>
-                    <div class="row mb-1 justify-content-start">
-                        @include('layouts.filter')
-                    </div>
+                    @if (auth()->user()->role == 'data')
+                        <form action="/data" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'pj_ujian')
+                        <form action="/pj_ujian" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'prodi')
+                        <form action="/prodi" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'pj_lokasi')
+                        <form action="/pj_lokasi" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'berkas')
+                        <form action="/berkas" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'assisten')
+                        <form action="/assisten" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'pj_susulan')
+                        <form action="/pj_susulan" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'supervisor')
+                        <form action="/supervisor" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'pj_online')
+                        <form action="/pj_online" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'pj_labkom')
+                        <form action="/pj_labkom" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'superadmin')
+                        <form action="/superadmin" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'mahasiswa')
+                        <form action="/mahasiswa" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @endif
                     <!-- <i class="fa fa-check text-danger"></i> -->
 
                     <div class="table-responsive">

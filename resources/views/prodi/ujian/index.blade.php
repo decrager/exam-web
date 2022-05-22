@@ -23,10 +23,10 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Jadwal Ujian</h4>
+                    <h4 class="page-title pull-left">Data Ujian</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><span>Jadwal Ujian</span></li>
+                        <li><span>Data Ujian</span></li>
                     </ul>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <h4 class="header-title">Daftar Jadwal Ujian</h4>
+                        <h4 class="header-title">Data Ujian</h4>
                         {{-- <div class="float-right">
                             <a href="/prodi/jadwal/export" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
                                 class="fas fa-file-excel-o"></i></a>

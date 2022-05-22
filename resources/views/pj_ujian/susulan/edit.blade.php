@@ -168,8 +168,8 @@
 
                                     <div class="form-group">
                                         <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
-                                        <input class="form-control @error('jam_mulai') is-invalid @enderror" type="time"
-                                            id="jam_mulai" name="jam_mulai" value="{{ $ujian?->jam_mulai }}" required />
+                                        <input class="form-control @error('jam_mulai') is-invalid @enderror" type="text"
+                                            id="jam_mulai" name="jam_mulai" value="{{ $ujian?->jam_mulai }}" placeholder="Ketik..." required />
                                         @error('jam_mulai')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -179,8 +179,8 @@
 
                                     <div class="form-group">
                                         <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
-                                        <input class="form-control @error('jam_selesai') is-invalid @enderror" type="time"
-                                            id="jam_selesai" name="jam_selesai" value="{{ $ujian?->jam_selesai }}" required />
+                                        <input class="form-control @error('jam_selesai') is-invalid @enderror" type="text"
+                                            id="jam_selesai" name="jam_selesai" value="{{ $ujian?->jam_selesai }}" placeholder="Ketik..." required />
                                         @error('jam_selesai')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

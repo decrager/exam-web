@@ -49,29 +49,41 @@
                         <a href="#" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
                             <i class="fas fa-file-pdf"></i>
                         </a>
-                        <div class="row justify-content-start">
+                        <form action="/pj_lokasi/pengawas/kehadiran" class="row justify-content-start">
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Program Studi</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
+                                    <select class="custom-select" name="dbProdi" id="dbProdi">
+                                        @if (request('dbProdi'))
+                                            <option value="">Program Studi</option>
+                                            <option selected="selected" value="{{ request('dbProdi') }}">{{ request('dbProdi') }}</option>
+                                        @else
+                                            <option selected="selected" value="">Program Studi</option>
+                                        @endif
+                                        @foreach ($dbProdi as $prodi)
+                                            <option value="{{ $prodi->nama_prodi }}">{{ $prodi->nama_prodi }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <select class="custom-select">
-                                        <option selected="selected">Mata Kuliah</option>
-                                        <option value="#">-</option>
-                                        <option value="#">-</option>
+                                    <select class="custom-select" name="dbMatkul" id="dbMatkul">
+                                        @if (request('dbMatkul'))
+                                            <option value="">Mata Kuliah</option>
+                                            <option selected="selected" value="{{ request('dbMatkul') }}">{{ request('dbMatkul') }}</option>
+                                        @else
+                                            <option selected="selected" value="">Mata Kuliah</option>
+                                        @endif
+                                        @foreach ($dbMatkul as $matkul)
+                                            <option value="{{ $matkul->nama_matkul }}">{{ $matkul->nama_matkul }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-1 align-content-center">
-                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                                <button type="submit" class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
                             </div>
-                        </div>
+                        </form>
 
                         <!-- <i class="fa fa-check text-danger"></i> -->
 

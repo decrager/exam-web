@@ -23,31 +23,36 @@ use function PHPUnit\Framework\isEmpty;
 
 class dataController extends Controller
 {
-    public function dashboard(Request $request)
+    public function dashboard()
     {
         $now = Carbon::now()->toDateString();
         
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
+        
+        if (request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang'])) {
+            $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang']));
+        }
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
+        if (request(['dbTanggal'])) {
+            $ujian->filter(request(['dbTanggal']));
+        } else {
+            $ujian->where('ujians.tanggal', '2022-06-08');
         }
 
         return view('user_data.dashboard', [
-            "dbUjian" => $ujian
+            "dbUjian" => $ujian->get()
         ]);
     }
 
-    public function ujian(Request $request)
+    public function ujian()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -55,60 +60,39 @@ class dataController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
-
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian->whereBetween('ujians.tanggal', [$from, $to])->get();
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('user_data.ujian', [
-            "ujian" => $ujian,
-            "ujians" => $ujian
+            "ujian" => $ujian->get(),
+            "ujians" => $ujian->get()
         ]);
     }
 
     public function export(){
+        $this->Activity(' mengeksport jadwal ujian ke excel');
         return Excel::download(new UjianExport, 'dataujian.xlsx');
     }
 
-    public function mahasiswaIndex(Request $request)
+    public function mahasiswaIndex()
     {
-        if (isEmpty($request))
-        {
-            $mahasiswa = Mahasiswa::all();
-        } else {
-            $mahasiswa = Mahasiswa::join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        $mahasiswa = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', '=', 'praktikums.id')
             ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
             ->join('semesters', 'kelas.semester_id', '=', 'semesters.id')
-            ->join('prodis', 'semesters.prodi_id', '=', 'prodis.id');
-
-            if ($request->prodi) {
-                $mahasiswa->where('prodis.nama_prodi', 'like', '%' . $request->prodi . '%');
-                if ($request->semester) {
-                    $mahasiswa->where('semesters.semester', 'like', '%' . $request->semester . '%');
-                    if ($request->kelas) {
-                        $mahasiswa->where('kelas.kelas', 'like', '%' . $request->kelas . '%');
-                        if ($request->praktikum) {
-                            $mahasiswa->where('praktikums.praktikum', 'like', '%' . $request->praktikum . '%');
-                        }
-                    }
-                }
-            }
-
-            $mahasiswa = $mahasiswa->get();
-        }
+            ->join('prodis', 'semesters.prodi_id', '=', 'prodis.id')
+            ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas']));
 
         return view('user_data.mahasiswa.index', [
-            "mahasiswa" => $mahasiswa
+            "mahasiswa" => $mahasiswa->get()
         ]);
     }
 
@@ -151,6 +135,7 @@ class dataController extends Controller
         $mahasiswa->email = $request->email;
         $mahasiswa->save();
 
+        $this->Activity(' menambahkan data mahasiswa ' . $request->nama);
         return redirect()->route('data.mahasiswa.view')->with('success', 'Data mahasiswa berhasil ditambahkan!');
     }
 
@@ -178,38 +163,41 @@ class dataController extends Controller
             'email' => $request->email
         ]);
 
+        $this->Activity(' memperbarui data mahasiswa ' . $request->nama);
         return redirect()->route('data.mahasiswa.view')->with('success', 'Data mahasiswa berhasil diubah!');
     }
 
     public function mahasiswaDestroy($id)
     {
         $mahasiswa = Mahasiswa::find($id);
+        $this->Activity(' menghapus data mahasiswa ' . $mahasiswa->nama);
         User::where('id', $mahasiswa->user_id)->delete();
         $mahasiswa->delete();
         return redirect()->route('data.mahasiswa.view')->with('success', 'Data mahasiswa berhasil dihapus!');
     }
 
-    public function bap(Request $request)
+    public function bap()
     {
-        $now = Carbon::now()->toDateString();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('user_data.bap', [
-            "bap" => $ujian
+            "bap" => $ujian->get()
         ]);
     }
 
@@ -220,34 +208,37 @@ class dataController extends Controller
         if ($bap->print == 'Belum')
         {
             $bap->update(['print' => 'Sudah']);
+            $this->Activity(' memperbarui status Print pada BAP menjadi Sudah diprint');
         } else {
             $bap->update(['print' => 'Belum']);
+            $this->Activity(' memperbarui status Print pada BAP menjadi Belum diprint');
         }
 
         return redirect()->route('data.ketersediaan.bap')->with('success', 'Status Print BAP berhasil diubah!');
     }
 
-    public function amplop(Request $request)
+    public function amplop()
     {
-        $now = Carbon::now()->toDateString();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-        if (isEmpty($request)) {
-            $ujian = Ujian::all();
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-            $ujian = $ujian->get();
-        }
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('user_data.amplop', [
-            "amplop" => $ujian
+            "amplop" => $ujian->get()
         ]);
     }
 
@@ -258,8 +249,10 @@ class dataController extends Controller
         if ($amplop->print == 'Belum')
         {
             $amplop->update(['print' => 'Sudah']);
+            $this->Activity(' memperbarui status Print pada Amplop menjadi Sudah diprint');
         } else {
             $amplop->update(['print' => 'Belum']);
+            $this->Activity(' memperbarui status Print pada Amplop menjadi Belum diprint');
         }
 
         return redirect()->route('data.ketersediaan.amplop')->with('success', 'Status Print Amplop berhasil diubah!');
@@ -304,6 +297,7 @@ class dataController extends Controller
         $pengguna->password = '$2a$12$73YbJpbhMa8vVwroP8Ke0ODNYu1jjlALYK1xzrXFGVDbIYEk1KhZK';
         $pengguna->save();
 
+        $this->Activity(' menambahkan pengguna baru dengan nama ' . $request->name);
         return redirect()->route('data.pengguna.index')->with('success', 'Data pengguna berhasil ditambah!');
     }
 
@@ -324,12 +318,15 @@ class dataController extends Controller
             'lokasi' => $request->lokasi,
         ]);
 
+        $this->Activity(' memperbarui pengguna dengan nama ' . $request->name);
         return redirect()->route('data.pengguna.index')->with('success', 'Data pengguna berhasil diubah!');
     }
 
     public function penggunaDestroy($id)
     {   
-        User::find($id)->delete();
+        $user = User::find($id);
+        $this->Activity(' menghapus pengguna dengan nama ' . $user->name);
+        $user->delete();
         return redirect()->route('data.pengguna.index')->with('success', 'Data pengguna berhasil dihapus!');
     }
 
@@ -365,6 +362,7 @@ class dataController extends Controller
         $prodi->kode_prodi = $request->kode_prodi;
         $prodi->save();
 
+        $this->Activity(' menambahkan data Program Studi baru dengan nama ' . $request->nama_prodi);
         return redirect()->route('data.akademik.prodi.index')->with('success', 'Data Program Studi baru berhasil ditambahkan');
     }
 
@@ -381,16 +379,19 @@ class dataController extends Controller
             'nama_prodi' => $request->nama_prodi
         ]);
 
+        $this->Activity(' memperbarui data Program Studi dengan nama ' . $request->nama_prodi);
         return redirect()->route('data.akademik.prodi.index')->with('success', 'Data Program Studi berhasil diperbarui');
     }
 
     public function prodiDestroy($id)
     {
-        Prodi::find($id)->delete();
+        $prodi = Prodi::find($id);
+        $this->Activity(' menghapus data Program Studi dengan nama ' . $prodi->nama_prodi);
+        $prodi->delete();
         return redirect()->route('data.akademik.prodi.index')->with('success', 'Data Program Studi berhasil dihapus');
     }
 
-    public function  semesterIndex()
+    public function semesterIndex()
     {
         return view('user_data.semester.index', ['semester' => Semester::all()]);
     }
@@ -417,6 +418,7 @@ class dataController extends Controller
         $semester->semester = $request->semester;
         $semester->save();
 
+        $this->Activity(' menambahkan data Semester');
         return redirect()->route('data.akademik.semester.index')->with('success', 'Data semester baru berhasil ditambahkan!');
     }
 
@@ -433,12 +435,15 @@ class dataController extends Controller
             'semester' => $request->semester
         ]);
 
+        $this->Activity(' memperbarui data Semester');
         return redirect()->route('data.akademik.semester.index')->with('success', 'Data semester berhasil diperbarui!');
     }
 
     public function semesterDestroy($id)
     {
-        Semester::find($id)->delete();
+        $semester = Semester::find($id);
+        $this->Activity(' menghapus data Semester');
+        $semester->delete();
         return redirect()->route('data.akademik.semester.index')->with('success', 'Data semester berhasil dihapus!');
     }
 
@@ -471,6 +476,7 @@ class dataController extends Controller
         $kelas->jml_mhs = $request->jml_mhs;
         $kelas->save();
 
+        $this->Activity(' menambahkan data Kelas');
         return redirect()->route('data.akademik.kelas.index')->with('success', 'Kelas baru berhasil ditambahkan!');
     }
 
@@ -489,12 +495,15 @@ class dataController extends Controller
             'jml_mhs' => $request->jml_mhs,
         ]);
 
+        $this->Activity(' memperbarui data Kelas');
         return redirect()->route('data.akademik.kelas.index')->with('success', 'Kelas berhasil diperbarui!');
     }
 
     public function kelasDestroy($id)
     {
-        Kelas::find($id)->delete();
+        $kelas = Kelas::find($id);
+        $this->Activity(' menghapus data Kelas');
+        $kelas->delete();
         return redirect()->route('data.akademik.kelas.index')->with('success', 'Kelas berhasil dihapus!');
     }
 
@@ -527,6 +536,7 @@ class dataController extends Controller
         $praktikum->jml_mhs = $request->jml_mhs;
         $praktikum->save();
 
+        $this->Activity(' menambahkan data Praktikum');
         return redirect()->route('data.akademik.praktikum.index')->with('success', 'Praktikum baru berhasil ditambahkan!');
     }
 
@@ -545,12 +555,15 @@ class dataController extends Controller
             'jml_mhs' => $request->jml_mhs
         ]);
 
+        $this->Activity(' memperbarui data Praktikum');
         return redirect()->route('data.akademik.praktikum.index')->with('success', 'Praktikum berhasil diperbarui!');
     }
 
     public function praktikumDestroy($id)
     {
-        Praktikum::find($id)->delete();
+        $praktikum = Praktikum::find($id);
+        $this->Activity(' menghapus data Praktikum');
+        $praktikum->delete();
         return redirect()->route('data.akademik.praktikum.index')->with('success', 'Praktikum berhasil dihapus!');
     }
 
@@ -589,6 +602,7 @@ class dataController extends Controller
         $matkul->sks_prak = $request->sks_prak;
         $matkul->save();
 
+        $this->Activity(' menambahkan data Mata Kuliah ' . $request->nama_matkul);
         return redirect()->route('data.akademik.matkul.index')->with('success', 'Mata Kuliah baru berhasil ditambahkan!');
     }
 
@@ -613,12 +627,15 @@ class dataController extends Controller
             'sks_prak' => $request->sks_prak
         ]);
 
+        $this->Activity(' memperbarui data Mata Kuliah ' . $request->nama_matkul);
         return redirect()->route('data.akademik.matkul.index')->with('success', 'Mata Kuliah berhasil diperbarui!');
     }
 
     public function matkulDestroy($id)
     {
-        Matkul::find($id)->delete();
+        $matkul = Matkul::find($id);
+        $this->Activity(' memperbarui data Mata Kuliah ' . $matkul->nama_matkul);
+        $matkul->delete();
         return redirect()->route('data.akademik.matkul.index')->with('success', 'Mata Kuliah berhasil dihapus!');
     }
 
@@ -651,6 +668,7 @@ class dataController extends Controller
             'periode_akhir' => $request->periode_akhir,
         ]);
 
+        $this->Activity(' memperbarui data Periode');
         return redirect()->route('data.periode.index')->with('success', 'Data Periode berhasil diperbarui!');
     }
 }

@@ -46,9 +46,9 @@
                             </div>
                         @endif
                         <h4 class="header-title">Penugasan</h4>
-                        <div class="row justify-content-start">
+                        <form action="/pj_ujian/pengawas/penugasan" class="row justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
                         <!-- <i class="fa fa-check text-danger"></i> -->
 
                         <div class="table-responsive">

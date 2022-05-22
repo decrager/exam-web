@@ -13,33 +13,20 @@ use function PHPUnit\Framework\isEmpty;
 
 class pjLokasiController extends Controller
 {
-    public function dashboard(Request $request)
+    public function dashboard()
     {
         $now = Carbon::now()->toDateString();
         
-        if (isEmpty($request)) {
-            $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-            ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-            ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
-            ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
-            ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
-
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
-
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-        }
-
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
+        
         if (Auth::user()->lokasi == 'CA & Lab Kom') {
             $ujian->where('ujians.ruang', 'CA B01')
             ->orWhere('ujians.ruang', 'CA B02')
@@ -76,9 +63,9 @@ class pjLokasiController extends Controller
             ->orWhere('ujians.ruang', 'BS B09')
             ->orWhere('ujians.ruang', 'BS B10');
         } elseif (Auth::user()->lokasi == 'BS KIMBOTFIS') {
-            $ujian->where('ujians.ruang', 'BS KIMIA')
-            ->orWhere('ujians.ruang', 'BS BOTANI')
-            ->orWhere('ujians.ruang', 'BS FISIKA');
+            $ujian->where('ujians.ruang', 'BS Kimia')
+            ->orWhere('ujians.ruang', 'BS Botani')
+            ->orWhere('ujians.ruang', 'BS Fisika');
         } elseif (Auth::user()->lokasi == 'BS P01-03') {
             $ujian->where('ujians.ruang', 'BS P01')
             ->orWhere('ujians.ruang', 'BS P02')
@@ -91,9 +78,19 @@ class pjLokasiController extends Controller
             ->orWhere('ujians.ruang', 'GAK 05')
             ->orWhere('ujians.ruang', 'GAK 06')
             ->orWhere('ujians.ruang', 'GAK 07')
-            ->orWhere('ujians.ruang', 'Lab SKBMI');
+            ->orWhere('ujians.ruang', 'LAB KOM SMI');
         } elseif (Auth::user()->lokasi == 'Online') {
             $ujian->where('ujians.ruang', 'Online');
+        }
+
+        if (request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang'])) {
+            $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang']));
+        }
+
+        if (request(['dbTanggal'])) {
+            $ujian->filter(request(['dbTanggal']));
+        } else {
+            $ujian->where('ujians.tanggal', '2022-06-08');
         }
         
         return view('pj_lokasi.dashboard', [
@@ -101,7 +98,7 @@ class pjLokasiController extends Controller
         ]);
     }
 
-    public function pengawasIndex(Request $request)
+    public function pengawasIndex()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -109,48 +106,15 @@ class pjLokasiController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
         
-        if (isEmpty($request)) {
-            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-            ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-            ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-            ->whereBetween('ujians.tanggal', [$from, $to]);
-        } else {
-            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-                ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-                ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-                ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-                ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-                ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-                ->join('prodis', 'b.prodi_id', '=', 'prodis.id');
-
-            if ($request->prodi) {
-                $pengawas->where('prodis.nama_prodi', 'like', '%' . $request->prodi . '%');
-                if ($request->semester) {
-                    $pengawas->where('b.semester', 'like', '%' . $request->semester . '%');
-                    if ($request->kelas) {
-                        $pengawas->where('kelas.kelas', 'like', '%' . $request->kelas . '%');
-                        if ($request->praktikum) {
-                            $pengawas->where('praktikums.praktikum', 'like', '%' . $request->praktikum . '%');
-                        }
-                    }
-                    if ($request->matkul) {
-                        $pengawas->where('matkuls.nama_matkul', 'like', '%' . $request->matkul . '%');
-                    }
-                }
-            }
-
-            if ($request->tanggal) {
-                $pengawas->where('tanggal', 'like', '%' . $request->tanggal . '%');
-            }
-
-            if ($request->ruang) {
-                $pengawas->where('ruang', 'like', '%' . $request->ruang . '%');
-            }
-        }
+        $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+        ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*')
+        ->whereBetween('ujians.tanggal', [$from, $to]);
 
         if (Auth::user()->lokasi == 'CA & Lab Kom') {
             $pengawas->where('ujians.ruang', 'CA B01')
@@ -188,9 +152,9 @@ class pjLokasiController extends Controller
             ->orWhere('ujians.ruang', 'BS B09')
             ->orWhere('ujians.ruang', 'BS B10');
         } elseif (Auth::user()->lokasi == 'BS KIMBOTFIS') {
-            $pengawas->where('ujians.ruang', 'BS KIMIA')
-            ->orWhere('ujians.ruang', 'BS BOTANI')
-            ->orWhere('ujians.ruang', 'BS FISIKA');
+            $pengawas->where('ujians.ruang', 'BS Kimia')
+            ->orWhere('ujians.ruang', 'BS Botani')
+            ->orWhere('ujians.ruang', 'BS Fisika');
         } elseif (Auth::user()->lokasi == 'BS P01-03') {
             $pengawas->where('ujians.ruang', 'BS P01')
             ->orWhere('ujians.ruang', 'BS P02')
@@ -203,15 +167,14 @@ class pjLokasiController extends Controller
             ->orWhere('ujians.ruang', 'GAK 05')
             ->orWhere('ujians.ruang', 'GAK 06')
             ->orWhere('ujians.ruang', 'GAK 07')
-            ->orWhere('ujians.ruang', 'Lab SKBMI');
+            ->orWhere('ujians.ruang', 'LAB KOM SMI');
         } elseif (Auth::user()->lokasi == 'Online') {
             $pengawas->where('ujians.ruang', 'Online');
         }
-        
-        $pengawas = $pengawas->get();
 
+        $pengawas->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
         return view('pj_lokasi.pengawas.index', [
-            "pengawas" => $pengawas
+            "pengawas" => $pengawas->get()
         ]);
     }
 
@@ -228,7 +191,9 @@ class pjLokasiController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'pns' => 'required'
+            'pns' => 'required',
+            'norek' => 'nullable',
+            'bank' => 'nullable'
         ]);
 
         $pengawas = Pengawas::find($id);
@@ -236,55 +201,31 @@ class pjLokasiController extends Controller
         $pengawas->update([
             'nama' => $request->nama,
             'pns' => $request->pns,
+            'norek' => $request->norek,
+            'bank' => $request->bank
         ]);
         
+        $this->Activity(' memperbarui data pengawas ' . $request->nama);
         return redirect()->route('pjLokasi.pengawas.daftar.index')->with('success', 'Data Pengawas berhasil diperbarui!');
     }
 
-    public function absensiIndex(Request $request)
+    public function absensiIndex()
     {
-        $now = Carbon::now()->toDateString();
-        if (isEmpty($request)) {
-            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-            ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-            ->join('prodis', 'b.prodi_id', '=', 'prodis.id');
-        } else {
-            $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-                ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-                ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-                ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-                ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-                ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-                ->join('prodis', 'b.prodi_id', '=', 'prodis.id');
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-            if ($request->prodi) {
-                $pengawas->where('prodis.nama_prodi', 'like', '%' . $request->prodi . '%');
-                if ($request->semester) {
-                    $pengawas->where('b.semester', 'like', '%' . $request->semester . '%');
-                    if ($request->kelas) {
-                        $pengawas->where('kelas.kelas', 'like', '%' . $request->kelas . '%');
-                        if ($request->praktikum) {
-                            $pengawas->where('praktikums.praktikum', 'like', '%' . $request->praktikum . '%');
-                        }
-                    }
-                    if ($request->matkul) {
-                        $pengawas->where('matkuls.nama_matkul', 'like', '%' . $request->matkul . '%');
-                    }
-                }
-            }
-
-            if ($request->tanggal) {
-                $pengawas->where('tanggal', 'like', '%' . $request->tanggal . '%');
-            }
-
-            if ($request->ruang) {
-                $pengawas->where('ruang', 'like', '%' . $request->ruang . '%');
-            }
-        }
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+        
+        $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+        ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*')
+        ->whereBetween('ujians.tanggal', [$from, $to]);
 
         if (Auth::user()->lokasi == 'CA & Lab Kom') {
             $pengawas->where('ujians.ruang', 'CA B01')
@@ -322,9 +263,9 @@ class pjLokasiController extends Controller
             ->orWhere('ujians.ruang', 'BS B09')
             ->orWhere('ujians.ruang', 'BS B10');
         } elseif (Auth::user()->lokasi == 'BS KIMBOTFIS') {
-            $pengawas->where('ujians.ruang', 'BS KIMIA')
-            ->orWhere('ujians.ruang', 'BS BOTANI')
-            ->orWhere('ujians.ruang', 'BS FISIKA');
+            $pengawas->where('ujians.ruang', 'BS Kimia')
+            ->orWhere('ujians.ruang', 'BS Botani')
+            ->orWhere('ujians.ruang', 'BS Fisika');
         } elseif (Auth::user()->lokasi == 'BS P01-03') {
             $pengawas->where('ujians.ruang', 'BS P01')
             ->orWhere('ujians.ruang', 'BS P02')
@@ -337,14 +278,14 @@ class pjLokasiController extends Controller
             ->orWhere('ujians.ruang', 'GAK 05')
             ->orWhere('ujians.ruang', 'GAK 06')
             ->orWhere('ujians.ruang', 'GAK 07')
-            ->orWhere('ujians.ruang', 'Lab SKBMI');
+            ->orWhere('ujians.ruang', 'LAB KOM SMI');
         } elseif (Auth::user()->lokasi == 'Online') {
             $pengawas->where('ujians.ruang', 'Online');
         }
 
-        $pengawas = $pengawas->get();
+        $pengawas->filter(request(['dbProdi', 'dbMatkul']));
         return view('pj_lokasi.absensi.index', [
-            "absensi" => $pengawas
+            "absensi" => $pengawas->get()
         ]);
     }
 
@@ -357,29 +298,24 @@ class pjLokasiController extends Controller
         ]);
     }
 
-    public function soalIndex(Request $request)
+    public function soalIndex()
     {
-        if (isEmpty($request)) {
-            $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-            ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-            ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-            ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-            ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-            ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
-            ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
-            ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
-        } else {
-            $prodi = $request->prodi;
-            $semester = $request->semester;
-            $matkul = $request->matkul;
-            $kelas = $request->kelas;
-            $praktikum = $request->praktikum;
-            $tanggal = $request->tanggal;
-            $ruang = $request->ruang;
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
 
-            $ujian = $this->filter($prodi, $semester, $matkul, $kelas, $praktikum, $tanggal, $ruang);
-        }
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
+        ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->whereBetween('ujians.tanggal', [$from, $to]);
 
         if (Auth::user()->lokasi == 'CA & Lab Kom') {
             $ujian->where('ujians.ruang', 'CA B01')
@@ -417,9 +353,9 @@ class pjLokasiController extends Controller
             ->orWhere('ujians.ruang', 'BS B09')
             ->orWhere('ujians.ruang', 'BS B10');
         } elseif (Auth::user()->lokasi == 'BS KIMBOTFIS') {
-            $ujian->where('ujians.ruang', 'BS KIMIA')
-            ->orWhere('ujians.ruang', 'BS BOTANI')
-            ->orWhere('ujians.ruang', 'BS FISIKA');
+            $ujian->where('ujians.ruang', 'BS Kimia')
+            ->orWhere('ujians.ruang', 'BS Botani')
+            ->orWhere('ujians.ruang', 'BS Fisika');
         } elseif (Auth::user()->lokasi == 'BS P01-03') {
             $ujian->where('ujians.ruang', 'BS P01')
             ->orWhere('ujians.ruang', 'BS P02')
@@ -432,11 +368,12 @@ class pjLokasiController extends Controller
             ->orWhere('ujians.ruang', 'GAK 05')
             ->orWhere('ujians.ruang', 'GAK 06')
             ->orWhere('ujians.ruang', 'GAK 07')
-            ->orWhere('ujians.ruang', 'Lab SKBMI');
+            ->orWhere('ujians.ruang', 'LAB KOM SMI');
         } elseif (Auth::user()->lokasi == 'Online') {
             $ujian->where('ujians.ruang', 'Online');
         }
 
+        $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
         return view('pj_lokasi.soal.index', [
             "berkas" => $ujian->get()
         ]);
@@ -453,16 +390,16 @@ class pjLokasiController extends Controller
 
     public function pelanggaranIndex()
     {
-        return view('pj_lokasi.pelanggaran.index', ["title" => env('APP_NAME')]);
+        return view('pj_lokasi.pelanggaran.index');
     }
 
     public function pelanggaranForm()
     {
-        return view('pj_lokasi.pelanggaran.form', ["title" => env('APP_NAME')]);
+        return view('pj_lokasi.pelanggaran.form');
     }
 
     public function pelanggaranEdit()
     {
-        return view('pj_lokasi.pelanggaran.edit', ["title" => env('APP_NAME')]);
+        return view('pj_lokasi.pelanggaran.edit');
     }
 }

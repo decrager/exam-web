@@ -48,7 +48,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Ujian</label>
                                         <select class="custom-select ujian-select" name="ujian_id" id="">
-                                            <option selected="selected">Select</option>
+                                            <option selected="selected" value="">Select</option>
                                             @foreach ($ujians as $ujian)
                                             @if (old('ujian_id') === $ujian->id)
                                               <option value="{{ $ujian->id }}" selected>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - {{ $ujian->Matkul->nama_matkul }} - Kelas {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}</option>
@@ -61,7 +61,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Nama Mahasiswa</label>
                                         <select class="custom-select mhs-select" name="mhs_id" id="">
-                                            <option selected="selected">Select</option>
+                                            <option selected="selected" value="">Select</option>
                                             @foreach ($mahasiswas as $mahasiswa)
                                             @if (old('mhs_id') === $mahasiswa->id)
                                               <option value="{{ $mahasiswa->id }}" selected>{{ $mahasiswa->nama }} - Kelas {{ $mahasiswa->Praktikum->Kelas->kelas }}/P{{ $mahasiswa->Praktikum->praktikum }}</option>

@@ -152,9 +152,9 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::post('/pj_ujian/jadwal/create', [pjUjianController::class, 'ujianCreate'])->name('pjUjian.jadwal.create');
     Route::put('/pj_ujian/jadwal/edit/update/{id}', [pjUjianController::class, 'ujianUpdate'])->name('pjUjian.jadwal.update');
     Route::delete('/pj_ujian/jadwal/destroy/{id}', [pjUjianController::class, 'ujianDestroy'])->name('pjUjian.jadwal.destroy');
-    Route::post('/pj_ujian/jadwal/create', [pjUjianController::class, 'penjadwalanCreate'])->name('pjUjian.penjadwalan.create');
-    Route::put('/pj_ujian/jadwal/edit/update/{id}', [pjUjianController::class, 'jadwalUpdate'])->name('pjUjian.susulan.jadwal.update');
-    Route::delete('/pj_ujian/jadwal/destroy/{id}', [pjUjianController::class, 'jadwalDestroy'])->name('pjUjian.susulan.jadwal.destroy');
+    Route::post('/pj_ujian/susulan/jadwal/create', [pjUjianController::class, 'penjadwalanCreate'])->name('pjUjian.penjadwalan.create');
+    Route::put('/pj_ujian/susulan/jadwal/edit/update/{id}', [pjUjianController::class, 'jadwalUpdate'])->name('pjUjian.susulan.jadwal.update');
+    Route::delete('/pj_ujian/susulan/jadwal/destroy/{id}', [pjUjianController::class, 'jadwalDestroy'])->name('pjUjian.susulan.jadwal.destroy');
 
     Route::get('/pj_ujian/jadwal/export', [pjUjianController::class, 'export'])->name('pjUjian.jadwal.export');
 });
@@ -169,8 +169,10 @@ Route::group(['middleware' => ['auth', 'cekrole:prodi']], function () {
     Route::get('/prodi/pengawas/penugasan/edit/{id}', [prodiController::class, 'penugasanEdit'])->name('prodi.pengawas.penugasan.edit');
     Route::get('/prodi/berkas', [prodiController::class, 'berkas'])->name('prodi.berkas');
     Route::get('/prodi/pelanggaran', [prodiController::class, 'pelanggaran'])->name('prodi.pelanggaran');
+    Route::get('/prodi/jadwal', [prodiController::class, 'jadwal'])->name('prodi.jadwalUjian');
 
     Route::put('/prodi/jadwal/update/{id}', [prodiController::class, 'ujianUpdate'])->name('prodi.ujian.update');
+    Route::put('/prodi/berkas/update/{id}', [prodiController::class, 'berkasUpdate'])->name('prodi.berkas.update');
     Route::post('/prodi/pengawas/create', [prodiController::class, 'pengawasCreate'])->name('prodi.pengawas.create');
     Route::put('/prodi/pengawas/update/{id}', [prodiController::class, 'pengawasUpdate'])->name('prodi.pengawas.update');
     Route::delete('/prodi/pengawas/destroy/{id}', [prodiController::class, 'pengawasDestroy'])->name('prodi.pengawas.destroy');

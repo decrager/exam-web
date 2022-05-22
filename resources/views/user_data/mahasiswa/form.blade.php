@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Program Studi</label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
-                                            <option selected="selected">Pilih Program Studi</option>
+                                            <option selected="selected" value="">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
                                                 <option value="{{ $prodi->id }}">{{ $prodi->nama_prodi }}</option>
                                             @endforeach
@@ -59,21 +59,21 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Semester</label>
                                         <select class="custom-select" name="semester" id="semester" required>
-                                            <option selected="selected">Pilih Semester</option>
+                                            <option selected="selected" value="">Pilih Semester</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label-sm">Kelas</label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
-                                            <option selected="selected">Pilih Kelas</option>
+                                            <option selected="selected" value="">Pilih Kelas</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label-sm">Praktikum</label>
                                         <select class="custom-select" name="praktikum" id="praktikum" required>
-                                            <option selected="selected">Pilih Praktikum</option>
+                                            <option selected="selected" value="">Pilih Praktikum</option>
                                         </select>
                                     </div>
 

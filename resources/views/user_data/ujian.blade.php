@@ -49,9 +49,9 @@
                             <a href="/data/jadwal/export" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
                                 class="fas fa-file-excel-o"></i></a>
                         </div>
-                        <div class="row justify-content-start">
+                        <form action="/data/ujian" class="row justify-content-start">
                             @include('layouts.filter')
-                        </div>
+                        </form>
 
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
@@ -94,12 +94,9 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <div class="btn-group" role="group">
-                                                    <button class="btn btn-primary" data-bs-toggle="modal"
-                                                        data-bs-target="{{ '#detail' . $ujian?->id }}"><i
-                                                            class="fas fa-info text-white"></i></button>
-                                                    <a href="{{ route('prodi.jadwal.edit', $ujian?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
-                                                </div>
+                                                <button class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="{{ '#detail' . $ujian?->id }}"><i
+                                                        class="fas fa-info text-white"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
