@@ -124,7 +124,7 @@
                                     <div id="sign"> </div>
                                     <br />
                                     <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
-                                    <textarea id="signature64" style="display: none"></textarea>
+                                    <textarea id="signature64" name="ttd_penyerah" style="display: none"></textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -134,12 +134,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="" for="">Tanda Tangan yang Menyerahkan:</label>
+                                    <label class="" for="">Tanda Tangan yang Menerima:</label>
                                     <br />
                                     <div id="sign2"> </div>
                                     <br />
                                     <button id="clear2" class="btn btn-danger btn-sm">Clear Signature</button>
-                                    <textarea id="signature65" style="display: none"></textarea>
+                                    <textarea id="signature65" name="ttd_penerima" style="display: none"></textarea>
                                 </div>
 
                                 <button class="btn btn-primary">Simpan</button>

@@ -48,7 +48,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label class="col-form-label">Program Studi</label>
+                                        <label class="col-form-label">Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="prodi_id" required>
                                             <option>Pilih Program Studi</option>
                                             <option selected="selected" value="{{ $semester?->Prodi?->id }}">{{ $semester?->Prodi?->nama_prodi }}</option>
@@ -59,7 +59,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Semester</label>
+                                        <label class="col-form-label">Semester<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="semester" required>
                                             <option value="0">Pilih Semester</option>
                                             <option selected="selected" value="{{ $semester?->semester }}">{{ $semester?->semester }}</option>

@@ -53,18 +53,18 @@
                                     @endforeach
 
                                     <div class="form-group">
-                                        <label for="oldPass" class="col-form-label">Password Lama</label>
+                                        <label for="oldPass" class="col-form-label">Password Lama<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="password" id="oldPass" name="oldPass" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="newPass" class="col-form-label">Password Baru</label>
+                                        <label for="newPass" class="col-form-label">Password Baru<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="password" id="newPass" name="newPass" required/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="confNewPass" class="col-form-label">Konfirmasi Password
-                                            Baru</label>
+                                            Baru<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="password" id="confNewPass" name="confNewPass" required/>
                                     </div>
 

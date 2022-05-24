@@ -47,7 +47,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label for="ketentuan" class="col-form-label">Ketentuan</label>
+                                        <label for="ketentuan" class="col-form-label">Ketentuan<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="ketentuan"
                                             name="ketentuan" value="{{ $ketentuan?->ketentuan }}" />
                                     </div>

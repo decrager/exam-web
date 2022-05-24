@@ -47,7 +47,7 @@
                                     @csrf
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Program Studi</label>
+                                        <label class="col-form-label">Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option selected="selected" value="">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
@@ -57,38 +57,38 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Semester</label>
+                                        <label class="col-form-label">Semester<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option selected="selected" value="">Pilih Semester</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Kelas</label>
+                                        <label class="col-form-label-sm">Kelas<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
                                             <option selected="selected" value="">Pilih Kelas</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Praktikum</label>
+                                        <label class="col-form-label-sm">Praktikum<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="praktikum" id="praktikum" required>
                                             <option selected="selected" value="">Pilih Praktikum</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nama" class="col-form-label">Nama Mahasiswa</label>
+                                        <label for="nama" class="col-form-label">Nama Mahasiswa<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik nama..." id="nama" name="nama" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nim" class="col-form-label">Nim Mahasiswa</label>
+                                        <label for="nim" class="col-form-label">Nim Mahasiswa<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik nim..." id="nim" name="nim" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label">Email</label>
+                                        <label for="email" class="col-form-label">Email<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="email" placeholder="Ketik email..." name="email" required
                                             id="email" />
                                     </div>

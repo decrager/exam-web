@@ -91,7 +91,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">Kapasitas</label>
+                                        <label for="example-text-input" class="col-form-label">Kapasitas<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control @error('kapasitas') is-invalid @enderror" type="text"
                                             placeholder="Ketik kapasitas" id="example-text-input" name="kapasitas" value="{{ $ujian?->kapasitas }}"
                                             required />
@@ -119,7 +119,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Ruang</label>
+                                        <label class="col-form-label">Ruang<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select @error('ruang') is-invalid @enderror" name="ruang">
                                             <option value="-">Pilih ruang</option>
                                             <option selected="selected" value="{{ $ujian?->ruang }}">{{ $ujian?->ruang }}</option>
@@ -135,7 +135,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Hari</label>
+                                        <label class="col-form-label">Hari<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select @error('hari') is-invalid @enderror" name="hari"
                                             required>
                                             <option value="-">Pilih hari</option>
@@ -155,7 +155,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="tgl" class="col-form-label">Tanggal</label>
+                                        <label for="tgl" class="col-form-label">Tanggal<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control @error('tanggal') is-invalid @enderror" type="date"
                                             id="tgl" name="tanggal" required />
                                         @error('tanggal')
@@ -166,7 +166,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
+                                        <label for="jam_mulai" class="col-form-label">Jam Mulai<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control @error('jam_mulai') is-invalid @enderror" type="text"
                                             id="jam_mulai" name="jam_mulai" value="{{ $ujian?->jam_mulai }}" placeholder="Ketik..." required />
                                         @error('jam_mulai')
@@ -177,7 +177,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
+                                        <label for="jam_selesai" class="col-form-label">Jam Selesai<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control @error('jam_selesai') is-invalid @enderror" type="text"
                                             id="jam_selesai" name="jam_selesai" value="{{ $ujian?->jam_selesai }}" placeholder="Ketik..." required />
                                         @error('jam_selesai')
@@ -215,7 +215,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Sesi</label>
+                                        <label class="col-form-label">Sesi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select @error('sesi') is-invalid @enderror" name="sesi"
                                             required>
                                             <option value="1">Pilih sesi</option>
@@ -233,7 +233,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Pelaksanaan</label>
+                                        <label class="col-form-label">Pelaksanaan<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select @error('pelaksanaan') is-invalid @enderror"
                                             name="pelaksanaan" required>
                                             <option value="-">Pilih pelaksanaan</option>

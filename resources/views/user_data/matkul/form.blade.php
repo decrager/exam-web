@@ -48,7 +48,7 @@
                                     @csrf
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Program Studi</label>
+                                        <label class="col-form-label">Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option selected="selected" value="">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
@@ -58,34 +58,34 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Semester</label>
+                                        <label class="col-form-label">Semester<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option selected="selected" value="">Pilih Semester</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="kode_matkul" class="col-form-label">Kode Mata Kuliah</label>
+                                        <label for="kode_matkul" class="col-form-label">Kode Mata Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="kode_matkul" name="kode_matkul" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nama_matkul" class="col-form-label">Mata Kuliah</label>
+                                        <label for="nama_matkul" class="col-form-label">Mata Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="nama_matkul" name="nama_matkul" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="sks" class="col-form-label">SKS</label>
+                                        <label for="sks" class="col-form-label">SKS<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="sks" name="sks" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="sks_kul" class="col-form-label">SKS Kuliah</label>
+                                        <label for="sks_kul" class="col-form-label">SKS Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="sks_kul" name="sks_kul" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="sks_prak" class="col-form-label">SKS Praktikum</label>
+                                        <label for="sks_prak" class="col-form-label">SKS Praktikum<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="sks_prak" name="sks_prak" required/>
                                     </div>
 

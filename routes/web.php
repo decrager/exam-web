@@ -43,6 +43,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/resetPassword', [loginController::class, 'resetPassword'])->name('resetView');
     Route::post('/resetPassword', [loginController::class, 'reset'])->name('resetPassword');
     Route::post('/logout', [loginController::class, 'logout'])->name('logout');
+    Route::get('/presensi/{id}', [pjLokasiController::class, 'presence'])->name('presensi');
+    Route::put('/presensi/update/{id}', [pjLokasiController::class, 'presenceUpdate'])->name('presensi.update');
+    Route::get('/hadir', [pjLokasiController::class, 'hadir'])->name('presensi.hadir');
 
     Route::get('getSemester/{id}', function ($id) {
         $semester = Semester::where('prodi_id', $id)->get();

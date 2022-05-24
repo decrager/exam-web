@@ -87,7 +87,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Usulan Ruang</label>
+                                        <label class="col-form-label">Usulan Ruang <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="lokasi">
                                             <option selected="selected" value="">
                                                 Pilih Usulan Ruang
@@ -99,19 +99,19 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">Software yang Dibutuhkan</label>
+                                        <label for="example-text-input" class="col-form-label">Software yang Dibutuhkan <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" name="software"
                                             placeholder="Ketik software yang dibutuhkan..." id="example-text-input" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Perbanyak Soal</label>
+                                        <label class="col-form-label">Perbanyak Soal <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="perbanyak">
-                                            <option selected="selected" value="">
+                                            <option selected="selected" value="0">
                                                 Pilih Perbanyak atau Tidak
                                             </option>
                                             <option value="1">Perbanyak</option>
-                                            <option value="0">Tidak</option>
+                                            <option value="2">Tidak</option>
                                         </select>
                                     </div>
 

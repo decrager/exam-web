@@ -47,7 +47,7 @@
                                     @csrf
                                     @method('put')
                                     <div class="form-group">
-                                        <label class="col-form-label">Ujian</label>
+                                        <label class="col-form-label">Ujian<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select ujian-select" name="ujian_id" id="ujian_id">
                                             <option>Select</option>
                                             <option selected="selected" value="{{ $pelanggarans?->Ujian?->id }}">
@@ -73,7 +73,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label">Nama Mahasiswa</label>
+                                        <label class="col-form-label">Nama Mahasiswa<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select mhs-select" name="mhs_id" id="mhs_id">
                                             <option>Select</option>
                                             <option selected="selected" value="{{ $pelanggarans?->Mahasiswa?->id }}">
@@ -96,7 +96,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">Pelanggaran</label>
+                                        <label for="example-text-input" class="col-form-label">Pelanggaran<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" id="example-text-input" name="pelanggaran"
                                             value="{{ $pelanggarans?->pelanggaran }}" />
                                     </div>

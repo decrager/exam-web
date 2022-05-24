@@ -60,7 +60,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Program Studi</label>
+                                        <label class="col-form-label">Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option selected="selected" value="">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
@@ -70,35 +70,35 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Semester</label>
+                                        <label class="col-form-label">Semester<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option selected="selected" value="">Pilih Semester</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Kelas</label>
+                                        <label class="col-form-label-sm">Kelas<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
                                             <option selected="selected" value="">Pilih Kelas</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Praktikum</label>
+                                        <label class="col-form-label-sm">Praktikum<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="praktikum" id="kelas" required>
                                             <option selected="selected" value="">Pilih Praktikum</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Mata Kuliah</label>
+                                        <label class="col-form-label">Mata Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="matkul" id="matkul" required>
                                             <option selected="selected" value="">Pilih Mata Kuliah</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Tipe Mata Kuliah</label>
+                                        <label class="col-form-label">Tipe Mata Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="tipe_mk" required>
                                             <option selected="selected" value="">
                                                 Pilih Tipe Mata Kuliah
@@ -110,13 +110,13 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">Kapasitas</label>
+                                        <label for="example-text-input" class="col-form-label">Kapasitas<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik kapasitas"
                                             id="example-text-input" name="kapasitas"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Ruang</label>
+                                        <label class="col-form-label">Ruang<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="ruang">
                                             <option selected="selected" value="">Pilih ruang</option>
                                             @foreach ($dbRuang as $ruang)
@@ -126,7 +126,7 @@
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label class="col-form-label">Hari</label>
+                                        <label class="col-form-label">Hari<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="hari" required>
                                             <option selected="selected" value="">
                                                 Pilih Hari
@@ -141,24 +141,24 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="tanggal" class="col-form-label">Tanggal</label>
+                                        <label for="tanggal" class="col-form-label">Tanggal<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="date" name="tanggal" id="tanggal" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="jam_mulai" class="col-form-label">Jam Mulai</label>
+                                        <label for="jam_mulai" class="col-form-label">Jam Mulai<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." name="jam_mulai" id="jam_mulai"
                                             required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
+                                        <label for="jam_selesai" class="col-form-label">Jam Selesai<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." name="jam_selesai" id="jam_selesai"
                                             required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Sesi</label>
+                                        <label class="col-form-label">Sesi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="sesi" required>
                                             <option selected="selected" value="">
                                                 Pilih Sesi
@@ -171,7 +171,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Pelaksanaan</label>
+                                        <label class="col-form-label">Pelaksanaan<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="pelaksanaan">
                                             <option selected="selected" value="">
                                                 Pilih Pelaksanaan
@@ -181,9 +181,9 @@
                                         </select>
                                     </div>
 
-                                    <input hidden type="text" name="lokasi" value="-">
+                                    <input hidden type="text" name="lokasi" value="">
                                     <input hidden type="text" name="perbanyak" value="0">
-                                    <input hidden type="text" name="software" value="-">
+                                    <input hidden type="text" name="software" value="">
                                     <input hidden type="text" name="isuas" value="{{ $master->isuas }}">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>

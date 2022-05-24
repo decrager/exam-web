@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Ujian;
-use App\Models\Pengawas;
 use App\Models\Master;
+use App\Models\Pengawas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use function PHPUnit\Framework\isEmpty;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class pjLokasiController extends Controller
 {
@@ -69,7 +69,8 @@ class pjLokasiController extends Controller
         } elseif (Auth::user()->lokasi == 'BS P01-03') {
             $ujian->where('ujians.ruang', 'BS P01')
             ->orWhere('ujians.ruang', 'BS P02')
-            ->orWhere('ujians.ruang', 'BS P03');
+            ->orWhere('ujians.ruang', 'BS P03')
+            ->orWhere('ujians.ruang', 'HPT');
         } elseif (Auth::user()->lokasi == 'Sukabumi') {
             $ujian->where('ujians.ruang', 'GAK 01')
             ->orWhere('ujians.ruang', 'GAK 02')
@@ -158,7 +159,8 @@ class pjLokasiController extends Controller
         } elseif (Auth::user()->lokasi == 'BS P01-03') {
             $pengawas->where('ujians.ruang', 'BS P01')
             ->orWhere('ujians.ruang', 'BS P02')
-            ->orWhere('ujians.ruang', 'BS P03');
+            ->orWhere('ujians.ruang', 'BS P03')
+            ->orWhere('ujians.ruang', 'HPT');
         } elseif (Auth::user()->lokasi == 'Sukabumi') {
             $pengawas->where('ujians.ruang', 'GAK 01')
             ->orWhere('ujians.ruang', 'GAK 02')
@@ -269,7 +271,8 @@ class pjLokasiController extends Controller
         } elseif (Auth::user()->lokasi == 'BS P01-03') {
             $pengawas->where('ujians.ruang', 'BS P01')
             ->orWhere('ujians.ruang', 'BS P02')
-            ->orWhere('ujians.ruang', 'BS P03');
+            ->orWhere('ujians.ruang', 'BS P03')
+            ->orWhere('ujians.ruang', 'HPT');
         } elseif (Auth::user()->lokasi == 'Sukabumi') {
             $pengawas->where('ujians.ruang', 'GAK 01')
             ->orWhere('ujians.ruang', 'GAK 02')
@@ -292,10 +295,40 @@ class pjLokasiController extends Controller
     public function absensiForm($id)
     {
         $pengawas = Pengawas::find($id);
-
+        $qrcode =  QrCode::size(500)->generate('http://127.0.0.1:8000/presensi/' . $pengawas->id);
         return view('pj_lokasi.absensi.form', [
-            "pengawas" => $pengawas
+            "pengawas" => $pengawas,
+            "qrCode" => $qrcode
         ]);
+    }
+
+    public function presence($id)
+    {
+        $pengawas = Pengawas::find($id);
+        return view('presence', ['pengawas' => $pengawas]);
+    }
+
+    public function presenceUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'norek' => 'nullable',
+            'bank' => 'nullable'
+        ]);
+
+        $pengawas = Pengawas::find($id);
+        $pengawas->update([
+            'norek' => $request->norek,
+            'bank' => $request->bank,
+            'absen' => 'hadir'
+        ]);
+
+        $this->Activity(' | ' . $pengawas->nama . ' melakukan presensi');
+        return redirect()->route('presensi.hadir')->with('success', 'Kehadiran Tersimpan!');
+    }
+
+    public function hadir()
+    {
+        return view('done');
     }
 
     public function soalIndex()
@@ -359,7 +392,8 @@ class pjLokasiController extends Controller
         } elseif (Auth::user()->lokasi == 'BS P01-03') {
             $ujian->where('ujians.ruang', 'BS P01')
             ->orWhere('ujians.ruang', 'BS P02')
-            ->orWhere('ujians.ruang', 'BS P03');
+            ->orWhere('ujians.ruang', 'BS P03')
+            ->orWhere('ujians.ruang', 'HPT');
         } elseif (Auth::user()->lokasi == 'Sukabumi') {
             $ujian->where('ujians.ruang', 'GAK 01')
             ->orWhere('ujians.ruang', 'GAK 02')

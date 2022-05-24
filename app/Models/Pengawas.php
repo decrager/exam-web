@@ -16,7 +16,8 @@ class Pengawas extends Model
         'nama',
         'pns',
         'norek',
-        'bank'
+        'bank',
+        'absen'
     ];
 
     public function scopeFilter($query, array $filters)

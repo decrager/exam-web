@@ -84,8 +84,10 @@
                                             <td>
                                                 @if ($jadwal?->perbanyak == 1)
                                                     <span class="badge badge-success">Perbanyak</span>
-                                                @else
+                                                @elseif ($jadwal?->perbanyak == 2)
                                                     <span class="badge badge-danger">Tidak</span>
+                                                @else 
+                                                    -
                                                 @endif
                                             </td>
                                             <td>{{ $jadwal?->software }}</td>

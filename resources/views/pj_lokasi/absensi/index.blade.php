@@ -47,7 +47,7 @@
                         @endif
                         <h4 class="header-title">Kehadiran</h4>
                         <a href="#" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
-                            <i class="fas fa-file-pdf"></i>
+                            <i class="fas fa-file-pdf">&nbsp; Export</i>
                         </a>
                         <form action="/pj_lokasi/pengawas/kehadiran" class="row justify-content-start">
                             <div class="col-md-2">
@@ -99,7 +99,7 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Usulan Ruang</th>
                                         <th>Ruang</th>
-                                        <th>Tanda Tangan</th>
+                                        <th>Kehadiran</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -107,25 +107,31 @@
                                     @foreach ($absensi as $pengawas)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pengawas->nama }}</td>
+                                            <td>{{ $pengawas?->nama }}</td>
                                             <td>
-                                                @if ($pengawas->pns == 'PNS')
+                                                @if ($pengawas?->pns == 'PNS')
                                                     <i class="fas fa-check"></i>
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($pengawas->pns != 'PNS')
+                                                @if ($pengawas?->pns != 'PNS')
                                                     <i class="fas fa-check"></i>
                                                 @endif
                                             </td>
-                                            <td>{{ $pengawas->Ujian->Matkul->Semester->Prodi->nama_prodi }}</td>
-                                            <td>{{ $pengawas->Ujian->Matkul->nama_matkul }}</td>
-                                            <td>{{ $pengawas->Ujian->lokasi }}</td>
-                                            <td>{{ $pengawas->Ujian->ruang }}</td>
-                                            <td>-</td>
+                                            <td>{{ $pengawas?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
+                                            <td>{{ $pengawas?->Ujian?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $pengawas?->Ujian?->lokasi }}</td>
+                                            <td>{{ $pengawas?->Ujian?->ruang }}</td>
+                                            <td>
+                                                @if ($pengawas?->absen == 'hadir')
+                                                    <span class="badge badge-success">Hadir</span>
+                                                @else
+                                                    <span class="badge badge-warning text-dark">Belum Hadir</span>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <div class="btn-group" role="group">
-                                                    <a href="{{ route('pjLokasi.pengawas.absensi.form', $pengawas->id) }}"
+                                                    <a href="{{ route('pjLokasi.pengawas.absensi.form', $pengawas?->id) }}"
                                                         class="btn btn-success"><i class="fas fa-file-signature"></i></a>
                                                     <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                                 </div>

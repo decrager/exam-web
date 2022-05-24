@@ -47,44 +47,63 @@
 
                                 <div class="form-group">
                                     <label for="nama" class="col-form-label">Nama</label>
-                                    <input class="form-control" type="text" readonly value="{{ $pengawas->nama }}" id="nama"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->nama }}" id="nama"
                                         name="nama" />
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="tgl" class="col-form-label">Tanggal</label>
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->Ujian?->tanggal }}"
+                                        id="tgl" name="tgl" />
+                                </div>
+
+                                <div class="form-group">
                                     <label for="prodi" class="col-form-label">Program Studi</label>
-                                    <input class="form-control" type="text" readonly value="{{ $pengawas->Ujian->Matkul->Semester->Prodi->nama_prodi }}"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}"
                                         id="prodi" name="prodi" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="matkul" class="col-form-label">Mata Kuliah</label>
-                                    <input class="form-control" type="text" readonly value="{{ $pengawas->Ujian->Matkul->nama_matkul }}" id="matkul"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->Ujian?->Matkul?->nama_matkul }}" id="matkul"
                                         name="matkul" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="lokasi" class="col-form-label">Usulan Ruang</label>
-                                    <input class="form-control" type="text" readonly value="{{ $pengawas->Ujian->lokasi }}" id="lokasi"
-                                        name="lokasi" />
-                                </div>
-
-                                <div class="form-group">
                                     <label for="ruang" class="col-form-label">Kode Ruang</label>
-                                    <input class="form-control" type="text" readonly value="{{ $pengawas->Ujian->ruang }}" id="ruang"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->Ujian?->ruang }}" id="ruang"
                                         name="ruang" />
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="norek" class="col-form-label">No. Rekening</label>
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->norek }}" id="norek"
+                                        name="norek" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bank" class="col-form-label">Bank</label>
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->bank }}" id="bank"
+                                        name="bank" />
+                                </div>
+
+                                {{-- <div class="form-group">
                                     <label class="" for="">Tanda Tangan:</label>
                                     <br />
                                     <div id="sign"> </div>
                                     <br />
                                     <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
                                     <textarea id="signature65" style="display: none"></textarea>
+                                </div> --}}
+                                
+                                <div class="form-group">
+                                    <label class="" for="">QR Code Presensi:</label>
+                                    <br />
+                                    {{-- {!! $qrCode !!} --}}
+                                    {!! QrCode::size(250)->generate('http://127.0.0.1:8000/presensi/' . $pengawas?->id); !!}
+                                    <br />
                                 </div>
-
-                                <button class="btn btn-primary">Simpan</button>
+                                <a href="{{ route('pjLokasi.pengawas.absensi.index') }}" class="btn btn-primary">Kembali</a>
                             </div>
                         </div>
                     </div>

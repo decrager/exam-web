@@ -48,7 +48,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label class="col-form-label">Program Studi</label>
+                                        <label class="col-form-label">Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option>Pilih Program Studi</option>
                                             <option selected="selected" value="{{ $kelas?->Semester?->Prodi?->id }}">{{ $kelas?->Semester?->Prodi?->nama_prodi }}</option>
@@ -59,7 +59,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Semester</label>
+                                        <label class="col-form-label">Semester<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option>Pilih Semester</option>
                                             <option selected="selected" value="{{ $kelas?->Semester?->id }}">{{ $kelas?->Semester?->semester }}</option>
@@ -67,12 +67,12 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="kelas" class="col-form-label">Kelas</label>
+                                        <label for="kelas" class="col-form-label">Kelas<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="kelas" name="kelas" value="{{ $kelas?->kelas }}" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="jml_mhs" class="col-form-label">Jumlah Mahasiswa</label>
+                                        <label for="jml_mhs" class="col-form-label">Jumlah Mahasiswa<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="jml_mhs" name="jml_mhs" value="{{ $kelas?->jml_mhs }}" required/>
                                     </div>
 

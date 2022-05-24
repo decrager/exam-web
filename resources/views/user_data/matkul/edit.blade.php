@@ -48,7 +48,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label class="col-form-label">Program Studi</label>
+                                        <label class="col-form-label">Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option>Pilih Program Studi</option>
                                             <option selected="selected" value="{{ $matkul?->Semester?->Prodi?->id }}">{{ $matkul?->Semester?->Prodi?->nama_prodi }}</option>
@@ -59,7 +59,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Semester</label>
+                                        <label class="col-form-label">Semester<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option>Pilih Semester</option>
                                             <option selected="selected" value="{{ $matkul?->Semester?->id }}">{{ $matkul?->Semester?->semester }}</option>
@@ -67,27 +67,27 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="kode_matkul" class="col-form-label">Kode Mata Kuliah</label>
+                                        <label for="kode_matkul" class="col-form-label">Kode Mata Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." value="{{ $matkul?->kode_matkul }}" id="kode_matkul" name="kode_matkul" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nama_matkul" class="col-form-label">Mata Kuliah</label>
+                                        <label for="nama_matkul" class="col-form-label">Mata Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." value="{{ $matkul?->nama_matkul }}" id="nama_matkul" name="nama_matkul" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="sks" class="col-form-label">SKS</label>
+                                        <label for="sks" class="col-form-label">SKS<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." value="{{ $matkul?->sks }}" id="sks" name="sks" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="sks_kul" class="col-form-label">SKS Kuliah</label>
+                                        <label for="sks_kul" class="col-form-label">SKS Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." value="{{ $matkul?->sks_kul }}" id="sks_kul" name="sks_kul" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="sks_prak" class="col-form-label">SKS Praktikum</label>
+                                        <label for="sks_prak" class="col-form-label">SKS Praktikum<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." value="{{ $matkul?->sks_prak }}" id="sks_prak" name="sks_prak" required/>
                                     </div>
 
