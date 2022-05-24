@@ -59,7 +59,6 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Pengawas</th>
                                         <th>No. Rekening</th>
@@ -77,7 +76,6 @@
                                             <td>{{ $pengawas?->Ujian?->Praktikum?->Kelas?->kelas }}</td>
                                             <td>{{ $pengawas?->Ujian?->Praktikum?->praktikum }}</td>
                                             <td>{{ $pengawas?->Ujian?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $pengawas?->Ujian?->lokasi }}</td>
                                             <td>{{ $pengawas?->Ujian?->ruang }}</td>
                                             <td>{{ $pengawas?->nama }}</td>
                                             <td>{{ $pengawas?->norek }}</td>

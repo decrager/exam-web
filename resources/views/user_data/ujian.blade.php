@@ -64,7 +64,6 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Usulan Ruang</th>
                                         <th>Kode Ruang</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
@@ -82,7 +81,6 @@
                                             <td>{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>
                                             <td>{{ $ujian?->Praktikum?->praktikum }}</td>
                                             <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $ujian?->lokasi }}</td>
                                             <td>{{ $ujian?->ruang }}</td>
                                             <td>{{ $ujian?->jam_mulai }}</td>
                                             <td>{{ $ujian?->jam_selesai }}</td>

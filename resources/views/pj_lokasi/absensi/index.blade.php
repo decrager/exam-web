@@ -97,7 +97,6 @@
                                         <th>NON PNS</th>
                                         <th class="col-2">Program Studi</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Kehadiran</th>
                                         <th>Aksi</th>
@@ -120,7 +119,6 @@
                                             </td>
                                             <td>{{ $pengawas?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
                                             <td>{{ $pengawas?->Ujian?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $pengawas?->Ujian?->lokasi }}</td>
                                             <td>{{ $pengawas?->Ujian?->ruang }}</td>
                                             <td>
                                                 @if ($pengawas?->absen == 'hadir')
