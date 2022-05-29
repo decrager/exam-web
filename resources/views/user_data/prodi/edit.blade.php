@@ -48,13 +48,13 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label for="kode_prodi" class="col-form-label">Kode Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="kode_prodi" class="col-form-label">Kode Program Studi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." value="{{ $prodi?->kode_prodi }}" name="kode_prodi"
                                             id="kode_prodi" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nama_prodi" class="col-form-label">Nama Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="nama_prodi" class="col-form-label">Nama Program Studi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="nama_prodi" value="{{ $prodi?->nama_prodi }}" name="nama_prodi" />
                                     </div>
 

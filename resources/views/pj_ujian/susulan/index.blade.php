@@ -90,12 +90,12 @@
                                                         data-bs-target="{{ '#detail' . $susulan?->id }}"><i
                                                             class="fas fa-info text-white"></i></a>
                                                     <a href="{{ route('pjUjian.susulan.susulan.edit', $susulan?->id) }}"
-                                                        class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                        class="btn btn-warning"> <i class="fas fa-pen"></i></a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="text" hidden name="prak_id" value="{{ $susulan?->prak_id }}">
                                                     <input type="text" hidden name="matkul_id" value="{{ $susulan?->matkul_id }}">
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus jadwal ujian susulan ini?')"><i class="fas fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus jadwal ujian susulan ini?')"> <i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

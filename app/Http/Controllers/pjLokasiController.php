@@ -6,10 +6,12 @@ use Carbon\Carbon;
 use App\Models\Ujian;
 use App\Models\Master;
 use App\Models\Pengawas;
+use App\Models\Penugasan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\isEmpty;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
 
 class pjLokasiController extends Controller
 {
@@ -107,14 +109,15 @@ class pjLokasiController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
         
-        $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+        $pengawas = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
+        ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')
         ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
         ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
         ->whereBetween('ujians.tanggal', [$from, $to]);
 
         if (Auth::user()->lokasi == 'CA & Lab Kom') {
@@ -182,31 +185,28 @@ class pjLokasiController extends Controller
 
     public function pengawasEdit($id)
     {
-        $pengawas = Pengawas::find($id);
+        $penugasan = Penugasan::find($id);
+        $selected = Pengawas::find($penugasan->pengawas_id);
+        $pengawas = Pengawas::all();
 
         return view('pj_lokasi.pengawas.edit', [
-            "pengawas" => $pengawas
+            "penugasan" => $penugasan,
+            "pengawas" => $pengawas,
+            "selected" => $selected
         ]);
     }
 
     public function pengawasUpdate(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required',
-            'pns' => 'required',
-            'norek' => 'nullable',
-            'bank' => 'nullable'
+            'pengawas_id' => 'required'
         ]);
 
-        $pengawas = Pengawas::find($id);
-
+        $pengawas = Penugasan::find($id);
         $pengawas->update([
-            'nama' => $request->nama,
-            'pns' => $request->pns,
-            'norek' => $request->norek,
-            'bank' => $request->bank
+            'pengawas_id' => $request->pengawas_id
         ]);
-        
+
         $this->Activity(' memperbarui data pengawas ' . $request->nama);
         return redirect()->route('pjLokasi.pengawas.daftar.index')->with('success', 'Data Pengawas berhasil diperbarui!');
     }
@@ -218,15 +218,16 @@ class pjLokasiController extends Controller
 
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
-        
-        $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+
+        $pengawas = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
+        ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')
         ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
         ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
         ->whereBetween('ujians.tanggal', [$from, $to]);
 
         if (Auth::user()->lokasi == 'CA & Lab Kom') {
@@ -294,7 +295,7 @@ class pjLokasiController extends Controller
 
     public function absensiForm($id)
     {
-        $pengawas = Pengawas::find($id);
+        $pengawas = Penugasan::find($id);
         $qrcode =  QrCode::size(500)->generate('http://127.0.0.1:8000/presensi/' . $pengawas->id);
         return view('pj_lokasi.absensi.form', [
             "pengawas" => $pengawas,
@@ -304,26 +305,55 @@ class pjLokasiController extends Controller
 
     public function presence($id)
     {
-        $pengawas = Pengawas::find($id);
+        $pengawas = Penugasan::find($id);
         return view('presence', ['pengawas' => $pengawas]);
     }
 
     public function presenceUpdate(Request $request, $id)
     {
         $request->validate([
-            'norek' => 'nullable',
-            'bank' => 'nullable'
+            'presensi' => 'nullable',
+            'ttd' => 'required'
         ]);
 
-        $pengawas = Pengawas::find($id);
-        $pengawas->update([
-            'norek' => $request->norek,
-            'bank' => $request->bank,
-            'absen' => 'hadir'
+        $penugasan = Penugasan::find($id);
+        $pengawas = Pengawas::find($penugasan->pengawas_id);
+        $destination = 'images/qr/' . $penugasan->presensi;
+        if ($destination) {
+            Storage::delete($destination);
+        }
+
+        $folderPath = Storage::path('images/qr/');
+        $image = explode(";base64,", $request->ttd);
+        $image_type = explode("image/", $image[0]);
+        $image_type_png = $image_type[1];
+        $image_base64 = base64_decode($image[1]);
+        
+        $fileName = uniqid() . '.'.$image_type_png;
+        $file = $folderPath . $fileName;
+        file_put_contents($file, $image_base64);
+
+        $penugasan->update([
+            'presensi' => $fileName
         ]);
 
-        $this->Activity(' | ' . $pengawas->nama . ' melakukan presensi');
+        $this->PublicActivity($pengawas->nama . ' menandatangi kehadiran pengawas');
         return redirect()->route('presensi.hadir')->with('success', 'Kehadiran Tersimpan!');
+    }
+
+    public function presenceDestroy($id)
+    {
+        $penugasan = Penugasan::find($id);
+        $pengawas = Pengawas::find($penugasan->pengawas_id);
+        $destination = 'images/qr/' . $penugasan->presensi;
+        if ($destination) {
+            Storage::delete($destination);
+        }
+        $penugasan->update([
+            'presensi' => null
+        ]);
+        $this->Activity(' menghapus kehadiran pengawas ' . $pengawas->nama);
+        return redirect()->route('pjLokasi.pengawas.absensi.index')->with('success', 'Kehadiran dihapus!');
     }
 
     public function hadir()

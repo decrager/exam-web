@@ -14,6 +14,7 @@ class Berkas extends Model
     protected $fillable = [
         'ujian_id',
         'jml_berkas',
+        'kalibrasi',
         'verifikasi',
         'validasi',
         'fotokopi',

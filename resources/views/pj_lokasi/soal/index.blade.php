@@ -64,6 +64,7 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Tipe</th>
                                         <th>Ruang</th>
+                                        <th>Kalibrasi</th>
                                         <th>Verifikasi</th>
                                         <th>Validasi</th>
                                         <th>Fotokopi</th>
@@ -84,6 +85,13 @@
                                             <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
                                             <td>{{ $ujian?->tipe_mk }}</td>
                                             <td>{{ $ujian?->ruang }}</td>
+                                            <td>
+                                                @if ($ujian?->Berkas?->kalibrasi == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum dikalibrasi</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Sudah dikalibrasi</button>
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if ($ujian?->Berkas?->verifikasi == 'Belum')
                                                     <button class="btn btn-danger btn-sm">Belum diverifikasi</button>

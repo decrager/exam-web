@@ -25,9 +25,9 @@
                 <div class="breadcrumbs-area clearfix">
                     <h4 class="page-title pull-left">Tambah Penugasan</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a >Beranda</a></li>
+                        <li><a>Beranda</a></li>
                         <li><a>Pengawas</a></li>
-                        <li><a ><span>Penugasan</span></a></li>
+                        <li><a><span>Penugasan</span></a></li>
                         <li><span>Tambah Penugasan</span></li>
                     </ul>
                 </div>
@@ -49,37 +49,51 @@
                                     @csrf
 
                                     <div class="form-group">
-                                        <label for="nama" class="col-form-label">Nama Pengawas</label>
-                                        <input class="form-control" type="text" placeholder="Ketik nama pengawas..." id="nama" name="nama" required/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-form-label">PNS</label>
-                                        <select class="custom-select" name="pns" required>
-                                            <option selected="selected" value="">
-                                                Pilih
-                                            </option>
-                                            <option value="PNS">PNS</option>
-                                            <option value="NON PNS">NON PNS</option>
+                                        <label for="pengawas" class="col-form-label">Nama Pengawas <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <select class="custom-select pengawas-select" name="pengawas_id" id="pengawas">
+                                            <option selected value="">Pilih Pengawas</option>
+                                            @foreach ($pengawas as $pengawas)
+                                                <option value="{{ $pengawas?->id }}">{{ $pengawas?->nama }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="norek" class="col-form-label">Nomor Rekening (Optional)</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="norek" name="norek"/>
+                                        <label class="col-form-label">NIK / NIP / NPI</label>
+                                        <div id="nik">
+                                            <input class="form-control" type="text" readonly value="" name="nik" />
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="bank" class="col-form-label">Bank (Optional)</label>
-                                        <select class="custom-select" name="bank">
-                                            <option selected="selected" value="">Pilih bank</option>
-                                            <option value="BRI">BRI</option>
-                                            <option value="BNI">BNI</option>
-                                            <option value="Mandiri">Mandiri</option>
-                                        </select>
+                                        <label for="pns" class="col-form-label">Status Kepegawaian</label>
+                                        <div id="pns">
+                                            <input class="form-control" type="text" readonly value="" name="pns" />
+                                        </div>
                                     </div>
 
-                                    <input hidden name="ujian_id" value="{{ $ujian->id }}"/>
+                                    <div class="form-group">
+                                        <label for="tlp" class="col-form-label">Nomor Telepon</label>
+                                        <div id="tlp">
+                                            <input class="form-control" type="text" readonly value="" name="tlp" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="bank" class="col-form-label">Bank</label>
+                                        <div id="bank">
+                                            <input class="form-control" type="text" readonly value="" name="bank" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="norek" class="col-form-label">Nomor Rekening</label>
+                                        <div id="norek">
+                                            <input class="form-control" type="text" readonly value="" name="norek" />
+                                        </div>
+                                    </div>
+
+                                    <input hidden name="ujian_id" value="{{ $ujian->id }}" />
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
@@ -90,4 +104,74 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // $(document).ready(function() {
+            $('.pengawas-select').select2();
+            $('#pengawas').on('change', function() {
+                var pengawas_id = $(this).val();
+                if (pengawas_id) {
+                    $.ajax({
+                        url: '/getPengawas/' + pengawas_id,
+                        type: "GET",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                $('#nik').empty();
+                                $('#pns').empty();
+                                $('#tlp').empty();
+                                $('#bank').empty();
+                                $('#norek').empty();
+                                $.each(data, function(key, pengawas) {
+                                    $('#nik').append(
+                                        '<input class="form-control" type="text" readonly value="' +
+                                        pengawas.nik + '" name="nik"/>')
+
+                                    $('#pns').append(
+                                        '<input class="form-control" type="text" readonly value="' +
+                                        pengawas.pns + '" name="pns"/>')
+
+                                    $('#tlp').append(
+                                        '<input class="form-control" type="text" readonly value="' +
+                                        pengawas.tlp + '" name="tlp"/>')
+
+                                    $('#bank').append(
+                                        '<input class="form-control" type="text" readonly value="' +
+                                        pengawas.bank + '" name="bank"/>')
+                                    $('#norek').append(
+                                        '<input class="form-control" type="text" readonly value="' +
+                                        pengawas.norek + '" name="norek"/>')
+                                });
+                            } else {
+                                $('#nik').empty();
+                                $('#nik').append('<input class="form-control" type="text" readonly value="" name="nik"/>');
+                                $('#pns').empty();
+                                $('#pns').append('<input class="form-control" type="text" readonly value="" name="pns"/>');
+                                $('#tlp').empty();
+                                $('#tlp').append('<input class="form-control" type="text" readonly value="" name="tlp"/>');
+                                $('#bank').empty();
+                                $('#bank').append('<input class="form-control" type="text" readonly value="" name="bank"/>');
+                                $('#norek').empty();
+                                $('#norek').append('<input class="form-control" type="text" readonly value="" name="norek"/>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#nik').empty();
+                    $('#nik').append('<input class="form-control" type="text" readonly value="" name="nik"/>');
+                    $('#pns').empty();
+                    $('#pns').append('<input class="form-control" type="text" readonly value="" name="pns"/>');
+                    $('#tlp').empty();
+                    $('#tlp').append('<input class="form-control" type="text" readonly value="" name="tlp"/>');
+                    $('#bank').empty();
+                    $('#bank').append('<input class="form-control" type="text" readonly value="" name="bank"/>');
+                    $('#norek').empty();
+                    $('#norek').append('<input class="form-control" type="text" readonly value="" name="norek"/>');
+                }
+            });
+        // });
+    </script>
 @endsection

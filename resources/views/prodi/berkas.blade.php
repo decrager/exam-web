@@ -128,7 +128,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1 align-content-center">
-                                <button type="submit" class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                                <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
                             </div>
                         </form>
 
@@ -145,6 +145,7 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Tipe</th>
                                         <th>Ruang</th>
+                                        <th>Kalibrasi</th>
                                         <th>Verifikasi</th>
                                         <th>Validasi</th>
                                         <th>Fotokopi</th>
@@ -166,7 +167,19 @@
                                             <td>{{ $ujian?->tipe_mk }}</td>
                                             <td>{{ $ujian?->ruang }}</td>
                                             <td>
-                                                <form action="{{ route('prodi.berkas.update', $ujian->Berkas->id) }}" method="POST" class="btn-group" role="group">
+                                                <form action="{{ route('prodi.kalibrasi.update', $ujian?->Berkas?->id) }}" method="POST" class="btn-group" role="group">
+                                                    @if ($ujian?->Berkas?->kalibrasi == 'Belum')
+                                                        <button class="btn btn-danger btn-sm">Belum dikalibrasi</button>
+                                                    @else
+                                                        <button class="btn btn-success btn-sm">Sudah dikalibrasi</button>
+                                                    @endif
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin mengubah status Kalibrasi?')"> <i class="fas fa-check"></i></button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('prodi.berkas.update', $ujian?->Berkas?->id) }}" method="POST" class="btn-group" role="group">
                                                     @if ($ujian?->Berkas?->verifikasi == 'Belum')
                                                         <button class="btn btn-danger btn-sm">Belum diverifikasi</button>
                                                     @else
@@ -174,7 +187,7 @@
                                                     @endif
                                                     @csrf
                                                     @method('PUT')
-                                                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin mengubah status Verifikasi?')"><i class="fas fa-check"></i></button>
+                                                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin mengubah status Verifikasi?')"> <i class="fas fa-check"></i></button>
                                                 </form>
                                             </td>
                                             <td>

@@ -40,7 +40,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title pt-2">Jadwal Ujian</h4>
-                        <a href="" class="btn btn-success mb-3 py-2 mr-2 float-right">Export &nbsp;&nbsp;<i
+                        <a href="{{ route('prodi.jadwal.export') }}" class="btn btn-success mb-3 py-2 mr-2 float-right">Export &nbsp;&nbsp;<i
                             class="fas fa-file-excel-o"></i></a>
                         <form action="/prodi/jadwal" class="row mb-1 justify-content-start">
                             <div class="col-md-2">
@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1 align-content-center">
-                                <button type="submit" class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                                <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
                             </div>
                         </form>
                         <!-- <i class="fa fa-check text-danger"></i> -->
@@ -161,7 +161,7 @@
                                             <td>{{ $jadwal?->ruang }}</td>
                                             <td>{{ $jadwal?->jam_mulai }}</td>
                                             <td>{{ $jadwal?->jam_selesai }}</td>
-                                            <td><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="{{ '#detail' . $jadwal?->id }}"><i class="fas fa-info text-white"></i></a></td>
+                                            <td><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="{{ '#detail' . $jadwal?->id }}"> <i class="fas fa-info text-white"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

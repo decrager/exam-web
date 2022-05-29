@@ -23,10 +23,10 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Pengawas</h4>
+                    <h4 class="page-title pull-left">Aktivitas</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><span>Pengawas</span></li>
+                        <li><span>Aktivitas</span></li>
                     </ul>
                 </div>
             </div>
@@ -39,48 +39,29 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Daftar Pengawas</h4>
-                        <form action="/supervisor/pengawas" class="row justify-content-start">
-                            @include('layouts.filter')
-                        </form>
+                        <h4 class="header-title">Aktivitas</h4>
+
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
-                                        <th class="col-2">Mata Kuliah</th>
-                                        <th>Usulan Ruang</th>
-                                        <th>Ruang</th>
-                                        <th>Pengawas</th>
-                                        <th>No. Rekening</th>
-                                        <th>Bank</th>
+                                        <th>Waktu</th>
+                                        <th>Aktivitas</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($pengawas as $row)
+                                    @foreach ($activity as $log)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $row?->Ujian?->tanggal }}</td>
-                                            <td>{{ $row?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
-                                            <td>{{ $row?->Ujian?->Matkul?->Semester?->semester }}</td>
-                                            <td>{{ $row?->Ujian?->Praktikum?->Kelas?->kelas }}</td>
-                                            <td>{{ $row?->Ujian?->Praktikum?->praktikum }}</td>
-                                            <td>{{ $row?->Ujian?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $row?->Ujian?->lokasi }}</td>
-                                            <td>{{ $row?->Ujian?->ruang }}</td>
-                                            <td>{{ $row?->Pengawas?->nama }}</td>
-                                            <td>{{ $row?->Pengawas?->norek }}</td>
-                                            <td>{{ $row?->Pengawas?->bank }}</td>
+                                            <td>{{ $log?->created_at }}</td>
+                                            <td>{{ $log?->activity }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                 </div>
             </div>

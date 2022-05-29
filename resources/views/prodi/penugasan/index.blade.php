@@ -128,7 +128,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1 align-content-center">
-                                <button type="submit" class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                                <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
                             </div>
                         </form>
                         <!-- <i class="fa fa-check text-danger"></i> -->
@@ -137,13 +137,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Tanggal</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Tipe</th>
+                                        <th>Jenis MK</th>
                                         <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Aksi</th>
@@ -153,7 +152,6 @@
                                     @foreach ($ujian as $ujian)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $ujian?->tanggal }}</td>
                                             <td>{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
                                             <td>{{ $ujian?->Matkul?->Semester?->semester }}</td>
                                             <td>{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>

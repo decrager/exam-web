@@ -96,11 +96,11 @@
                                                     <a class="btn btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="{{ '#detail' . $ujian?->id }}"><i
                                                             class="fas fa-info text-white"></i></a>
-                                                    <a href="{{ route('pjUjian.jadwal.edit', $ujian?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                    <a href="{{ route('pjUjian.jadwal.edit', $ujian?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus jadwal ujian ini?')">
-                                                        <i class="fas fa-trash"></i>
+                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
                                             </td>

@@ -104,6 +104,7 @@ class AppServiceProvider extends ServiceProvider
         ->join('prodis', 'semesters.prodi_id', 'prodis.id')
         ->join('ujians', 'pelanggarans.ujian_id', 'ujians.id')
         ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->select('matkuls.*', 'ujians.*', 'prodis.*', 'semesters.*', 'kelas.*', 'praktikums.*', 'mahasiswas.*', 'pelanggarans.*')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->orderBy('pelanggarans.updated_at', 'DESC')->get();
         $master = Master::find(1);

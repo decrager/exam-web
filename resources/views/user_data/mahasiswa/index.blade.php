@@ -110,7 +110,7 @@
                             </div>
                         </div>
                         <div class="col-md-1 align-content-center">
-                            <button type="submit" class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                            <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
                         </div>
                     </form>
                     <div class="table-responsive">
@@ -141,10 +141,10 @@
                                     <td>{{ $mahasiswa?->email }}</td>
                                     <td>
                                         <form action="{{ route('data.mahasiswa.destroy', $mahasiswa?->id) }}" method="POST" class="btn-group" role="group">
-                                            <a href="{{ route('data.mahasiswa.edit', $mahasiswa?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                            <a href="{{ route('data.mahasiswa.edit', $mahasiswa?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-danger"> <i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

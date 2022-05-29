@@ -4,6 +4,7 @@ use App\Models\Kelas;
 use App\Models\Prodi;
 use App\Models\Ujian;
 use App\Models\Matkul;
+use App\Models\Pengawas;
 use App\Models\Semester;
 use App\Models\Praktikum;
 use Illuminate\Http\Request;
@@ -38,14 +39,19 @@ use App\Http\Controllers\pelanggaranOnlineController;
 
 Route::get('/', [loginController::class, 'index'])->name('login');
 Route::post('/login', [loginController::class, 'authenticate']);
+Route::get('/presensi/{id}', [pjLokasiController::class, 'presence'])->name('presensi');
+Route::put('/presensi/update/{id}', [pjLokasiController::class, 'presenceUpdate'])->name('presensi.update');
+Route::get('/hadir', [pjLokasiController::class, 'hadir'])->name('presensi.hadir');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/resetPassword', [loginController::class, 'resetPassword'])->name('resetView');
     Route::post('/resetPassword', [loginController::class, 'reset'])->name('resetPassword');
     Route::post('/logout', [loginController::class, 'logout'])->name('logout');
-    Route::get('/presensi/{id}', [pjLokasiController::class, 'presence'])->name('presensi');
-    Route::put('/presensi/update/{id}', [pjLokasiController::class, 'presenceUpdate'])->name('presensi.update');
-    Route::get('/hadir', [pjLokasiController::class, 'hadir'])->name('presensi.hadir');
+
+    Route::get('getPengawas/{id}', function ($id) {
+        $pengawas = Pengawas::where('id', $id)->get();
+        return response()->json($pengawas);
+    });
 
     Route::get('getSemester/{id}', function ($id) {
         $semester = Semester::where('prodi_id', $id)->get();
@@ -81,6 +87,15 @@ Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
     Route::get('/data/pengguna/tambah', [dataController::class, 'penggunaForm'])->name('data.pengguna.form');
     Route::get('/data/pengguna/edit/{id}', [dataController::class, 'penggunaEdit'])->name('data.pengguna.edit');
     Route::get('/data/pelanggaran', [dataController::class, 'pelanggaran'])->name('data.pelanggaran');
+    Route::get('/data/aktivitas', [dataController::class, 'logActivity'])->name('data.activity');
+
+    Route::get('/data/pengawas/presensi', [dataController::class, 'pengawasPresensi'])->name('data.pengawas.presensi');
+    Route::get('/data/pengawas/data', [dataController::class, 'pengawasIndex'])->name('data.pengawas.data.index');
+    Route::get('/data/pengawas/data/tambah', [dataController::class, 'pengawasForm'])->name('data.pengawas.data.form');
+    Route::get('/data/pengawas/data/edit/{id}', [dataController::class, 'pengawasEdit'])->name('data.pengawas.data.edit');
+    Route::post('/data/pengawas/data/create', [dataController::class, 'pengawasCreate'])->name('data.pengawas.data.create');
+    Route::put('/data/pengawas/data/update/{id}', [dataController::class, 'pengawasUpdate'])->name('data.pengawas.data.update');
+    Route::delete('/data/pengawas/data/delete/{id}', [dataController::class, 'pengawasDestroy'])->name('data.pengawas.data.delete');
     
     Route::get('/data/periode', [dataController::class, 'periodeIndex'])->name('data.periode.index');
     Route::get('/data/periode/edit/{id}', [dataController::class, 'periodeEdit'])->name('data.periode.edit');
@@ -125,6 +140,8 @@ Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
     Route::post('/data/matkul/create', [dataController::class, 'matkulCreate'])->name('data.matkul.create');
     Route::put('/data/matkul/update/{id}', [dataController::class, 'matkulUpdate'])->name('data.matkul.update');
     Route::delete('/data/matkul/delete/{id}', [dataController::class, 'matkulDestroy'])->name('data.matkul.destroy');
+
+    Route::get('/data/jadwal/export', [dataController::class, 'export'])->name('data.jadwal.export');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
@@ -146,6 +163,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::get('/pj_ujian/susulan/penjadwalan/tambah', [pjUjianController::class, 'penjadwalanForm'])->name('pjUjian.susulan.penjadwalan.form');
     Route::get('/pj_ujian/susulan/susulan', [pjUjianController::class, 'susulanIndex'])->name('pjUjian.susulan.susulan.index');
     Route::get('/pj_ujian/susulan/susulan/edit/{id}', [pjUjianController::class, 'susulanEdit'])->name('pjUjian.susulan.susulan.edit');
+    Route::get('/pj_ujian/aktivitas', [pjUjianController::class, 'logActivities'])->name('pjUjian.activity');
 
     Route::put('/pj_ujian/susulan/update/{id}', [pjUjianController::class, 'susulanUpdate'])->name('pjUjian.susulan.update');
     Route::post('/pj_ujian/pengawas/penugasan/create', [pjUjianController::class, 'penugasanCreate'])->name('pjUjian.pengawas.penugasan.create');
@@ -176,6 +194,7 @@ Route::group(['middleware' => ['auth', 'cekrole:prodi']], function () {
 
     Route::put('/prodi/jadwal/update/{id}', [prodiController::class, 'ujianUpdate'])->name('prodi.ujian.update');
     Route::put('/prodi/berkas/update/{id}', [prodiController::class, 'berkasUpdate'])->name('prodi.berkas.update');
+    Route::put('/prodi/kalibrasi/update/{id}', [prodiController::class, 'kalibrasi'])->name('prodi.kalibrasi.update');
     Route::post('/prodi/pengawas/create', [prodiController::class, 'pengawasCreate'])->name('prodi.pengawas.create');
     Route::put('/prodi/pengawas/update/{id}', [prodiController::class, 'pengawasUpdate'])->name('prodi.pengawas.update');
     Route::delete('/prodi/pengawas/destroy/{id}', [prodiController::class, 'pengawasDestroy'])->name('prodi.pengawas.destroy');
@@ -195,6 +214,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
     Route::get('/pj_lokasi/pelanggaran/tambah', [pjLokasiController::class, 'pelanggaranForm'])->name('pjLokasi.pelanggaran.form');
     Route::get('/pj_lokasi/pelanggaran/edit/{id}', [pjLokasiController::class, 'pelanggaranEdit'])->name('pjLokasi.pelanggaran.edit');
     Route::put('/pj_lokasi/pengawas/update/{id}', [pjLokasiController::class, 'pengawasUpdate'])->name('pjLokasi.pengawas.update');
+    Route::delete('/pj_lokasi/pengawas/delete/{id}', [pjLokasiController::class, 'presenceDestroy'])->name('pjLokasi.pengawas.destroy');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {

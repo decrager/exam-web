@@ -88,7 +88,7 @@
                                                 @endif
                                                 @csrf
                                                 @method('PUT')
-                                                <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin mengubah status BAP?')"><i class="fas fa-check"></i></button>
+                                                <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin mengubah status BAP?')"> <i class="fas fa-check"></i></button>
                                             </form>
                                         </td>
                                         <td>

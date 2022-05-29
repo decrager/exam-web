@@ -3,8 +3,10 @@
 namespace App\Exports;
 
 use App\Models\Ujian;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Models\Master;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
 class UjianExport implements FromCollection, WithHeadings
 {
@@ -19,7 +21,7 @@ class UjianExport implements FromCollection, WithHeadings
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        $test = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
         ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
@@ -29,6 +31,8 @@ class UjianExport implements FromCollection, WithHeadings
         ->select('masters.thn_ajaran', 'masters.smt_akademik', 'matkuls.kode_matkul', 'matkuls.nama_matkul', 'matkuls.sks', 'matkuls.sks_kul', 'matkuls.sks_prak', DB::raw("date_format(ujians.tanggal, '%d/%m/%Y') as tanggal"), 'ujians.jam_mulai', 'ujians.jam_selesai', 'ujians.ruang', 'ujians.kapasitas', 'masters.isuas', 'ujians.tipe_mk', 'kelas.kelas','praktikums.praktikum', 'prodis.kode_prodi')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->get();
+
+        return $ujian;
     }
 
     public function headings(): array

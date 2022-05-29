@@ -46,7 +46,7 @@
                                 <form method="post" action="/pj_online/pelanggaran">
                                     @csrf
                                     <div class="form-group">
-                                        <label class="col-form-label">Ujian<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Ujian <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select ujian-select" name="ujian_id" id="">
                                             <option selected="selected" value="">Select</option>
                                             @foreach ($ujians as $ujian)
@@ -59,7 +59,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label">Nama Mahasiswa<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Nama Mahasiswa <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select mhs-select" name="mhs_id" id="">
                                             <option selected="selected" value="">Select</option>
                                             @foreach ($mahasiswas as $mahasiswa)
@@ -72,7 +72,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">Pelanggaran<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="example-text-input" class="col-form-label">Pelanggaran <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" id="example-text-input" name="pelanggaran"/>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Simpan</button>

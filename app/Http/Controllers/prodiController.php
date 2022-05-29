@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ujian;
-use App\Models\Pengawas;
-use App\Models\Master;
-use App\Exports\UjianExport;
 use App\Models\Berkas;
+use App\Models\Master;
 use App\Models\Matkul;
+use App\Models\Pengawas;
+use App\Models\Penugasan;
+use App\Exports\ProdiExport;
+use App\Exports\UjianExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -237,7 +239,7 @@ class prodiController extends Controller
 
     public function export(){
         $this->Activity(' mengeksport jadwal ujian ke excel');
-        return Excel::download(new UjianExport, 'dataujian.xlsx');
+        return Excel::download(new ProdiExport, 'dataujian.xlsx');
     }
 
     public function UjianUpdate(Request $request, $id)
@@ -268,16 +270,17 @@ class prodiController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+        $pengawas = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
+        ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')
         ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
         ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
         ->whereBetween('ujians.tanggal', [$from, $to])
-        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
         ->join('prodis', 'semesters.prodi_id', 'prodis.id');
@@ -425,29 +428,40 @@ class prodiController extends Controller
 
     public function penugasanForm($id)
     {
+        $ujian = Ujian::find($id);
+        $pengawas = Pengawas::all();
+
         return view('prodi.penugasan.form', [
-            "ujian" => Ujian::find($id)
+            "ujian" => $ujian,
+            "pengawas" => $pengawas
         ]);
     }
 
     public function penugasanEdit($id)
     {
+        $penugasan = Penugasan::find($id);
+        $selected = Pengawas::find($penugasan->pengawas_id);
+        $pengawas = Pengawas::all();
+
         return view('prodi.penugasan.edit', [
-            "pengawas" => Pengawas::find($id)
+            "penugasan" => $penugasan,
+            "pengawas" => $pengawas,
+            "selected" => $selected
         ]);
     }
 
     public function pengawasCreate(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'pns' => 'required',
-            'norek' => 'nullable',
-            'bank' => 'nullable',
-            'ujian_id' => 'required'
+            'ujian_id' => 'required',
+            'pengawas_id' => 'required'
         ]);
 
-        Pengawas::create($request->all());
+        $penugasan = new Penugasan;
+        $penugasan->ujian_id = $request->ujian_id;
+        $penugasan->pengawas_id = $request->pengawas_id;
+        $penugasan->save();
+
         $this->Activity(' menugaskan pengawas ' . $request->nama);
         return redirect()->route('prodi.pengawas.penugasan.index')->with('success', 'Pengawas berhasil ditambahkan!');
     }
@@ -455,18 +469,12 @@ class prodiController extends Controller
     public function pengawasUpdate(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required',
-            'pns' => 'required',
-            'norek' => 'nullable',
-            'bank' => 'nullable'
+            'pengawas_id' => 'required'
         ]);
 
-        $pengawas = Pengawas::find($id);
+        $pengawas = Penugasan::find($id);
         $pengawas->update([
-            'nama' => $request->nama,
-            'pns' => $request->pns,
-            'norek' => $request->norek,
-            'bank' => $request->bank
+            'pengawas_id' => $request->pengawas_id
         ]);
 
         $this->Activity(' memperbarui data pengawas ' . $request->nama);
@@ -475,9 +483,10 @@ class prodiController extends Controller
 
     public function pengawasDestroy($id)
     {
-        $pengawas = Pengawas::find($id);
-        $this->Activity(' menugaskan pengawas ' . $pengawas->nama);
-        $pengawas->delete();
+        $penugasan = Penugasan::find($id);
+        $pengawas = Pengawas::find($penugasan->pengawas_id);
+        $this->Activity(' menghapus data pengawas ' . $pengawas->nama);
+        $penugasan->delete();
         return redirect()->route('prodi.pengawas.list')->with('success', 'Pengawas sudah dihapus!');
     }
 
@@ -576,6 +585,21 @@ class prodiController extends Controller
         }
 
         return redirect()->route('prodi.berkas')->with('success', 'Status Verifikasi Soal Ujian berhasil diubah');
+    }
+
+    public function kalibrasi($id)
+    {
+        $berkas = Berkas::find($id);
+
+        if ($berkas->kalibrasi == 'Belum') {
+            $berkas->update(['kalibrasi' => 'Sudah']);
+            $this->Activity(' memperbarui status Kalibrasi pada Soal Ujian menjadi Sudah dikalibrasi');
+        } else {
+            $berkas->update(['kalibrasi' => 'Belum']);
+            $this->Activity(' memperbarui status Kalibrasi pada Soal Ujian menjadi Belum dikalibrasi');
+        }
+
+        return redirect()->route('prodi.berkas')->with('success', 'Status Kalibrasi Soal Ujian berhasil diubah!');
     }
 
     public function pelanggaran()

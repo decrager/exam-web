@@ -54,7 +54,6 @@
             width: 100% !important;
             height: auto;
         }
-
     </style>
 
     <!-- modernizr css -->

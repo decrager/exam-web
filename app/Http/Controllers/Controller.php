@@ -60,8 +60,15 @@ class Controller extends BaseController
     public function Activity($message)
     {
         $user = Auth::user()->name;
-        // $log = new LogActivities;
-        // $log->activity = $user . $message;
-        // $log->save();
+        $log = new LogActivities;
+        $log->activity = $user . $message;
+        $log->save();
+    }
+
+    public function PublicActivity($message)
+    {
+        $log = new LogActivities;
+        $log->activity = $message;
+        $log->save();
     }
 }

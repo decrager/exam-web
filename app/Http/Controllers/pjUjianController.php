@@ -13,7 +13,9 @@ use App\Models\Susulan;
 use App\Models\Pengawas;
 use App\Models\Pelanggaran;
 use App\Exports\UjianExport;
+use App\Models\LogActivities;
 use App\Models\Mahasiswa;
+use App\Models\Penugasan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -70,7 +72,7 @@ class pjUjianController extends Controller
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->where('ujians.susulan', '0')
-        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('pj_ujian.ujian.index', [
             "jadwal" => $ujian->get()
@@ -206,7 +208,7 @@ class pjUjianController extends Controller
         Bap::where('ujian_id', $id)->delete();
         Berkas::where('ujian_id', $id)->delete();
         Pelanggaran::where('ujian_id', $id)->delete();
-        Pengawas::where('ujian_id', $id)->delete();
+        Penugasan::where('ujian_id', $id)->delete();
         $this->Activity(' menghapus jadwal ujian');
         return redirect()->route('pjUjian.jadwal.index')->with('success', 'Jadwal sudah dihapus!');
     }
@@ -219,18 +221,19 @@ class pjUjianController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
-        ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*')
+        $pengawas = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
+        ->join('ujians', 'penugasans.ujian_id', 'ujians.id')
+        ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', 'b.id')
+        ->join('prodis', 'b.prodi_id', 'prodis.id')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         $pengawas = $pengawas->whereBetween('ujians.tanggal', [$from, $to])->get();
-
+        
         return view('pj_ujian.pengawas.index', [
             "dataPengawas" => $pengawas
         ]);
@@ -238,28 +241,26 @@ class pjUjianController extends Controller
 
     public function pengawasEdit($id)
     {
-        $pengawas = Pengawas::find($id);
+        $penugasan = Penugasan::find($id);
+        $selected = Pengawas::find($penugasan->pengawas_id);
+        $pengawas = Pengawas::all();
 
         return view('pj_ujian.pengawas.edit', [
-            "pengawas" => $pengawas
+            "penugasan" => $penugasan,
+            "pengawas" => $pengawas,
+            "selected" => $selected
         ]);
     }
 
     public function pengawasUpdate(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required',
-            'pns' => 'required',
-            'norek' => 'nullable',
-            'bank' => 'nullable'
+            'pengawas_id' => 'required'
         ]);
 
-        $pengawas = Pengawas::find($id);
+        $pengawas = Penugasan::find($id);
         $pengawas->update([
-            'nama' => $request->nama,
-            'pns' => $request->pns,
-            'norek' => $request->norek,
-            'bank' => $request->bank
+            'pengawas_id' => $request->pengawas_id
         ]);
 
         $this->Activity(' memperbarui data pengawas ' . $request->nama);
@@ -268,9 +269,10 @@ class pjUjianController extends Controller
 
     public function pengawasDestroy($id)
     {
-        $pengawas = Pengawas::find($id);
-        $this->Activity(' memperbarui data pengawas ' . $pengawas->nama);
-        $pengawas->delete();
+        $penugasan = Penugasan::find($id);
+        $pengawas = Pengawas::find($penugasan->pengawas_id);
+        $this->Activity(' menghapus data pengawas ' . $pengawas->nama);
+        $penugasan->delete();
         return redirect()->route('pjUjian.pengawas.pengawas.index')->with('success', 'Pengawas sudah dihapus!');
     }
 
@@ -302,23 +304,26 @@ class pjUjianController extends Controller
     public function penugasanForm($id)
     {
         $ujian = Ujian::find($id);
+        $pengawas = Pengawas::all();
 
         return view('pj_ujian.penugasan.form', [
-            "ujian" => $ujian
+            "ujian" => $ujian,
+            "pengawas" => $pengawas
         ]);
     }
 
     public function penugasanCreate(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'pns' => 'required',
-            'norek' => 'nullable',
-            'bank' => 'nullable',
-            'ujian_id' => 'required'
+            'ujian_id' => 'required',
+            'pengawas_id' => 'required'
         ]);
 
-        Pengawas::create($request->all());
+        $penugasan = new Penugasan;
+        $penugasan->ujian_id = $request->ujian_id;
+        $penugasan->pengawas_id = $request->pengawas_id;
+        $penugasan->save();
+
         $this->Activity(' menugaskan pengawas ' . $request->nama);
         return redirect()->route('pjUjian.pengawas.penugasan.index')->with('success', 'Pengawas berhasil ditambahkan!');
     }
@@ -657,5 +662,11 @@ class pjUjianController extends Controller
 
         $this->Activity(' memperbarui jadwal ujian susulan');
         return redirect()->route('pjUjian.susulan.susulan.index')->with('success', 'Jadwal ujian susulan berhasil dihapus!');
+    }
+
+    public function logActivities()
+    {
+        $log = LogActivities::latest()->take(300)->get();
+        return view('pj_ujian.log', ['activity' => $log]);
     }
 }

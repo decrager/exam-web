@@ -10,6 +10,7 @@ use App\Models\Matkul;
 use App\Models\Susulan;
 use App\Models\Pengawas;
 use App\Models\Mahasiswa;
+use App\Models\Penugasan;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
 
@@ -112,7 +113,8 @@ class supervisorController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        $pengawas = Pengawas::join('ujians', 'pengawas.ujian_id', '=', 'ujians.id')
+        $pengawas = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'penugasans.id')
+        ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')
         ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
         ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')

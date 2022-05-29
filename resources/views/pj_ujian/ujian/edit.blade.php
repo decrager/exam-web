@@ -61,7 +61,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Program Studi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option>Pilih Program Studi</option>
                                             <option selected="selected" value="{{ $ujian?->Matkul?->Semester?->Prodi?->id }}">
@@ -73,7 +73,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Semester<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Semester <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option>Pilih Semester</option>
                                             <option selected="selected" value="{{ $ujian?->Matkul?->Semester?->id }}">
@@ -82,7 +82,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Kelas<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label-sm">Kelas <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
                                             <option>Pilih Kelas</option>
                                             <option selected="selected" value="{{ $ujian?->Praktikum?->Kelas?->id }}">
@@ -91,7 +91,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Praktikum<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label-sm">Praktikum <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="praktikum" id="kelas" required>
                                             <option>Pilih Praktikum</option>
                                             <option selected="selected" value="{{ $ujian?->Praktikum?->id }}">
@@ -100,7 +100,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Mata Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Mata Kuliah <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="matkul" id="matkul" required>
                                             <option>Pilih Mata Kuliah</option>
                                             <option selected="selected" value="{{ $ujian?->Matkul?->id }}">
@@ -109,7 +109,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Ruang<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Ruang <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="ruang">
                                             <option>Pilih ruang</option>
                                             <option selected="selected" value="{{ $ujian?->ruang }}">{{ $ujian->ruang }}</option>
@@ -120,7 +120,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Hari<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Hari <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="hari" required>
                                             <option> Pilih Hari</option>
                                             <option selected="selected" value="{{ $ujian?->hari }}">
@@ -136,13 +136,13 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="tanggal" class="col-form-label">Tanggal<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="tanggal" class="col-form-label">Tanggal <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="date" name="tanggal" id="tanggal"
                                             value="{{ $ujian?->id }}" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Tipe Mata Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Tipe Mata Kuliah <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="tipe_mk" required>
                                             <option>PIlih Tipe Mata Kuliah</option>
                                             <option selected="selected" value="{{ $ujian?->tipe_mk }}">
@@ -161,19 +161,19 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="jam_mulai" class="col-form-label">Jam Mulai<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="jam_mulai" class="col-form-label">Jam Mulai <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" name="jam_mulai" id="jam_mulai"
                                             value="{{ $ujian?->jam_mulai }}" placeholder="Ketik..." required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="jam_selesai" class="col-form-label">Jam Selesai<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="jam_selesai" class="col-form-label">Jam Selesai <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" name="jam_selesai" id="jam_selesai"
                                             value="{{ $ujian?->jam_selesai }}" placeholder="Ketik..." required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Sesi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Sesi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="sesi" required>
                                             <option selected="selected" value="{{ $ujian?->sesi }}">
                                                 {{ $ujian?->sesi }}
@@ -186,7 +186,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Pelaksanaan<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Pelaksanaan <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="pelaksanaan">
                                             <option selected="selected" value="{{ $ujian?->pelaksanaan }}">
                                                 {{ $ujian?->pelaksanaan }}

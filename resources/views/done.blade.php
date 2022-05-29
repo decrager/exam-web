@@ -89,7 +89,7 @@
                                 @if (session()->has('success'))
                                     <center>
                                         <h1 class="header-title mb-4">{{ session('success') }}</h1>
-                                        <i class="fas fa-circle-check fa-10x fa-beat"></i>
+                                         <i class="fas fa-circle-check fa-10x fa-beat"></i>
                                     </center>
                                 @endif
                             </div>

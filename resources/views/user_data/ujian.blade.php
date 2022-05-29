@@ -46,7 +46,7 @@
                         @endif
                         <h4 class="header-title">Daftar Jadwal Ujian</h4>
                         <div class="float-right">
-                            <a href="/data/jadwal/export" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
+                            <a href="{{ route('data.jadwal.export') }}" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
                                 class="fas fa-file-excel-o"></i></a>
                         </div>
                         <form action="/data/ujian" class="row justify-content-start">

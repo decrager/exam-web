@@ -73,10 +73,10 @@
                                         <td>{{ $praktikum?->praktikum }}</td>
                                         <td>
                                             <form action="{{ route('data.praktikum.destroy', $praktikum?->id) }}" method="POST" class="btn-group" role="group">
-                                                <a href="{{ route('data.akademik.praktikum.edit', $praktikum?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                <a href="{{ route('data.akademik.praktikum.edit', $praktikum?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')"> <i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>

@@ -57,7 +57,7 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Tipe</th>
                                         <th>Ruang</th>
-                                        <th>Jumlah</th>
+                                        <th>Kalibrasi</th>
                                         <th>Verifikasi</th>
                                         <th>Validasi</th>
                                         <th>Fotokopi</th>
@@ -79,12 +79,11 @@
                                             <td>{{ $ujian?->tipe_mk }}</td>
                                             <td>{{ $ujian?->ruang }}</td>
                                             <td>
-                                                @if ($ujian?->tipe_mk == 'K')
-                                                    <?php $berkas = $ujian?->Praktikum?->Kelas?->jml_mhs + 6; ?>
+                                                @if ($ujian?->Berkas?->kalibrasi == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum dikalibrasi</button>
                                                 @else
-                                                    <?php $berkas = $ujian?->Praktikum?->jml_mhs + 3; ?>
+                                                    <button class="btn btn-success btn-sm">Sudah dikalibrasi</button>
                                                 @endif
-                                                {{ $berkas }}
                                             </td>
                                             <td>
                                                 @if ($ujian?->Berkas?->verifikasi == 'Belum')
@@ -125,7 +124,7 @@
                                                     @endif
                                                     @csrf
                                                     @method('PUT')
-                                                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin mengubah status Asisten?')"><i class="fas fa-check"></i></button>
+                                                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin mengubah status Asisten?')"> <i class="fas fa-check"></i></button>
                                                 </form>
                                             </td>
                                             <td>

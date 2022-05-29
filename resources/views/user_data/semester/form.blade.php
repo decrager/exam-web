@@ -48,7 +48,7 @@
                                     @csrf
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Program Studi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="prodi_id" required>
                                             <option selected="selected" value="">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
@@ -58,7 +58,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Semester<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Semester <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="semester" required>
                                             <option selected="selected" value="">Pilih Semester</option>
                                             <option value="1">1</option>

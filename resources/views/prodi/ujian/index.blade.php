@@ -99,7 +99,7 @@
                                                     <input type="text" hidden name="matkul_id" value="{{ $jadwal?->matkul_id }}">
                                                     <input type="text" hidden name="matkul" value="{{ $jadwal?->nama_matkul }}">
                                                     <input type="text" hidden name="tipe_mk" value="{{ $jadwal?->tipe_mk }}">
-                                                    <button type="submit" class="btn btn-warning"><i class="fas fa-pen"></i></button>
+                                                    <button type="submit" class="btn btn-warning"> <i class="fas fa-pen"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

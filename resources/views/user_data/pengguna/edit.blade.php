@@ -47,18 +47,18 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label for="name" class="col-form-label">Nama<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="name" class="col-form-label">Nama <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik nama..." value="{{ $pengguna?->name }}" id="name" name="name" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label">Email<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="email" class="col-form-label">Email <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="email" placeholder="Ketik email..." value="{{ $pengguna?->email }}" name="email"
                                             id="email" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Jenis Pengguna<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Jenis Pengguna <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="role" required>
                                             <option>Pilih jenis pengguna</option>
                                             @if ($pengguna?->role == 'data')

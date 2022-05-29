@@ -11,14 +11,18 @@ use App\Models\Ujian;
 use App\Models\Amplop;
 use App\Models\Master;
 use App\Models\Matkul;
+use App\Models\Pengawas;
 use App\Models\Semester;
 use App\Models\Mahasiswa;
+use App\Models\Penugasan;
 use App\Models\Praktikum;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use App\Models\LogActivities;
 use Illuminate\Support\Facades\DB;
+use App\Exports\UjianExport;
 
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use function PHPUnit\Framework\isEmpty;
 
 class dataController extends Controller
@@ -670,5 +674,91 @@ class dataController extends Controller
 
         $this->Activity(' memperbarui data Periode');
         return redirect()->route('data.periode.index')->with('success', 'Data Periode berhasil diperbarui!');
+    }
+
+    public function logActivity()
+    {
+        $log = LogActivities::latest()->take(300)->get();
+        return view('user_data.log', ['activity' => $log]);
+    }
+
+    public function pengawasPresensi()
+    {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        $penugasan = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
+        ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')
+        ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->filter(request(['dbProdi', 'dbMatkul']));
+
+        return view('user_data.pengawas', ['penugasan' => $penugasan->get()]);
+    }
+
+    public function pengawasIndex()
+    {
+        return view('user_data.pengawas.index', ['pengawas' => Pengawas::all()]);
+    }
+
+    public function pengawasForm()
+    {
+        return view('user_data.pengawas.form');
+    }
+
+    public function pengawasEdit($id)
+    {
+        return view('user_data.pengawas.edit', ['pengawas' => Pengawas::find($id)]);
+    }
+
+    public function pengawasCreate(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'nik' => 'required',
+            'pns' => 'required',
+            'bank' => 'required',
+            'norek' => 'required',
+            'tlp' => 'required'
+        ]);
+
+        Pengawas::create($request->all());
+
+        $this->Activity(' menambahkan data pengawas ' . $request->nama);
+        return redirect()->route('data.pengawas.data.index')->with('success', 'Data pengawas baru berhasil ditambahkan!');
+    }
+
+    public function pengawasUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'nik' => 'required',
+            'pns' => 'required',
+            'bank' => 'required',
+            'norek' => 'required',
+            'tlp' => 'required'
+        ]);
+
+        Pengawas::find($id)->update($request->all());
+
+        $this->Activity(' memperbarui data pengawas ' . $request->nama);
+        return redirect()->route('data.pengawas.data.index')->with('success', 'Data pengawas berhasil diperbarui!');
+    }
+
+    public function pengawasDestroy($id)
+    {
+        $pengawas = Pengawas::find($id);
+        $this->Activity(' menghapus data pengawas ' . $pengawas->nama);
+        $pengawas->delete();
+        return redirect()->route('data.pengawas.data.index')->with('success', 'Data pengawas baru berhasil dihapus!');
     }
 }

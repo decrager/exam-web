@@ -46,7 +46,7 @@
                                     <h4 class="header-title">Tambah Ketentuan Ujian Susulan</h4>
                                     @csrf
                                     <div class="form-group">
-                                        <label for="ketentuan" class="col-form-label">Ketentuan<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="ketentuan" class="col-form-label">Ketentuan <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="ketentuan"
                                             name="ketentuan" required />
                                     </div>

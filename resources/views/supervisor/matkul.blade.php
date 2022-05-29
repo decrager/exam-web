@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1 align-content-center">
-                                <button type="submit" class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                                <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
                             </div>
                         </form>
                         <div class="table-responsive">

@@ -65,10 +65,10 @@
                                         <td>{{ $ketentuan?->ketentuan }}</td>
                                         <td>
                                             <form action="{{ route('pjSusulan.ketentuan.delete', $ketentuan?->id) }}" class="btn-group" role="group" method="POST">
-                                                <a href="{{ route('pjSusulan.ketentuan.edit', $ketentuan?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                <a href="{{ route('pjSusulan.ketentuan.edit', $ketentuan?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus ketentuan ini?')"><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus ketentuan ini?')"> <i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>

@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1 align-content-center">
-                                <button class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                                <button class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
                             </div>
                         </div>
 

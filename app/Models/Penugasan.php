@@ -5,19 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pengawas extends Model
+class Penugasan extends Model
 {
     use HasFactory;
-    protected $table = 'pengawas';
+    protected $table = 'penugasans';
     protected $primaryKey = 'id';
     protected $guarded = [];
     protected $fillable = [
-        'nama',
-        'nik',
-        'pns',
-        'norek',
-        'bank',
-        'tlp'
+        'ujian_id',
+        'pengawas_id',
+        'presensi'
     ];
 
     public function scopeFilter($query, array $filters)
@@ -51,8 +48,13 @@ class Pengawas extends Model
         });
     }
 
-    public function Penugasan()
+    public function Pengawas()
     {
-        return $this->hasMany(Penugasan::class, 'pengawas_id', 'id');
+        return $this->belongsTo(Pengawas::class, 'pengawas_id', 'id');
+    }
+
+    public function Ujian()
+    {
+        return $this->belongsTo(Ujian::class, 'ujian_id', 'id');
     }
 }

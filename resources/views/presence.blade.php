@@ -41,12 +41,11 @@
     <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
         rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
     <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
 
     <style>
         .kbw-signature {
-            width: 30%;
+            width: 13%;
             height: 120px;
         }
 
@@ -92,53 +91,61 @@
                                     @method('PUT')
                                     <div class="form-group">
                                         <label for="nama" class="col-form-label">Nama</label>
-                                        <input class="form-control" type="text" readonly value="{{ $pengawas?->nama }}" id="nama"
-                                        name="nama" />
+                                        <input class="form-control" type="text" readonly value="{{ $pengawas?->Pengawas?->nama }}" id="nama"
+                                            name="nama" />
                                     </div>
-                                    
+    
                                     <div class="form-group">
-                                    <label for="tgl" class="col-form-label">Tanggal</label>
-                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->Ujian?->tanggal }}"
-                                        id="tgl" name="tgl" />
+                                        <label for="tgl" class="col-form-label">Tanggal</label>
+                                        <input class="form-control" type="text" readonly value="{{ $pengawas?->Ujian?->tanggal }}"
+                                            id="tgl" name="tgl" />
                                     </div>
-
+    
                                     <div class="form-group">
                                         <label for="prodi" class="col-form-label">Program Studi</label>
-                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}"
-                                        id="prodi" name="prodi" />
+                                        <input class="form-control" type="text" readonly value="{{ $pengawas?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}"
+                                            id="prodi" name="prodi" />
                                     </div>
-
+    
                                     <div class="form-group">
                                         <label for="matkul" class="col-form-label">Mata Kuliah</label>
                                         <input class="form-control" type="text" readonly value="{{ $pengawas?->Ujian?->Matkul?->nama_matkul }}" id="matkul"
-                                        name="matkul" />
+                                            name="matkul" />
                                     </div>
-                                    
+    
                                     <div class="form-group">
                                         <label for="ruang" class="col-form-label">Kode Ruang</label>
                                         <input class="form-control" type="text" readonly value="{{ $pengawas?->Ujian?->ruang }}" id="ruang"
-                                        name="ruang" />
+                                            name="ruang" />
                                     </div>
-
+    
                                     <div class="form-group">
                                         <label for="norek" class="col-form-label">No. Rekening</label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $pengawas?->norek }}" id="norek"
-                                        name="norek" />
+                                        <input class="form-control" type="text" readonly value="{{ $pengawas?->Pengawas?->norek }}" id="norek"
+                                            name="norek" />
                                     </div>
-                                    
+    
                                     <div class="form-group">
                                         <label for="bank" class="col-form-label">Bank</label>
-                                        <select class="custom-select" name="bank">
-                                            <option>Pilih bank</option>
-                                            @if ($pengawas?->bank)
-                                            <option selected="selected" value="{{ $pengawas?->bank }}">{{ $pengawas->bank }}</option>
-                                            @endif
-                                            <option value="BRI">BRI</option>
-                                            <option value="BNI">BNI</option>
-                                            <option value="Mandiri">Mandiri</option>
-                                        </select>
+                                        <input class="form-control" type="text" readonly value="{{ $pengawas?->Pengawas?->bank }}" id="bank"
+                                            name="bank" />
                                     </div>
-                                    
+    
+                                    <div class="form-group">
+                                        <label for="tlp" class="col-form-label">Nomor Telepon</label>
+                                        <input class="form-control" type="text" readonly value="{{ $pengawas?->Pengawas?->tlp }}" id="tlp"
+                                            name="tlp" />
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label class="" for="">Tanda Tangan: <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <br />
+                                        <div id="sign"> </div>
+                                        <br />
+                                        <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
+                                        <textarea id="signature" name="ttd" style="display: none" required></textarea>
+                                    </div>
+
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
@@ -150,6 +157,18 @@
         </div>
     </div>
 
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+    <script type="text/javascript">
+        var sign = $('#sign').signature({
+            syncField: '#signature',
+            syncFormat: 'PNG'
+        });
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sign.signature('clear');
+            $("#signature").val('');
+        });
+    </script>
 
     <script src="https://kit.fontawesome.com/b3b03a4327.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="

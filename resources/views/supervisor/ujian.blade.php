@@ -75,7 +75,7 @@
                                             <td>{{ $jadwal?->ruang }}</td>
                                             <td>{{ $jadwal?->jam_mulai }}</td>
                                             <td>{{ $jadwal?->jam_selesai }}</td>
-                                            <td><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="{{ '#detail' . $jadwal?->id }}"><i class="fas fa-info text-white"></i></a></td>
+                                            <td><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="{{ '#detail' . $jadwal?->id }}"> <i class="fas fa-info text-white"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

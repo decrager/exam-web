@@ -47,7 +47,7 @@
                                     <h4 class="header-title">Masukkan Pengajuan</h4>
                                     @csrf
                                     <div class="form-group">
-                                        <label class="col-form-label">Mata Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Mata Kuliah <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select @error('matkul_id') is-invalid @enderror" name="matkul_id" required>
                                             <option selected="selected" value="">Select</option>
                                             @foreach ($matkul as $matkul)
@@ -62,7 +62,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Tipe Mata Kuliah<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Tipe Mata Kuliah <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select @error('tipe_mk') is-invalid @enderror" name="tipe_mk" required>
                                             <option selected="selected" value="">Select</option>
                                             <option value="K">Kuliah</option>
@@ -76,7 +76,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Bukti Persyaratan<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Bukti Persyaratan <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file" required/>
                                         @error('file')
                                             <div class="invalid-feedback">

@@ -47,7 +47,7 @@
                         @endif
                         <h4 class="header-title">Kehadiran</h4>
                         <a href="#" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
-                            <i class="fas fa-file-pdf">&nbsp; Export</i>
+                             <i class="fas fa-file-pdf">&nbsp; Export</i>
                         </a>
                         <form action="/pj_lokasi/pengawas/kehadiran" class="row justify-content-start">
                             <div class="col-md-2">
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1 align-content-center">
-                                <button type="submit" class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                                <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
                             </div>
                         </form>
 
@@ -93,8 +93,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>PNS</th>
-                                        <th>NON PNS</th>
+                                        <th>Status Kepegawaian</th>
+                                        <th>Nomor Telepon</th>
                                         <th class="col-2">Program Studi</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Ruang</th>
@@ -107,32 +107,26 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $pengawas?->nama }}</td>
+                                            <td>{{ $pengawas?->pns }}</td>
+                                            <td>{{ $pengawas?->tlp }}</td>
+                                            <td>{{ $pengawas?->nama_prodi }}</td>
+                                            <td>{{ $pengawas?->nama_matkul }}</td>
+                                            <td>{{ $pengawas?->ruang }}</td>
                                             <td>
-                                                @if ($pengawas?->pns == 'PNS')
-                                                    <i class="fas fa-check"></i>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($pengawas?->pns != 'PNS')
-                                                    <i class="fas fa-check"></i>
-                                                @endif
-                                            </td>
-                                            <td>{{ $pengawas?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
-                                            <td>{{ $pengawas?->Ujian?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $pengawas?->Ujian?->ruang }}</td>
-                                            <td>
-                                                @if ($pengawas?->absen == 'hadir')
-                                                    <span class="badge badge-success">Hadir</span>
+                                                @if ($pengawas?->presensi)
+                                                <span class="badge badge-success">Hadir</span>
                                                 @else
-                                                    <span class="badge badge-warning text-dark">Belum Hadir</span>
+                                                <span class="badge badge-warning text-dark">Belum Hadir</span>
                                                 @endif
                                             </td>
                                             <td>
-                                                <div class="btn-group" role="group">
+                                                <form action="{{ route('pjLokasi.pengawas.destroy', $pengawas?->id) }}" method="POST" class="btn-group" role="group">
                                                     <a href="{{ route('pjLokasi.pengawas.absensi.form', $pengawas?->id) }}"
-                                                        class="btn btn-success"><i class="fas fa-file-signature"></i></a>
-                                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                                </div>
+                                                        class="btn btn-success"> <i class="fas fa-file-signature"></i></a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus kehadiran pengawas?')"><i class="fas fa-trash"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

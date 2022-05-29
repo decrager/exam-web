@@ -127,7 +127,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1 align-content-center">
-                                <button type="submit" class="btn btn-primary py-2"><i class="fas fa-filter"></i></button>
+                                <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
                             </div>
                         </form>
                         <div class="table-responsive">
@@ -141,7 +141,6 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Usulan Ruang</th>
                                         <th>Ruang</th>
                                         <th>Pengawas</th>
                                         <th>No. Rekening</th>
@@ -153,27 +152,24 @@
                                     @foreach ($pengawas as $pengawas)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pengawas?->Ujian?->tanggal }}</td>
-                                            <td>{{ $pengawas?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
-                                            <td>{{ $pengawas?->Ujian?->Matkul?->Semester?->semester }}</td>
-                                            <td>{{ $pengawas?->Ujian?->Praktikum?->Kelas?->kelas }}</td>
-                                            <td>{{ $pengawas?->Ujian?->Praktikum?->praktikum }}</td>
-                                            <td>{{ $pengawas?->Ujian?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $pengawas?->Ujian?->lokasi }}</td>
-                                            <td>{{ $pengawas?->Ujian?->ruang }}</td>
+                                            <td>{{ $pengawas?->tanggal }}</td>
+                                            <td>{{ $pengawas?->nama_prodi }}</td>
+                                            <td>{{ $pengawas?->semester }}</td>
+                                            <td>{{ $pengawas?->kelas }}</td>
+                                            <td>{{ $pengawas?->praktikum }}</td>
+                                            <td>{{ $pengawas?->nama_matkul }}</td>
+                                            <td>{{ $pengawas?->ruang }}</td>
                                             <td>{{ $pengawas?->nama }}</td>
                                             <td>{{ $pengawas?->norek }}</td>
                                             <td>{{ $pengawas?->bank }}</td>
                                             <td>
-                                                <form action="{{ route('prodi.pengawas.destroy', $pengawas?->id) }}"
-                                                    method="POST" class="btn-group" role="group">
-                                                    <a href="{{ route('prodi.pengawas.penugasan.edit', $pengawas?->id) }}"
-                                                        class="btn btn-warning"><i class="fas fa-pen"></i></a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"
-                                                        onclick="return confirm('Apakah anda yakin ingin menghapus data?')"><i
-                                                            class="fas fa-trash"></i></button>
+                                                <form action="{{ route('prodi.pengawas.destroy', $pengawas?->id) }}" method="POST">
+                                                    <div class="btn-group" role="group">
+                                                        <a href="{{ route('prodi.pengawas.penugasan.edit', $pengawas?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data?')"> <i class="fas fa-trash"></i></button>
+                                                    </div>
                                                 </form>
                                             </td>
                                         </tr>

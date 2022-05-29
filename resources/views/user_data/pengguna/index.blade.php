@@ -92,10 +92,10 @@
                                             <td>{{ $pengguna?->lokasi }}</td>
                                             <td>
                                                 <form action="{{ route('data.pengguna.destroy', $pengguna?->id) }}" method="POST" class="btn-group" role="group">
-                                                    <a href="{{ route('data.pengguna.edit', $pengguna?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                    <a href="{{ route('data.pengguna.edit', $pengguna?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus pengguna ini?')"><i class="fas fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus pengguna ini?')"> <i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

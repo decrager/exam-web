@@ -23,10 +23,11 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Data Berkas</h4>
+                    <h4 class="page-title pull-left">Kehadiran Pengawas</h4>
                     <ul class="breadcrumbs pull-left">
-                        <li><a>Beranda</a></li>
-                        <li><span>Data Berkas</span></li>
+                        <li><a >Beranda</a></li>
+                        <li><a>Pengawas</a></li>
+                        <li><span>Kehadiran</span></li>
                     </ul>
                 </div>
             </div>
@@ -39,8 +40,16 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Mata Kuliah</h4>
-                        <form action="/berkas/soal" class="row justify-content-start">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <h4 class="header-title">Kehadiran</h4>
+                        <a href="#" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
+                             <i class="fas fa-file-pdf">&nbsp; Export</i>
+                        </a>
+                        <form action="/pj_lokasi/pengawas/kehadiran" class="row justify-content-start">
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <select class="custom-select" name="dbProdi" id="dbProdi">
@@ -52,21 +61,6 @@
                                         @endif
                                         @foreach ($dbProdi as $prodi)
                                             <option value="{{ $prodi->nama_prodi }}">{{ $prodi->nama_prodi }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <div class="form-group">
-                                    <select class="custom-select" name="dbSemester" id="dbSemester">
-                                        @if (request('dbSemester'))
-                                            <option value="">Semester</option>
-                                            <option selected="selected" value="{{ request('dbSemester') }}">{{ request('dbSemester') }}</option>
-                                        @else
-                                            <option selected="selected" value="">Semester</option>
-                                        @endif
-                                        @foreach ($dbSemester as $semester)
-                                            <option value="{{ $semester->semester }}">{{ $semester->semester }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -91,39 +85,39 @@
                             </div>
                         </form>
 
+                        <!-- <i class="fa fa-check text-danger"></i> -->
+
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Tanggal</th>
+                                        <th>Nama</th>
+                                        <th>Status Kepegawaian</th>
+                                        <th>Nomor Telepon</th>
                                         <th class="col-2">Program Studi</th>
-                                        <th>Semester</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Tipe Mata Kuliah</th>
-                                        <th>Perbanyak</th>
-                                        <th>Jumlah Fotokopi</th>
+                                        <th>Ruang</th>
+                                        <th>Kehadiran</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($soal as $ujian)
+                                    @foreach ($penugasan as $pengawas)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $ujian?->tanggal }}</td>
-                                            <td>{{ $ujian?->nama_prodi }}</td>
-                                            <td>{{ $ujian?->semester }}</td>
-                                            <td>{{ $ujian?->nama_matkul }}</td>
-                                            <td>{{ $ujian?->tipe_mk }}</td>
+                                            <td>{{ $pengawas?->nama }}</td>
+                                            <td>{{ $pengawas?->pns }}</td>
+                                            <td>{{ $pengawas?->tlp }}</td>
+                                            <td>{{ $pengawas?->nama_prodi }}</td>
+                                            <td>{{ $pengawas?->nama_matkul }}</td>
+                                            <td>{{ $pengawas?->ruang }}</td>
                                             <td>
-                                                @if ($ujian?->perbanyak == 1)
-                                                    <span class="badge badge-success">Perbanyak</span>
-                                                @elseif ($ujian?->perbanyak == 2)
-                                                    <span class="badge badge-danger">Tidak</span>
+                                                @if ($pengawas?->presensi)
+                                                <span class="badge badge-success">Hadir</span>
                                                 @else
-                                                    -
+                                                <span class="badge badge-warning text-dark">Belum Hadir</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $ujian?->jumlah }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -61,6 +61,11 @@
                         <a href="{{ route('pjUjian.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>
                     </li>
+
+                    <li class="{{ Request::routeIs('pjUjian.activity') ? 'active' : '' }} m-1">
+                        <a href="{{ route('pjUjian.activity') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Aktivitas</span></a>
+                    </li>
                 </ul>
             </nav>
         </div>

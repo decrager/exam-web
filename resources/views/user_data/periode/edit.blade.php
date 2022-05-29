@@ -47,12 +47,12 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label for="thn_ajaran" class="col-form-label">Tahun Ajaran<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="thn_ajaran" class="col-form-label">Tahun Ajaran <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="yyyy/yyyy" value="{{ $master?->thn_ajaran }}" id="thn_ajaran" name="thn_ajaran" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="smt_akademik" class="col-form-label">Semester Akademik<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="smt_akademik" class="col-form-label">Semester Akademik <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <div class="form-check" id="smt_akademik">
                                             <input class="form-check-input" type="radio" name="smt_akademik" id="ganjil" value=1 @if($master?->smt_akademik == 1) checked @endif>
                                             <label class="form-check-label" for="ganjil">
@@ -68,7 +68,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="isuas" class="col-form-label">Periode<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="isuas" class="col-form-label">Periode <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <div class="form-check" id="isuas">
                                             <input class="form-check-input" type="radio" name="isuas" id="uts" value=0 @if($master?->isuas == 0) checked @endif>
                                             <label class="form-check-label" for="uts">
@@ -84,12 +84,12 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="periode_mulai" class="col-form-label">Periode Mulai<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="periode_mulai" class="col-form-label">Periode Mulai <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="date" value="{{ $master?->periode_mulai }}" id="periode_mulai" name="periode_mulai" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="periode_akhir" class="col-form-label">Periode Akhir<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="periode_akhir" class="col-form-label">Periode Akhir <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="date" value="{{ $master?->periode_akhir }}" id="periode_akhir" name="periode_akhir" required/>
                                     </div>
 

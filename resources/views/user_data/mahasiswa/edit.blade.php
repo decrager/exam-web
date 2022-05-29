@@ -47,7 +47,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label class="col-form-label">Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Program Studi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option>Pilih Program Studi</option>
                                             <option selected="selected" value="{{ $mahasiswa?->Praktikum?->Kelas?->Semester?->Prodi?->id }}">{{ $mahasiswa?->Praktikum?->Kelas?->Semester?->Prodi?->nama_prodi }}</option>
@@ -58,7 +58,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Semester<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Semester <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option>Pilih Semester</option>
                                             <option selected="selected" value="{{ $mahasiswa?->Praktikum?->Kelas?->Semester?->id }}">{{ $mahasiswa?->Praktikum?->Kelas?->Semester?->semester }}</option>
@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Kelas<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label-sm">Kelas <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="kelas" id="kelas" required>
                                             <option>Pilih Kelas</option>
                                             <option selected="selected" value="{{ $mahasiswa?->Praktikum?->Kelas?->id }}">{{ $mahasiswa?->Praktikum?->Kelas?->kelas }}</option>
@@ -74,7 +74,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label-sm">Praktikum<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label-sm">Praktikum <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="praktikum" id="praktikum" required>
                                             <option>Pilih Praktikum</option>
                                             <option selected="selected" value="{{ $mahasiswa?->Praktikum?->id }}">{{ $mahasiswa?->Praktikum?->praktikum }}</option>
@@ -82,17 +82,17 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nama" class="col-form-label">Nama Mahasiswa<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="nama" class="col-form-label">Nama Mahasiswa <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik nama..." id="nama" name="nama" value="{{ $mahasiswa?->nama }}" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nim" class="col-form-label">Nim Mahasiswa<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="nim" class="col-form-label">Nim Mahasiswa <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik nim..." id="nim" name="nim" value="{{ $mahasiswa?->nim }}" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label">Email<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="email" class="col-form-label">Email <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="email" placeholder="Ketik email..." value="{{ $mahasiswa?->email }}" name="email"
                                             id="email" required/>
                                     </div>

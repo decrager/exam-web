@@ -68,7 +68,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $pengajuan?->nama_matkul }}</td>
-                                        <td><a href="{{ asset('storage/files/syarat/' . $pengajuan?->file) }}" target="_blank" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a></td>
+                                        <td><a href="{{ asset('storage/files/syarat/' . $pengajuan?->file) }}" target="_blank" class="btn btn-success btn-sm"> <i class="fas fa-eye"></i></a></td>
                                         <td>
                                             @if ($pengajuan?->status == 'Belum')
                                                 <span class="badge badge-warning">Belum disetujui</span>
@@ -83,16 +83,16 @@
                                         @if ($pengajuan?->status == 'Belum')
                                         <td>
                                             <form action="{{ route('mahasiswa.susulan.delete', $pengajuan?->id) }}" class="btn-group" role="group" method="POST">
-                                                <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                         @else
                                         <td>
-                                            <button href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"><i class="fas fa-trash"></i></button>
+                                            <button href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></button>
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
                                         </td>
                                         @endif
                                     </tr>

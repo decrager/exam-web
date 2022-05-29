@@ -48,7 +48,7 @@
                                     @csrf
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Program Studi<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Program Studi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="prodi" id="prodi" required>
                                             <option selected="selected" value="">Pilih Program Studi</option>
                                             @foreach ($dbProdi as $prodi)
@@ -58,19 +58,19 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Semester<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label class="col-form-label">Semester <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="semester" id="semester" required>
                                             <option selected="selected" value="">Pilih Semester</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="kelas" class="col-form-label">Kelas<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="kelas" class="col-form-label">Kelas <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="kelas" name="kelas" required/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="jml_mhs" class="col-form-label">Jumlah Mahasiswa<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <label for="jml_mhs" class="col-form-label">Jumlah Mahasiswa <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input class="form-control" type="text" placeholder="Ketik..." id="jml_mhs" name="jml_mhs" required/>
                                     </div>
 

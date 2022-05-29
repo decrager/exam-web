@@ -47,7 +47,7 @@
 
                                 <div class="form-group">
                                     <label for="nama" class="col-form-label">Nama</label>
-                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->nama }}" id="nama"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->Pengawas?->nama }}" id="nama"
                                         name="nama" />
                                 </div>
 
@@ -77,14 +77,20 @@
 
                                 <div class="form-group">
                                     <label for="norek" class="col-form-label">No. Rekening</label>
-                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->norek }}" id="norek"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->Pengawas?->norek }}" id="norek"
                                         name="norek" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="bank" class="col-form-label">Bank</label>
-                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->bank }}" id="bank"
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->Pengawas?->bank }}" id="bank"
                                         name="bank" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tlp" class="col-form-label">Nomor Telepon</label>
+                                    <input class="form-control" type="text" readonly value="{{ $pengawas?->Pengawas?->tlp }}" id="tlp"
+                                        name="tlp" />
                                 </div>
 
                                 {{-- <div class="form-group">
