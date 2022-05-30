@@ -68,6 +68,14 @@
         integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- End Select2-->
 </head>
 
 <body>
@@ -168,16 +176,28 @@
             sign.signature('clear');
             $("#signature64").val('');
         });
+        $('.matkul-select').select2({
+            theme: 'bootstrap-5',
+            selectionCssClass: "select2--small",
+            dropdownCssClass: "select2normal"
+        });
     </script>
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#example").DataTable();
+            $("#example").DataTable({
+                lengthMenu: [
+                    [5, 10, 25, 50, -1],
+                    [5, 10, 25, 50, 'All']
+                ]
+            });
 
             let datas = <?php echo json_encode($data); ?>;
             let label = <?php echo json_encode($label); ?>;
 
-            var data = datas.map(function(v) { return parseInt(v, 10); });
+            var data = datas.map(function(v) {
+                return parseInt(v, 10);
+            });
             // var label = labels.map(function(v) { return parseInt(v, 10); });
 
             Highcharts.chart("container", {
@@ -313,7 +333,8 @@
                             if (data) {
                                 $('#semester').empty();
                                 $('#semester').append(
-                                    '<option selected="selected" value="">Pilih Semester</option>');
+                                    '<option selected="selected" value="">Pilih Semester</option>'
+                                    );
                                 $.each(data, function(key, semester) {
                                     $('select[name="semester"]').append(
                                         '<option value="' + semester.id + '">' +
@@ -343,7 +364,8 @@
                             if (data) {
                                 $('#kelas').empty();
                                 $('#kelas').append(
-                                    '<option selected="selected" value="">Pilih Kelas</option>');
+                                    '<option selected="selected" value="">Pilih Kelas</option>'
+                                    );
                                 $.each(data, function(key, kelas) {
                                     $('select[name="kelas"]').append('<option value="' +
                                         kelas.id + '">' + kelas.kelas + '</option>');
@@ -366,7 +388,7 @@
                                 $('#matkul').empty();
                                 $('#matkul').append(
                                     '<option selected="selected" value="">Pilih Mata Kuliah</option>'
-                                    );
+                                );
                                 $.each(data, function(key, matkul) {
                                     $('select[name="matkul"]').append(
                                         '<option value="' + matkul.id + '">' +
@@ -397,7 +419,8 @@
                             if (data) {
                                 $('#praktikum').empty();
                                 $('#praktikum').append(
-                                    '<option selected="selected" value="">Pilih Praktikum</option>');
+                                    '<option selected="selected" value="">Pilih Praktikum</option>'
+                                    );
                                 $.each(data, function(key, praktikum) {
                                     $('select[name="praktikum"]').append(
                                         '<option value="' + praktikum.id + '">' +

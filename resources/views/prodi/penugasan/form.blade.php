@@ -107,7 +107,10 @@
 
     <script>
         // $(document).ready(function() {
-            $('.pengawas-select').select2();
+            $('.pengawas-select').select2({
+                theme: 'bootstrap-5',
+                dropdownCssClass: "select2--small",
+            });
             $('#pengawas').on('change', function() {
                 var pengawas_id = $(this).val();
                 if (pengawas_id) {

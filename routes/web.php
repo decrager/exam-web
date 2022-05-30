@@ -89,6 +89,8 @@ Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
     Route::get('/data/pelanggaran', [dataController::class, 'pelanggaran'])->name('data.pelanggaran');
     Route::get('/data/aktivitas', [dataController::class, 'logActivity'])->name('data.activity');
 
+    Route::get('/data/pengawas/rekapitulasi/export', [dataController::class, 'pengawasExport'])->name('data.pengawas.recap.export');
+    Route::get('/data/pengawas/rekapitulasi', [dataController::class, 'pengawasRecap'])->name('data.pengawas.recap');
     Route::get('/data/pengawas/presensi', [dataController::class, 'pengawasPresensi'])->name('data.pengawas.presensi');
     Route::get('/data/pengawas/data', [dataController::class, 'pengawasIndex'])->name('data.pengawas.data.index');
     Route::get('/data/pengawas/data/tambah', [dataController::class, 'pengawasForm'])->name('data.pengawas.data.form');
@@ -215,6 +217,8 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
     Route::get('/pj_lokasi/pelanggaran/edit/{id}', [pjLokasiController::class, 'pelanggaranEdit'])->name('pjLokasi.pelanggaran.edit');
     Route::put('/pj_lokasi/pengawas/update/{id}', [pjLokasiController::class, 'pengawasUpdate'])->name('pjLokasi.pengawas.update');
     Route::delete('/pj_lokasi/pengawas/delete/{id}', [pjLokasiController::class, 'presenceDestroy'])->name('pjLokasi.pengawas.destroy');
+    
+    Route::get('/pj_lokasi/presensi/export', [pjLokasiController::class, 'pdf'])->name('pjLokasi.pdf');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {

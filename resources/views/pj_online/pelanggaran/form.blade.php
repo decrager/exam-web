@@ -87,7 +87,13 @@
     </div>
 
     <script>
-        $('.ujian-select').select2();
-        $('.mhs-select').select2();
+        $('.ujian-select').select2({
+            theme: 'bootstrap-5',
+            dropdownCssClass: "select2--small",
+        });
+        $('.mhs-select').select2({
+            theme: 'bootstrap-5',
+            dropdownCssClass: "select2--small",
+        });
     </script>
 @endsection

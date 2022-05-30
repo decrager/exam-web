@@ -73,6 +73,8 @@
                                     href="{{ route('data.pengawas.data.index') }}">Data Pengawas</a></li>
                             <li class="{{ Request::routeIs('data.pengawas.presensi') ? 'active' : '' }} m-1"><a
                                     href="{{ route('data.pengawas.presensi') }}">Kehadiran</a></li>
+                            <li class="{{ Request::routeIs('data.pengawas.recap') ? 'active' : '' }} m-1"><a
+                                    href="{{ route('data.pengawas.recap') }}">Rekapitulasi</a></li>
                         </ul>
                     </li>
 

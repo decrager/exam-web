@@ -7,11 +7,13 @@ use App\Models\Ujian;
 use App\Models\Master;
 use App\Models\Pengawas;
 use App\Models\Penugasan;
+use App\Models\Pelanggaran;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\isEmpty;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class pjLokasiController extends Controller
 {
@@ -95,7 +97,7 @@ class pjLokasiController extends Controller
         } else {
             $ujian->where('ujians.tanggal', '2022-06-08');
         }
-        
+
         return view('pj_lokasi.dashboard', [
             "dbUjian" => $ujian->get()
         ]);
@@ -219,6 +221,8 @@ class pjLokasiController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
+        $now = Carbon::now()->toDateString();
+
         $pengawas = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
         ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')
         ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
@@ -228,7 +232,7 @@ class pjLokasiController extends Controller
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
-        ->whereBetween('ujians.tanggal', [$from, $to]);
+        ->where('ujians.tanggal', '2022-06-08');
 
         if (Auth::user()->lokasi == 'CA & Lab Kom') {
             $pengawas->where('ujians.ruang', 'CA B01')
@@ -465,5 +469,106 @@ class pjLokasiController extends Controller
     public function pelanggaranEdit()
     {
         return view('pj_lokasi.pelanggaran.edit');
+    }
+
+    public function pdf()
+    {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        $now = Carbon::now()->toDateString();
+
+        $pengawas = Pengawas::join('penugasans', 'penugasans.pengawas_id', 'pengawas.id')
+        ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')
+        ->join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
+        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'penugasans.*', 'pengawas.*')
+        ->where('ujians.tanggal', '2022-06-08');
+
+        if (Auth::user()->lokasi == 'CA & Lab Kom') {
+            $pengawas->where('ujians.ruang', 'CA B01')
+            ->orWhere('ujians.ruang', 'CA B02')
+            ->orWhere('ujians.ruang', 'CA B03')
+            ->orWhere('ujians.ruang', 'CA B04')
+            ->orWhere('ujians.ruang', 'CA B05')
+            ->orWhere('ujians.ruang', 'CA B06')
+            ->orWhere('ujians.ruang', 'CA B07')
+            ->orWhere('ujians.ruang', 'CA B08')
+            ->orWhere('ujians.ruang', 'CA KOM 1')
+            ->orWhere('ujians.ruang', 'CA KOM 2');
+        } elseif (Auth::user()->lokasi == 'CB & Lab Kom') {
+            $pengawas->where('ujians.ruang', 'CB B01')
+            ->orWhere('ujians.ruang', 'CB B02')
+            ->orWhere('ujians.ruang', 'CB B03')
+            ->orWhere('ujians.ruang', 'CB B04')
+            ->orWhere('ujians.ruang', 'CB KOM 1')
+            ->orWhere('ujians.ruang', 'CB KOM 2')
+            ->orWhere('ujians.ruang', 'CB KOM 3')
+            ->orWhere('ujians.ruang', 'CB KOM 4')
+            ->orWhere('ujians.ruang', 'CB KOM 5')
+            ->orWhere('ujians.ruang', 'CB PEMROGRAMAN')
+            ->orWhere('ujians.ruang', 'CB K 70-1');
+        } elseif (Auth::user()->lokasi == 'BS B01-06') {
+            $pengawas->where('ujians.ruang', 'BS B01')
+            ->orWhere('ujians.ruang', 'BS B02')
+            ->orWhere('ujians.ruang', 'BS B03')
+            ->orWhere('ujians.ruang', 'BS B04')
+            ->orWhere('ujians.ruang', 'BS B05')
+            ->orWhere('ujians.ruang', 'BS B06');
+        } elseif (Auth::user()->lokasi == 'BS B07-10') {
+            $pengawas->where('ujians.ruang', 'BS B07')
+            ->orWhere('ujians.ruang', 'BS B08')
+            ->orWhere('ujians.ruang', 'BS B09')
+            ->orWhere('ujians.ruang', 'BS B10');
+        } elseif (Auth::user()->lokasi == 'BS KIMBOTFIS') {
+            $pengawas->where('ujians.ruang', 'BS Kimia')
+            ->orWhere('ujians.ruang', 'BS Botani')
+            ->orWhere('ujians.ruang', 'BS Fisika');
+        } elseif (Auth::user()->lokasi == 'BS P01-03') {
+            $pengawas->where('ujians.ruang', 'BS P01')
+            ->orWhere('ujians.ruang', 'BS P02')
+            ->orWhere('ujians.ruang', 'BS P03')
+            ->orWhere('ujians.ruang', 'HPT');
+        } elseif (Auth::user()->lokasi == 'Sukabumi') {
+            $pengawas->where('ujians.ruang', 'GAK 01')
+            ->orWhere('ujians.ruang', 'GAK 02')
+            ->orWhere('ujians.ruang', 'GAK 03')
+            ->orWhere('ujians.ruang', 'GAK 04')
+            ->orWhere('ujians.ruang', 'GAK 05')
+            ->orWhere('ujians.ruang', 'GAK 06')
+            ->orWhere('ujians.ruang', 'GAK 07')
+            ->orWhere('ujians.ruang', 'LAB KOM SMI');
+        } elseif (Auth::user()->lokasi == 'Online') {
+            $pengawas->where('ujians.ruang', 'Online');
+        }
+
+        $master = Master::find(1);
+        $tglbln = Carbon::now()->format('d F Y');
+        $nama = Auth::user()->name;
+        $lokasi = Auth::user()->lokasi;
+        $tbt = Carbon::now()->format('d/m/Y');
+        $time = Carbon::now()->format('H:i');
+
+        $pengawas = $pengawas->get();
+        $data = [
+            'pengawas' => $pengawas,
+            'master' => $master,
+            'tglbln' => $tglbln,
+            'nama' => $nama,
+            'lokasi' => $lokasi,
+            'tbt' => $tbt,
+            'time' => $time
+        ];
+
+        $pdf = PDF::loadView('layouts.presence', $data);
+
+        return $pdf->stream('presensi.pdf');
     }
 }

@@ -90,7 +90,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <select class="custom-select" name="dbMatkul" id="dbMatkul">
+                                    <select class="custom-select matkul-select" name="dbMatkul" id="dbMatkul">
                                         @if (request('dbMatkul'))
                                             <option value="">Mata Kuliah</option>
                                             <option selected="selected" value="{{ request('dbMatkul') }}">{{ request('dbMatkul') }}</option>

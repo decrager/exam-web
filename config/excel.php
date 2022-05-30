@@ -1,6 +1,7 @@
 <?php
 
 use Maatwebsite\Excel\Excel;
+use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
 
 return [
     'exports' => [
@@ -207,7 +208,7 @@ return [
     |
     */
     'value_binder' => [
-        'default' => Maatwebsite\Excel\DefaultValueBinder::class,
+        'default' => PhpOffice\PhpSpreadsheet\Cell\StringValueBinder::class,
     ],
 
     'cache' => [

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PengawasExport;
 use Carbon\Carbon;
 use App\Models\Bap;
 use App\Models\User;
@@ -760,5 +761,28 @@ class dataController extends Controller
         $this->Activity(' menghapus data pengawas ' . $pengawas->nama);
         $pengawas->delete();
         return redirect()->route('data.pengawas.data.index')->with('success', 'Data pengawas baru berhasil dihapus!');
+    }
+
+    public function pengawasRecap()
+    {
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        $pengawas = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
+        ->join('ujians', 'penugasans.ujian_id', 'ujians.id')
+        ->groupBy('pengawas_id', 'pengawas.nama', 'pengawas.nik', 'pengawas.pns', 'pengawas.bank', 'pengawas.norek')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->selectRaw('pengawas_id, pengawas.nama, pengawas.nik, pengawas.pns, pengawas.bank, pengawas.norek, count(*) as total')
+        ->get();
+
+        return view('user_data.pengawas.recap', compact('pengawas'));
+    }
+
+    public function pengawasExport(){
+        $this->Activity(' mengeksport rekapitulasi pengawas ke excel');
+        return Excel::download(new PengawasExport, 'pengawas.xlsx');
     }
 }

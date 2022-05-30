@@ -19,6 +19,7 @@ use App\Models\Semester;
 use App\Models\Mahasiswa;
 use App\Models\Praktikum;
 use App\Models\Pelanggaran;
+use App\Models\Penugasan;
 use Illuminate\Http\Request;
 
 use PhpParser\Node\Stmt\Foreach_;
@@ -66,6 +67,12 @@ class AppServiceProvider extends ServiceProvider
 
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
+
+        $now = Carbon::now()->toDateString();
+        $totalPelanggaran = Pelanggaran::selectRaw('count(*) as total')->get();
+        $totalUjian = Ujian::selectRaw('count(*) as total')->where('tanggal', '2022-06-08')->get();
+        $totalKehadiran = Penugasan::join('ujians', 'penugasans.ujian_id', 'ujians.id')
+        ->selectRaw('count(*) as total')->where('ujians.tanggal', '2022-06-08')->where('presensi' ,'!=', null)->get();   
 
         $period = new DatePeriod( new DateTime($from), new DateInterval('P1D'), new DateTime($to));
         $dbData = [];
@@ -134,6 +141,9 @@ class AppServiceProvider extends ServiceProvider
             'master' => $master,
             'data' => $data,
             'label' => $label,
+            'totalPelanggaran' => $totalPelanggaran,
+            'totalUjian' => $totalUjian,
+            'totalKehadiran' => $totalKehadiran,
             "title" => env('APP_NAME')
         ]);
     }

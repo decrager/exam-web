@@ -46,7 +46,7 @@
                             </div>
                         @endif
                         <h4 class="header-title">Kehadiran</h4>
-                        <a href="#" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
+                        <a href="{{ route('pjLokasi.pdf') }}" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
                              <i class="fas fa-file-pdf">&nbsp; Export</i>
                         </a>
                         <form action="/pj_lokasi/pengawas/kehadiran" class="row justify-content-start">
@@ -67,7 +67,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <select class="custom-select" name="dbMatkul" id="dbMatkul">
+                                    <select class="custom-select matkul-select" name="dbMatkul" id="dbMatkul">
                                         @if (request('dbMatkul'))
                                             <option value="">Mata Kuliah</option>
                                             <option selected="selected" value="{{ request('dbMatkul') }}">{{ request('dbMatkul') }}</option>
