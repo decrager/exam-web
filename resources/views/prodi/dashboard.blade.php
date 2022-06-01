@@ -37,19 +37,31 @@
         <div class="col-12 col-md-4">
             <div class="single-report bg-white">
                 <span>Jumlah Pelanggaran</span>
-                <div class="number">000</div>
+                <div class="number">
+                    @foreach ($totalPelanggaran as $total)
+                        {{ $total->total }}
+                    @endforeach
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-4">
             <div class="single-report bg-white">
                 <span>Ujian Hari Ini</span>
-                <div class="number">000</div>
+                <div class="number">
+                    @foreach ($totalUjian as $total)
+                        {{ $total->total }}
+                    @endforeach
+                </div>
             </div>
         </div>
         <div class="col-12 col-md-4">
             <div class="single-report bg-white">
                 <span>Jumlah Pengawas Yang Sudah Hadir</span>
-                <div class="number">000</div>
+                <div class="number">
+                    @foreach ($totalKehadiran as $total)
+                        {{ $total->total }}
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

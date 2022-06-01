@@ -57,7 +57,7 @@
 						</div>
 
 						<div class="login-form-head">
-							<h4>Management Information for<br>Examination Administration System<br>Sekolah Vokasi IPB</h4>
+							<p style="font-size: 20px;">Management Information for<br>Examination Administration System<br>Sekolah Vokasi IPB</p>
 							<p></p>
 						</div>
 

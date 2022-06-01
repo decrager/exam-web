@@ -144,7 +144,7 @@
                                             <a href="{{ route('data.mahasiswa.edit', $mahasiswa?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger"> <i class="fas fa-trash"></i></button>
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data mahasiswa ini?')"> <i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

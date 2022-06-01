@@ -2,15 +2,10 @@
 <html class="no-js" lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/icon/IPB.png') }}">
-    <title>
-        @if (empty($title))
-            Title
-        @else
-            {{ $title }}
-        @endif
+    <title>{{ $title }}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -42,10 +37,11 @@
         rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+    <script type="text/javascript" src="{{ asset('js/jquery.ui.touch-punch.min.js') }}"></script>
 
     <style>
         .kbw-signature {
-            width: 13%;
+            width: 150px;
             height: 120px;
         }
 
@@ -53,7 +49,6 @@
             width: 100% !important;
             height: auto;
         }
-
     </style>
 
     <!-- modernizr css -->
@@ -143,7 +138,7 @@
                                         <div id="sign"> </div>
                                         <br />
                                         <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
-                                        <textarea id="signature" name="ttd" style="display: none" required></textarea>
+                                        <textarea id="signature" class="touch-enable" name="ttd" style="display: none" required></textarea>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -156,13 +151,17 @@
             </div>
         </div>
     </div>
-
+    
+    <!-- others plugins -->
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/scripts.js') }}"></script>
     <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
     <script type="text/javascript">
         var sign = $('#sign').signature({
             syncField: '#signature',
             syncFormat: 'PNG'
         });
+        $('.touch-enable').draggable();
         $('#clear').click(function(e) {
             e.preventDefault();
             sign.signature('clear');
@@ -171,8 +170,7 @@
     </script>
 
     <script src="https://kit.fontawesome.com/b3b03a4327.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
     <!-- bootstrap 4 js -->
     <script src="{{ asset('js/popper.min.js') }}"></script>
@@ -193,9 +191,6 @@
 
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
-    <!-- others plugins -->
-    <script src="{{ asset('js/plugins.js') }}"></script>
-    <script src="{{ asset('js/scripts.js') }}"></script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

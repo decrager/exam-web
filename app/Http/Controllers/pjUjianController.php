@@ -159,7 +159,7 @@ class pjUjianController extends Controller
 
         $berkas = new Berkas;
         $berkas->ujian_id = $latest;
-        $berkas->jml_berkas = "0";
+        $berkas->jml = "0";
         $berkas->save();
 
         $this->Activity(' menambahkan jadwal ujian baru');
