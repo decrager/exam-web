@@ -82,9 +82,9 @@
                                             </td>
                                             <td>{{ $jadwal?->lokasi }}</td>
                                             <td>
-                                                @if ($jadwal?->perbanyak == 1)
+                                                @if ($jadwal?->perbanyak == "1")
                                                     <span class="badge badge-success">Perbanyak</span>
-                                                @elseif ($jadwal?->perbanyak == 2)
+                                                @elseif ($jadwal?->perbanyak == "2")
                                                     <span class="badge badge-danger">Tidak</span>
                                                 @else 
                                                     -
