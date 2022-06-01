@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LogExport;
 use App\Exports\PengawasExport;
 use Carbon\Carbon;
 use App\Models\Bap;
@@ -21,7 +22,7 @@ use Illuminate\Http\Request;
 use App\Models\LogActivities;
 use Illuminate\Support\Facades\DB;
 use App\Exports\UjianExport;
-
+use App\Models\Ruangan;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use function PHPUnit\Framework\isEmpty;
@@ -679,8 +680,14 @@ class dataController extends Controller
 
     public function logActivity()
     {
-        $log = LogActivities::latest()->take(300)->get();
+        $log = LogActivities::Filter(Request(['tanggal']))->latest()->take(300)->get();
         return view('user_data.log', ['activity' => $log]);
+    }
+
+    public function logExport()
+    {
+        $this->Activity(' mengeksport catatan aktivitas ke excel');
+        return Excel::download(new LogExport, 'LogActivities.xlsx');
     }
 
     public function pengawasPresensi()
@@ -784,5 +791,59 @@ class dataController extends Controller
     public function pengawasExport(){
         $this->Activity(' mengeksport rekapitulasi pengawas ke excel');
         return Excel::download(new PengawasExport, 'pengawas.xlsx');
+    }
+
+    public function ruanganIndex()
+    {
+        $lokasi = Ruangan::all();
+        return view('user_data.ruangan.index', compact('lokasi'));
+    }
+
+    public function ruanganForm()
+    {
+        return view('user_data.ruangan.form');
+    }
+
+    public function ruanganEdit($id)
+    {
+        $lokasi = Ruangan::find($id);
+        return view('user_data.ruangan.edit', compact('lokasi'));
+    }
+
+    public function ruanganCreate(Request $request)
+    {
+        $request->validate([
+            'lokasi' => 'required',
+            'ruangan' => 'required'
+        ]);
+
+        $lokasi = new Ruangan;
+        $lokasi->lokasi = $request->lokasi;
+        $lokasi->ruangan = $request->ruangan;
+        $lokasi->save();
+
+        $this->Activity(' menambahkan data lokasi ' . $request->lokasi . ' dan ruangan ' . $request->ruangan);
+        return redirect()->route('data.ruangan.index')->with('success', 'Berhasil menambahkan data ruangan baru');
+    }
+
+    public function ruanganUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'lokasi' => 'required',
+            'ruangan' => 'required'
+        ]);
+
+        $lokasi = Ruangan::find($id);
+        $lokasi->update($request->all());
+        $this->Activity(' memperbarui data lokasi ' . $request->lokasi . ' dan ruangan ' . $request->ruangan);
+        return redirect()->route('data.ruangan.index')->with('success', 'Berhasil memperbarui data ruangan');
+    }
+
+    public function ruanganDestroy($id)
+    {
+        $lokasi = Ruangan::find($id);
+        $this->Activity(' menghapus data lokasi ' . $lokasi->lokasi . ' dan ruangan ' . $lokasi->ruangan);
+        $lokasi->delete();
+        return redirect()->route('data.ruangan.index')->with('success', 'Berhasil menghapus data ruangan');
     }
 }

@@ -23,12 +23,12 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Ubah Program Studi</h4>
+                    <h4 class="page-title pull-left">Export Kehadiran</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><a><span>Akademik</span></a></li>
-                        <li><a ><span>Program Studi</span></a></li>
-                        <li><span>Ubah Data</span></li>
+                        <li><a>Pengawas</a></li>
+                        <li><a ><span>Kehadiran</span></a></li>
+                        <li><span>Export Kehadiran</span></li>
                     </ul>
                 </div>
             </div>
@@ -43,22 +43,24 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('data.prodi.update', $prodi?->id) }}" method="POST">
-                                    <h4 class="header-title">Ubah Program Studi</h4>
+                                <form action="{{ route('pjLokasi.pdf') }}" target="_blank" method="POST">
+                                    <h4 class="header-title">Export Kehadiran Pengawas Ujian</h4>
                                     @csrf
-                                    @method('PUT')
                                     <div class="form-group">
-                                        <label for="kode_prodi" class="col-form-label">Kode Program Studi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $prodi?->kode_prodi }}" name="kode_prodi"
-                                            id="kode_prodi" />
+                                        <label for="pukul" class="col-form-label">Pukul</label>
+                                        <input class="form-control" type="time" id="pukul" name="pukul"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nama_prodi" class="col-form-label">Nama Program Studi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="nama_prodi" value="{{ $prodi?->nama_prodi }}" name="nama_prodi" />
+                                        <label class="" for="">Tanda Tangan:</label>
+                                        <br />
+                                        <div id="sign"> </div>
+                                        <br />
+                                        <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
+                                        <textarea id="signature" name="ttd" style="display: none"></textarea>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-primary">Export</button>
                                 </form>
                             </div>
                         </div>
@@ -68,4 +70,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var sign = $('#sign').signature({
+            syncField: '#signature',
+            syncFormat: 'PNG'
+        });
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sign.signature('clear');
+            $("#signature").val('');
+        });
+    </script>
 @endsection

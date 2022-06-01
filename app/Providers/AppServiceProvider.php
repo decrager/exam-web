@@ -144,7 +144,7 @@ class AppServiceProvider extends ServiceProvider
             'totalPelanggaran' => $totalPelanggaran,
             'totalUjian' => $totalUjian,
             'totalKehadiran' => $totalKehadiran,
-            "title" => env('APP_NAME')
+            'title' => 'SV | MINDY'
         ]);
     }
 }

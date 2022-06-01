@@ -23,11 +23,10 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Ubah Program Studi</h4>
+                    <h4 class="page-title pull-left">Ubah Lokasi & Ruangan</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><a><span>Akademik</span></a></li>
-                        <li><a ><span>Program Studi</span></a></li>
+                        <li><a ><span>Lokasi & Ruangan</span></a></li>
                         <li><span>Ubah Data</span></li>
                     </ul>
                 </div>
@@ -43,19 +42,18 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('data.prodi.update', $prodi?->id) }}" method="POST">
-                                    <h4 class="header-title">Ubah Program Studi</h4>
+                                <form action="{{ route('data.ruangan.update', $lokasi?->id) }}" method="POST">
+                                    <h4 class="header-title">Ubah Lokasi & Ruangan</h4>
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label for="kode_prodi" class="col-form-label">Kode Program Studi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $prodi?->kode_prodi }}" name="kode_prodi"
-                                            id="kode_prodi" />
+                                        <label for="lokasi" class="col-form-label">Lokasi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $lokasi?->lokasi }}" name="lokasi" id="lokasi" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="nama_prodi" class="col-form-label">Nama Program Studi <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." id="nama_prodi" value="{{ $prodi?->nama_prodi }}" name="nama_prodi" />
+                                        <label for="ruangan" class="col-form-label">Ruangan <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." value="{{ $lokasi?->ruangan }}" id="ruangan" name="ruangan" />
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Simpan</button>

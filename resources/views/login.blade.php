@@ -57,7 +57,7 @@
 						</div>
 
 						<div class="login-form-head">
-							<h4>Aplikasi Ujian SV IPB</h4>
+							<h4>Management Information for<br>Examination Administration System<br>Sekolah Vokasi IPB</h4>
 							<p></p>
 						</div>
 

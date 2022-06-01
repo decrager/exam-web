@@ -46,7 +46,7 @@
                             </div>
                         @endif
                         <h4 class="header-title">Kehadiran</h4>
-                        <a href="{{ route('pjLokasi.pdf') }}" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
+                        <a href="{{ route('pjLokasi.pengawas.absensi.export') }}" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
                              <i class="fas fa-file-pdf">&nbsp; Export</i>
                         </a>
                         <form action="/pj_lokasi/pengawas/kehadiran" class="row justify-content-start">
@@ -114,9 +114,9 @@
                                             <td>{{ $pengawas?->ruang }}</td>
                                             <td>
                                                 @if ($pengawas?->presensi)
-                                                <span class="badge badge-success">Hadir</span>
+                                                    <span class="badge badge-success">Hadir</span>
                                                 @else
-                                                <span class="badge badge-warning text-dark">Belum Hadir</span>
+                                                    <span class="badge badge-warning text-dark">Belum Hadir</span>
                                                 @endif
                                             </td>
                                             <td>

@@ -40,6 +40,21 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Aktivitas</h4>
+                        <div class="float-right mb-3">
+                            <a href="{{ route('data.aktivitas.export') }}" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
+                                class="fas fa-file-excel-o"></i></a>
+                        </div>
+
+                        <form action="/data/aktivitas">
+                            <div class="col-auto float-left pl--0">
+                                <div class="form-group">
+                                    <input type="date" name="tanggal" id="tanggal" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-1 float-left">
+                                <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
+                            </div>
+                        </form>
 
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">

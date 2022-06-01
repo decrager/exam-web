@@ -116,6 +116,9 @@ Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
     Route::get('/data/akademik/matkul', [dataController::class, 'matkulIndex'])->name('data.akademik.matkul.index');
     Route::get('/data/akademik/matkul/tambah', [dataController::class, 'matkulForm'])->name('data.akademik.matkul.form');
     Route::get('/data/akademik/matkul/edit/{id}', [dataController::class, 'matkulEdit'])->name('data.akademik.matkul.edit');
+    Route::get('/data/ruangan', [dataController::class, 'ruanganIndex'])->name('data.ruangan.index');
+    Route::get('/data/ruangan/tambah', [dataController::class, 'ruanganForm'])->name('data.ruangan.form');
+    Route::get('/data/ruangan/edit/{id}', [dataController::class, 'ruanganEdit'])->name('data.ruangan.edit');
 
     Route::put('/data/bap/update/{id}', [dataController::class, 'bapUpdate'])->name('data.bap.update');
     Route::put('/data/amplop/update/{id}', [dataController::class, 'amplopUpdate'])->name('data.amplop.update');
@@ -142,8 +145,12 @@ Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
     Route::post('/data/matkul/create', [dataController::class, 'matkulCreate'])->name('data.matkul.create');
     Route::put('/data/matkul/update/{id}', [dataController::class, 'matkulUpdate'])->name('data.matkul.update');
     Route::delete('/data/matkul/delete/{id}', [dataController::class, 'matkulDestroy'])->name('data.matkul.destroy');
+    Route::post('/data/ruangan/create', [dataController::class, 'ruanganCreate'])->name('data.ruangan.create');
+    Route::put('/data/ruangan/update/{id}', [dataController::class, 'ruanganUpdate'])->name('data.ruangan.update');
+    Route::delete('/data/ruangan/delete/{id}', [dataController::class, 'ruanganDestroy'])->name('data.ruangan.destroy');
 
     Route::get('/data/jadwal/export', [dataController::class, 'export'])->name('data.jadwal.export');
+    Route::get('/data/aktivitas/export', [dataController::class, 'logExport'])->name('data.aktivitas.export');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
@@ -180,6 +187,9 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::delete('/pj_ujian/susulan/jadwal/destroy/{id}', [pjUjianController::class, 'jadwalDestroy'])->name('pjUjian.susulan.jadwal.destroy');
 
     Route::get('/pj_ujian/jadwal/export', [pjUjianController::class, 'export'])->name('pjUjian.jadwal.export');
+    Route::get('/pj_ujian/aktivitas/export', [pjUjianController::class, 'logExport'])->name('pjUjian.aktivitas.export');
+    Route::post('/pj_ujian/serahterima/export', [pjUjianController::class, 'SerahTerima'])->name('pjUjian.serahterima');
+    Route::get('/pj_ujian/serahterima/delete/{id}', [pjUjianController::class, 'SerahTerimaDestroy'])->name('pjUjian.serahterima.destroy');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:prodi']], function () {
@@ -209,6 +219,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
     Route::get('/pj_lokasi/pengawas', [pjLokasiController::class, 'pengawasIndex'])->name('pjLokasi.pengawas.daftar.index');
     Route::get('/pj_lokasi/pengawas/edit/{id}', [pjLokasiController::class, 'pengawasEdit'])->name('pjLokasi.pengawas.daftar.edit');
     Route::get('/pj_lokasi/pengawas/kehadiran', [pjLokasiController::class, 'absensiIndex'])->name('pjLokasi.pengawas.absensi.index');
+    Route::get('/pj_lokasi/pengawas/kehadiran/export', [pjLokasiController::class, 'absensiExport'])->name('pjLokasi.pengawas.absensi.export');
     Route::get('/pj_lokasi/pengawas/kehadiran/ttd/{id}', [pjLokasiController::class, 'absensiForm'])->name('pjLokasi.pengawas.absensi.form');
     Route::get('/pj_lokasi/soal', [pjLokasiController::class, 'soalIndex'])->name('pjLokasi.soal.index');
     Route::get('/pj_lokasi/soal/ttd', [pjLokasiController::class, 'soalForm'])->name('pjLokasi.soal.form');
@@ -218,7 +229,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
     Route::put('/pj_lokasi/pengawas/update/{id}', [pjLokasiController::class, 'pengawasUpdate'])->name('pjLokasi.pengawas.update');
     Route::delete('/pj_lokasi/pengawas/delete/{id}', [pjLokasiController::class, 'presenceDestroy'])->name('pjLokasi.pengawas.destroy');
     
-    Route::get('/pj_lokasi/presensi/export', [pjLokasiController::class, 'pdf'])->name('pjLokasi.pdf');
+    Route::post('/pj_lokasi/presensi/export', [pjLokasiController::class, 'pdf'])->name('pjLokasi.pdf');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {
@@ -279,12 +290,14 @@ Route::group(['middleware' => ['auth', 'cekrole:supervisor']], function () {
     Route::get('/supervisor/kelengkapan/berkas', [supervisorController::class, 'berkas'])->name('supervisor.kelengkapan.berkas');
     Route::get('/supervisor/pengguna', [supervisorController::class, 'pengguna'])->name('supervisor.pengguna');
     Route::get('/supervisor/pelanggaran', [supervisorController::class, 'pelanggaran'])->name('supervisor.pelanggaran');
+    Route::get('/supervisor/aktivitas', [supervisorController::class, 'LogActivity'])->name('supervisor.aktivitas');
+    Route::get('/supervisor/aktivitas/export', [supervisorController::class, 'logExport'])->name('supervisor.aktivitas.export');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:pj_online']], function () {
     Route::get('/pj_online', [pjOnlineController::class, 'dashboard'])->name('pjOnlineDashboard');
     Route::get('/pj_online/jadwal_ujian', [pjOnlineController::class, 'ujian'])->name('pjOnline.ujian');
-    Route::get('/pj_online/pelanggaran', [pjOnlineController::class, 'pelanggaranIndex'])->name('pjOnline.pelanggaran.index');
+    Route::get('/pj_online/pelanggaran/index', [pjOnlineController::class, 'pelanggaranIndex'])->name('pjOnline.pelanggaran.index');
     Route::get('/pj_online/pelanggaran/tambah', [pjOnlineController::class, 'pelanggaranForm'])->name('pjOnline.pelanggaran.form');
     Route::get('/pj_online/pelanggaran/edit/{id}', [pjOnlineController::class, 'pelanggaranEdit'])->name('pjOnline.pelanggaran.edit');
     Route::resource('/pj_online/pelanggaran', pelanggaranOnlineController::class);

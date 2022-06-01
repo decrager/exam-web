@@ -4,23 +4,29 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Bap;
+use App\Models\Kelas;
 use App\Models\Prodi;
 use App\Models\Ujian;
 use App\Models\Amplop;
 use App\Models\Berkas;
 use App\Models\Master;
+use App\Models\Matkul;
 use App\Models\Susulan;
 use App\Models\Pengawas;
-use App\Models\Pelanggaran;
-use App\Exports\UjianExport;
-use App\Models\LogActivities;
+use App\Models\Semester;
 use App\Models\Mahasiswa;
 use App\Models\Penugasan;
+use App\Exports\LogExport;
+use App\Models\Pelanggaran;
+use App\Exports\UjianExport;
 use Illuminate\Http\Request;
+use App\Models\LogActivities;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Redis;
 use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\Storage;
 
 class pjUjianController extends Controller
 {
@@ -666,7 +672,97 @@ class pjUjianController extends Controller
 
     public function logActivities()
     {
-        $log = LogActivities::latest()->take(300)->get();
+        $log = LogActivities::Filter(Request(['tanggal']))->latest()->take(300)->get();
         return view('pj_ujian.log', ['activity' => $log]);
+    }
+
+    public function logExport()
+    {
+        $this->Activity(' mengeksport catatan aktivitas ke excel');
+        return Excel::download(new LogExport, 'LogActivities.xlsx');
+    }
+
+    public function SerahTerima(Request $request)
+    {
+        DB::beginTransaction();
+
+        $destination1 = 'images/qr/ttd_penyerah.png';
+        $destination2 = 'images/qr/ttd_penerima.png';
+        if ($destination1 AND $destination2) {
+            Storage::delete($destination1);
+            Storage::delete($destination2);
+        }
+        
+        $folderPath = Storage::path('images/qr/');
+        $image1 = explode(";base64,", $request->ttd_penyerah);
+        $image_base1 = base64_decode($image1[1]);
+        $fileName1 = 'ttd_penyerah.png';
+        $file1 = $folderPath . $fileName1;
+        file_put_contents($file1, $image_base1);
+
+        $image2 = explode(";base64,", $request->ttd_penerima);
+        $image_base2 = base64_decode($image2[1]);
+        $fileName2 = 'ttd_penerima.png';
+        $file2 = $folderPath . $fileName2;
+        file_put_contents($file2, $image_base2);
+
+        $kelas = array();
+        for ($i = 0; $i < count($request->kelas); $i++) {
+            $kelas[] = Kelas::where('id', $request->kelas[$i])->select('kelas')->first();
+        }
+
+        $data = [
+            'master' => Master::find(1),
+            'thn_ajaran' => $request->thn_ajaran,
+            'nama_prodi' => Prodi::where('id', $request->prodi)->select('nama_prodi')->first(),
+            'semester' => Semester::where('id', $request->semester)->select('semester')->first(),
+            'matkul' => Matkul::where('id', $request->ttdMatkul)->select('nama_matkul')->first(),
+            'kelas' => $kelas,
+            'hari' => $request->hari,
+            'jam' => $request->jam,
+            'tanggal' => $request->tanggal,
+            'tglbln' => $request->tglbln,
+            'jml_berkas' => $request->jml_berkas,
+            'nama_serah' => $request->nama_serah,
+            'nama_terima' => $request->nama_terima,
+            'ttd_penyerah' => $fileName1,
+            'ttd_penerima' => $fileName2,
+        ];
+
+        return $data;
+
+        for ($i = 0; $i < count($request->kelas); $i++) {
+            $berkas = Ujian::join('praktikums', 'ujians.prak_id', 'praktikums.id')
+            ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+            ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+            ->where('kelas.id', $request->kelas[$i])
+            ->where('matkuls.id', $request->ttdMatkul)
+            ->get();
+
+            $berkas->update([
+                'serah_terima' => 'sudah',
+                'file' => 'namafilenya'
+            ]);
+        }
+        DB::commit();
+    }
+
+    public function SerahTerimaDestroy($id)
+    {
+        $kelas_id = Ujian::join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->where('ujians.id', $id)->select('kelas.id')->first();
+
+        $matkul_id = Ujian::find($id)->select('matkul_id')->first();
+
+        $berkas = Berkas::join('ujians', 'berkas.ujian_id', 'ujians.id')
+        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->where('kelas.id', $kelas_id->id)
+        ->where('matkuls.id', $matkul_id->matkul_id)
+        ->get();
+
+        return $berkas;
     }
 }

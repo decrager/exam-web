@@ -23,10 +23,10 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Aktivitas</h4>
+                    <h4 class="page-title pull-left">Lokasi & Ruangan</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><span>Aktivitas</span></li>
+                        <li><span>Lokasi & Ruangan</span></li>
                     </ul>
                 </div>
             </div>
@@ -39,43 +39,44 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Aktivitas</h4>
-                        <div class="float-right mb-3">
-                            <a href="{{ route('pjUjian.aktivitas.export') }}" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
-                                class="fas fa-file-excel-o"></i></a>
-                        </div>
-
-                        <form action="/pj_ujian/aktivitas">
-                            <div class="col-auto float-left pl--0">
-                                <div class="form-group">
-                                    <input type="date" name="tanggal" id="tanggal" class="form-control">
-                                </div>
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
                             </div>
-                            <div class="col-md-1 float-left">
-                                <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
-                            </div>
-                        </form>
+                        @endif
+                        <h4 class="header-title">Lokasi & Ruangan</h4>
+                        <a href="{{ route('data.ruangan.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
+                            Tambah Data
+                        </a>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Waktu</th>
-                                        <th>Aktivitas</th>
+                                        <th>Lokasi</th>
+                                        <th>Ruangan</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($activity as $log)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $log?->created_at }}</td>
-                                            <td>{{ $log?->activity }}</td>
-                                        </tr>
+                                    @foreach ($lokasi as $lokasi)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $lokasi?->lokasi }}</td>
+                                        <td>{{ $lokasi?->ruangan }}</td>
+                                        <td>
+                                            <form action="{{ route('data.ruangan.destroy', $lokasi?->id) }}" method="POST" class="btn-group" role="group">
+                                                <a href="{{ route('data.ruangan.edit', $lokasi?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus Lokasi & Ruangan ini?')"> <i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>

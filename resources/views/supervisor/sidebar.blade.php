@@ -67,6 +67,11 @@
                         <a href="{{ route('supervisor.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Pelanggaran</span></a>
                     </li>
+
+                    <li class="{{ Request::routeIs('supervisor.aktivitas') ? 'active' : '' }} m-1">
+                        <a href="{{ route('supervisor.aktivitas') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Aktivitas</span></a>
+                    </li>
                 </ul>
             </nav>
         </div>

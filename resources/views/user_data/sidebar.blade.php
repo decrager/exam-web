@@ -78,6 +78,12 @@
                         </ul>
                     </li>
 
+                    <li class="{{ Request::routeIs('data.ruangan.*') ? 'active' : '' }} m-1">
+                        <a href="{{ route('data.ruangan.index') }}" aria-expanded="true"><i
+                                class="fa fa-align-left"></i>
+                            <span>Lokasi & Ruangan</span></a>
+                    </li>
+
                     <li class="{{ Request::routeIs('data.pelanggaran') ? 'active' : '' }} m-1">
                         <a href="{{ route('data.pelanggaran') }}" aria-expanded="true"><i
                                 class="fa fa-align-left"></i>

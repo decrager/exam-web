@@ -12,6 +12,13 @@ class LogActivities extends Model
     protected $primaryKey = 'id';
     protected $guarded = [];
     protected $fillable = [
-        'activity'
+        'activity',
     ];
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['tanggal'] ?? false, function($query, $tanggal) {
+            return $query->where('created_at', 'like', $tanggal . '%');
+        });
+    }
 }

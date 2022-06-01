@@ -41,11 +41,11 @@
                     <div class="card-body">
                         <h4 class="header-title">Aktivitas</h4>
                         <div class="float-right mb-3">
-                            <a href="{{ route('pjUjian.aktivitas.export') }}" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
+                            <a href="{{ route('supervisor.aktivitas.export') }}" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
                                 class="fas fa-file-excel-o"></i></a>
                         </div>
 
-                        <form action="/pj_ujian/aktivitas">
+                        <form action="/supervisor/aktivitas">
                             <div class="col-auto float-left pl--0">
                                 <div class="form-group">
                                     <input type="date" name="tanggal" id="tanggal" class="form-control">
@@ -55,6 +55,7 @@
                                 <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
                             </div>
                         </form>
+                        
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>

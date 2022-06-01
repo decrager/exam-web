@@ -8,6 +8,7 @@ use App\Models\Master;
 use App\Models\Pengawas;
 use App\Models\Penugasan;
 use App\Models\Pelanggaran;
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
@@ -31,61 +32,17 @@ class pjLokasiController extends Controller
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
         
-        if (Auth::user()->lokasi == 'CA & Lab Kom') {
-            $ujian->where('ujians.ruang', 'CA B01')
-            ->orWhere('ujians.ruang', 'CA B02')
-            ->orWhere('ujians.ruang', 'CA B03')
-            ->orWhere('ujians.ruang', 'CA B04')
-            ->orWhere('ujians.ruang', 'CA B05')
-            ->orWhere('ujians.ruang', 'CA B06')
-            ->orWhere('ujians.ruang', 'CA B07')
-            ->orWhere('ujians.ruang', 'CA B08')
-            ->orWhere('ujians.ruang', 'CA KOM 1')
-            ->orWhere('ujians.ruang', 'CA KOM 2');
-        } elseif (Auth::user()->lokasi == 'CB & Lab Kom') {
-            $ujian->where('ujians.ruang', 'CB B01')
-            ->orWhere('ujians.ruang', 'CB B02')
-            ->orWhere('ujians.ruang', 'CB B03')
-            ->orWhere('ujians.ruang', 'CB B04')
-            ->orWhere('ujians.ruang', 'CB KOM 1')
-            ->orWhere('ujians.ruang', 'CB KOM 2')
-            ->orWhere('ujians.ruang', 'CB KOM 3')
-            ->orWhere('ujians.ruang', 'CB KOM 4')
-            ->orWhere('ujians.ruang', 'CB KOM 5')
-            ->orWhere('ujians.ruang', 'CB PEMROGRAMAN')
-            ->orWhere('ujians.ruang', 'CB K 70-1');
-        } elseif (Auth::user()->lokasi == 'BS B01-06') {
-            $ujian->where('ujians.ruang', 'BS B01')
-            ->orWhere('ujians.ruang', 'BS B02')
-            ->orWhere('ujians.ruang', 'BS B03')
-            ->orWhere('ujians.ruang', 'BS B04')
-            ->orWhere('ujians.ruang', 'BS B05')
-            ->orWhere('ujians.ruang', 'BS B06');
-        } elseif (Auth::user()->lokasi == 'BS B07-10') {
-            $ujian->where('ujians.ruang', 'BS B07')
-            ->orWhere('ujians.ruang', 'BS B08')
-            ->orWhere('ujians.ruang', 'BS B09')
-            ->orWhere('ujians.ruang', 'BS B10');
-        } elseif (Auth::user()->lokasi == 'BS KIMBOTFIS') {
-            $ujian->where('ujians.ruang', 'BS Kimia')
-            ->orWhere('ujians.ruang', 'BS Botani')
-            ->orWhere('ujians.ruang', 'BS Fisika');
-        } elseif (Auth::user()->lokasi == 'BS P01-03') {
-            $ujian->where('ujians.ruang', 'BS P01')
-            ->orWhere('ujians.ruang', 'BS P02')
-            ->orWhere('ujians.ruang', 'BS P03')
-            ->orWhere('ujians.ruang', 'HPT');
-        } elseif (Auth::user()->lokasi == 'Sukabumi') {
-            $ujian->where('ujians.ruang', 'GAK 01')
-            ->orWhere('ujians.ruang', 'GAK 02')
-            ->orWhere('ujians.ruang', 'GAK 03')
-            ->orWhere('ujians.ruang', 'GAK 04')
-            ->orWhere('ujians.ruang', 'GAK 05')
-            ->orWhere('ujians.ruang', 'GAK 06')
-            ->orWhere('ujians.ruang', 'GAK 07')
-            ->orWhere('ujians.ruang', 'LAB KOM SMI');
-        } elseif (Auth::user()->lokasi == 'Online') {
-            $ujian->where('ujians.ruang', 'Online');
+        $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
+        $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
+        for ($i = 0; $i < $tot1; $i++) {
+            if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
+                $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
+                $tot2 = count($ruangan);
+                $ujian->where('ujians.ruang', $ruangan[0]->ruangan);
+                for ($j = 1; $j < $tot2; $j++) {
+                    $ujian->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+                }
+            }
         }
 
         if (request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang'])) {
@@ -97,7 +54,7 @@ class pjLokasiController extends Controller
         } else {
             $ujian->where('ujians.tanggal', '2022-06-08');
         }
-
+        
         return view('pj_lokasi.dashboard', [
             "dbUjian" => $ujian->get()
         ]);
@@ -122,61 +79,17 @@ class pjLokasiController extends Controller
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
         ->whereBetween('ujians.tanggal', [$from, $to]);
 
-        if (Auth::user()->lokasi == 'CA & Lab Kom') {
-            $pengawas->where('ujians.ruang', 'CA B01')
-            ->orWhere('ujians.ruang', 'CA B02')
-            ->orWhere('ujians.ruang', 'CA B03')
-            ->orWhere('ujians.ruang', 'CA B04')
-            ->orWhere('ujians.ruang', 'CA B05')
-            ->orWhere('ujians.ruang', 'CA B06')
-            ->orWhere('ujians.ruang', 'CA B07')
-            ->orWhere('ujians.ruang', 'CA B08')
-            ->orWhere('ujians.ruang', 'CA KOM 1')
-            ->orWhere('ujians.ruang', 'CA KOM 2');
-        } elseif (Auth::user()->lokasi == 'CB & Lab Kom') {
-            $pengawas->where('ujians.ruang', 'CB B01')
-            ->orWhere('ujians.ruang', 'CB B02')
-            ->orWhere('ujians.ruang', 'CB B03')
-            ->orWhere('ujians.ruang', 'CB B04')
-            ->orWhere('ujians.ruang', 'CB KOM 1')
-            ->orWhere('ujians.ruang', 'CB KOM 2')
-            ->orWhere('ujians.ruang', 'CB KOM 3')
-            ->orWhere('ujians.ruang', 'CB KOM 4')
-            ->orWhere('ujians.ruang', 'CB KOM 5')
-            ->orWhere('ujians.ruang', 'CB PEMROGRAMAN')
-            ->orWhere('ujians.ruang', 'CB K 70-1');
-        } elseif (Auth::user()->lokasi == 'BS B01-06') {
-            $pengawas->where('ujians.ruang', 'BS B01')
-            ->orWhere('ujians.ruang', 'BS B02')
-            ->orWhere('ujians.ruang', 'BS B03')
-            ->orWhere('ujians.ruang', 'BS B04')
-            ->orWhere('ujians.ruang', 'BS B05')
-            ->orWhere('ujians.ruang', 'BS B06');
-        } elseif (Auth::user()->lokasi == 'BS B07-10') {
-            $pengawas->where('ujians.ruang', 'BS B07')
-            ->orWhere('ujians.ruang', 'BS B08')
-            ->orWhere('ujians.ruang', 'BS B09')
-            ->orWhere('ujians.ruang', 'BS B10');
-        } elseif (Auth::user()->lokasi == 'BS KIMBOTFIS') {
-            $pengawas->where('ujians.ruang', 'BS Kimia')
-            ->orWhere('ujians.ruang', 'BS Botani')
-            ->orWhere('ujians.ruang', 'BS Fisika');
-        } elseif (Auth::user()->lokasi == 'BS P01-03') {
-            $pengawas->where('ujians.ruang', 'BS P01')
-            ->orWhere('ujians.ruang', 'BS P02')
-            ->orWhere('ujians.ruang', 'BS P03')
-            ->orWhere('ujians.ruang', 'HPT');
-        } elseif (Auth::user()->lokasi == 'Sukabumi') {
-            $pengawas->where('ujians.ruang', 'GAK 01')
-            ->orWhere('ujians.ruang', 'GAK 02')
-            ->orWhere('ujians.ruang', 'GAK 03')
-            ->orWhere('ujians.ruang', 'GAK 04')
-            ->orWhere('ujians.ruang', 'GAK 05')
-            ->orWhere('ujians.ruang', 'GAK 06')
-            ->orWhere('ujians.ruang', 'GAK 07')
-            ->orWhere('ujians.ruang', 'LAB KOM SMI');
-        } elseif (Auth::user()->lokasi == 'Online') {
-            $pengawas->where('ujians.ruang', 'Online');
+        $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
+        $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
+        for ($i = 0; $i < $tot1; $i++) {
+            if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
+                $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
+                $tot2 = count($ruangan);
+                $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
+                for ($j = 1; $j < $tot2; $j++) {
+                    $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+                }
+            }
         }
 
         $pengawas->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
@@ -234,61 +147,17 @@ class pjLokasiController extends Controller
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
         ->where('ujians.tanggal', '2022-06-08');
 
-        if (Auth::user()->lokasi == 'CA & Lab Kom') {
-            $pengawas->where('ujians.ruang', 'CA B01')
-            ->orWhere('ujians.ruang', 'CA B02')
-            ->orWhere('ujians.ruang', 'CA B03')
-            ->orWhere('ujians.ruang', 'CA B04')
-            ->orWhere('ujians.ruang', 'CA B05')
-            ->orWhere('ujians.ruang', 'CA B06')
-            ->orWhere('ujians.ruang', 'CA B07')
-            ->orWhere('ujians.ruang', 'CA B08')
-            ->orWhere('ujians.ruang', 'CA KOM 1')
-            ->orWhere('ujians.ruang', 'CA KOM 2');
-        } elseif (Auth::user()->lokasi == 'CB & Lab Kom') {
-            $pengawas->where('ujians.ruang', 'CB B01')
-            ->orWhere('ujians.ruang', 'CB B02')
-            ->orWhere('ujians.ruang', 'CB B03')
-            ->orWhere('ujians.ruang', 'CB B04')
-            ->orWhere('ujians.ruang', 'CB KOM 1')
-            ->orWhere('ujians.ruang', 'CB KOM 2')
-            ->orWhere('ujians.ruang', 'CB KOM 3')
-            ->orWhere('ujians.ruang', 'CB KOM 4')
-            ->orWhere('ujians.ruang', 'CB KOM 5')
-            ->orWhere('ujians.ruang', 'CB PEMROGRAMAN')
-            ->orWhere('ujians.ruang', 'CB K 70-1');
-        } elseif (Auth::user()->lokasi == 'BS B01-06') {
-            $pengawas->where('ujians.ruang', 'BS B01')
-            ->orWhere('ujians.ruang', 'BS B02')
-            ->orWhere('ujians.ruang', 'BS B03')
-            ->orWhere('ujians.ruang', 'BS B04')
-            ->orWhere('ujians.ruang', 'BS B05')
-            ->orWhere('ujians.ruang', 'BS B06');
-        } elseif (Auth::user()->lokasi == 'BS B07-10') {
-            $pengawas->where('ujians.ruang', 'BS B07')
-            ->orWhere('ujians.ruang', 'BS B08')
-            ->orWhere('ujians.ruang', 'BS B09')
-            ->orWhere('ujians.ruang', 'BS B10');
-        } elseif (Auth::user()->lokasi == 'BS KIMBOTFIS') {
-            $pengawas->where('ujians.ruang', 'BS Kimia')
-            ->orWhere('ujians.ruang', 'BS Botani')
-            ->orWhere('ujians.ruang', 'BS Fisika');
-        } elseif (Auth::user()->lokasi == 'BS P01-03') {
-            $pengawas->where('ujians.ruang', 'BS P01')
-            ->orWhere('ujians.ruang', 'BS P02')
-            ->orWhere('ujians.ruang', 'BS P03')
-            ->orWhere('ujians.ruang', 'HPT');
-        } elseif (Auth::user()->lokasi == 'Sukabumi') {
-            $pengawas->where('ujians.ruang', 'GAK 01')
-            ->orWhere('ujians.ruang', 'GAK 02')
-            ->orWhere('ujians.ruang', 'GAK 03')
-            ->orWhere('ujians.ruang', 'GAK 04')
-            ->orWhere('ujians.ruang', 'GAK 05')
-            ->orWhere('ujians.ruang', 'GAK 06')
-            ->orWhere('ujians.ruang', 'GAK 07')
-            ->orWhere('ujians.ruang', 'LAB KOM SMI');
-        } elseif (Auth::user()->lokasi == 'Online') {
-            $pengawas->where('ujians.ruang', 'Online');
+        $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
+        $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
+        for ($i = 0; $i < $tot1; $i++) {
+            if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
+                $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
+                $tot2 = count($ruangan);
+                $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
+                for ($j = 1; $j < $tot2; $j++) {
+                    $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+                }
+            }
         }
 
         $pengawas->filter(request(['dbProdi', 'dbMatkul']));
@@ -300,11 +169,16 @@ class pjLokasiController extends Controller
     public function absensiForm($id)
     {
         $pengawas = Penugasan::find($id);
-        $qrcode =  QrCode::size(500)->generate('http://127.0.0.1:8000/presensi/' . $pengawas->id);
+        $qrcode =  QrCode::size(500)->generate('http://exam.portalsvipb.com/presensi/' . $pengawas->id);
         return view('pj_lokasi.absensi.form', [
             "pengawas" => $pengawas,
             "qrCode" => $qrcode
         ]);
+    }
+
+    public function absensiExport()
+    {
+        return view('pj_lokasi.absensi.export');
     }
 
     public function presence($id)
@@ -384,61 +258,17 @@ class pjLokasiController extends Controller
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
         ->whereBetween('ujians.tanggal', [$from, $to]);
 
-        if (Auth::user()->lokasi == 'CA & Lab Kom') {
-            $ujian->where('ujians.ruang', 'CA B01')
-            ->orWhere('ujians.ruang', 'CA B02')
-            ->orWhere('ujians.ruang', 'CA B03')
-            ->orWhere('ujians.ruang', 'CA B04')
-            ->orWhere('ujians.ruang', 'CA B05')
-            ->orWhere('ujians.ruang', 'CA B06')
-            ->orWhere('ujians.ruang', 'CA B07')
-            ->orWhere('ujians.ruang', 'CA B08')
-            ->orWhere('ujians.ruang', 'CA KOM 1')
-            ->orWhere('ujians.ruang', 'CA KOM 2');
-        } elseif (Auth::user()->lokasi == 'CB & Lab Kom') {
-            $ujian->where('ujians.ruang', 'CB B01')
-            ->orWhere('ujians.ruang', 'CB B02')
-            ->orWhere('ujians.ruang', 'CB B03')
-            ->orWhere('ujians.ruang', 'CB B04')
-            ->orWhere('ujians.ruang', 'CB KOM 1')
-            ->orWhere('ujians.ruang', 'CB KOM 2')
-            ->orWhere('ujians.ruang', 'CB KOM 3')
-            ->orWhere('ujians.ruang', 'CB KOM 4')
-            ->orWhere('ujians.ruang', 'CB KOM 5')
-            ->orWhere('ujians.ruang', 'CB PEMROGRAMAN')
-            ->orWhere('ujians.ruang', 'CB K 70-1');
-        } elseif (Auth::user()->lokasi == 'BS B01-06') {
-            $ujian->where('ujians.ruang', 'BS B01')
-            ->orWhere('ujians.ruang', 'BS B02')
-            ->orWhere('ujians.ruang', 'BS B03')
-            ->orWhere('ujians.ruang', 'BS B04')
-            ->orWhere('ujians.ruang', 'BS B05')
-            ->orWhere('ujians.ruang', 'BS B06');
-        } elseif (Auth::user()->lokasi == 'BS B07-10') {
-            $ujian->where('ujians.ruang', 'BS B07')
-            ->orWhere('ujians.ruang', 'BS B08')
-            ->orWhere('ujians.ruang', 'BS B09')
-            ->orWhere('ujians.ruang', 'BS B10');
-        } elseif (Auth::user()->lokasi == 'BS KIMBOTFIS') {
-            $ujian->where('ujians.ruang', 'BS Kimia')
-            ->orWhere('ujians.ruang', 'BS Botani')
-            ->orWhere('ujians.ruang', 'BS Fisika');
-        } elseif (Auth::user()->lokasi == 'BS P01-03') {
-            $ujian->where('ujians.ruang', 'BS P01')
-            ->orWhere('ujians.ruang', 'BS P02')
-            ->orWhere('ujians.ruang', 'BS P03')
-            ->orWhere('ujians.ruang', 'HPT');
-        } elseif (Auth::user()->lokasi == 'Sukabumi') {
-            $ujian->where('ujians.ruang', 'GAK 01')
-            ->orWhere('ujians.ruang', 'GAK 02')
-            ->orWhere('ujians.ruang', 'GAK 03')
-            ->orWhere('ujians.ruang', 'GAK 04')
-            ->orWhere('ujians.ruang', 'GAK 05')
-            ->orWhere('ujians.ruang', 'GAK 06')
-            ->orWhere('ujians.ruang', 'GAK 07')
-            ->orWhere('ujians.ruang', 'LAB KOM SMI');
-        } elseif (Auth::user()->lokasi == 'Online') {
-            $ujian->where('ujians.ruang', 'Online');
+        $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
+        $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
+        for ($i = 0; $i < $tot1; $i++) {
+            if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
+                $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
+                $tot2 = count($ruangan);
+                $ujian->where('ujians.ruang', $ruangan[0]->ruangan);
+                for ($j = 1; $j < $tot2; $j++) {
+                    $ujian->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+                }
+            }
         }
 
         $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
@@ -471,7 +301,7 @@ class pjLokasiController extends Controller
         return view('pj_lokasi.pelanggaran.edit');
     }
 
-    public function pdf()
+    public function pdf(Request $request)
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -554,7 +384,20 @@ class pjLokasiController extends Controller
         $nama = Auth::user()->name;
         $lokasi = Auth::user()->lokasi;
         $tbt = Carbon::now()->format('d/m/Y');
-        $time = Carbon::now()->format('H:i');
+        $time = $request->pukul;
+
+        $destination = 'images/qr/ttdPjLokasi.png';
+        if ($destination) {
+            Storage::delete($destination);
+        }
+
+        $folderPath = Storage::path('images/qr/');
+        $image = explode(";base64,", $request->ttd);
+        $image_base64 = base64_decode($image[1]);
+        
+        $fileName = 'ttdPjLokasi.png';
+        $file = $folderPath . $fileName;
+        file_put_contents($file, $image_base64);
 
         $pengawas = $pengawas->get();
         $data = [
@@ -564,7 +407,8 @@ class pjLokasiController extends Controller
             'nama' => $nama,
             'lokasi' => $lokasi,
             'tbt' => $tbt,
-            'time' => $time
+            'time' => $time,
+            'ttd' => $fileName
         ];
 
         $pdf = PDF::loadView('layouts.presence', $data);

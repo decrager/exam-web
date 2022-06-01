@@ -11,7 +11,10 @@ use App\Models\Susulan;
 use App\Models\Pengawas;
 use App\Models\Mahasiswa;
 use App\Models\Penugasan;
+use App\Exports\LogExport;
 use Illuminate\Http\Request;
+use App\Models\LogActivities;
+use Maatwebsite\Excel\Facades\Excel;
 use function PHPUnit\Framework\isEmpty;
 
 class supervisorController extends Controller
@@ -254,5 +257,17 @@ class supervisorController extends Controller
     public function pelanggaran()
     {
         return view('supervisor.pelanggaran', ["title" => env('APP_NAME')]);
+    }
+
+    public function logActivity()
+    {
+        $log = LogActivities::Filter(Request(['tanggal']))->latest()->take(300)->get();
+        return view('supervisor.log', ['activity' => $log]);
+    }
+
+    public function logExport()
+    {
+        $this->Activity(' mengeksport catatan aktivitas ke excel');
+        return Excel::download(new LogExport, 'LogActivities.xlsx');
     }
 }
