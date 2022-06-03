@@ -72,9 +72,9 @@ class AppServiceProvider extends ServiceProvider
 
         $now = Carbon::now()->toDateString();
         $totalPelanggaran = Pelanggaran::selectRaw('count(*) as total')->get();
-        $totalUjian = Ujian::selectRaw('count(*) as total')->where('tanggal', '2022-06-08')->get();
+        $totalUjian = Ujian::selectRaw('count(*) as total')->where('tanggal', $now)->get();
         $totalKehadiran = Penugasan::join('ujians', 'penugasans.ujian_id', 'ujians.id')
-        ->selectRaw('count(*) as total')->where('ujians.tanggal', '2022-06-08')->where('presensi' ,'!=', null)->get();   
+        ->selectRaw('count(*) as total')->where('ujians.tanggal', $now)->where('presensi' ,'!=', null)->get();   
 
         $period = new DatePeriod( new DateTime($from), new DateInterval('P1D'), new DateTime($to));
         $dbData = [];

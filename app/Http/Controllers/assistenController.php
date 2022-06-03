@@ -34,7 +34,7 @@ class assistenController extends Controller
         if (request(['dbTanggal'])) {
             $ujian->filter(request(['dbTanggal']));
         } else {
-            $ujian->where('ujians.tanggal', '2022-06-08');
+            $ujian->where('ujians.tanggal', $now);
         }
 
         return view('assisten.dashboard', ["dbUjian" => $ujian->get()]);

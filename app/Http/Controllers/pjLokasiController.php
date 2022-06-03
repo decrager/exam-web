@@ -58,7 +58,7 @@ class pjLokasiController extends Controller
         if (request(['dbTanggal'])) {
             $ujian->filter(request(['dbTanggal']));
         } else {
-            $ujian->where('ujians.tanggal', '2022-06-08');
+            $ujian->where('ujians.tanggal', $now);
         }
         
         return view('pj_lokasi.dashboard', [
@@ -151,7 +151,7 @@ class pjLokasiController extends Controller
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
-        ->where('ujians.tanggal', '2022-06-08');
+        ->where('ujians.tanggal', $now);
 
         $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
         $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
@@ -326,7 +326,7 @@ class pjLokasiController extends Controller
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'penugasans.*', 'pengawas.*')
-        ->where('ujians.tanggal', '2022-06-08');
+        ->where('ujians.tanggal', $now);
 
         $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
         $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
