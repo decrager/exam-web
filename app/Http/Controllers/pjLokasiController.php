@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Kelas;
+use App\Models\Prodi;
 use App\Models\Ujian;
+use App\Models\Berkas;
 use App\Models\Master;
+use App\Models\Matkul;
+use App\Models\Ruangan;
 use App\Models\Pengawas;
+use App\Models\Semester;
 use App\Models\Penugasan;
 use App\Models\Pelanggaran;
-use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Storage;
@@ -279,7 +285,7 @@ class pjLokasiController extends Controller
 
     public function soalForm()
     {
-        $tglbln = Carbon::now()->format('d F, Y');
+        $tglbln = Carbon::now()->TranslatedFormat('d F Y');
         return view('pj_lokasi.soal.form', [
             'master' => Master::find(1),
             'tglbln' => $tglbln
@@ -322,65 +328,21 @@ class pjLokasiController extends Controller
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'penugasans.*', 'pengawas.*')
         ->where('ujians.tanggal', '2022-06-08');
 
-        if (Auth::user()->lokasi == 'CA & Lab Kom') {
-            $pengawas->where('ujians.ruang', 'CA B01')
-            ->orWhere('ujians.ruang', 'CA B02')
-            ->orWhere('ujians.ruang', 'CA B03')
-            ->orWhere('ujians.ruang', 'CA B04')
-            ->orWhere('ujians.ruang', 'CA B05')
-            ->orWhere('ujians.ruang', 'CA B06')
-            ->orWhere('ujians.ruang', 'CA B07')
-            ->orWhere('ujians.ruang', 'CA B08')
-            ->orWhere('ujians.ruang', 'CA KOM 1')
-            ->orWhere('ujians.ruang', 'CA KOM 2');
-        } elseif (Auth::user()->lokasi == 'CB & Lab Kom') {
-            $pengawas->where('ujians.ruang', 'CB B01')
-            ->orWhere('ujians.ruang', 'CB B02')
-            ->orWhere('ujians.ruang', 'CB B03')
-            ->orWhere('ujians.ruang', 'CB B04')
-            ->orWhere('ujians.ruang', 'CB KOM 1')
-            ->orWhere('ujians.ruang', 'CB KOM 2')
-            ->orWhere('ujians.ruang', 'CB KOM 3')
-            ->orWhere('ujians.ruang', 'CB KOM 4')
-            ->orWhere('ujians.ruang', 'CB KOM 5')
-            ->orWhere('ujians.ruang', 'CB PEMROGRAMAN')
-            ->orWhere('ujians.ruang', 'CB K 70-1');
-        } elseif (Auth::user()->lokasi == 'BS B01-06') {
-            $pengawas->where('ujians.ruang', 'BS B01')
-            ->orWhere('ujians.ruang', 'BS B02')
-            ->orWhere('ujians.ruang', 'BS B03')
-            ->orWhere('ujians.ruang', 'BS B04')
-            ->orWhere('ujians.ruang', 'BS B05')
-            ->orWhere('ujians.ruang', 'BS B06');
-        } elseif (Auth::user()->lokasi == 'BS B07-10') {
-            $pengawas->where('ujians.ruang', 'BS B07')
-            ->orWhere('ujians.ruang', 'BS B08')
-            ->orWhere('ujians.ruang', 'BS B09')
-            ->orWhere('ujians.ruang', 'BS B10');
-        } elseif (Auth::user()->lokasi == 'BS KIMBOTFIS') {
-            $pengawas->where('ujians.ruang', 'BS Kimia')
-            ->orWhere('ujians.ruang', 'BS Botani')
-            ->orWhere('ujians.ruang', 'BS Fisika');
-        } elseif (Auth::user()->lokasi == 'BS P01-03') {
-            $pengawas->where('ujians.ruang', 'BS P01')
-            ->orWhere('ujians.ruang', 'BS P02')
-            ->orWhere('ujians.ruang', 'BS P03')
-            ->orWhere('ujians.ruang', 'HPT');
-        } elseif (Auth::user()->lokasi == 'Sukabumi') {
-            $pengawas->where('ujians.ruang', 'GAK 01')
-            ->orWhere('ujians.ruang', 'GAK 02')
-            ->orWhere('ujians.ruang', 'GAK 03')
-            ->orWhere('ujians.ruang', 'GAK 04')
-            ->orWhere('ujians.ruang', 'GAK 05')
-            ->orWhere('ujians.ruang', 'GAK 06')
-            ->orWhere('ujians.ruang', 'GAK 07')
-            ->orWhere('ujians.ruang', 'LAB KOM SMI');
-        } elseif (Auth::user()->lokasi == 'Online') {
-            $pengawas->where('ujians.ruang', 'Online');
+        $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
+        $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
+        for ($i = 0; $i < $tot1; $i++) {
+            if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
+                $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
+                $tot2 = count($ruangan);
+                $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
+                for ($j = 1; $j < $tot2; $j++) {
+                    $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+                }
+            }
         }
 
         $master = Master::find(1);
-        $tglbln = Carbon::now()->format('d F Y');
+        $tglbln = Carbon::now()->translatedFormat('d F Y');
         $nama = Auth::user()->name;
         $lokasi = Auth::user()->lokasi;
         $tbt = Carbon::now()->format('d/m/Y');
@@ -414,5 +376,100 @@ class pjLokasiController extends Controller
         $pdf = PDF::loadView('layouts.presence', $data);
 
         return $pdf->stream('presensi.pdf');
+    }
+
+    public function SerahTerima(Request $request)
+    {
+        DB::beginTransaction();
+
+        $destination1 = 'images/qr/ttd_penyerah.png';
+        $destination2 = 'images/qr/ttd_penerima.png';
+        if ($destination1 AND $destination2) {
+            Storage::delete($destination1);
+            Storage::delete($destination2);
+        }
+        
+        $folderPath = Storage::path('images/qr/');
+        $image1 = explode(";base64,", $request->ttd_penyerah);
+        $image_base1 = base64_decode($image1[1]);
+        $fileName1 = 'ttd_penyerah.png';
+        $file1 = $folderPath . $fileName1;
+        file_put_contents($file1, $image_base1);
+
+        $image2 = explode(";base64,", $request->ttd_penerima);
+        $image_base2 = base64_decode($image2[1]);
+        $fileName2 = 'ttd_penerima.png';
+        $file2 = $folderPath . $fileName2;
+        file_put_contents($file2, $image_base2);
+
+        $kelas = array();
+        for ($i = 0; $i < count($request->kelas); $i++) {
+            $kelas[] = Kelas::where('id', $request->kelas[$i])->select('kelas')->first();
+        }
+
+        $prodi = Prodi::where('id', $request->prodi)->select('nama_prodi')->first();
+        $semester = Semester::where('id', $request->semester)->select('semester')->first();
+        $matkul = Matkul::where('id', $request->ttdMatkul)->select('nama_matkul')->first();
+        $listKelas = Kelas::where('semester_id', $request->semester)->select('kelas')->get();
+
+        $data = [
+            'master' => Master::find(1),
+            'thn_ajaran' => $request->thn_ajaran,
+            'nama_prodi' => $prodi->nama_prodi,
+            'semester' =>$semester->semester,
+            'matkul' => $matkul->nama_matkul,
+            'kelas' => $kelas,
+            'hari' => $request->hari,
+            'jam' => $request->jam,
+            'tanggal' => $request->tanggal,
+            'tglbln' => $request->tglbln,
+            'jml_berkas' => $request->jml_berkas,
+            'nama_serah' => $request->nama_serah,
+            'nama_terima' => $request->nama_terima,
+            'ttd_penyerah' => $fileName1,
+            'ttd_penerima' => $fileName2,
+            'listKelas' => $listKelas
+        ];
+
+        $pdf = PDF::loadView('layouts.serah', $data);
+        $pdfName = time(). '_Serah_Terima.pdf';
+        // return $pdf->stream('serah_terima.pdf');
+        Storage::put('files/pdf/' . $pdfName, $pdf->output());
+
+        for ($i = 0; $i < count($request->kelas); $i++) {
+            Berkas::join('ujians', 'berkas.ujian_id', 'ujians.id')
+            ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+            ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+            ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+            ->where('kelas.id', $request->kelas[$i])
+            ->where('matkuls.id', $request->ttdMatkul)
+            ->update([
+                'serah_terima' => 'Sudah',
+                'file' => $pdfName
+            ]);
+        }
+        $this->Activity(' melakukan serah terima berkas');
+        DB::commit();
+
+        return redirect()->route('pjLokasi.soal.index')->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
+    }
+
+    public function SerahTerimaDestroy($id)
+    {
+        DB::beginTransaction();
+        $fileName = Berkas::where('ujian_id', $id)->select('file')->first();
+
+        $destination = 'files/pdf/' . $fileName->file;
+        if ($destination) {
+            Storage::delete($destination);
+        }
+
+        Berkas::where('file', $fileName->file)->update([
+            'serah_terima' => 'Belum',
+            'file' => null
+        ]);
+        DB::commit();
+        
+        return redirect()->route('pjLokasi.soal.index')->with('success', 'Berkas Serah Terima berhasil dihapus!');
     }
 }

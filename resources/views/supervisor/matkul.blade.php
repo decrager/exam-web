@@ -114,10 +114,12 @@
                                             <td>{{ $ujian?->nama_matkul }}</td>
                                             <td>{{ $ujian?->tipe_mk }}</td>
                                             <td>
-                                                @if ($ujian?->perbanyak == 1)
-                                                    <span class="badge bg-success">Perbanyak</span>
-                                                @else
-                                                    <span class="badge bg-danger">Tidak</span>
+                                                @if ($ujian?->perbanyak == "1")
+                                                    <span class="badge badge-success">Perbanyak</span>
+                                                @elseif ($ujian?->perbanyak == "2")
+                                                    <span class="badge badge-danger">Tidak</span>
+                                                @else 
+                                                    -
                                                 @endif
                                             </td>
                                             <td>{{ $ujian?->jumlah }}</td>

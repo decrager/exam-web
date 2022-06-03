@@ -42,7 +42,7 @@
                     <div class="card-body">
                         <h4 class="header-title">Rekapitulasi Pelanggaran</h4>
                         <figure class="highcharts-figure">
-                            <div id="pjonlinechart"></div>
+                            <div id="container"></div>
                         </figure>
                     </div>
                 </div>

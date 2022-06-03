@@ -65,17 +65,17 @@
                                     @foreach ($pengawas as $row)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $row?->Ujian?->tanggal }}</td>
-                                            <td>{{ $row?->Ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
-                                            <td>{{ $row?->Ujian?->Matkul?->Semester?->semester }}</td>
-                                            <td>{{ $row?->Ujian?->Praktikum?->Kelas?->kelas }}</td>
-                                            <td>{{ $row?->Ujian?->Praktikum?->praktikum }}</td>
-                                            <td>{{ $row?->Ujian?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $row?->Ujian?->lokasi }}</td>
-                                            <td>{{ $row?->Ujian?->ruang }}</td>
-                                            <td>{{ $row?->Pengawas?->nama }}</td>
-                                            <td>{{ $row?->Pengawas?->norek }}</td>
-                                            <td>{{ $row?->Pengawas?->bank }}</td>
+                                            <td>{{ $row?->tanggal }}</td>
+                                            <td>{{ $row?->nama_prodi }}</td>
+                                            <td>{{ $row?->semester }}</td>
+                                            <td>{{ $row?->kelas }}</td>
+                                            <td>{{ $row?->praktikum }}</td>
+                                            <td>{{ $row?->nama_matkul }}</td>
+                                            <td>{{ $row?->lokasi }}</td>
+                                            <td>{{ $row?->ruang }}</td>
+                                            <td>{{ $row?->nama }}</td>
+                                            <td>{{ $row?->norek }}</td>
+                                            <td>{{ $row?->bank }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

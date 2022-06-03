@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Bap;
+use App\Models\Kelas;
+use App\Models\Prodi;
 use App\Models\Ujian;
 use App\Models\Amplop;
 use App\Models\Berkas;
 use App\Models\Master;
 use App\Models\Matkul;
+use App\Models\Semester;
 use App\Models\Mahasiswa;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use function PHPUnit\Framework\isEmpty;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Storage;
 
 class berkasController extends Controller
 {
@@ -204,7 +210,7 @@ class berkasController extends Controller
 
     public function ttd()
     {
-        $tglbln = Carbon::now()->format('d F, Y');
+        $tglbln = Carbon::now()->translatedFormat('d F Y');
 
         return view('berkas.ttd', [
             'master' => Master::find(1),
@@ -240,5 +246,101 @@ class berkasController extends Controller
     public function pelanggaran()
     {
         return view('berkas.pelanggaran', ["title" => env('APP_NAME')]);
+    }
+
+    public function SerahTerima(Request $request)
+    {
+        DB::beginTransaction();
+
+        $destination1 = 'images/qr/ttd_penyerah.png';
+        $destination2 = 'images/qr/ttd_penerima.png';
+        if ($destination1 AND $destination2) {
+            Storage::delete($destination1);
+            Storage::delete($destination2);
+        }
+        
+        $folderPath = Storage::path('images/qr/');
+        $image1 = explode(";base64,", $request->ttd_penyerah);
+        $image_base1 = base64_decode($image1[1]);
+        $fileName1 = 'ttd_penyerah.png';
+        $file1 = $folderPath . $fileName1;
+        file_put_contents($file1, $image_base1);
+
+        $image2 = explode(";base64,", $request->ttd_penerima);
+        $image_base2 = base64_decode($image2[1]);
+        $fileName2 = 'ttd_penerima.png';
+        $file2 = $folderPath . $fileName2;
+        file_put_contents($file2, $image_base2);
+
+        $kelas = array();
+        for ($i = 0; $i < count($request->kelas); $i++) {
+            $kelas[] = Kelas::where('id', $request->kelas[$i])->select('kelas')->first();
+        }
+
+        $prodi = Prodi::where('id', $request->prodi)->select('nama_prodi')->first();
+        $semester = Semester::where('id', $request->semester)->select('semester')->first();
+        $matkul = Matkul::where('id', $request->ttdMatkul)->select('nama_matkul')->first();
+        $listKelas = Kelas::where('semester_id', $request->semester)->select('kelas')->get();
+
+        $data = [
+            'master' => Master::find(1),
+            'thn_ajaran' => $request->thn_ajaran,
+            'nama_prodi' => $prodi->nama_prodi,
+            'semester' =>$semester->semester,
+            'matkul' => $matkul->nama_matkul,
+            'kelas' => $kelas,
+            'hari' => $request->hari,
+            'jam' => $request->jam,
+            'tanggal' => $request->tanggal,
+            'tglbln' => $request->tglbln,
+            'jml_berkas' => $request->jml_berkas,
+            'nama_serah' => $request->nama_serah,
+            'nama_terima' => $request->nama_terima,
+            'ttd_penyerah' => $fileName1,
+            'ttd_penerima' => $fileName2,
+            'listKelas' => $listKelas
+        ];
+
+        $pdf = PDF::loadView('layouts.serah', $data);
+        $pdfName = time(). '_Serah_Terima.pdf';
+        // return $pdf->stream('serah_terima.pdf');
+        Storage::put('files/pdf/' . $pdfName, $pdf->output());
+
+        for ($i = 0; $i < count($request->kelas); $i++) {
+            Berkas::join('ujians', 'berkas.ujian_id', 'ujians.id')
+            ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+            ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+            ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+            ->where('kelas.id', $request->kelas[$i])
+            ->where('matkuls.id', $request->ttdMatkul)
+            ->update([
+                'serah_terima' => 'Sudah',
+                'file' => $pdfName
+            ]);
+        }
+        $this->Activity(' melakukan serah terima berkas');
+        DB::commit();
+
+        return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
+    }
+
+    public function SerahTerimaDestroy($id)
+    {
+        DB::beginTransaction();
+        $fileName = Berkas::where('ujian_id', $id)->select('file')->first();
+
+        $destination = 'files/pdf/' . $fileName->file;
+        if ($destination) {
+            Storage::delete($destination);
+        }
+
+        Berkas::where('file', $fileName->file)->update([
+            'serah_terima' => 'Belum',
+            'file' => null
+        ]);
+        $this->Activity(' menghapus serah terima berkas');
+        DB::commit();
+        
+        return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil dihapus!');
     }
 }

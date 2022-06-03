@@ -189,7 +189,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::get('/pj_ujian/jadwal/export', [pjUjianController::class, 'export'])->name('pjUjian.jadwal.export');
     Route::get('/pj_ujian/aktivitas/export', [pjUjianController::class, 'logExport'])->name('pjUjian.aktivitas.export');
     Route::post('/pj_ujian/serahterima/export', [pjUjianController::class, 'SerahTerima'])->name('pjUjian.serahterima');
-    Route::get('/pj_ujian/serahterima/delete/{id}', [pjUjianController::class, 'SerahTerimaDestroy'])->name('pjUjian.serahterima.destroy');
+    Route::put('/pj_ujian/serahterima/delete/{id}', [pjUjianController::class, 'SerahTerimaDestroy'])->name('pjUjian.serahterima.destroy');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:prodi']], function () {
@@ -230,6 +230,8 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
     Route::delete('/pj_lokasi/pengawas/delete/{id}', [pjLokasiController::class, 'presenceDestroy'])->name('pjLokasi.pengawas.destroy');
     
     Route::post('/pj_lokasi/presensi/export', [pjLokasiController::class, 'pdf'])->name('pjLokasi.pdf');
+    Route::post('/pj_lokasi/serahterima/export', [pjLokasiController::class, 'SerahTerima'])->name('pjLokasi.serahterima');
+    Route::put('/pj_lokasi/serahterima/delete/{id}', [pjLokasiController::class, 'SerahTerimaDestroy'])->name('pjLokasi.serahterima.destroy');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {
@@ -246,6 +248,9 @@ Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {
     Route::put('/berkas/amplop/fotokopi/{id}', [berkasController::class, 'berkasFotokopi'])->name('berkas.fotokopi.update');
     Route::put('/berkas/amplop/lengkap/{id}', [berkasController::class, 'berkasLengkap'])->name('berkas.lengkap.update');
     Route::put('/berkas/amplop/serah_terima/{id}', [berkasController::class, 'berkasSerahTerima'])->name('berkas.serahterima.update');
+
+    Route::post('/berkas/serahterima/export', [berkasController::class, 'SerahTerima'])->name('berkas.serahterima');
+    Route::put('/berkas/serahterima/delete/{id}', [berkasController::class, 'SerahTerimaDestroy'])->name('berkas.serahterima.destroy');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:assisten']], function () {

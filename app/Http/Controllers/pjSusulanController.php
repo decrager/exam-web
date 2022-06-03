@@ -225,7 +225,7 @@ class pjSusulanController extends Controller
 
         $berkas = new Berkas;
         $berkas->ujian_id = $latest;
-        $berkas->jml_berkas = "0";
+        $berkas->jml = "0";
         $berkas->save();
 
         Susulan::join('mahasiswas', 'susulans.mhs_id', 'mahasiswas.id')

@@ -84,12 +84,12 @@
                                         <label class="col-form-label">Hari</label>
                                         <select class="custom-select" name="hari" required>
                                             <option selected="selected" value="-">Pilih hari</option>
-                                            <option value="senin">Senin</option>
-                                            <option value="selasa">Selasa</option>
-                                            <option value="rabu">Rabu</option>
-                                            <option value="kamis">Kamis</option>
-                                            <option value="jumat">Jumat</option>
-                                            <option value="sabtu">Sabtu</option>
+                                            <option value="Senin">Senin</option>
+                                            <option value="Selasa">Selasa</option>
+                                            <option value="Rabu">Rabu</option>
+                                            <option value="Kamis">Kamis</option>
+                                            <option value="Jumat">Jumat</option>
+                                            <option value="Sabtu">Sabtu</option>
                                         </select>
                                     </div>
 
@@ -111,13 +111,13 @@
                                     
                                     <div class="form-group">
                                         <label for="jml_berkas" class="col-form-label">Jumlah Berkas</label>
-                                        <input class="form-control" type="text" name="jml_berkas" id="jml_berkas" required />
+                                        <input class="form-control" type="text" name="jml_berkas" placeholder="Ketik..." id="jml_berkas" required />
                                     </div>
                                     
                                     <div class="form-group">
                                         <label for="nama_serah" class="col-form-label">Nama yang menyerahkan</label>
                                         <input class="form-control" type="text" placeholder="Ketik nama penyerah..."
-                                        id="nama_serah" name="nama_serah" />
+                                        id="nama_serah" name="nama_serah" required/>
                                     </div>
                                     
                                     <div class="form-group">
@@ -126,13 +126,13 @@
                                         <div id="sign"> </div>
                                         <br />
                                         <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
-                                        <textarea id="signature64" name="ttd_penyerah" style="display: none"></textarea>
+                                        <textarea id="signature64" name="ttd_penyerah" style="display: none" required></textarea>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label for="nama_terima" class="col-form-label">Nama yang menerima</label>
                                         <input class="form-control" type="text" placeholder="Ketik nama penerima..."
-                                        id="nama_terima" name="nama_terima" />
+                                        id="nama_terima" name="nama_terima" required/>
                                     </div>
 
                                     <div class="form-group">
@@ -141,7 +141,7 @@
                                         <div id="sign2"> </div>
                                         <br />
                                         <button id="clear2" class="btn btn-danger btn-sm">Clear Signature</button>
-                                        <textarea id="signature65" name="ttd_penerima" style="display: none"></textarea>
+                                        <textarea id="signature65" name="ttd_penerima" style="display: none" required></textarea>
                                     </div>
                                     
                                     <button type="submit" class="btn btn-primary">Simpan</button>

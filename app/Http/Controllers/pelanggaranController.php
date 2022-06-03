@@ -25,7 +25,7 @@ class pelanggaranController extends Controller
     {
         $dataPelanggaran = Pelanggaran::orderBy('created_at', 'desc')->get();
         $dataTanggalMulai = Master::first();
-        $dataTanggalSelesai = Master::first();
+        $dataTanggalSelesai = Master::selectRaw('DATE_ADD(periode_akhir, INTERVAL 1 DAY) AS periode_akhir')->first();
 
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;

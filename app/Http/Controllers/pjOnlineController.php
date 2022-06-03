@@ -57,7 +57,8 @@ class pjOnlineController extends Controller
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
         ->whereBetween('ujians.tanggal', [$from, $to])
-        ->where('pelaksanaan', 'like', '%Online%')
+        ->where('ujians.pelaksanaan', 'like', '%Online%')
+        ->orWhere('ujians.ruang', 'like', '%Online%')
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('pj_online.ujian', [
@@ -68,7 +69,39 @@ class pjOnlineController extends Controller
 
     public function pelanggaranIndex()
     {
-        return view('pj_online.pelanggaran.index', ["title" => env('APP_NAME')]);
+        $dataPelanggaran = Pelanggaran::orderBy('created_at', 'desc')->get();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::first();
+
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
+
+        $period = new DatePeriod( new DateTime($from), new DateInterval('P1D'), new DateTime($to));
+        $dbData = [];
+
+        foreach($period as $date){
+            $range[$date->format("Y-m-d")] = 0;
+        };
+
+        $data = Pelanggaran::join('ujians', 'pelanggarans.ujian_id', 'ujians.id')
+            ->selectRaw('tanggal, count(pelanggarans.id) as total_pelanggaran')
+            ->whereDate('tanggal', '>=', date($from).' 00:00:00')
+            ->whereDate('tanggal', '<=', date($to).' 00:00:00')
+            ->groupBy('tanggal')
+            ->get();
+
+        foreach($data as $val){
+            $dbData[$val->tanggal] = $val->total_pelanggaran;
+        }
+
+        $data = array_replace($range, $dbData);
+        $label =  array_keys($data);
+        $data = array_values($data);
+        
+        // return view('pj_online.pelanggaran.index', [
+        //     'label' => $label,
+        //     'data' => $data
+        //   ], compact(['dataPelanggaran']));
     }
 
     public function pelanggaranForm()

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use DatePeriod;
 use DateTime;
+use DatePeriod;
 use DateInterval;
 use Carbon\Carbon;
+use App\Models\Master;
 use App\Models\Ujian; 
 use App\Models\Mahasiswa;
 use App\Http\Controllers\DB;
@@ -22,11 +23,12 @@ class pelanggaranOnlineController extends Controller
      */
     public function index()
     {
-        $dataPelanggaran = Pelanggaran::orderBy('created_at', 'desc')
-              ->get();
+        $dataPelanggaran = Pelanggaran::orderBy('created_at', 'desc')->get();
+        $dataTanggalMulai = Master::first();
+        $dataTanggalSelesai = Master::selectRaw('DATE_ADD(periode_akhir, INTERVAL 1 DAY) AS periode_akhir')->first();
 
-        $from = "2022-03-18";
-        $to = "2022-03-29";
+        $from = $dataTanggalMulai->periode_mulai;
+        $to = $dataTanggalSelesai->periode_akhir;
 
         $period = new DatePeriod( new DateTime($from), new DateInterval('P1D'), new DateTime($to));
         $dbData = [];

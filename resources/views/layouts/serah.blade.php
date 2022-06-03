@@ -9,31 +9,28 @@
         .garis_tepi1 {
              border: 2px solid black;
         }
-        html,body{
-        height:297mm;
-        width:210mm;
-        }
+       
     </style>
 </head>
-<table border="0" align="center">
-    <tr style="text-indent: 520px;">
-        <td><font size="4">FRM/SV/UJN/002</font></td>
+<table border="0" align="right">
+    <tr>
+        <td style="text-indent:-50px;"><font size="2">FRM/SV/UJN/002</font></td>
     </tr>
 </table>
 
 <table border="0" align="center">
     <tr>
-    <td><img src="{{ asset('images/icon/IPB.png') }}"> </td>
+    <td><img src="{{ public_path('images/icon/IPB.png') }}" width="70px"> </td>
     <td><center>
-        <font size="4">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET DAN TEKNOLOGI</font><BR>
-        <font size="4">INSTITUT PERTANIAN BOGOR</font><BR>
-        <font size="4"><b>SEKOLAH VOKASI</b></font><BR>
+        <font size="3">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET DAN TEKNOLOGI</font><BR>
+        <font size="3">INSTITUT PERTANIAN BOGOR</font><BR>
+        <font size="3"><b>SEKOLAH VOKASI</b></font><BR>
         <font size="2">Kampus IPB Cilibende, Jl. Kumbang No.14 Bogor 16151</font><BR>
         <font size="2">Telp. /Fax. (0251) 83480007/8376845</font></center>
     </td>
     </tr>
     <tr>
-        <td colspan="3"><b><hr color='black'></b></td>
+        <td colspan="4"><b><hr color='black'></b></td>
     </tr>
 
 </table>
@@ -49,32 +46,63 @@
 <body>
     <table align="left">
         <tr style="text-indent: 60px;">
-            <td>
-                <font size="3">Sudah diterima berkas ujian UTS/UAS/ T.A. ...../..... :</font>
+            <td width="500px">
+                <font size="3">Sudah diterima berkas ujian @if ($master->isuas == 1) <s>UTS</s>/UAS @else UTS/<s>UAS</s> @endif T.A. {{ $master->thn_ajaran }} :</font>
             </td>
         </tr>
     </table>
     <table>
         <tr style="text-indent: 100px;">
-            <td width="300px"><font size="3">Hari &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;: ......</font></td>
-            <td width="180px" style="text-indent: 10px;"><font size="3">Jam  &nbsp; &nbsp; &nbsp;: .............</font></td>
-            <td width="200px" style="text-indent: 10px;"><font size="3">Semester : [  /  /  ]</font></td>
+            <td width="320px"><font size="3">Hari &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; : {{ $hari }}</font></td>
+            <td width="180px" style="text-indent: 10px;"><font size="3">Jam  &nbsp; &nbsp; &nbsp;: {{ $jam }}</font></td>
+            <td width="200px" style="text-indent: 10px;">
+                <font size="3">
+                    @if ($master->smt_akademik == 1)
+                        Semester : [1/3/5]
+                    @else
+                        @if ($semester == 2)
+                            Semester : [2/<s>4</s>/<s>6</s>]
+                        @elseif ($semester == 4)
+                            Semester : [<s>2</s>/4/<s>6</s>]
+                        @else
+                            Semester : [<s>2</s>/<s>4</s>/6]
+                        @endif
+                    @endif
+                </font>
+            </td>
         </tr>
-        <br>
         <tr style="text-indent: 100px;">
-            <td colspan="3"><font size="3">Tgl/Bln/Thn &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : .................................................................</font> </td>
-        </tr>
-        <br>
-        <tr style="text-indent: 100px;">
-            <td colspan="2"><font size="3">Program Studi &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : .....................................................</font> </td>
-            <td width="200px" style="text-indent: 10px;"><font size="3">Kelas &nbsp; &nbsp; : [A] [B] [C] [D]</font></td>
+            <td colspan="3"><font size="3">Tgl/Bln/Thn &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : {{ date('d/m/Y', strtotime($tanggal)) }}</font> </td>
         </tr>
         <tr style="text-indent: 100px;">
-            <td colspan="3"><font size="3">Mata kuliah &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : .................................................................</font> </td>
+            <td colspan="2"><font size="3">Program Studi &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : {{ $nama_prodi }}</font> </td>
+            <td width="200px" style="text-indent: 10px;">
+                <font size="3">
+                Kelas &nbsp; &nbsp; :
+                <?php $hasil = 0;?>
+                @for ($i = 0; $i < count($listKelas); $i++)
+                    @for ($j = 0; $j < count($kelas); $j++)
+                        @if ($listKelas[$i]->kelas == $kelas[$j]->kelas)
+                            [{{ $listKelas[$i]->kelas }}]
+                            <?php $true = $listKelas[$i]->kelas ?>
+                        @else
+                            <?php $hasil = $kelas[$j]->kelas?>
+                        @endif
+                    @endfor
+                    @if ($listKelas[$i]->kelas != $hasil)
+                        @if ($true != $listKelas[$i]->kelas)
+                            [<s>{{ $listKelas[$i]->kelas }}</s>]
+                        @endif
+                    @endif
+                @endfor
+                </font>
+            </td>
         </tr>
-        <br>
         <tr style="text-indent: 100px;">
-            <td colspan="3"><font size="3">Jumlah Lembar Soal &nbsp; &nbsp; &nbsp; : </font> </td>
+            <td colspan="3"><font size="3">Mata kuliah &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : {{ $matkul }}</font> </td>
+        </tr>
+        <tr style="text-indent: 100px;">
+            <td colspan="3"><font size="3">Jumlah Lembar Soal &nbsp; &nbsp; &nbsp; : {{ $jml_berkas }}</font> </td>
         </tr>
         <br>
     </table>
@@ -83,29 +111,27 @@
     <br>
     <br>
     
-    <table align="center">
-        <tr style="text-indent: 410px;"> 
-            <td>Bogor, ......................... 20 ..</td>
+    <table align="right">
+        <tr style="text-indent: -50px;"> 
+            <td>Bogor, {{ $tglbln }}</td>
         </tr>
     </table>
     <table align="left" >
         <tr style="text-indent: 120px;"> 
             <td width="350px">Yang Menyerahkan, </td>
-            <td width="330px" style="text-indent: 150px;">Yang Menerima, </td>
+            <td width="330px" style="text-indent: 160px;">Yang Menerima, </td>
         </tr>
     </table>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <table align="left" >
+        <tr style="text-indent: 120px;"> 
+            <td width="350px" style="text-indent: 120px;"><img src="{{ public_path('storage/images/qr/' . $ttd_penyerah) }}" alt="TTD Penyerah"></td>
+            <td width="330px" style="text-indent: 160px;"><img src="{{ public_path('storage/images/qr/' . $ttd_penerima) }}" alt="TTD Penerima"></td>
+        </tr>
+    </table>
     <table align="left">
         <tr style="text-indent: 110px;">
-            <td width="350px">(........................................)</td> 
-            <td width="330px" style="text-indent: 150px;">(........................................)</td> 
+            <td width="330px" align="center" style="text-indent: -10px;">({{ $nama_serah }})</td> 
+            <td width="330px" align="center" style="text-indent: 160px;">({{ $nama_terima }})</td> 
         </tr> 
     </table>
 </body>
@@ -128,13 +154,12 @@
     <br>
     <br>
     <br>
-    
 
 <footer>
     <table align="center" border="1" cellspacing="0">
         <tr>
             <td width="300px" style="text-indent: 100px;">No. Revisi : 00</td>
-            <td width="80px" style="text-indent: 15px;">Hal: 1/2</td>
+            <td width="80px" style="text-indent: 15px;">Hal: 1/1</td>
             <td width="300px" style="text-indent: 40px;">Tanggal Berlaku : 9 Oktober 2020</td>
         </tr>
     </table>

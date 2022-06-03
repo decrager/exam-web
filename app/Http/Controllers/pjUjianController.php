@@ -14,6 +14,7 @@ use App\Models\Matkul;
 use App\Models\Susulan;
 use App\Models\Pengawas;
 use App\Models\Semester;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Mahasiswa;
 use App\Models\Penugasan;
 use App\Exports\LogExport;
@@ -85,7 +86,8 @@ class pjUjianController extends Controller
         ]);
     }
 
-    public function export(){
+    public function export()
+    {
         $this->Activity(' mengeksport jadwal ujian ke excel');
         return Excel::download(new UjianExport, 'dataujian.xlsx');
     }
@@ -430,7 +432,7 @@ class pjUjianController extends Controller
 
     public function ttd()
     {
-        $tglbln = Carbon::now()->format('d F, Y');
+        $tglbln = Carbon::now()->translatedFormat('d F Y');
         return view('pj_ujian.ttd', [
             'master' => Master::find(1),
             'tglbln' => $tglbln
@@ -563,7 +565,7 @@ class pjUjianController extends Controller
 
         $berkas = new Berkas;
         $berkas->ujian_id = $latest;
-        $berkas->jml_berkas = "0";
+        $berkas->jml = "0";
         $berkas->save();
 
         Susulan::join('mahasiswas', 'susulans.mhs_id', 'mahasiswas.id')
@@ -711,12 +713,17 @@ class pjUjianController extends Controller
             $kelas[] = Kelas::where('id', $request->kelas[$i])->select('kelas')->first();
         }
 
+        $prodi = Prodi::where('id', $request->prodi)->select('nama_prodi')->first();
+        $semester = Semester::where('id', $request->semester)->select('semester')->first();
+        $matkul = Matkul::where('id', $request->ttdMatkul)->select('nama_matkul')->first();
+        $listKelas = Kelas::where('semester_id', $request->semester)->select('kelas')->get();
+
         $data = [
             'master' => Master::find(1),
             'thn_ajaran' => $request->thn_ajaran,
-            'nama_prodi' => Prodi::where('id', $request->prodi)->select('nama_prodi')->first(),
-            'semester' => Semester::where('id', $request->semester)->select('semester')->first(),
-            'matkul' => Matkul::where('id', $request->ttdMatkul)->select('nama_matkul')->first(),
+            'nama_prodi' => $prodi->nama_prodi,
+            'semester' =>$semester->semester,
+            'matkul' => $matkul->nama_matkul,
             'kelas' => $kelas,
             'hari' => $request->hari,
             'jam' => $request->jam,
@@ -727,42 +734,48 @@ class pjUjianController extends Controller
             'nama_terima' => $request->nama_terima,
             'ttd_penyerah' => $fileName1,
             'ttd_penerima' => $fileName2,
+            'listKelas' => $listKelas
         ];
 
-        return $data;
+        $pdf = PDF::loadView('layouts.serah', $data);
+        $pdfName = time(). '_Serah_Terima.pdf';
+        // return $pdf->stream('serah_terima.pdf');
+        Storage::put('files/pdf/' . $pdfName, $pdf->output());
 
         for ($i = 0; $i < count($request->kelas); $i++) {
-            $berkas = Ujian::join('praktikums', 'ujians.prak_id', 'praktikums.id')
+            Berkas::join('ujians', 'berkas.ujian_id', 'ujians.id')
+            ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
             ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
             ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
             ->where('kelas.id', $request->kelas[$i])
             ->where('matkuls.id', $request->ttdMatkul)
-            ->get();
-
-            $berkas->update([
-                'serah_terima' => 'sudah',
-                'file' => 'namafilenya'
+            ->update([
+                'serah_terima' => 'Sudah',
+                'file' => $pdfName
             ]);
         }
+        $this->Activity(' melakukan serah terima berkas');
         DB::commit();
+
+        return redirect()->route('pjUjian.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
     }
 
     public function SerahTerimaDestroy($id)
     {
-        $kelas_id = Ujian::join('praktikums', 'ujians.prak_id', 'praktikums.id')
-        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
-        ->where('ujians.id', $id)->select('kelas.id')->first();
+        DB::beginTransaction();
+        $fileName = Berkas::where('ujian_id', $id)->select('file')->first();
 
-        $matkul_id = Ujian::find($id)->select('matkul_id')->first();
+        $destination = 'files/pdf/' . $fileName->file;
+        if ($destination) {
+            Storage::delete($destination);
+        }
 
-        $berkas = Berkas::join('ujians', 'berkas.ujian_id', 'ujians.id')
-        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
-        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
-        ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
-        ->where('kelas.id', $kelas_id->id)
-        ->where('matkuls.id', $matkul_id->matkul_id)
-        ->get();
-
-        return $berkas;
+        Berkas::where('file', $fileName->file)->update([
+            'serah_terima' => 'Belum',
+            'file' => null
+        ]);
+        DB::commit();
+        
+        return redirect()->route('pjUjian.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil dihapus!');
     }
 }

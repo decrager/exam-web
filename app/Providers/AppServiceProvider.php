@@ -49,6 +49,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         config(['app.locale' => 'id']);
+        setlocale(LC_TIME, 'id_ID');
+        \Carbon\Carbon::setLocale('id');
         Carbon::setLocale('id');
         date_default_timezone_set('Asia/Jakarta');
 
@@ -63,7 +65,7 @@ class AppServiceProvider extends ServiceProvider
         // }
 
         $dataTanggalMulai = Master::first();
-        $dataTanggalSelesai = Master::first();
+        $dataTanggalSelesai = Master::selectRaw('DATE_ADD(periode_akhir, INTERVAL 1 DAY) AS periode_akhir')->first();
 
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
