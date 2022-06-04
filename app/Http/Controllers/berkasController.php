@@ -264,13 +264,13 @@ class berkasController extends Controller
         $image_base1 = base64_decode($image1[1]);
         $fileName1 = 'ttd_penyerah.png';
         $file1 = $folderPath . $fileName1;
-        file_put_contents($file1, $image_base1);
+        Storage::put($file1, $image_base1);
 
         $image2 = explode(";base64,", $request->ttd_penerima);
         $image_base2 = base64_decode($image2[1]);
         $fileName2 = 'ttd_penerima.png';
         $file2 = $folderPath . $fileName2;
-        file_put_contents($file2, $image_base2);
+        Storage::put($file2, $image_base2);
 
         $kelas = array();
         for ($i = 0; $i < count($request->kelas); $i++) {
