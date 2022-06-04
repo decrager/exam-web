@@ -101,19 +101,11 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <form action="{{ route('pjUjian.berkas.update', $ujian?->Berkas?->id) }}"
-                                                    method="POST" class="btn-group" role="group">
-                                                    @if ($ujian?->Berkas?->validasi == 'Belum')
-                                                        <button class="btn btn-danger btn-sm">Belum divalidasi</button>
-                                                    @else
-                                                        <button class="btn btn-success btn-sm">Tervalidasi</button>
-                                                    @endif
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="btn btn-success btn-sm"
-                                                        onclick="return confirm('Yakin mengubah status pengambilan?')"><i
-                                                            class="fas fa-check"></i></button>
-                                                </form>
+                                                @if ($ujian?->Berkas?->validasi == 'Belum')
+                                                    <button class="btn btn-danger btn-sm">Belum divalidasi</button>
+                                                @else
+                                                    <button class="btn btn-success btn-sm">Tervalidasi</button>
+                                                @endif
                                             </td>
                                             <td>
                                                 @if ($ujian?->Berkas?->fotokopi == 'Belum')

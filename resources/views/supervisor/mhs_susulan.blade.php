@@ -149,37 +149,6 @@
                                                 <h6>Bukti Persyaratan</h6>
                                                 <a href="{{ asset('storage/files/syarat/'. $mahasiswa?->file) }}" target="_blank" class="btn btn-success btn-sm mt-1"> <i class="fas fa-eye"></i>&ensp; Lihat</a>
                                             </div>
-                                            <div class="form-group">
-                                                @if ($mahasiswa?->status == 'Belum')
-                                                    <h6>Persetujuan</h6>
-                                                    <form action="{{ route('pjSusulan.mahasiswa.update', $mahasiswa?->id) }}" class="btn-group mt-1" role="group" method="POST">
-                                                        <button type="submit" class="btn btn-success btn-sm" name="status" value="Disetujui" onclick="return confirm('Yakin ingin menyetujui pengajuan?')"><i
-                                                                class="fas fa-check" ></i>&ensp; Setujui</button>
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit" class="btn btn-danger btn-sm" name="status" value="Ditolak" onclick="return confirm('Yakin ingin menolak pengajuan?')"><i
-                                                                class="fas fa-xmark" ></i>&ensp; Tolak</button>
-                                                    </form>
-                                                @elseif ($mahasiswa?->status == 'Disetujui')
-                                                    <h6>Ubah Persetujuan</h6>
-                                                    <form action="{{ route('pjSusulan.mahasiswa.update', $mahasiswa?->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit" class="btn btn-danger btn-sm" name="status" value="Ditolak" onclick="return confirm('Yakin ingin menolak pengajuan?')"><i
-                                                                class="fas fa-xmark" ></i>&ensp; Tolak</button>
-                                                    </form>
-                                                @elseif ($mahasiswa?->status == 'Ditolak')
-                                                    <h6>Ubah Persetujuan</h6>
-                                                    <form action="{{ route('pjSusulan.mahasiswa.update', $mahasiswa?->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit" class="btn btn-success btn-sm" name="status" value="Disetujui" onclick="return confirm('Yakin ingin menyetujui pengajuan?')">
-                                                             <i class="fas fa-check" ></i>&ensp; Setujui
-                                                        </button>
-                                                    </form>
-                                                @else
-                                                @endif
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

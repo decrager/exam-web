@@ -695,7 +695,7 @@ class pjUjianController extends Controller
             Storage::delete($destination2);
         }
         
-        $folderPath = public_path('storage/images/qr/');
+        $folderPath = Storage::path('images/qr/');
         $image1 = explode(";base64,", $request->ttd_penyerah);
         $image_base1 = base64_decode($image1[1]);
         $fileName1 = 'ttd_penyerah.png';
@@ -740,7 +740,7 @@ class pjUjianController extends Controller
         $pdf = PDF::loadView('layouts.serah', $data);
         $pdfName = time(). '_Serah_Terima.pdf';
         // return $pdf->stream('serah_terima.pdf');
-        Storage::put('public/files/pdf/' . $pdfName, $pdf->output());
+        Storage::put('files/pdf/' . $pdfName, $pdf->output());
 
         for ($i = 0; $i < count($request->kelas); $i++) {
             Berkas::join('ujians', 'berkas.ujian_id', 'ujians.id')
