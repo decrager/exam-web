@@ -79,7 +79,7 @@
             <td width="200px" style="text-indent: 10px;">
                 <font size="3">
                 Kelas &nbsp; &nbsp; :
-                <?php $hasil = 0;?>
+                <?php $hasil = 0; $true = 0;?>
                 @for ($i = 0; $i < count($listKelas); $i++)
                     @for ($j = 0; $j < count($kelas); $j++)
                         @if ($listKelas[$i]->kelas == $kelas[$j]->kelas)
