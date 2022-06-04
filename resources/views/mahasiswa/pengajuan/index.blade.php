@@ -68,7 +68,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $pengajuan?->nama_matkul }}</td>
-                                        <td><a href="{{ asset('storage/files/syarat/' . $pengajuan?->file) }}" target="_blank" class="btn btn-success btn-sm"> <i class="fas fa-eye"></i></a></td>
+                                        <td><a href="{{ Storage::files('storage/files/syarat/' . $pengajuan?->file) }}" target="_blank" class="btn btn-success btn-sm"> <i class="fas fa-eye"></i></a></td>
                                         <td>
                                             @if ($pengajuan?->status == 'Belum')
                                                 <span class="badge badge-warning">Belum disetujui</span>
