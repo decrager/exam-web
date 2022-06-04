@@ -740,7 +740,7 @@ class pjUjianController extends Controller
         $pdf = PDF::loadView('layouts.serah', $data);
         $pdfName = time(). '_Serah_Terima.pdf';
         // return $pdf->stream('serah_terima.pdf');
-        Storage::put('files/pdf/' . $pdfName, $pdf->output());
+        Storage::put('public/files/pdf/' . $pdfName, $pdf->output());
 
         for ($i = 0; $i < count($request->kelas); $i++) {
             Berkas::join('ujians', 'berkas.ujian_id', 'ujians.id')
