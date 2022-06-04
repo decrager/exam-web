@@ -147,7 +147,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <h6>Bukti Persyaratan</h6>
-                                                <a href="{{ Storage::files('storage/files/syarat/'. $mahasiswa?->file) }}" target="_blank" class="btn btn-success btn-sm mt-1"> <i class="fas fa-eye"></i>&ensp; Lihat</a>
+                                                <a href="{{ asset('storage/files/syarat/'. $mahasiswa?->file) }}" target="_blank" class="btn btn-success btn-sm mt-1"> <i class="fas fa-eye"></i>&ensp; Lihat</a>
                                             </div>
                                         </div>
                                     </div>
