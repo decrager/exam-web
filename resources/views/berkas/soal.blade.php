@@ -86,6 +86,11 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-auto">
+                                <div class="form-group">
+                                    <input type="date" name="dbTanggal" id="tanggal" class="form-control">
+                                </div>
+                            </div>
                             <div class="col-md-1 align-content-center">
                                 <button type="submit" class="btn btn-primary py-2"> <i class="fas fa-filter"></i></button>
                             </div>
