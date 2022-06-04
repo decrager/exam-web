@@ -695,7 +695,7 @@ class pjUjianController extends Controller
             Storage::delete($destination2);
         }
         
-        $folderPath = Storage::path('images/qr/');
+        $folderPath = public_path('storage/images/qr/');
         $image1 = explode(";base64,", $request->ttd_penyerah);
         $image_base1 = base64_decode($image1[1]);
         $fileName1 = 'ttd_penyerah.png';
