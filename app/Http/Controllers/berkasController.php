@@ -232,8 +232,8 @@ class berkasController extends Controller
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, count(kelas.jml_mhs) * 6 + SUM(kelas.jml_mhs) AS jumlah')
         ->groupBy('ujians.tanggal', 'ujians.tipe_mk', 'ujians.perbanyak', 'prodis.nama_prodi', 'b.semester', 'matkuls.nama_matkul')
+        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, count(kelas.jml_mhs) * 6 + SUM(kelas.jml_mhs) AS jumlah')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbMatkul']))
         ->get();
