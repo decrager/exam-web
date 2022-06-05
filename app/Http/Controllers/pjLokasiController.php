@@ -360,7 +360,7 @@ class pjLokasiController extends Controller
         
         $fileName = 'ttdPjLokasi.png';
         $file = $folderPath . $fileName;
-        Storage::put($file, $image_base64);
+        file_put_contents($file, $image_base64);
 
         $pengawas = $pengawas->get();
         $data = [
@@ -393,13 +393,13 @@ class pjLokasiController extends Controller
         $image_base1 = base64_decode($image1[1]);
         $fileName1 = 'ttd_penyerah.png';
         $file1 = $folderPath . $fileName1;
-        Storage::put($file1, $image_base1);
+        file_put_contents($file1, $image_base1);
 
         $image2 = explode(";base64,", $request->ttd_penerima);
         $image_base2 = base64_decode($image2[1]);
         $fileName2 = 'ttd_penerima.png';
         $file2 = $folderPath . $fileName2;
-        Storage::put($file2, $image_base2);
+        file_put_contents($file2, $image_base2);
         
         DB::beginTransaction();
 
