@@ -80,7 +80,7 @@
                                             <td>{{ $ujian?->lokasi }}</td>
                                             <td>{{ $ujian?->ruang }}</td>
                                             <td><a class="btn btn-primary"
-                                                    href="{{ route('pjUjian.pengawas.penugasan.form', $ujian?->id) }}"><i
+                                                    href="{{ route('pjUjian.pengawas.penugasan.form', $ujian?->ujian_id) }}"><i
                                                         class="fas fa-user-plus"></i></a></td>
                                         </tr>
                                     @endforeach
