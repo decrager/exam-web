@@ -220,7 +220,7 @@ class pjLokasiController extends Controller
         
         $fileName = uniqid() . '.'.$image_type_png;
         $file = $folderPath . $fileName;
-        file_put_contents($file, $image_base64);
+        Storage::put($file, $image_base64);
 
         $penugasan->update([
             'presensi' => $fileName
