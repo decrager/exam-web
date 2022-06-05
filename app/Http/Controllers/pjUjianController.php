@@ -304,7 +304,6 @@ class pjUjianController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
-        return $ujian->get();
         return view('pj_ujian.penugasan.index', [
             "penugasan" => $ujian->get()
         ]);
