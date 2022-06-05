@@ -215,7 +215,7 @@ class pjLokasiController extends Controller
         
         $fileName = uniqid() . '.'.$image_type_png;
         $file = $folderPath . $fileName;
-        Storage::put($file, $image_base64);
+        Storage::disk('local')->put($file, $image_base64);
 
         $penugasan->update([
             'presensi' => $fileName
@@ -354,13 +354,13 @@ class pjLokasiController extends Controller
             Storage::delete($destination);
         }
 
-        $folderPath = 'storage/images/qr/';
+        $folderPath = Storage::path('images/qr/');
         $image = explode(";base64,", $request->ttd);
         $image_base64 = base64_decode($image[1]);
         
         $fileName = 'ttdPjLokasi.png';
         $file = $folderPath . $fileName;
-        \file_put_contents($file, $image_base64);
+        file_put_contents($file, $image_base64);
 
         $pengawas = $pengawas->get();
         $data = [
@@ -393,13 +393,13 @@ class pjLokasiController extends Controller
         $image_base1 = base64_decode($image1[1]);
         $fileName1 = 'ttd_penyerah.png';
         $file1 = $folderPath . $fileName1;
-        Storage::put($file1, $image_base1);
+        Storage::disk('local')->put($file1, $image_base1);
 
         $image2 = explode(";base64,", $request->ttd_penerima);
         $image_base2 = base64_decode($image2[1]);
         $fileName2 = 'ttd_penerima.png';
         $file2 = $folderPath . $fileName2;
-        Storage::put($file2, $image_base2);
+        Storage::disk('local')->put($file2, $image_base2);
         
         DB::beginTransaction();
 
@@ -435,7 +435,7 @@ class pjLokasiController extends Controller
         $pdf = PDF::loadView('layouts.serah', $data);
         $pdfName = time(). '_Serah_Terima.pdf';
         // return $pdf->stream('serah_terima.pdf');
-        Storage::put('files/pdf/' . $pdfName, $pdf->output());
+        Storage::disk('local')->put('files/pdf/' . $pdfName, $pdf->output());
 
         for ($i = 0; $i < count($request->kelas); $i++) {
             Berkas::join('ujians', 'berkas.ujian_id', 'ujians.id')
