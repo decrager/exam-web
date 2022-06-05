@@ -207,12 +207,12 @@ class pjLokasiController extends Controller
 
         $penugasan = Penugasan::find($id);
         $pengawas = Pengawas::find($penugasan->pengawas_id);
-        $destination = 'image/ttd/' . $penugasan->presensi;
+        $destination = 'public/images/ttd/' . $penugasan->presensi;
         if ($destination) {
             Storage::disk('local')->delete($destination);
         }
 
-        $folderPath = 'images/ttd/';
+        $folderPath = 'public/images/ttd/';
         $image = explode(";base64,", $request->ttd);
         $image_type = explode("image/", $image[0]);
         $image_type_png = $image_type[1];
@@ -220,7 +220,7 @@ class pjLokasiController extends Controller
         
         $fileName = uniqid() . '.'.$image_type_png;
         $file = $folderPath . $fileName;
-        Storage::disk('local')->put($file, $image_base64);
+        file_put_contents($file, $image_base64);
 
         $penugasan->update([
             'presensi' => $fileName
