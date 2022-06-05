@@ -354,13 +354,13 @@ class pjLokasiController extends Controller
             Storage::delete($destination);
         }
 
-        $folderPath = 'images/qr/';
+        $folderPath = 'storage/images/qr/';
         $image = explode(";base64,", $request->ttd);
         $image_base64 = base64_decode($image[1]);
         
         $fileName = 'ttdPjLokasiNew.png';
         $file = $folderPath . $fileName;
-        Storage::put($file, $image_base64);
+        \file_put_contents($file, $image_base64);
 
         $pengawas = $pengawas->get();
         $data = [
