@@ -358,7 +358,7 @@ class pjLokasiController extends Controller
         $image = explode(";base64,", $request->ttd);
         $image_base64 = base64_decode($image[1]);
         
-        $fileName = 'ttdPjLokasiNew.png';
+        $fileName = 'ttdPjLokasi.png';
         $file = $folderPath . $fileName;
         \file_put_contents($file, $image_base64);
 
