@@ -38,25 +38,25 @@ class pjLokasiController extends Controller
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
         
-        $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
-        $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
-        for ($i = 0; $i < $tot1; $i++) {
-            if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
-                $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
-                $tot2 = count($ruangan);
-                $ujian->where('ujians.ruang', $ruangan[0]->ruangan);
-                for ($j = 0; $j < $tot2; $j++) {
-                    $ujian->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+        $ujian->where(function($ujian) {
+            $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
+            $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
+            for ($i = 0; $i < $tot1; $i++) {
+                if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
+                    $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
+                    $tot2 = count($ruangan);
+                    $ujian->where('ujians.ruang', $ruangan[0]->ruangan);
+                    for ($j = 0; $j < $tot2; $j++) {
+                        $ujian->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+                    }
                 }
             }
-        }
+        });
 
         if (request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang'])) {
             $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang']));
-        }
-
-        if (request(['dbTanggal'])) {
-            $ujian->filter(request(['dbTanggal']));
+        } else if (request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang', 'dbTanggal'])) {
+            $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang', 'dbTanggal']));
         } else {
             $ujian->where('ujians.tanggal', $now);
         }
@@ -85,18 +85,20 @@ class pjLokasiController extends Controller
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
         ->whereBetween('ujians.tanggal', [$from, $to]);
 
-        $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
-        $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
-        for ($i = 0; $i < $tot1; $i++) {
-            if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
-                $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
-                $tot2 = count($ruangan);
-                $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
-                for ($j = 0; $j < $tot2; $j++) {
-                    $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+        $pengawas->where(function($pengawas) {
+            $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
+            $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
+            for ($i = 0; $i < $tot1; $i++) {
+                if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
+                    $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
+                    $tot2 = count($ruangan);
+                    $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
+                    for ($j = 0; $j < $tot2; $j++) {
+                        $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+                    }
                 }
             }
-        }
+        });
 
         $pengawas->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
         return view('pj_lokasi.pengawas.index', [
@@ -151,20 +153,23 @@ class pjLokasiController extends Controller
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
-        ->where('ujians.tanggal', $now);
+        ->whereBetween('ujians.tanggal', [$from, $to]);
+        // ->where('ujians.tanggal', $now);
 
-        $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
-        $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
-        for ($i = 0; $i < $tot1; $i++) {
-            if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
-                $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
-                $tot2 = count($ruangan);
-                $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
-                for ($j = 0; $j < $tot2; $j++) {
-                    $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+        $pengawas->where(function($pengawas) {
+            $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
+            $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
+            for ($i = 0; $i < $tot1; $i++) {
+                if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
+                    $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
+                    $tot2 = count($ruangan);
+                    $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
+                    for ($j = 0; $j < $tot2; $j++) {
+                        $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+                    }
                 }
             }
-        }
+        });
 
         $pengawas->filter(request(['dbProdi', 'dbMatkul']));
         return view('pj_lokasi.absensi.index', [
@@ -202,12 +207,12 @@ class pjLokasiController extends Controller
 
         $penugasan = Penugasan::find($id);
         $pengawas = Pengawas::find($penugasan->pengawas_id);
-        $destination = 'images/qr/' . $penugasan->presensi;
+        $destination = 'image/ttd/' . $penugasan->presensi;
         if ($destination) {
             Storage::delete($destination);
         }
 
-        $folderPath = 'images/qr/';
+        $folderPath = Storage::path('images/ttd/');
         $image = explode(";base64,", $request->ttd);
         $image_type = explode("image/", $image[0]);
         $image_type_png = $image_type[1];
@@ -215,7 +220,7 @@ class pjLokasiController extends Controller
         
         $fileName = uniqid() . '.'.$image_type_png;
         $file = $folderPath . $fileName;
-        Storage::disk('local')->put($file, $image_base64);
+        file_put_contents($file, $image_base64);
 
         $penugasan->update([
             'presensi' => $fileName
@@ -229,7 +234,7 @@ class pjLokasiController extends Controller
     {
         $penugasan = Penugasan::find($id);
         $pengawas = Pengawas::find($penugasan->pengawas_id);
-        $destination = 'images/qr/' . $penugasan->presensi;
+        $destination = 'images/ttd/' . $penugasan->presensi;
         if ($destination) {
             Storage::delete($destination);
         }
@@ -310,12 +315,6 @@ class pjLokasiController extends Controller
 
     public function pdf(Request $request)
     {
-        $dataTanggalMulai = Master::first();
-        $dataTanggalSelesai = Master::first();
-
-        $from = $dataTanggalMulai->periode_mulai;
-        $to = $dataTanggalSelesai->periode_akhir;
-
         $now = Carbon::now()->toDateString();
 
         $pengawas = Pengawas::join('penugasans', 'penugasans.pengawas_id', 'pengawas.id')
@@ -327,20 +326,22 @@ class pjLokasiController extends Controller
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'penugasans.*', 'pengawas.*')
-        ->where('ujians.tanggal', $now);
-
-        $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
-        $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
-        for ($i = 0; $i < $tot1; $i++) {
+        // ->where('ujians.tanggal', $now)
+        ->where('penugasans.presensi', '!=', null)
+        ->where(function($query) {
+            $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
+            $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
+            for ($i = 0; $i < $tot1; $i++) {
             if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
                 $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
                 $tot2 = count($ruangan);
-                $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
+                $query->where('ujians.ruang', $ruangan[0]->ruangan);
                 for ($j = 0; $j < $tot2; $j++) {
-                    $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+                    $query->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
                 }
             }
         }
+        })->get();
 
         $master = Master::find(1);
         $tglbln = Carbon::now()->translatedFormat('d F Y');
@@ -349,12 +350,12 @@ class pjLokasiController extends Controller
         $tbt = Carbon::now()->format('d/m/Y');
         $time = $request->pukul;
 
-        $destination = 'images/qr/ttdPjLokasi.png';
+        $destination = 'images/ttd/ttdPjLokasi.png';
         if ($destination) {
             Storage::delete($destination);
         }
 
-        $folderPath = Storage::path('images/qr/');
+        $folderPath = Storage::path('images/ttd/');
         $image = explode(";base64,", $request->ttd);
         $image_base64 = base64_decode($image[1]);
         
@@ -362,7 +363,6 @@ class pjLokasiController extends Controller
         $file = $folderPath . $fileName;
         file_put_contents($file, $image_base64);
 
-        $pengawas = $pengawas->get();
         $data = [
             'pengawas' => $pengawas,
             'master' => $master,
@@ -381,25 +381,25 @@ class pjLokasiController extends Controller
 
     public function SerahTerima(Request $request)
     {
-        $destination1 = 'images/qr/ttd_penyerah.png';
-        $destination2 = 'images/qr/ttd_penerima.png';
+        $destination1 = 'images/ttd/ttd_penyerah.png';
+        $destination2 = 'images/ttd/ttd_penerima.png';
         if ($destination1 AND $destination2) {
             Storage::delete($destination1);
             Storage::delete($destination2);
         }
         
-        $folderPath = 'images/qr/';
+        $folderPath = Storage::path('images/ttd/');
         $image1 = explode(";base64,", $request->ttd_penyerah);
         $image_base1 = base64_decode($image1[1]);
         $fileName1 = 'ttd_penyerah.png';
         $file1 = $folderPath . $fileName1;
-        Storage::disk('local')->put($file1, $image_base1);
+        file_put_contents($file1, $image_base1);
 
         $image2 = explode(";base64,", $request->ttd_penerima);
         $image_base2 = base64_decode($image2[1]);
         $fileName2 = 'ttd_penerima.png';
         $file2 = $folderPath . $fileName2;
-        Storage::disk('local')->put($file2, $image_base2);
+        file_put_contents($file2, $image_base2);
         
         DB::beginTransaction();
 
@@ -435,7 +435,7 @@ class pjLokasiController extends Controller
         $pdf = PDF::loadView('layouts.serah', $data);
         $pdfName = time(). '_Serah_Terima.pdf';
         // return $pdf->stream('serah_terima.pdf');
-        Storage::disk('local')->put('files/pdf/' . $pdfName, $pdf->output());
+        Storage::put('files/pdf/' . $pdfName, $pdf->output());
 
         for ($i = 0; $i < count($request->kelas); $i++) {
             Berkas::join('ujians', 'berkas.ujian_id', 'ujians.id')

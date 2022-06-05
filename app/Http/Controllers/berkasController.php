@@ -250,27 +250,27 @@ class berkasController extends Controller
 
     public function SerahTerima(Request $request)
     {
-        DB::beginTransaction();
-
-        $destination1 = 'images/qr/ttd_penyerah.png';
-        $destination2 = 'images/qr/ttd_penerima.png';
+        $destination1 = 'images/ttd/ttd_penyerah.png';
+        $destination2 = 'images/ttd/ttd_penerima.png';
         if ($destination1 AND $destination2) {
             Storage::delete($destination1);
             Storage::delete($destination2);
         }
         
-        $folderPath = 'images/qr/';
+        $folderPath = Storage::path('images/ttd/');
         $image1 = explode(";base64,", $request->ttd_penyerah);
         $image_base1 = base64_decode($image1[1]);
         $fileName1 = 'ttd_penyerah.png';
         $file1 = $folderPath . $fileName1;
-        Storage::put($file1, $image_base1);
+        file_put_contents($file1, $image_base1);
 
         $image2 = explode(";base64,", $request->ttd_penerima);
         $image_base2 = base64_decode($image2[1]);
         $fileName2 = 'ttd_penerima.png';
         $file2 = $folderPath . $fileName2;
-        Storage::put($file2, $image_base2);
+        file_put_contents($file2, $image_base2);
+        
+        DB::beginTransaction();
 
         $kelas = array();
         for ($i = 0; $i < count($request->kelas); $i++) {

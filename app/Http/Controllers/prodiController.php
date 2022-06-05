@@ -10,6 +10,7 @@ use App\Models\Pengawas;
 use App\Models\Penugasan;
 use App\Exports\ProdiExport;
 use App\Exports\UjianExport;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -30,17 +31,8 @@ class prodiController extends Controller
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
-        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id');
-        
-        if (request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang'])) {
-            $ujian->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbRuang']));
-        }
-
-        if (request(['dbTanggal'])) {
-            $ujian->filter(request(['dbTanggal']));
-        } else {
-            $ujian->where('ujians.tanggal', $now);
-        }
+        ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->where('ujians.tanggal', $now);
 
         if (Auth::user()->name == 'Komunikasi') {
             $ujian->where('prodis.kode_prodi', 'A');

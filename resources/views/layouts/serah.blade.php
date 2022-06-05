@@ -124,8 +124,8 @@
     </table>
     <table align="left" >
         <tr style="text-indent: 120px;"> 
-            <td width="350px" style="text-indent: 120px;"><img src="{{ public_path('storage/images/qr/' . $ttd_penyerah) }}" alt="TTD Penyerah"></td>
-            <td width="330px" style="text-indent: 160px;"><img src="{{ public_path('storage/images/qr/' . $ttd_penerima) }}" alt="TTD Penerima"></td>
+            <td width="350px" style="text-indent: 120px;"><img src="{{ public_path('storage/images/ttd/' . $ttd_penyerah) }}" alt="TTD Penyerah"></td>
+            <td width="330px" style="text-indent: 160px;"><img src="{{ public_path('storage/images/ttd/' . $ttd_penerima) }}" alt="TTD Penerima"></td>
         </tr>
     </table>
     <table align="left">

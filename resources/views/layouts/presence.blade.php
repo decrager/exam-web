@@ -80,7 +80,7 @@
             <td align="center">{{ $pengawas->nama_prodi }}</td>
             <td align="center" width="150px">{{ $pengawas->nama_matkul }}</td>
             <td align="center" width="20px">{{ $pengawas->ruang }}</td>
-            <td align="center"><img src="{{ public_path('storage/images/qr/' . $pengawas->presensi) }}" alt="Hadir" width="50px"></td>
+            <td align="center"><img src="{{ public_path('storage/images/ttd/' . $pengawas->presensi) }}" alt="Hadir" width="50px"></td>
         </tr>
         @endforeach
     </table>
@@ -93,7 +93,7 @@
             <td>PJ Lokasi {{ $lokasi }}</td> 
         </tr>
         <tr>
-            <img src="{{ public_path('storage/images/qr/ttdPjLokasi.png') }}" alt="TTD">
+            <img src="{{ public_path('storage/images/ttd/ttdPjLokasi.png') }}" alt="TTD">
         </tr>
         <tr>
             <td>({{ $nama }})</td> 

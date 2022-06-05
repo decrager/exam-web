@@ -139,4 +139,12 @@
             <!-- data table end -->
         </div>
     </div>
+
+    <script>
+        $('.matkul-select').select2({
+            theme: 'bootstrap-5',
+            selectionCssClass: "select2normal",
+            dropdownCssClass: "select2--small"
+        });
+    </script>
 @endsection
