@@ -278,6 +278,7 @@ class pjLokasiController extends Controller
         }
 
         $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
+        
         return view('pj_lokasi.soal.index', [
             "berkas" => $ujian->get()
         ]);
@@ -380,8 +381,6 @@ class pjLokasiController extends Controller
 
     public function SerahTerima(Request $request)
     {
-        DB::beginTransaction();
-
         $destination1 = 'images/qr/ttd_penyerah.png';
         $destination2 = 'images/qr/ttd_penerima.png';
         if ($destination1 AND $destination2) {
@@ -401,6 +400,8 @@ class pjLokasiController extends Controller
         $fileName2 = 'ttd_penerima.png';
         $file2 = $folderPath . $fileName2;
         Storage::put($file2, $image_base2);
+        
+        DB::beginTransaction();
 
         $kelas = array();
         for ($i = 0; $i < count($request->kelas); $i++) {

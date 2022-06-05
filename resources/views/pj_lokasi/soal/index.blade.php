@@ -138,7 +138,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <form action="{{ route('pjLokasi.serahterima.destroy', $ujian?->Berkas?->id) }}" method="POST" class="btn-group" role="group">
+                                                <form action="{{ route('pjLokasi.serahterima.destroy', $ujian?->id) }}" method="POST" class="btn-group" role="group">
                                                     <a class="btn btn-success @if($ujian?->Berkas?->file == null) disabled @endif" href="{{ asset('storage/files/pdf/' . $ujian?->Berkas?->file) }}" target="_blank"><i class="fas fa-download"></i></a>
                                                     @csrf
                                                     @method('PUT')
