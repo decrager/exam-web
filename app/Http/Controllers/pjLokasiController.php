@@ -355,7 +355,7 @@ class pjLokasiController extends Controller
             Storage::delete($destination);
         }
 
-        $folderPath = 'public/images/ttd/';
+        $folderPath = 'images/ttd/';
         $image = explode(";base64,", $request->ttd);
         $image_base64 = base64_decode($image[1]);
         
