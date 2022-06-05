@@ -109,8 +109,8 @@ class mahasiswaController extends Controller
 
         $file = $request->file('file');
         $fileName = time() . '_' . $file->getClientOriginalName();
-        // $file->storeAs('files/syarat', $fileName);
-        Storage::disk('local')->put('files/syarat/' . $fileName, $file);
+        $file->storeAs('files/syarat', $fileName);
+        // Storage::put('files/syarat/' . $fileName, $file);
 
         $susulan = new Susulan;
         $susulan->mhs_id = Auth::user()->Mahasiswa->id;
@@ -137,12 +137,12 @@ class mahasiswaController extends Controller
 
         $file = $request->file('file');
         $fileName = time() . '_' . $file->getClientOriginalName();
-        // $file->storeAs('files/syarat', $fileName);
-        Storage::disk('local')->put('files/syarat/' . $fileName, $file);
+        $file->storeAs('files/syarat', $fileName);
+        // Storage::put('files/syarat/' . $fileName, $file);
 
         $destination = 'files/syarat/' . $susulan->file;
         if ($destination) {
-            Storage::disk('local')->delete($destination);
+            Storage::delete($destination);
         }
 
         $susulan->update([
@@ -164,7 +164,7 @@ class mahasiswaController extends Controller
         $destination = 'files/syarat/' . $susulan->file;
         
         if ($destination) {
-            Storage::disk('local')->delete($destination);
+            Storage::delete($destination);
         }
         Susulan::find($id)->delete();
 

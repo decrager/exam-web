@@ -14,7 +14,7 @@
 </head>
 <table border="0" align="center">
     <tr>
-    <td><img src="{{ public_path('images/icon/IPB.png') }}" width="70px"> </td>
+    <td><img src="{{ asset('images/icon/IPB.png') }}" width="70px"> </td>
     <td><center>
         <font size="3">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET DAN TEKNOLOGI</font><BR>
         <font size="3">INSTITUT PERTANIAN BOGOR</font><BR>
@@ -80,7 +80,7 @@
             <td align="center">{{ $pengawas->nama_prodi }}</td>
             <td align="center" width="150px">{{ $pengawas->nama_matkul }}</td>
             <td align="center" width="20px">{{ $pengawas->ruang }}</td>
-            <td align="center"><img src="{{ public_path('storage/images/ttd/' . $pengawas->presensi) }}" alt="Hadir" width="50px"></td>
+            <td align="center"><img src="{{ asset('storage/images/ttd/' . $pengawas->presensi) }}" alt="Hadir" width="50px"></td>
         </tr>
         @endforeach
     </table>
@@ -93,7 +93,7 @@
             <td>PJ Lokasi {{ $lokasi }}</td> 
         </tr>
         <tr>
-            <img src="{{ public_path('storage/images/ttd/ttdPjLokasi.png') }}" alt="TTD">
+            <img src="{{ asset('storage/images/ttd/ttdPjLokasi.png') }}" alt="TTD">
         </tr>
         <tr>
             <td>({{ $nama }})</td> 
