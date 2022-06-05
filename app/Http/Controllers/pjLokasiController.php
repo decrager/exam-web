@@ -207,7 +207,7 @@ class pjLokasiController extends Controller
             Storage::delete($destination);
         }
 
-        $folderPath = Storage::path('images/qr/');
+        $folderPath = 'images/qr/';
         $image = explode(";base64,", $request->ttd);
         $image_type = explode("image/", $image[0]);
         $image_type_png = $image_type[1];
@@ -353,7 +353,7 @@ class pjLokasiController extends Controller
             Storage::delete($destination);
         }
 
-        $folderPath = Storage::path('images/qr/');
+        $folderPath = 'images/qr/';
         $image = explode(";base64,", $request->ttd);
         $image_base64 = base64_decode($image[1]);
         
@@ -389,7 +389,7 @@ class pjLokasiController extends Controller
             Storage::delete($destination2);
         }
         
-        $folderPath = Storage::path('images/qr/');
+        $folderPath = 'images/qr/';
         $image1 = explode(";base64,", $request->ttd_penyerah);
         $image_base1 = base64_decode($image1[1]);
         $fileName1 = 'ttd_penyerah.png';
