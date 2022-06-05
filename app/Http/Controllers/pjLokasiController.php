@@ -45,7 +45,7 @@ class pjLokasiController extends Controller
                 $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
                 $tot2 = count($ruangan);
                 $ujian->where('ujians.ruang', $ruangan[0]->ruangan);
-                for ($j = 1; $j < $tot2; $j++) {
+                for ($j = 0; $j < $tot2; $j++) {
                     $ujian->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
                 }
             }
@@ -92,7 +92,7 @@ class pjLokasiController extends Controller
                 $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
                 $tot2 = count($ruangan);
                 $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
-                for ($j = 1; $j < $tot2; $j++) {
+                for ($j = 0; $j < $tot2; $j++) {
                     $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
                 }
             }
@@ -160,7 +160,7 @@ class pjLokasiController extends Controller
                 $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
                 $tot2 = count($ruangan);
                 $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
-                for ($j = 1; $j < $tot2; $j++) {
+                for ($j = 0; $j < $tot2; $j++) {
                     $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
                 }
             }
@@ -271,7 +271,7 @@ class pjLokasiController extends Controller
                 $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
                 $tot2 = count($ruangan);
                 $ujian->where('ujians.ruang', $ruangan[0]->ruangan);
-                for ($j = 1; $j < $tot2; $j++) {
+                for ($j = 0; $j < $tot2; $j++) {
                     $ujian->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
                 }
             }
@@ -335,7 +335,7 @@ class pjLokasiController extends Controller
                 $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
                 $tot2 = count($ruangan);
                 $pengawas->where('ujians.ruang', $ruangan[0]->ruangan);
-                for ($j = 1; $j < $tot2; $j++) {
+                for ($j = 0; $j < $tot2; $j++) {
                     $pengawas->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
                 }
             }
