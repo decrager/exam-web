@@ -93,7 +93,7 @@
                                         </div>
                                     </div>
 
-                                    <input hidden name="ujian_id" value="{{ $ujian->id }}" />
+                                    <input hidden name="ujian_id" value="{{ $ujian->ujian_id }}" />
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>
