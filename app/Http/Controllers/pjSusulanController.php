@@ -58,7 +58,7 @@ class pjSusulanController extends Controller
 
     public function ketentuanForm()
     {
-        return view('pj_susulan.ketentuan.form', ["title" => env('APP_NAME')]);
+        return view('pj_susulan.ketentuan.form');
     }
 
     public function ketentuanEdit($id)
@@ -332,6 +332,6 @@ class pjSusulanController extends Controller
 
     public function pelanggaran()
     {
-        return view('pj_susulan.pelanggaran', ["title" => env('APP_NAME')]);
+        return view('pj_susulan.pelanggaran');
     }
 }

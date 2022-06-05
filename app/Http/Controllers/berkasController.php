@@ -245,7 +245,7 @@ class berkasController extends Controller
 
     public function pelanggaran()
     {
-        return view('berkas.pelanggaran', ["title" => env('APP_NAME')]);
+        return view('berkas.pelanggaran');
     }
 
     public function SerahTerima(Request $request)

@@ -43,7 +43,7 @@ class loginController extends Controller
 
     public function resetPassword()
     {
-        return view('changepassword', ["title" => "Ubah Password"]);
+        return view('changepassword');
     }
 
     public function reset(Request $request)

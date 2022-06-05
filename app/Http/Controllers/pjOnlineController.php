@@ -106,11 +106,11 @@ class pjOnlineController extends Controller
 
     public function pelanggaranForm()
     {
-        return view('pj_online.pelanggaran.form', ["title" => env('APP_NAME')]);
+        return view('pj_online.pelanggaran.form');
     }
 
     public function pelanggaranEdit()
     {
-        return view('pj_online.pelanggaran.edit', ["title" => env('APP_NAME')]);
+        return view('pj_online.pelanggaran.edit');
     }
 }

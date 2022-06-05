@@ -604,6 +604,6 @@ class prodiController extends Controller
 
     public function pelanggaran()
     {
-        return view('prodi.pelanggaran', ["title" => env('APP_NAME')]);
+        return view('prodi.pelanggaran');
     }
 }

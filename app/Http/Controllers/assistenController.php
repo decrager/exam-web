@@ -83,6 +83,6 @@ class assistenController extends Controller
 
     public function pelanggaran()
     {
-        return view('assisten.pelanggaran', ["title" => env('APP_NAME')]);
+        return view('assisten.pelanggaran');
     }
 }

@@ -94,7 +94,7 @@ class pjUjianController extends Controller
 
     public function ujianForm()
     {
-        return view('pj_ujian.ujian.form', ["title" => env('APP_NAME')]);
+        return view('pj_ujian.ujian.form');
     }
 
     public function ujianEdit($id)
@@ -471,7 +471,7 @@ class pjUjianController extends Controller
 
     public function pelanggaran()
     {
-        return view('pj_ujian.pelanggaran', ["title" => env('APP_NAME')]);
+        return view('pj_ujian.pelanggaran');
     }
 
     public function penjadwalanIndex()

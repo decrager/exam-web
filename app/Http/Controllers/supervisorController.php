@@ -256,7 +256,7 @@ class supervisorController extends Controller
 
     public function pelanggaran()
     {
-        return view('supervisor.pelanggaran', ["title" => env('APP_NAME')]);
+        return view('supervisor.pelanggaran');
     }
 
     public function logActivity()
