@@ -209,10 +209,10 @@ class pjLokasiController extends Controller
         $pengawas = Pengawas::find($penugasan->pengawas_id);
         $destination = 'image/ttd/' . $penugasan->presensi;
         if ($destination) {
-            Storage::delete($destination);
+            Storage::disk('local')->delete($destination);
         }
 
-        $folderPath = Storage::path('images/ttd/');
+        $folderPath = 'images/ttd/';
         $image = explode(";base64,", $request->ttd);
         $image_type = explode("image/", $image[0]);
         $image_type_png = $image_type[1];
@@ -220,7 +220,7 @@ class pjLokasiController extends Controller
         
         $fileName = uniqid() . '.'.$image_type_png;
         $file = $folderPath . $fileName;
-        file_put_contents($file, $image_base64);
+        Storage::disk('local')->put($file, $image_base64);
 
         $penugasan->update([
             'presensi' => $fileName
@@ -236,7 +236,7 @@ class pjLokasiController extends Controller
         $pengawas = Pengawas::find($penugasan->pengawas_id);
         $destination = 'images/ttd/' . $penugasan->presensi;
         if ($destination) {
-            Storage::delete($destination);
+            Storage::disk('local')->delete($destination);
         }
         $penugasan->update([
             'presensi' => null
@@ -384,22 +384,22 @@ class pjLokasiController extends Controller
         $destination1 = 'images/ttd/ttd_penyerah.png';
         $destination2 = 'images/ttd/ttd_penerima.png';
         if ($destination1 AND $destination2) {
-            Storage::delete($destination1);
-            Storage::delete($destination2);
+            Storage::disk('local')->delete($destination1);
+            Storage::disk('local')->delete($destination2);
         }
         
-        $folderPath = Storage::path('images/ttd/');
+        $folderPath = 'images/ttd/';
         $image1 = explode(";base64,", $request->ttd_penyerah);
         $image_base1 = base64_decode($image1[1]);
         $fileName1 = 'ttd_penyerah.png';
         $file1 = $folderPath . $fileName1;
-        file_put_contents($file1, $image_base1);
+        Storage::disk('local')->put($file1, $image_base1);
 
         $image2 = explode(";base64,", $request->ttd_penerima);
         $image_base2 = base64_decode($image2[1]);
         $fileName2 = 'ttd_penerima.png';
         $file2 = $folderPath . $fileName2;
-        file_put_contents($file2, $image_base2);
+        Storage::disk('local')->put($file2, $image_base2);
         
         DB::beginTransaction();
 
@@ -435,7 +435,7 @@ class pjLokasiController extends Controller
         $pdf = PDF::loadView('layouts.serah', $data);
         $pdfName = time(). '_Serah_Terima.pdf';
         // return $pdf->stream('serah_terima.pdf');
-        Storage::put('files/pdf/' . $pdfName, $pdf->output());
+        Storage::disk('local')->put('files/pdf/' . $pdfName, $pdf->output());
 
         for ($i = 0; $i < count($request->kelas); $i++) {
             Berkas::join('ujians', 'berkas.ujian_id', 'ujians.id')
@@ -462,7 +462,7 @@ class pjLokasiController extends Controller
 
         $destination = 'files/pdf/' . $fileName->file;
         if ($destination) {
-            Storage::delete($destination);
+            Storage::disk('local')->delete($destination);
         }
 
         Berkas::where('file', $fileName->file)->update([
