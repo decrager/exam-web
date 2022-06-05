@@ -92,11 +92,11 @@
                                             <td>{{ $ujian?->jam_mulai }}</td>
                                             <td>{{ $ujian?->jam_selesai }}</td>
                                             <td class="d-block">
-                                                <form action="{{ route('pjUjian.jadwal.destroy', $ujian?->id) }}" method="POST" class="btn-group" role="group">
+                                                <form action="{{ route('pjUjian.jadwal.destroy', $ujian?->ujian_id) }}" method="POST" class="btn-group" role="group">
                                                     <a class="btn btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="{{ '#detail' . $ujian?->id }}"><i
                                                             class="fas fa-info text-white"></i></a>
-                                                    <a href="{{ route('pjUjian.jadwal.edit', $ujian?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
+                                                    <a href="{{ route('pjUjian.jadwal.edit', $ujian?->ujian_id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus jadwal ujian ini?')">
