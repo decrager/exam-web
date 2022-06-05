@@ -102,7 +102,7 @@
             <td colspan="3"><font size="3">Mata kuliah &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : {{ $matkul }}</font> </td>
         </tr>
         <tr style="text-indent: 100px;">
-            <td colspan="3"><font size="3">Jumlah Lembar Soal &nbsp; &nbsp; &nbsp; : {{ $jml_berkas }}</font> </td>
+            <td colspan="3"><font size="3">Jumlah Berkas Ujian &nbsp; &nbsp; &nbsp; : {{ $jml_berkas }}</font> </td>
         </tr>
         <br>
     </table>
