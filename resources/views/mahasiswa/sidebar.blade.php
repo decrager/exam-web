@@ -23,7 +23,7 @@
                         <a href="" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Susulan</span></a>
                         <ul class="collapse">
-                            <li class="{{ Request::routeIs('mahasiswa.susulan.jadwal') ? 'active' : '' }} m-1"><a href="{{ route('mahasiswa.susulan.jadwal') }}">Jadwal</a></li>
+                            {{-- <li class="{{ Request::routeIs('mahasiswa.susulan.jadwal') ? 'active' : '' }} m-1"><a href="{{ route('mahasiswa.susulan.jadwal') }}">Jadwal</a></li> --}}
                             <li class="{{ Request::routeIs('mahasiswa.susulan.pengajuan.*') ? 'active' : '' }} m-1"><a href="{{ route('mahasiswa.susulan.pengajuan.index') }}">Pengajuan</a></li>
                         </ul>
                     </li>

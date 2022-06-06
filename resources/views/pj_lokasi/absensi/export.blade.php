@@ -48,7 +48,22 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="pukul" class="col-form-label">Pukul</label>
-                                        <input class="form-control" type="time" id="pukul" name="pukul"/>
+                                        <input class="form-control" type="time" id="pukul" name="pukul" readonly value="{{ $jam }}"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">Sesi</label>
+                                        <select class="custom-select" name="sesi" required>
+                                            <option selected value="">Pilih sesi</option>
+                                            @if ($hari == 'Jumat')
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            @else
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            @endif
+                                        </select>
                                     </div>
 
                                     <div class="form-group">

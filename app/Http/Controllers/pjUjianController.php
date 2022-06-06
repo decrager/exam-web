@@ -433,9 +433,17 @@ class pjUjianController extends Controller
     public function ttd()
     {
         $tglbln = Carbon::now()->translatedFormat('d F Y');
+        $tglbln = Carbon::now()->translatedFormat('d F Y');
+        $tglblnthn = Carbon::now()->format('d/m/Y');
+        $hari = Carbon::now()->translatedFormat('l');
+        $jam = Carbon::now()->format('H:i');
+
         return view('pj_ujian.ttd', [
             'master' => Master::find(1),
-            'tglbln' => $tglbln
+            'tglbln' => $tglbln,
+            'tglblnthn' => $tglblnthn,
+            'hari' => $hari,
+            'jam' => $jam
         ]);
     }
 

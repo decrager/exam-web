@@ -23,10 +23,10 @@
                             <span>Jadwal Ujian</span></a>
                     </li>
 
-                    <li class="{{ Request::routeIs('supervisor.susulan') ? 'active' : '' }} m-1">
+                    {{-- <li class="{{ Request::routeIs('supervisor.susulan') ? 'active' : '' }} m-1">
                         <a href="{{ route('supervisor.susulan') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Jadwal Susulan</span></a>
-                    </li>
+                    </li> --}}
 
                     <li class="{{ Request::routeIs('supervisor.mhs_susulan') ? 'active' : '' }} m-1">
                         <a href="{{ route('supervisor.mhs_susulan') }}" aria-expanded="true"><i class="fa fa-align-left"></i>

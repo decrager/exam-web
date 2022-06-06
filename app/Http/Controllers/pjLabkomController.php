@@ -57,7 +57,12 @@ class pjLabkomController extends Controller
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
         ->whereBetween('ujians.tanggal', [$from, $to])
-        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']))
+        ->where(function($ujian) {
+            $ujian->where('ujians.ruang', 'like', '%KOM%')
+            ->orWhere('ujians.ruang', 'like', '%PEMROGRAMAN%')
+            ->orWhere('ujians.ruang', 'like', '% K %');
+        });
 
         return view('pj_labkom.ujian', [
             'ujian' => $ujian->get(),

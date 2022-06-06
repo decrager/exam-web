@@ -106,7 +106,7 @@
                                     <label class="" for="">QR Code Presensi:</label>
                                     <br />
                                     {{-- {!! $qrCode !!} --}}
-                                    {!! QrCode::size(250)->generate('http://portalsvipb.com:90/presensi/' . $pengawas?->id); !!}
+                                    {!! QrCode::size(250)->generate(env('APP_URL') . '/presensi/' . $pengawas?->id); !!}
                                     <br />
                                 </div>
                                 <a href="{{ route('pjLokasi.pengawas.absensi.index') }}" class="btn btn-primary">Kembali</a>

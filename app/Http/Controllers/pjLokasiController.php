@@ -153,8 +153,8 @@ class pjLokasiController extends Controller
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
-        ->whereBetween('ujians.tanggal', [$from, $to]);
-        // ->where('ujians.tanggal', $now);
+        // ->whereBetween('ujians.tanggal', [$from, $to]);
+        ->where('ujians.tanggal', $now);
 
         $pengawas->where(function($pengawas) {
             $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
@@ -180,7 +180,7 @@ class pjLokasiController extends Controller
     public function absensiForm($id)
     {
         $pengawas = Penugasan::find($id);
-        $qrcode =  QrCode::size(500)->generate('http://portalsvipb.com:90/presensi/' . $pengawas->id);
+        $qrcode =  QrCode::size(500)->generate(env('APP_URL') . '/presensi/' . $pengawas->id);
         return view('pj_lokasi.absensi.form', [
             "pengawas" => $pengawas,
             "qrCode" => $qrcode
@@ -189,7 +189,9 @@ class pjLokasiController extends Controller
 
     public function absensiExport()
     {
-        return view('pj_lokasi.absensi.export');
+        $jam = Carbon::now()->format('H:i');
+        $hari = Carbon::now()->translatedFormat('l');
+        return view('pj_lokasi.absensi.export', compact(['jam', 'hari']));
     }
 
     public function presence($id)
@@ -292,9 +294,17 @@ class pjLokasiController extends Controller
     public function soalForm()
     {
         $tglbln = Carbon::now()->TranslatedFormat('d F Y');
+        $tglbln = Carbon::now()->translatedFormat('d F Y');
+        $tglblnthn = Carbon::now()->format('d/m/Y');
+        $hari = Carbon::now()->translatedFormat('l');
+        $jam = Carbon::now()->format('H:i');
+
         return view('pj_lokasi.soal.form', [
             'master' => Master::find(1),
-            'tglbln' => $tglbln
+            'tglbln' => $tglbln,
+            'tglblnthn' => $tglblnthn,
+            'hari' => $hari,
+            'jam' => $jam
         ]);
     }
 
@@ -315,7 +325,9 @@ class pjLokasiController extends Controller
 
     public function pdf(Request $request)
     {
+        return $request->all();
         $now = Carbon::now()->toDateString();
+        $hari = Carbon::now()->translatedFormat('l');
 
         $pengawas = Pengawas::join('penugasans', 'penugasans.pengawas_id', 'pengawas.id')
         ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')
@@ -327,8 +339,25 @@ class pjLokasiController extends Controller
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'penugasans.*', 'pengawas.*')
         // ->where('ujians.tanggal', $now)
-        ->where('penugasans.presensi', '!=', null)
-        ->where(function($query) {
+        ->where('penugasans.presensi', '!=', null);
+
+        if ($hari == 'Jumat') {
+            if ($request->sesi == 1) {
+                $pengawas->where('ujians.jam_mulai', '8');
+            } elseif ($request->sesi == 2) {
+                $pengawas->where('ujians.jam_mulai', '14');
+            }
+        } else {
+            if ($request->sesi == 1) {
+                $pengawas->where('ujians.jam_mulai', '8');
+            } elseif ($request->sesi == 2) {
+                $pengawas->where('ujians.jam_mulai', '10.3');
+            } elseif ($request->sesi == 3) {
+                $pengawas->where('ujians.jam_mulai', '13.15');
+            }
+        }
+
+        $pengawas->where(function($query) {
             $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
             $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
             for ($i = 0; $i < $tot1; $i++) {
@@ -350,19 +379,22 @@ class pjLokasiController extends Controller
         $tbt = Carbon::now()->format('d/m/Y');
         $time = $request->pukul;
 
-        $destination = 'images/ttd/ttdPjLokasi.png';
-        if ($destination) {
-            Storage::delete($destination);
+        $fileName = Auth::user()->name . '_ttd_pjLoc.png';
+
+        if ($request->ttd) {
+            $destination = 'images/ttd/' . Auth::user()->name . '_ttd_pjLoc.png';
+            if ($destination) {
+                Storage::delete($destination);
+            }
+    
+            $folderPath = Storage::path('images/ttd/');
+            $image = explode(";base64,", $request->ttd);
+            $image_base64 = base64_decode($image[1]);
+            
+            $file = $folderPath . $fileName;
+            file_put_contents($file, $image_base64);
         }
-
-        $folderPath = Storage::path('images/ttd/');
-        $image = explode(";base64,", $request->ttd);
-        $image_base64 = base64_decode($image[1]);
         
-        $fileName = 'ttdPjLokasi.png';
-        $file = $folderPath . $fileName;
-        file_put_contents($file, $image_base64);
-
         $data = [
             'pengawas' => $pengawas,
             'master' => $master,
@@ -375,8 +407,12 @@ class pjLokasiController extends Controller
         ];
 
         $pdf = PDF::loadView('layouts.presence', $data);
+        $pdfName = time(). '_pengawas.pdf';
+        Storage::put('files/pdf/' . $pdfName, $pdf->output());
 
-        return $pdf->stream('presensi.pdf');
+        // return $pdf->stream('presensi.pdf');
+        $this->Activity(' melakukan submit kehadiran pengawas');
+        return redirect()->route('pjLokasi.pengawas.absensi.index')->with('success', 'Berhasil menyerahkan data kehadiran pengawas!');
     }
 
     public function SerahTerima(Request $request)

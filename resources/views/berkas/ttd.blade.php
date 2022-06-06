@@ -80,7 +80,7 @@
                                         <label class="col-form-label" id="cbKelas">Kelas</label>
                                     </div>
                                     
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="col-form-label">Hari</label>
                                         <select class="custom-select" name="hari" required>
                                             <option selected="selected" value="-">Pilih hari</option>
@@ -91,16 +91,21 @@
                                             <option value="Jumat">Jumat</option>
                                             <option value="Sabtu">Sabtu</option>
                                         </select>
+                                    </div> --}}
+
+                                    <div class="form-group">
+                                        <label for="hari" class="col-form-label">Hari</label>
+                                        <input class="form-control" type="text" id="hari" name="hari" readonly value="{{ $hari }}"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="jam" class="col-form-label">Jam Mulai - Jam Selesai</label>
-                                        <input class="form-control" type="text" id="jam" name="jam" placeholder="Ketik..." required/>
+                                        <label for="jam" class="col-form-label">Jam Pengambilan</label>
+                                        <input class="form-control" type="text" id="jam" name="jam" readonly value="{{ $jam }}"/>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label for="tanggal" class="col-form-label">Tanggal</label>
-                                        <input class="form-control" type="date" name="tanggal" id="tanggal" required />
+                                        <input class="form-control" type="text" name="tanggal" id="tanggal" readonly value="{{ $tglblnthn }}"/>
                                     </div>
                                     
                                     <div class="form-group">
