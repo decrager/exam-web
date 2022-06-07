@@ -3,10 +3,10 @@
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Rekapitulasi Pelanggaran</h4>
+                <h4 class="page-title pull-left">Rekapitulasi Ketidakhadiran</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a>Beranda</a></li>
-                    <li><span>Pelanggaran</span></li>
+                    <li><span>Ketidakhadiran</span></li>
                 </ul>
             </div>
         </div>
@@ -19,12 +19,23 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    @if (auth()->user()->role == 'berkas' or auth()->user()->role == 'pj_ujian' or auth()->user()->role == 'supervisor')
-                        <h4 class="header-title float-left">Pelanggaran</h4>
-                        <button class="btn btn-success float-right mb-3"><i
-                                class="fas fa-file-excel-o"></i>&ensp;Export</button>
+                    @if (auth()->user()->role == 'pj_ujian')
+                        <h4 class="header-title float-left">Alasan Ketidakhadiran</h4>
+                        <a href="{{ route('pjUjian.pelanggaran.export') }}" class="btn btn-success float-right mb-3">
+                            <i class="fas fa-file-excel-o">&ensp;Export</i>
+                        </a>
+                    @elseif (auth()->user()->role == 'berkas')
+                        <h4 class="header-title float-left">Alasan Ketidakhadiran</h4>
+                        <a href="{{ route('berkas.pelanggaran.export') }}" class="btn btn-success float-right mb-3">
+                            <i class="fas fa-file-excel-o">&ensp;Export</i>
+                        </a>
+                    @elseif (auth()->user()->role == 'supervisor')
+                        <h4 class="header-title float-left">Alasan Ketidakhadiran</h4>
+                        <a href="{{ route('supervisor.pelanggaran.export') }}" class="btn btn-success float-right mb-3">
+                            <i class="fas fa-file-excel-o">&ensp;Export</i>
+                        </a>
                     @else
-                        <h4 class="header-title">Pelanggaran</h4>
+                        <h4 class="header-title">Alasan Ketidakhadiran</h4>
                     @endif
                     <div class="table-responsive">
                         <table id="example" class="table" style="width: 100%">
@@ -35,7 +46,7 @@
                                     <th>NIM</th>
                                     <th class="col-2">Program Studi</th>
                                     <th>Semester</th>
-                                    <th>Jumlah Pelanggaran</th>
+                                    <th>Jumlah Ketidakhadiran</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -70,7 +81,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detail Pelanggaran</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Detail Ketidakhadiran</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -107,7 +118,7 @@
                                         <div class="col-6">
                                             @foreach ($allPelanggaran as $pelanggaran)
                                                 @if ($pelanggaran?->mhs_id == $mhs?->mhs_id)
-                                                    <h6 class="mb-2">Pelanggaran:
+                                                    <h6 class="mb-2">Ketidakhadiran:
                                                     </h6>
                                                     <div class="form-group pl-3">
                                                         <h6>Tanggal</h6>
@@ -118,7 +129,7 @@
                                                         <p>{{ $pelanggaran?->Ujian?->Matkul?->nama_matkul }}</p>
                                                     </div>
                                                     <div class="form-group pl-3 mb-2">
-                                                        <h6>Pelanggaran</h6>
+                                                        <h6>Alasan</h6>
                                                         <p>{{ $pelanggaran?->pelanggaran }}</p>
                                                     </div>
                                                 @endif

@@ -99,7 +99,6 @@
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Tipe Mata Kuliah</th>
                                         <th>Perbanyak</th>
                                         <th>Jumlah Fotokopi</th>
                                     </tr>
@@ -112,7 +111,6 @@
                                             <td>{{ $ujian?->nama_prodi }}</td>
                                             <td>{{ $ujian?->semester }}</td>
                                             <td>{{ $ujian?->nama_matkul }}</td>
-                                            <td>{{ $ujian?->tipe_mk }}</td>
                                             <td>
                                                 @if ($ujian?->perbanyak == "1")
                                                     <span class="badge badge-success">Perbanyak</span>

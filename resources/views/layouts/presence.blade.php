@@ -93,7 +93,7 @@
             <td>PJ Lokasi {{ $lokasi }}</td> 
         </tr>
         <tr>
-            <img src="{{ asset('storage/images/ttd/ttdPjLokasi.png') }}" alt="TTD">
+            <img src="{{ asset('storage/images/ttd/' . $ttd) }}" alt="TTD">
         </tr>
         <tr>
             <td>({{ $nama }})</td> 

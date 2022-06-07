@@ -121,7 +121,7 @@
                                                 <span class="badge badge-success">Perbanyak</span>
                                                 @elseif ($ujian?->perbanyak == 2)
                                                 <span class="badge badge-danger">Tidak</span>
-                                                @else
+                                                @elseif ()
                                                 -
                                                 @endif
                                             </td>

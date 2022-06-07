@@ -180,7 +180,7 @@ class pjLokasiController extends Controller
     public function absensiForm($id)
     {
         $pengawas = Penugasan::find($id);
-        $qrcode =  QrCode::size(500)->generate(env('APP_URL') . '/presensi/' . $pengawas->id);
+        $qrcode =  QrCode::size(500)->generate('http://mindysvipb.xyz/presensi/' . $pengawas->id);
         return view('pj_lokasi.absensi.form', [
             "pengawas" => $pengawas,
             "qrCode" => $qrcode
@@ -325,7 +325,6 @@ class pjLokasiController extends Controller
 
     public function pdf(Request $request)
     {
-        return $request->all();
         $now = Carbon::now()->toDateString();
         $hari = Carbon::now()->translatedFormat('l');
 
@@ -338,24 +337,48 @@ class pjLokasiController extends Controller
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'penugasans.*', 'pengawas.*')
-        // ->where('ujians.tanggal', $now)
+        ->where('ujians.tanggal', $now)
+        ->where('penugasans.presensi', '!=', null);
+
+        $penugasan = Penugasan::join('ujians', 'penugasans.ujian_id', 'ujians.id')
+        ->where('ujians.tanggal', $now)
         ->where('penugasans.presensi', '!=', null);
 
         if ($hari == 'Jumat') {
             if ($request->sesi == 1) {
                 $pengawas->where('ujians.jam_mulai', '8');
+                $penugasan->where('ujians.jam_mulai', '8');
             } elseif ($request->sesi == 2) {
                 $pengawas->where('ujians.jam_mulai', '14');
+                $penugasan->where('ujians.jam_mulai', '14');
             }
         } else {
             if ($request->sesi == 1) {
                 $pengawas->where('ujians.jam_mulai', '8');
+                $penugasan->where('ujians.jam_mulai', '8');
             } elseif ($request->sesi == 2) {
                 $pengawas->where('ujians.jam_mulai', '10.3');
+                $penugasan->where('ujians.jam_mulai', '10.3');
             } elseif ($request->sesi == 3) {
                 $pengawas->where('ujians.jam_mulai', '13.15');
+                $penugasan->where('ujians.jam_mulai', '13.15');
             }
         }
+
+        $penugasan->where(function($query) {
+            $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
+            $lokasi = Ruangan::groupBy('lokasi')->select('lokasi')->get();
+            for ($i = 0; $i < $tot1; $i++) {
+            if (Auth::user()->lokasi == $lokasi[$i]->lokasi) {
+                $ruangan = Ruangan::select('ruangan')->where('lokasi', $lokasi[$i]->lokasi)->get();
+                $tot2 = count($ruangan);
+                $query->where('ujians.ruang', $ruangan[0]->ruangan);
+                for ($j = 0; $j < $tot2; $j++) {
+                    $query->orWhere('ujians.ruang', $ruangan[$j]->ruangan);
+                }
+            }
+        }
+        });
 
         $pengawas->where(function($query) {
             $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
@@ -379,10 +402,10 @@ class pjLokasiController extends Controller
         $tbt = Carbon::now()->format('d/m/Y');
         $time = $request->pukul;
 
-        $fileName = Auth::user()->name . '_ttd_pjLoc.png';
+        $fileName = Auth::user()->email . '_ttd_pjLoc.png';
 
         if ($request->ttd) {
-            $destination = 'images/ttd/' . Auth::user()->name . '_ttd_pjLoc.png';
+            $destination = 'images/ttd/' . Auth::user()->email . '_ttd_pjLoc.png';
             if ($destination) {
                 Storage::delete($destination);
             }
@@ -396,7 +419,7 @@ class pjLokasiController extends Controller
         }
         
         $data = [
-            'pengawas' => $pengawas,
+            'pengawas' => $pengawas->get(),
             'master' => $master,
             'tglbln' => $tglbln,
             'nama' => $nama,
@@ -408,11 +431,25 @@ class pjLokasiController extends Controller
 
         $pdf = PDF::loadView('layouts.presence', $data);
         $pdfName = time(). '_pengawas.pdf';
+        $penugasan->update(['file' => $pdfName]);
         Storage::put('files/pdf/' . $pdfName, $pdf->output());
-
         // return $pdf->stream('presensi.pdf');
-        $this->Activity(' melakukan submit kehadiran pengawas');
+        $this->Activity(' melakukan submit data kehadiran pengawas');
         return redirect()->route('pjLokasi.pengawas.absensi.index')->with('success', 'Berhasil menyerahkan data kehadiran pengawas!');
+    }
+
+    public function pdfDestroy($id)
+    {
+        $penugasan = Penugasan::where('id', $id)->select('file')->first();
+
+        $destination = 'files/pdf/' . $penugasan->file;
+        if ($destination) {
+            Storage::delete($destination);
+        }
+
+        Penugasan::where('file', $penugasan->file)->update(['file' => null]);
+        $this->Activity(' menghapus data kehadiran pengawas');
+        return redirect()->route('pjLokasi.pengawas.absensi.index')->with('success', 'Berhasil menghapus data kehadiran pengawas!');
     }
 
     public function SerahTerima(Request $request)
@@ -485,7 +522,7 @@ class pjLokasiController extends Controller
                 'file' => $pdfName
             ]);
         }
-        $this->Activity(' melakukan serah terima berkas');
+        $this->Activity(' melakukan serah terima berkas untuk matkul ' . $matkul->nama_matkul);
         DB::commit();
 
         return redirect()->route('pjLokasi.soal.index')->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
@@ -495,6 +532,7 @@ class pjLokasiController extends Controller
     {
         DB::beginTransaction();
         $fileName = Berkas::where('ujian_id', $id)->select('file')->first();
+        $matkul = Ujian::where('id', $id)->first();
 
         $destination = 'files/pdf/' . $fileName->file;
         if ($destination) {
@@ -505,6 +543,7 @@ class pjLokasiController extends Controller
             'serah_terima' => 'Belum',
             'file' => null
         ]);
+        $this->Activity(' menghapus serah terima berkas untuk mata kuliah ' . $matkul->Matkul->nama_matkul);
         DB::commit();
         
         return redirect()->route('pjLokasi.soal.index')->with('success', 'Berkas Serah Terima berhasil dihapus!');

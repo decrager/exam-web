@@ -23,10 +23,10 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Rekapitulasi Pelanggaran</h4>
+                    <h4 class="page-title pull-left">Rekapitulasi Ketidakhadiran</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><span>Pelanggaran</span></li>
+                        <li><span>Ketidakhadiran</span></li>
                     </ul>
                 </div>
             </div>
@@ -39,7 +39,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Rekapitulasi Pelanggaran</h4>
+                        <h4 class="header-title">Rekapitulasi Ketidakhadiran</h4>
                         <figure class="highcharts-figure">
                             <div id="container"></div>
                         </figure>
@@ -54,7 +54,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Pelanggaran</h4>
+                        <h4 class="header-title">Ketidakhadiran</h4>
                         <a href="/pj_lokasi/pelanggaran/create" class="btn btn-primary text-sm bg-blue px-3 mb-3">Tambah
                             Data</a>
                         <div class="table-responsive">
@@ -66,7 +66,7 @@
                                         <th>NIM</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
-                                        <th>Jumlah Pelanggaran</th>
+                                        <th>Jumlah Ketidakhadiran</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -102,7 +102,7 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Detail Pelanggaran</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Detail Ketidakhadiran</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" style="max-height: 600px;">
@@ -141,7 +141,7 @@
                                                     @if ($pelanggaran?->mhs_id == $mhs?->mhs_id)
                                                         <div class="row">
                                                             <div class="col-7">
-                                                                <h6 class="mb-2 pt-1">Pelanggaran:</h6>
+                                                                <h6 class="mb-2 pt-1">Ketidakhadiran:</h6>
                                                             </div>
                                                             <div class="col-5">
                                                                 <a href="pelanggaran/{{ $pelanggaran?->id }}/edit" class="btn btn-warning btn-sm"><i
@@ -164,7 +164,7 @@
                                                             <p>{{ $pelanggaran?->Ujian?->Matkul?->nama_matkul }}</p>
                                                         </div>
                                                         <div class="form-group pl-3 mb-2">
-                                                            <h6>Pelanggaran</h6>
+                                                            <h6>Alasan</h6>
                                                             <p>{{ $pelanggaran?->pelanggaran }}</p>
                                                         </div>
                                                     @endif

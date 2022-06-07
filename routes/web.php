@@ -192,6 +192,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
 
     Route::get('/pj_ujian/jadwal/export', [pjUjianController::class, 'export'])->name('pjUjian.jadwal.export');
     Route::get('/pj_ujian/aktivitas/export', [pjUjianController::class, 'logExport'])->name('pjUjian.aktivitas.export');
+    Route::get('/pj_ujian/pelanggaran/export', [pjUjianController::class, 'pelanggaranExport'])->name('pjUjian.pelanggaran.export');
     Route::post('/pj_ujian/serahterima/export', [pjUjianController::class, 'SerahTerima'])->name('pjUjian.serahterima');
     Route::put('/pj_ujian/serahterima/delete/{id}', [pjUjianController::class, 'SerahTerimaDestroy'])->name('pjUjian.serahterima.destroy');
 });
@@ -236,6 +237,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_lokasi']], function () {
     Route::post('/pj_lokasi/presensi/export', [pjLokasiController::class, 'pdf'])->name('pjLokasi.pdf');
     Route::post('/pj_lokasi/serahterima/export', [pjLokasiController::class, 'SerahTerima'])->name('pjLokasi.serahterima');
     Route::put('/pj_lokasi/serahterima/delete/{id}', [pjLokasiController::class, 'SerahTerimaDestroy'])->name('pjLokasi.serahterima.destroy');
+    Route::put('/pj_lokasi/presensi/destroy/{id}', [pjLokasiController::class, 'pdfDestroy'])->name('pjLokasi.pdf.destroy');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {
@@ -255,6 +257,7 @@ Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {
 
     Route::post('/berkas/serahterima/export', [berkasController::class, 'SerahTerima'])->name('berkas.serahterima');
     Route::put('/berkas/serahterima/delete/{id}', [berkasController::class, 'SerahTerimaDestroy'])->name('berkas.serahterima.destroy');
+    Route::get('/berkas/pelanggaran/export', [berkasController::class, 'pelanggaranExport'])->name('berkas.pelanggaran.export');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:assisten']], function () {
@@ -301,6 +304,7 @@ Route::group(['middleware' => ['auth', 'cekrole:supervisor']], function () {
     Route::get('/supervisor/pelanggaran', [supervisorController::class, 'pelanggaran'])->name('supervisor.pelanggaran');
     Route::get('/supervisor/aktivitas', [supervisorController::class, 'LogActivity'])->name('supervisor.aktivitas');
     Route::get('/supervisor/aktivitas/export', [supervisorController::class, 'logExport'])->name('supervisor.aktivitas.export');
+    Route::get('/supervisor/pelanggaran/export', [supervisorController::class, 'pelanggaranExport'])->name('supervisor.pelanggaran.export');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:pj_online']], function () {

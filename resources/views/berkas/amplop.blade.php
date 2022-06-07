@@ -61,7 +61,6 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Tipe</th>
                                         <th>Ruang</th>
                                         <th>Print</th>
                                         <th>Pengambilan</th>
@@ -77,7 +76,6 @@
                                             <td>{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>
                                             <td>{{ $ujian?->Praktikum?->praktikum }}</td>
                                             <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $ujian?->tipe_mk }}</td>
                                             <td>{{ $ujian?->ruang }}</td>
                                             <td>
                                                 @if ($ujian?->Amplop?->print == 'Belum')

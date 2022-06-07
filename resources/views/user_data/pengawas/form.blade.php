@@ -67,8 +67,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Bank <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <select class="custom-select" name="bank" id="bank" required>
+                                        <label class="col-form-label">Bank</label>
+                                        <select class="custom-select" name="bank" id="bank">
                                             <option selected="selected" value="">Pilih Bank</option>
                                             <option value="BNI">BNI</option>
                                             <option value="BRI">BRI</option>
@@ -77,13 +77,13 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="norek" class="col-form-label">Nomor Rekening <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." name="norek" required id="norek" />
+                                        <label for="norek" class="col-form-label">Nomor Rekening</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." name="norek" id="norek" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="tlp" class="col-form-label">Nomor Telepon <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." name="tlp" required id="tlp" />
+                                        <label for="tlp" class="col-form-label">Nomor Telepon</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." name="tlp" id="tlp" />
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Simpan</button>

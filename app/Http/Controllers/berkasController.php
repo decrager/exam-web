@@ -14,9 +14,11 @@ use App\Models\Matkul;
 use App\Models\Semester;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use function PHPUnit\Framework\isEmpty;
+use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
+use App\Exports\KetidakhadiranExport;
+use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Storage;
 
 class berkasController extends Controller
@@ -238,8 +240,8 @@ class berkasController extends Controller
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-        ->groupBy('ujians.tanggal', 'ujians.tipe_mk', 'ujians.perbanyak', 'prodis.nama_prodi', 'b.semester', 'matkuls.nama_matkul')
-        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, count(praktikums.jml_mhs) * 3 + SUM(praktikums.jml_mhs) AS jumlah')
+        ->groupBy('ujians.tanggal', 'ujians.tipe_mk', 'ujians.perbanyak', 'ujians.kertas', 'prodis.nama_prodi', 'b.semester', 'matkuls.nama_matkul')
+        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, ujians.kertas, count(praktikums.jml_mhs) * 3 + SUM(praktikums.jml_mhs) AS jumlah')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbMatkul', 'dbTanggal']))
         ->get();
@@ -252,6 +254,12 @@ class berkasController extends Controller
     public function pelanggaran()
     {
         return view('berkas.pelanggaran');
+    }
+
+    public function pelanggaranExport()
+    {
+        $this->Activity(' mengeksport rekapitulasi pelanggaran ke excel');
+        return Excel::download(new KetidakhadiranExport, 'Ketidakhadiran.xlsx');
     }
 
     public function SerahTerima(Request $request)
@@ -324,7 +332,7 @@ class berkasController extends Controller
                 'file' => $pdfName
             ]);
         }
-        $this->Activity(' melakukan serah terima berkas');
+        $this->Activity(' melakukan serah terima berkas untuk matkul ' . $matkul->nama_matkul);
         DB::commit();
 
         return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
@@ -334,6 +342,7 @@ class berkasController extends Controller
     {
         DB::beginTransaction();
         $fileName = Berkas::where('ujian_id', $id)->select('file')->first();
+        $matkul = Ujian::where('id', $id)->first();
 
         $destination = 'files/pdf/' . $fileName->file;
         if ($destination) {
@@ -344,7 +353,7 @@ class berkasController extends Controller
             'serah_terima' => 'Belum',
             'file' => null
         ]);
-        $this->Activity(' menghapus serah terima berkas');
+        $this->Activity(' menghapus serah terima berkas untuk mata kuliah ' . $matkul->Matkul->nama_matkul);
         DB::commit();
         
         return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil dihapus!');

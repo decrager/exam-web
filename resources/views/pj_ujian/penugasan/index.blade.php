@@ -56,13 +56,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Tanggal</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
+                                        <th>Kelas / Prk</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Jenis MK</th>
-                                        <th>Usulan Ruang</th>
+                                        <th>Waktu</th>
                                         <th>Ruang</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -71,17 +70,16 @@
                                     @foreach ($penugasan as $ujian)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $ujian?->tanggal }}</td>
                                             <td>{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
                                             <td>{{ $ujian?->Matkul?->Semester?->semester }}</td>
-                                            <td>{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>
-                                            <td>{{ $ujian?->Praktikum?->praktikum }}</td>
+                                            <td>{{ $ujian?->Praktikum?->Kelas?->kelas }} / {{ $ujian?->Praktikum?->praktikum }}</td>
                                             <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $ujian?->tipe_mk }}</td>
-                                            <td>{{ $ujian?->lokasi }}</td>
+                                            <td>{{ $ujian?->jam_mulai }} - {{ $ujian?->jam_selesai }}</td>
                                             <td>{{ $ujian?->ruang }}</td>
                                             <td><a class="btn btn-primary"
-                                                    href="{{ route('pjUjian.pengawas.penugasan.form', $ujian?->ujian_id) }}"><i
-                                                        class="fas fa-user-plus"></i></a></td>
+                                                href="{{ route('pjUjian.pengawas.penugasan.form', $ujian?->ujian_id) }}"><i
+                                                class="fas fa-user-plus"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

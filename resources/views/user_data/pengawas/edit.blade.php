@@ -68,8 +68,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-form-label">Bank <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <select class="custom-select" name="bank" id="bank" required>
+                                        <label class="col-form-label">Bank</label>
+                                        <select class="custom-select" name="bank" id="bank">
                                             <option value="">Pilih Bank</option>
                                             <option selected="selected" value="{{ $pengawas?->bank }}">{{ $pengawas?->bank }}</option>
                                             <option value="BNI">BNI</option>
@@ -79,13 +79,13 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="norek" class="col-form-label">Nomor Rekening <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." name="norek" required id="norek" value="{{ $pengawas?->norek }}"/>
+                                        <label for="norek" class="col-form-label">Nomor Rekening</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." name="norek" id="norek" value="{{ $pengawas?->norek }}"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="tlp" class="col-form-label">Nomor Telepon <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="text" placeholder="Ketik..." name="tlp" required id="tlp" value="{{ $pengawas?->tlp }}"/>
+                                        <label for="tlp" class="col-form-label">Nomor Telepon</label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." name="tlp" id="tlp" value="{{ $pengawas?->tlp }}"/>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Simpan</button>

@@ -105,8 +105,9 @@
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Tipe Mata Kuliah</th>
-                                        <th>Perbanyak</th>
+                                        <th>Perbanyak Teori</th>
+                                        <th>Perbanyak Praktik</th>
+                                        <th>Kertas Buram</th>
                                         <th>Jumlah Fotokopi</th>
                                     </tr>
                                 </thead>
@@ -118,14 +119,29 @@
                                             <td>{{ $ujian?->nama_prodi }}</td>
                                             <td>{{ $ujian?->semester }}</td>
                                             <td>{{ $ujian?->nama_matkul }}</td>
-                                            <td>{{ $ujian?->tipe_mk }}</td>
+                                            @if ($ujian?->perbanyak == "1")
+                                                <td><span class="badge badge-success">Ya</span></td>
+                                                <td><span class="badge badge-success">Ya</span></td>
+                                            @elseif ($ujian?->perbanyak == "2")
+                                                <td><span class="badge badge-danger">Tidak</span></td>
+                                                <td><span class="badge badge-danger">Tidak</span></td>
+                                            @elseif ($ujian?->perbanyak == "3")
+                                                <td><span class="badge badge-success">Ya</span></td>
+                                                <td><span class="badge badge-danger">Tidak</span></td>
+                                            @elseif ($ujian?->perbanyak == "4")
+                                                <td><span class="badge badge-danger">Tidak</span></td>
+                                                <td><span class="badge badge-success">Ya</span></td>
+                                            @else
+                                                <td></td>
+                                                <td></td>
+                                            @endif
                                             <td>
-                                                @if ($ujian?->perbanyak == 1)
-                                                    <span class="badge badge-success">Perbanyak</span>
-                                                @elseif ($ujian?->perbanyak == 2)
-                                                    <span class="badge badge-danger">Tidak</span>
-                                                @else
+                                                @if ($ujian->kertas == 0)
                                                     -
+                                                @elseif ($ujian->kertas == 1)
+                                                    <span class="badge badge-success">Pakai</span>
+                                                @elseif ($ujian->kertas == 2)
+                                                    <span class="badge badge-danger">Tidak Pakai</span>
                                                 @endif
                                             </td>
                                             <td>{{ $ujian?->jumlah }}</td>

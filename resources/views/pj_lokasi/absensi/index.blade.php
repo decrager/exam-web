@@ -99,6 +99,7 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Ruang</th>
                                         <th>Kehadiran</th>
+                                        <th>File</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -120,12 +121,20 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                <form action="{{ route('pjLokasi.pdf.destroy', $pengawas?->id) }}" method="POST" class="btn-group", role="group">
+                                                    <a href="{{ asset('storage/files/pdf/' . $pengawas?->file) }}" target="_blank" class="btn btn-success btn-sm @if($pengawas?->file == null) disabled @endif"><i class="fas fa-eye"></i></a>
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-danger @if($pengawas?->file == null) disabled @endif" onclick="return confirm('Yakin ingin menghapus data kehadiran pengawas?')"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td>
+                                            <td>
                                                 <form action="{{ route('pjLokasi.pengawas.destroy', $pengawas?->id) }}" method="POST" class="btn-group" role="group">
                                                     <a href="{{ route('pjLokasi.pengawas.absensi.form', $pengawas?->id) }}"
                                                         class="btn btn-success"> <i class="fas fa-file-signature"></i></a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus kehadiran pengawas?')"><i class="fas fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus tanda tangan kehadiran pengawas?')"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

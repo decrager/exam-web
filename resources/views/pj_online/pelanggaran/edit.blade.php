@@ -95,11 +95,81 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    
                                     <div class="form-group">
-                                        <label for="example-text-input" class="col-form-label">Pelanggaran <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="text" id="example-text-input" name="pelanggaran"
-                                            value="{{ $pelanggarans?->pelanggaran }}" />
+                                        <label class="col-form-label">Alasan Ketidakhadiran <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Sakit" id="pelanggaran1" @if ($pelanggarans->pelanggaran == 'Sakit') checked @endif>
+                                            <label class="form-check-label" for="pelanggaran1">
+                                                Sakit
+                                            </label>
+                                        </div>
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Izin" id="pelanggaran2" @if ($pelanggarans->pelanggaran == 'Izin') checked @endif>
+                                            <label class="form-check-label" for="pelanggaran2">
+                                                Izin
+                                            </label>
+                                        </div>
+                                        <label class="col-form-label">Pelanggaran</label>
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Terlambat" id="pelanggaran3" @if ($pelanggarans->pelanggaran == 'Terlambat') checked @endif>
+                                            <label class="form-check-label" for="pelanggaran3">
+                                                Terlambat
+                                            </label>
+                                        </div>
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Tidak Membawa KTM" id="pelanggaran4" @if ($pelanggarans->pelanggaran == 'Tidak Membawa KTM') checked @endif>
+                                            <label class="form-check-label" for="pelanggaran4">
+                                                Tidak Membawa KTM
+                                            </label>
+                                        </div>
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Pakaian tidak sesuai SOP" id="pelanggaran5" @if ($pelanggarans->pelanggaran == 'Pakaian tidak sesuai SOP') checked @endif>
+                                            <label class="form-check-label" for="pelanggaran5">
+                                                Pakaian tidak sesuai SOP
+                                            </label>
+                                        </div>
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Tidak memakai seragam Program Studi (Kamis)" id="pelanggaran6" @if ($pelanggarans->pelanggaran == 'Tidak memakai seragam Program Studi (Kamis)') checked @endif>
+                                            <label class="form-check-label" for="pelanggaran6">
+                                                Tidak memakai seragam Program Studi (Kamis)
+                                            </label>
+                                        </div>
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Rambut panjang" id="pelanggaran7" @if ($pelanggarans->pelanggaran == 'Rambut panjang') checked @endif>
+                                            <label class="form-check-label" for="pelanggaran7">
+                                                Rambut panjang
+                                            </label>
+                                        </div>
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Mencontek" id="pelanggaran8" @if ($pelanggarans->pelanggaran == 'Mencontek') checked @endif>
+                                            <label class="form-check-label" for="pelanggaran8">
+                                                Mencontek
+                                            </label>
+                                        </div>
+                                        @if ($pelanggarans->pelanggaran != 'Mencontek' && $pelanggarans->pelanggaran != 'Rambut Panjang' && $pelanggarans->pelanggaran != 'Tidak memakai seragam Program Studi (Kamis)' && $pelanggarans->pelanggaran != 'Pakaian tidak sesuai SOP' && $pelanggarans->pelanggaran != 'Tidak Membawa KTM' && $pelanggarans->pelanggaran != 'Terlambat' && $pelanggarans->pelanggaran != 'Izin' && $pelanggarans->pelanggaran != 'Sakit')
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="" id="pelanggaran9" checked>
+                                            <label class="form-check-label" for="pelanggaran9">
+                                                Lainnya
+                                            </label>
+                                            <div id="lainnya">
+                                                <input class="form-control" type="text" value="{{ $pelanggarans->pelanggaran }}" name="pelanggaran"/>
+                                            </div>
+                                        </div>
+                                        @else
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="" id="pelanggaran9">
+                                            <label class="form-check-label" for="pelanggaran9">
+                                                Lainnya
+                                            </label>
+                                            <div id="lainnya">
+                                                <input class="form-control" type="text" readonly/>
+                                            </div>
+                                        </div>
+                                        @endif
                                     </div>
+                                    
                                     <button type="submit" class="btn btn-primary">Perbarui</button>
                                 </form>
                             </div>
@@ -110,4 +180,54 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('.ujian-select').select2({
+        theme: 'bootstrap-5',
+        dropdownCssClass: "select2--small",
+    });
+    $('.mhs-select').select2({
+        theme: 'bootstrap-5',
+        dropdownCssClass: "select2--small",
+    });
+
+    function checkButton() {
+        if(document.getElementById('pelanggaran9').checked) {
+            $('#lainnya').empty();
+            $('#lainnya').append('<input class="form-control" type="text" placeholder="Ketik..." name="pelanggaran"/>');
+        }
+        else if (document.getElementById('pelanggaran8').checked) {
+            $('#lainnya').empty();
+            $('#lainnya').append('<input class="form-control" type="text" readonly/>');
+        }
+        else if (document.getElementById('pelanggaran7').checked) {
+            $('#lainnya').empty();
+            $('#lainnya').append('<input class="form-control" type="text" readonly/>');
+        }
+        else if (document.getElementById('pelanggaran6').checked) {
+            $('#lainnya').empty();
+            $('#lainnya').append('<input class="form-control" type="text" readonly/>');
+        }
+        else if (document.getElementById('pelanggaran5').checked) {
+            $('#lainnya').empty();
+            $('#lainnya').append('<input class="form-control" type="text" readonly/>');
+        }
+        else if (document.getElementById('pelanggaran4').checked) {
+            $('#lainnya').empty();
+            $('#lainnya').append('<input class="form-control" type="text" readonly/>');
+        }
+        else if (document.getElementById('pelanggaran3').checked) {
+            $('#lainnya').empty();
+            $('#lainnya').append('<input class="form-control" type="text" readonly/>');
+        }
+        else if (document.getElementById('pelanggaran2').checked) {
+            $('#lainnya').empty();
+            $('#lainnya').append('<input class="form-control" type="text" readonly/>');
+        }
+        else if (document.getElementById('pelanggaran1').checked) {
+            $('#lainnya').empty();
+            $('#lainnya').append('<input class="form-control" type="text" readonly/>');
+        }
+    }
+</script>
 @endsection

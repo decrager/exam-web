@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KetidakhadiranExport;
 use Carbon\Carbon;
 use App\Models\Bap;
 use App\Models\Kelas;
@@ -301,11 +302,12 @@ class pjUjianController extends Controller
         ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
+        ->doesntHave('Penugasan')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('pj_ujian.penugasan.index', [
-            "penugasan" => $ujian->get()
+            "penugasan" => $ujian->get(),
         ]);
     }
 
@@ -479,6 +481,12 @@ class pjUjianController extends Controller
     public function pelanggaran()
     {
         return view('pj_ujian.pelanggaran');
+    }
+
+    public function pelanggaranExport()
+    {
+        $this->Activity(' mengeksport rekapitulasi pelanggaran ke excel');
+        return Excel::download(new KetidakhadiranExport, 'Ketidakhadiran.xlsx');
     }
 
     public function penjadwalanIndex()
@@ -762,7 +770,7 @@ class pjUjianController extends Controller
                 'file' => $pdfName
             ]);
         }
-        $this->Activity(' melakukan serah terima berkas');
+        $this->Activity(' melakukan serah terima berkas untuk matkul ' . $matkul->nama_matkul);
         DB::commit();
 
         return redirect()->route('pjUjian.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
@@ -772,6 +780,7 @@ class pjUjianController extends Controller
     {
         DB::beginTransaction();
         $fileName = Berkas::where('ujian_id', $id)->select('file')->first();
+        $matkul = Ujian::where('id', $id)->first();
 
         $destination = 'files/pdf/' . $fileName->file;
         if ($destination) {
@@ -782,6 +791,8 @@ class pjUjianController extends Controller
             'serah_terima' => 'Belum',
             'file' => null
         ]);
+
+        $this->Activity(' menghapus serah terima berkas untuk mata kuliah ' . $matkul->Matkul->nama_matkul);
         DB::commit();
         
         return redirect()->route('pjUjian.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil dihapus!');

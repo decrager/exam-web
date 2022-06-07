@@ -734,9 +734,9 @@ class dataController extends Controller
             'nama' => 'required',
             'nik' => 'required',
             'pns' => 'required',
-            'bank' => 'required',
-            'norek' => 'required',
-            'tlp' => 'required'
+            'bank' => 'nullable',
+            'norek' => 'nullable',
+            'tlp' => 'nullable'
         ]);
 
         Pengawas::create($request->all());
@@ -751,9 +751,9 @@ class dataController extends Controller
             'nama' => 'required',
             'nik' => 'required',
             'pns' => 'required',
-            'bank' => 'required',
-            'norek' => 'required',
-            'tlp' => 'required'
+            'bank' => 'nullable',
+            'norek' => 'nullable',
+            'tlp' => 'nullable'
         ]);
 
         Pengawas::find($id)->update($request->all());

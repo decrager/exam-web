@@ -44,7 +44,7 @@
 
                     <li class="{{ Request::routeIs('berkas.pelanggaran') ? 'active' : '' }} m-1">
                         <a href="{{ route('berkas.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Pelanggaran</span></a>
+                            <span>Ketidakhadiran</span></a>
                     </li>
                 </ul>
             </nav>

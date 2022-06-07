@@ -56,9 +56,9 @@
                                         <th>Tanggal</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
-                                        <th>Kelas</th>
-                                        <th>Praktikum</th>
+                                        <th>Kelas / Prk</th>
                                         <th class="col-2">Mata Kuliah</th>
+                                        <th>Waktu</th>
                                         <th>Ruang</th>
                                         <th>Pengawas</th>
                                         <th>No. Rekening</th>
@@ -73,9 +73,9 @@
                                             <td>{{ $pengawas?->tanggal }}</td>
                                             <td>{{ $pengawas?->nama_prodi }}</td>
                                             <td>{{ $pengawas?->semester }}</td>
-                                            <td>{{ $pengawas?->kelas }}</td>
-                                            <td>{{ $pengawas?->praktikum }}</td>
+                                            <td>{{ $pengawas?->kelas }} / {{ $pengawas?->praktikum }}</td>
                                             <td>{{ $pengawas?->nama_matkul }}</td>
+                                            <td>{{ $ujian?->jam_mulai }} - {{ $ujian?->jam_selesai }}</td>
                                             <td>{{ $pengawas?->ruang }}</td>
                                             <td>{{ $pengawas?->nama }}</td>
                                             <td>{{ $pengawas?->norek }}</td>

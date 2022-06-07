@@ -99,6 +99,7 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Ruang</th>
                                         <th>Kehadiran</th>
+                                        <th>File</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,6 +118,9 @@
                                                 @else
                                                 <span class="badge badge-warning text-dark">Belum Hadir</span>
                                                 @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ asset('storage/files/pdf/' . $pengawas?->file) }}" target="_blank" class="btn btn-success btn-sm @if($pengawas?->file == null) disabled @endif"><i class="fas fa-eye"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

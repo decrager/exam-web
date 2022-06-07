@@ -14,7 +14,8 @@ class Penugasan extends Model
     protected $fillable = [
         'ujian_id',
         'pengawas_id',
-        'presensi'
+        'presensi',
+        'file'
     ];
 
     public function scopeFilter($query, array $filters)

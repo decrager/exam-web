@@ -51,7 +51,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Rekapitulasi Pelanggaran</h4>
+                    <h4 class="header-title">Rekapitulasi Ketidakhadiran</h4>
                     <figure class="highcharts-figure">
                         <div id="container"></div>
                     </figure>

@@ -54,12 +54,14 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Tanggal</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Tipe</th>
                                         <th>Usulan Ruang</th>
-                                        <th>Perbanyak</th>
+                                        <th>Perbanyak Teori</th>
+                                        <th>Perbanyak Praktik</th>
+                                        <th>Kertas Buram</th>
                                         <th>Software</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -68,26 +70,34 @@
                                     @foreach ($ujian as $jadwal)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $jadwal?->tanggal }}</td>
                                             <td>{{ $jadwal?->nama_prodi }}</td>
                                             <td>{{ $jadwal?->semester }}</td>
                                             <td>{{ $jadwal?->nama_matkul }}</td>
-                                            <td>
-                                                @if ($jadwal?->tipe_mk == 'K')
-                                                    Kuliah
-                                                @elseif ($jadwal?->tipe_mk == 'P')
-                                                    Praktikum
-                                                @else
-                                                    Responsi
-                                                @endif
-                                            </td>
                                             <td>{{ $jadwal?->lokasi }}</td>
+                                            @if ($jadwal?->perbanyak == "1")
+                                                <td><span class="badge badge-success">Ya</span></td>
+                                                <td><span class="badge badge-success">Ya</span></td>
+                                            @elseif ($jadwal?->perbanyak == "2")
+                                                <td><span class="badge badge-danger">Tidak</span></td>
+                                                <td><span class="badge badge-danger">Tidak</span></td>
+                                            @elseif ($jadwal?->perbanyak == "3")
+                                                <td><span class="badge badge-success">Ya</span></td>
+                                                <td><span class="badge badge-danger">Tidak</span></td>
+                                            @elseif ($jadwal?->perbanyak == "4")
+                                                <td><span class="badge badge-danger">Tidak</span></td>
+                                                <td><span class="badge badge-success">Ya</span></td>
+                                            @else
+                                                <td></td>
+                                                <td></td>
+                                            @endif
                                             <td>
-                                                @if ($jadwal?->perbanyak == "1")
-                                                    <span class="badge badge-success">Perbanyak</span>
-                                                @elseif ($jadwal?->perbanyak == "2")
-                                                    <span class="badge badge-danger">Tidak</span>
-                                                @else 
+                                                @if ($jadwal->kertas == 0)
                                                     -
+                                                @elseif ($jadwal->kertas == 1)
+                                                    <span class="badge badge-success">Pakai</span>
+                                                @elseif ($jadwal->kertas == 2)
+                                                    <span class="badge badge-danger">Tidak Pakai</span>
                                                 @endif
                                             </td>
                                             <td>{{ $jadwal?->software }}</td>

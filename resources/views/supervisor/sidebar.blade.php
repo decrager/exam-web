@@ -65,7 +65,7 @@
 
                     <li class="{{ Request::routeIs('supervisor.pelanggaran') ? 'active' : '' }} m-1">
                         <a href="{{ route('supervisor.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Pelanggaran</span></a>
+                            <span>Ketidakhadiran</span></a>
                     </li>
 
                     <li class="{{ Request::routeIs('supervisor.aktivitas') ? 'active' : '' }} m-1">

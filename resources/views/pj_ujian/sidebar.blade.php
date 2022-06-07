@@ -59,7 +59,7 @@
 
                     <li class="{{ Request::routeIs('pjUjian.pelanggaran') ? 'active' : '' }} m-1">
                         <a href="{{ route('pjUjian.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Pelanggaran</span></a>
+                            <span>Ketidakhadiran</span></a>
                     </li>
 
                     <li class="{{ Request::routeIs('pjUjian.activity') ? 'active' : '' }} m-1">

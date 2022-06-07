@@ -174,8 +174,8 @@ class prodiController extends Controller
         ->join('amplops', 'amplops.ujian_id', 'ujians.id')
         ->join('baps', 'baps.ujian_id', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', 'ujians.id')
-        ->selectRaw('prodis.nama_prodi, b.semester, ujians.matkul_id, matkuls.nama_matkul, ujians.tipe_mk, ujians.lokasi, ujians.perbanyak, ujians.software, count(ujians.id) AS total')
-        ->groupBy('prodis.nama_prodi', 'b.semester', 'ujians.matkul_id', 'matkuls.nama_matkul', 'ujians.tipe_mk', 'ujians.lokasi', 'ujians.perbanyak', 'ujians.software');
+        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, ujians.matkul_id, matkuls.nama_matkul, ujians.tipe_mk, ujians.lokasi, ujians.perbanyak, ujians.kertas, ujians.software, count(ujians.id) AS total')
+        ->groupBy('ujians.tanggal', 'prodis.nama_prodi', 'b.semester', 'ujians.matkul_id', 'matkuls.nama_matkul', 'ujians.tipe_mk', 'ujians.lokasi', 'ujians.perbanyak', 'ujians.kertas', 'ujians.software');
 
         if (Auth::user()->name == 'Komunikasi') {
             $ujian->where('prodis.kode_prodi', 'A');
@@ -239,7 +239,8 @@ class prodiController extends Controller
         $request->validate([
             'lokasi' => 'nullable',
             'software' => 'nullable',
-            'perbanyak' => 'nullable'
+            'perbanyak' => 'nullable',
+            'kertas' => 'nullable'
         ]);
         
         $ujian = Ujian::where('matkul_id', $id);
@@ -247,7 +248,8 @@ class prodiController extends Controller
         $ujian->update([
             'lokasi' => $request->lokasi,
             'software' => $request->software,
-            'perbanyak' => $request->perbanyak
+            'perbanyak' => $request->perbanyak,
+            'kertas' => $request->kertas
         ]);
 
         $this->Activity(' memperbarui jadwal ujian');
@@ -344,6 +346,8 @@ class prodiController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
+        $now = Carbon::now()->toDateString();
+
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
         ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
@@ -353,7 +357,9 @@ class prodiController extends Controller
         ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
-        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->doesntHave('Penugasan')
+        // ->whereBetween('ujians.tanggal', [$from, $to])
+        ->where('ujians.tanggal', $now)
         ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')

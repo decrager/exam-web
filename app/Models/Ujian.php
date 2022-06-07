@@ -27,6 +27,7 @@ class Ujian extends Model
         'software',
         'susulan',
         'perbanyak',
+        'kertas',
         'sesi',
         'pelaksanaan'
     ];
@@ -92,9 +93,9 @@ class Ujian extends Model
         return $this->hasOne(Bap::class, 'ujian_id', 'id');
     }
 
-    public function Pengawas()
+    public function Penugasan()
     {
-        return $this->hasMany(Pengawas::class, 'ujian_id', 'id');
+        return $this->hasMany(Penugasan::class, 'ujian_id', 'id');
     }
 
     public function Master()

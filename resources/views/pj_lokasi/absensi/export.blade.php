@@ -43,7 +43,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('pjLokasi.pdf') }}" target="_blank" method="POST">
+                                <form action="{{ route('pjLokasi.pdf') }}" method="POST">
                                     <h4 class="header-title">Export Kehadiran Pengawas Ujian</h4>
                                     @csrf
                                     <div class="form-group">

@@ -200,7 +200,7 @@
 
             Highcharts.chart("container", {
                 title: {
-                    text: "Grafik Pelanggaran",
+                    text: "Grafik Ketidakhadiran",
                 },
 
                 subtitle: {
@@ -215,7 +215,7 @@
 
                 xAxis: {
                     title: {
-                        text: "Date",
+                        text: "Tanggal",
                         style: {
                             color: "#000"
                         },
@@ -235,7 +235,7 @@
                 },
 
                 series: [{
-                    name: "Pelanggaran",
+                    name: "Ketidakhadiran",
                     data: data,
                 }, ],
 
@@ -257,7 +257,7 @@
 
             Highcharts.chart("pjonlinechart", {
                 title: {
-                    text: "Grafik Pelanggaran",
+                    text: "Grafik Ketidakhadiran",
                 },
 
                 subtitle: {
@@ -272,7 +272,7 @@
 
                 xAxis: {
                     title: {
-                        text: "Date",
+                        text: "Tanggal",
                         style: {
                             color: "#000"
                         },
@@ -292,7 +292,7 @@
                 },
 
                 series: [{
-                    name: "Pelanggaran",
+                    name: "Ketidakhadiran",
                     data: data,
                 }, ],
 

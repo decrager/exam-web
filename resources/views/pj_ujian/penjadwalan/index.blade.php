@@ -56,7 +56,6 @@
                                         <th>Kelas</th>
                                         <th>Praktikum</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Tipe</th>
                                         <th>Jumlah Mahasiswa</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -70,7 +69,6 @@
                                             <td>{{ $jadwal?->kelas }}</td>
                                             <td>{{ $jadwal?->praktikum }}</td>
                                             <td>{{ $jadwal?->nama_matkul }}</td>
-                                            <td>{{ $jadwal?->tipe_mk }}</td>
                                             <td>{{ $jadwal?->total_mhs }}</td>
                                             <td>
                                                 <form action="{{ route('pjUjian.susulan.penjadwalan.form') }}" method="GET">

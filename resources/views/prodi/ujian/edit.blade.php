@@ -108,10 +108,23 @@
                                         <label class="col-form-label">Perbanyak Soal <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="perbanyak">
                                             <option selected="selected" value="0">
-                                                Pilih Perbanyak atau Tidak
+                                                Pilih
                                             </option>
-                                            <option value=1>Perbanyak</option>
+                                            <option value=1>Perbanyak Teori & Praktik</option>
+                                            <option value=3>Perbanyak Teori Saja</option>
+                                            <option value=4>Perbanyak Praktik Saja</option>
                                             <option value=2>Tidak</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">Kertas Buram <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <select class="custom-select" name="kertas">
+                                            <option selected="selected" value="0">
+                                                Pilih
+                                            </option>
+                                            <option value=1>Pakai</option>
+                                            <option value=2>Tidak Pakai</option>
                                         </select>
                                     </div>
 
