@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PDF | SERAH TERIMA</title>
-    <style>
+    <style type="text/css">
         .garis_tepi1 {
              border: 2px solid black;
+        }
+        body { 
+            font-family: Arial; 
         }
        
     </style>
@@ -20,8 +23,8 @@
 
 <table border="0" align="center">
     <tr>
-    <td><img src="{{ asset('images/icon/IPB.png') }}" width="70px"> </td>
-    <td><center>
+    <td><img src="{{ asset('images/icon/IPB.png') }}" width="80px"> </td>
+    <td style="font-family: Arial;"><center>
         <font size="3">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET DAN TEKNOLOGI</font><BR>
         <font size="3">INSTITUT PERTANIAN BOGOR</font><BR>
         <font size="3"><b>SEKOLAH VOKASI</b></font><BR>

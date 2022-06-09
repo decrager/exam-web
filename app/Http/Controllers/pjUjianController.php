@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\KetidakhadiranExport;
 use Carbon\Carbon;
 use App\Models\Bap;
 use App\Models\Kelas;
@@ -15,7 +14,6 @@ use App\Models\Matkul;
 use App\Models\Susulan;
 use App\Models\Pengawas;
 use App\Models\Semester;
-use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Mahasiswa;
 use App\Models\Penugasan;
 use App\Exports\LogExport;
@@ -23,9 +21,12 @@ use App\Models\Pelanggaran;
 use App\Exports\UjianExport;
 use Illuminate\Http\Request;
 use App\Models\LogActivities;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
+use App\Exports\ListPengawasExport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\KetidakhadiranExport;
 use Illuminate\Support\Facades\Redis;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Storage;
@@ -285,6 +286,12 @@ class pjUjianController extends Controller
         return redirect()->route('pjUjian.pengawas.pengawas.index')->with('success', 'Pengawas sudah dihapus!');
     }
 
+    public function pengawasExport(Request $request)
+    {
+        $this->Activity(' mengeksport data pengawas untuk lokasi ' . $request->lokasi . ' ke excel');
+        return Excel::download(new ListPengawasExport($request->lokasi), 'Pengawas.xlsx');
+    }
+
     public function penugasanIndex()
     {
         $dataTanggalMulai = Master::first();
@@ -302,7 +309,8 @@ class pjUjianController extends Controller
         ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
-        ->doesntHave('Penugasan')
+        ->select('matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'ujians.*')
+        // ->doesntHave('Penugasan')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
@@ -434,7 +442,6 @@ class pjUjianController extends Controller
 
     public function ttd()
     {
-        $tglbln = Carbon::now()->translatedFormat('d F Y');
         $tglbln = Carbon::now()->translatedFormat('d F Y');
         $tglblnthn = Carbon::now()->format('d/m/Y');
         $hari = Carbon::now()->translatedFormat('l');

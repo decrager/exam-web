@@ -64,7 +64,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
         
     {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script> --}}
-    @if (Request::routeIs('pjLokasi.pengawas.absensi.export') || Request::routeIs('pjUjian.kelengkapan.berkas.ttd') || Request::routeIs('pjLokasi.soal.form') || Request::routeIs('berkas.kelengkapan.berkas.ttd'))
+    @if (Request::routeIs('pjLokasi.pengawas.absensi.export') || Request::routeIs('pjUjian.kelengkapan.berkas.ttd') || Request::routeIs('pjLokasi.soal.form') || Request::routeIs('berkas.kelengkapan.berkas.ttd') || Request::routeIs('pjSusulan.mahasiswa.form'))
     <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.signature.css') }}">
     <script type="text/javascript" src="{{ asset('js/jquery.ui.touch-punch.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.signature.js') }}"></script>

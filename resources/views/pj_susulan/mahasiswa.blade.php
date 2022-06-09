@@ -56,6 +56,7 @@
                                         <th>Nama Mahasiswa</th>
                                         <th>NIM</th>
                                         <th>Status</th>
+                                        <th>Persetujuan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -79,9 +80,12 @@
                                                     <span class="badge bg-green">Terjadwal</span>
                                                 @endif
                                             </td>
-                                            <td><Button class="btn btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="{{ '#detail' . $mahasiswa?->id }}"><i
-                                                        class="fas fa-info"></i></Button></td>
+                                            <td><a href="{{ asset('storage/files/pdf/' . $mahasiswa?->persetujuan) }}" class="btn btn-primary btn-sm @if($mahasiswa?->persetujuan == null) disabled @endif" target="_blank"><i class="fas fa-eye">&nbsp; Lihat</i></a></td>
+                                            <td>
+                                                <a href="{{ route('pjSusulan.mahasiswa.form', $mahasiswa?->id) }}" class="btn btn-primary">
+                                                    <i class="fas fa-info"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

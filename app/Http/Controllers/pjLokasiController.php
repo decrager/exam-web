@@ -152,9 +152,8 @@ class pjLokasiController extends Controller
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
+        ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*');
         // ->whereBetween('ujians.tanggal', [$from, $to]);
-        ->where('ujians.tanggal', $now);
 
         $pengawas->where(function($pengawas) {
             $tot1 = count(Ruangan::groupBy('lokasi')->selectRaw('count(lokasi) as lokasi')->get());
@@ -171,9 +170,18 @@ class pjLokasiController extends Controller
             }
         });
 
+        $hari = Carbon::now()->translatedFormat('l');
+
+        if (request(['dbTanggal'])) {
+            $pengawas->filter(request(['dbTanggal']));
+        } else {
+            $pengawas->where('ujians.tanggal', $now);
+        }
+
         $pengawas->filter(request(['dbProdi', 'dbMatkul']));
         return view('pj_lokasi.absensi.index', [
-            "absensi" => $pengawas->get()
+            "absensi" => $pengawas->get(),
+            "hari" => $hari
         ]);
     }
 
@@ -293,7 +301,6 @@ class pjLokasiController extends Controller
 
     public function soalForm()
     {
-        $tglbln = Carbon::now()->TranslatedFormat('d F Y');
         $tglbln = Carbon::now()->translatedFormat('d F Y');
         $tglblnthn = Carbon::now()->format('d/m/Y');
         $hari = Carbon::now()->translatedFormat('l');
@@ -325,6 +332,7 @@ class pjLokasiController extends Controller
 
     public function pdf(Request $request)
     {
+        // return $request->all();
         $now = Carbon::now()->toDateString();
         $hari = Carbon::now()->translatedFormat('l');
 
@@ -345,21 +353,21 @@ class pjLokasiController extends Controller
         ->where('penugasans.presensi', '!=', null);
 
         if ($hari == 'Jumat') {
-            if ($request->sesi == 1) {
+            if ($request->sesi == "1") {
                 $pengawas->where('ujians.jam_mulai', '8');
                 $penugasan->where('ujians.jam_mulai', '8');
-            } elseif ($request->sesi == 2) {
+            } elseif ($request->sesi == "2") {
                 $pengawas->where('ujians.jam_mulai', '14');
                 $penugasan->where('ujians.jam_mulai', '14');
             }
         } else {
-            if ($request->sesi == 1) {
+            if ($request->sesi == "1") {
                 $pengawas->where('ujians.jam_mulai', '8');
                 $penugasan->where('ujians.jam_mulai', '8');
-            } elseif ($request->sesi == 2) {
+            } elseif ($request->sesi == "2") {
                 $pengawas->where('ujians.jam_mulai', '10.3');
                 $penugasan->where('ujians.jam_mulai', '10.3');
-            } elseif ($request->sesi == 3) {
+            } elseif ($request->sesi == "3") {
                 $pengawas->where('ujians.jam_mulai', '13.15');
                 $penugasan->where('ujians.jam_mulai', '13.15');
             }
@@ -400,7 +408,6 @@ class pjLokasiController extends Controller
         $nama = Auth::user()->name;
         $lokasi = Auth::user()->lokasi;
         $tbt = Carbon::now()->format('d/m/Y');
-        $time = $request->pukul;
 
         $fileName = Auth::user()->email . '_ttd_pjLoc.png';
 
@@ -425,15 +432,16 @@ class pjLokasiController extends Controller
             'nama' => $nama,
             'lokasi' => $lokasi,
             'tbt' => $tbt,
-            'time' => $time,
+            'time' => $request->pukul,
             'ttd' => $fileName
         ];
 
         $pdf = PDF::loadView('layouts.presence', $data);
+        // return $pdf->stream();
         $pdfName = time(). '_pengawas.pdf';
         $penugasan->update(['file' => $pdfName]);
         Storage::put('files/pdf/' . $pdfName, $pdf->output());
-        // return $pdf->stream('presensi.pdf');
+        
         $this->Activity(' melakukan submit data kehadiran pengawas');
         return redirect()->route('pjLokasi.pengawas.absensi.index')->with('success', 'Berhasil menyerahkan data kehadiran pengawas!');
     }

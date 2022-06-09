@@ -5,22 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PDF | ABSEN</title>
-    <style>
+    
+    <style type="text/css">
+        @font-face {
+            font-family: Arial;
+            src: url({{ asset('fonts/Arial.ttf') }});
+        }
+
         .garis_tepi1 {
              border: 2px solid black;
         }
         
+        body {
+            font-family: Arial !important;
+        }
     </style>
 </head>
 <table border="0" align="center">
     <tr>
-    <td><img src="{{ asset('images/icon/IPB.png') }}" width="70px"> </td>
+    <td><img src="{{ public_path('images/icon/IPB.png') }}" width="80px"> </td>
     <td><center>
         <font size="3">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET DAN TEKNOLOGI</font><BR>
         <font size="3">INSTITUT PERTANIAN BOGOR</font><BR>
         <font size="3"><b>SEKOLAH VOKASI</b></font><BR>
-        <font size="1">Kampus IPB Cilibende, Jl. Kumbang No.14 Bogor 16151</font><BR>
-        <font size="1">Telp. /Fax. (0251) 83480007/8376845</font></center>
+        <font size="2">Kampus IPB Cilibende, Jl. Kumbang No.14 Bogor 16151</font><BR>
+        <font size="2">Telp. /Fax. (0251) 83480007/8376845</font></center>
     </td>
     </tr>
     <tr>
@@ -80,7 +89,7 @@
             <td align="center">{{ $pengawas->nama_prodi }}</td>
             <td align="center" width="150px">{{ $pengawas->nama_matkul }}</td>
             <td align="center" width="20px">{{ $pengawas->ruang }}</td>
-            <td align="center"><img src="{{ asset('storage/images/ttd/' . $pengawas->presensi) }}" alt="Hadir" width="50px"></td>
+            <td align="center"><img src="{{ public_path('storage/images/ttd/' . $pengawas->presensi) }}" alt="Hadir" width="50px"></td>
         </tr>
         @endforeach
     </table>
@@ -93,7 +102,7 @@
             <td>PJ Lokasi {{ $lokasi }}</td> 
         </tr>
         <tr>
-            <img src="{{ asset('storage/images/ttd/' . $ttd) }}" alt="TTD">
+            <img src="{{ public_path('storage/images/ttd/' . $ttd) }}" alt="TTD">
         </tr>
         <tr>
             <td>({{ $nama }})</td> 

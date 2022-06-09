@@ -46,14 +46,10 @@
                                 <form action="{{ route('pjLokasi.pdf') }}" method="POST">
                                     <h4 class="header-title">Export Kehadiran Pengawas Ujian</h4>
                                     @csrf
-                                    <div class="form-group">
-                                        <label for="pukul" class="col-form-label">Pukul</label>
-                                        <input class="form-control" type="time" id="pukul" name="pukul" readonly value="{{ $jam }}"/>
-                                    </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Sesi</label>
-                                        <select class="custom-select" name="sesi" required>
+                                        <select class="custom-select" name="sesi" id="sesi" onchange="myFunction()" required>
                                             <option selected value="">Pilih sesi</option>
                                             @if ($hari == 'Jumat')
                                                 <option value="1">1</option>
@@ -67,7 +63,12 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="" for="">Tanda Tangan:</label>
+                                        <label for="pukul" class="col-form-label">Pukul</label>
+                                        <input class="form-control" id="pukul" value="Pilih Sesi" name="pukul" readonly/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="" for="">Tanda Tangan: (Jika sudah mengisi sekali, boleh tidak mengisi lagi)</label>
                                         <br />
                                         <div id="sign"> </div>
                                         <br />
@@ -96,5 +97,29 @@
             sign.signature('clear');
             $("#signature").val('');
         });
+    </script>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("sesi").value;
+            
+            const weekday = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+            const d = new Date();
+            var day = weekday[d.getDay()];
+
+            if (x == "2" && day == "Jumat") {
+                var jam = "14.00 - 16.15";
+            } else if (x == "1") {
+                var jam = "08.00 - 10.15";
+            } else if (x == "2") {
+                var jam = "10.30 - 12.45";
+            } else if (x == "3") {
+                var jam = "13.15 - 15.30";
+            } else {
+                var jam = "Pilih sesi";
+            }
+
+            document.getElementById("pukul").value = jam;
+        }
     </script>
 @endsection

@@ -71,14 +71,14 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $ujian?->tanggal }}</td>
-                                            <td>{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
-                                            <td>{{ $ujian?->Matkul?->Semester?->semester }}</td>
-                                            <td>{{ $ujian?->Praktikum?->Kelas?->kelas }} / {{ $ujian?->Praktikum?->praktikum }}</td>
-                                            <td>{{ $ujian?->Matkul?->nama_matkul }}</td>
+                                            <td>{{ $ujian?->nama_prodi }}</td>
+                                            <td>{{ $ujian?->semester }}</td>
+                                            <td>{{ $ujian?->kelas }} / {{ $ujian?->praktikum }}</td>
+                                            <td>{{ $ujian?->nama_matkul }}</td>
                                             <td>{{ $ujian?->jam_mulai }} - {{ $ujian?->jam_selesai }}</td>
                                             <td>{{ $ujian?->ruang }}</td>
                                             <td><a class="btn btn-primary"
-                                                href="{{ route('pjUjian.pengawas.penugasan.form', $ujian?->ujian_id) }}"><i
+                                                href="{{ route('pjUjian.pengawas.penugasan.form', $ujian?->id) }}"><i
                                                 class="fas fa-user-plus"></i></a></td>
                                         </tr>
                                     @endforeach

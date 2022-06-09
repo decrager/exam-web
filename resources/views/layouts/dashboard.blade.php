@@ -16,7 +16,7 @@
     <div class="row mb-3">
         <div class="col-12 col-md-4">
             <div class="single-report bg-white">
-                <span>Jumlah Pelanggaran</span>
+                <span>Jumlah Ketidakhadiran</span>
                 <div class="number">
                     @foreach ($totalPelanggaran as $total)
                         {{ $total->total }}

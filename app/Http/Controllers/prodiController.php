@@ -357,9 +357,10 @@ class prodiController extends Controller
         ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
-        ->doesntHave('Penugasan')
-        // ->whereBetween('ujians.tanggal', [$from, $to])
-        ->where('ujians.tanggal', $now)
+        ->select('matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'ujians.*')
+        // ->doesntHave('Penugasan')
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        // ->where('ujians.tanggal', $now)
         ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')

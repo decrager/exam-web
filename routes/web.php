@@ -193,6 +193,8 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::get('/pj_ujian/jadwal/export', [pjUjianController::class, 'export'])->name('pjUjian.jadwal.export');
     Route::get('/pj_ujian/aktivitas/export', [pjUjianController::class, 'logExport'])->name('pjUjian.aktivitas.export');
     Route::get('/pj_ujian/pelanggaran/export', [pjUjianController::class, 'pelanggaranExport'])->name('pjUjian.pelanggaran.export');
+    Route::get('/pj_ujian/pengawas/export', [pjUjianController::class, 'pengawasExport'])->name('pjUjian.pengawas.export');
+
     Route::post('/pj_ujian/serahterima/export', [pjUjianController::class, 'SerahTerima'])->name('pjUjian.serahterima');
     Route::put('/pj_ujian/serahterima/delete/{id}', [pjUjianController::class, 'SerahTerimaDestroy'])->name('pjUjian.serahterima.destroy');
 });
@@ -274,6 +276,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_susulan']], function () {
     Route::get('/pj_susulan/ketentuan/tambah', [pjSusulanController::class, 'ketentuanForm'])->name('pjSusulan.ketentuan.form');
     Route::get('/pj_susulan/ketentuan/edit/{id}', [pjSusulanController::class, 'ketentuanEdit'])->name('pjSusulan.ketentuan.edit');
     Route::get('/pj_susulan/mahasiswa', [pjSusulanController::class, 'mahasiswaIndex'])->name('pjSusulan.mahasiswa.index');
+    Route::get('/pj_susulan/mahasiswa/detail/{id}', [pjSusulanController::class, 'persetujuanForm'])->name('pjSusulan.mahasiswa.form');
     Route::get('/pj_susulan/penjadwalan', [pjSusulanController::class, 'penjadwalanIndex'])->name('pjSusulan.penjadwalan.index');
     Route::get('/pj_susulan/penjadwalan/tambah', [pjSusulanController::class, 'penjadwalanForm'])->name('pjSusulan.penjadwalan.form');
     Route::get('/pj_susulan/jadwal', [pjSusulanController::class, 'jadwalIndex'])->name('pjSusulan.jadwal.index');

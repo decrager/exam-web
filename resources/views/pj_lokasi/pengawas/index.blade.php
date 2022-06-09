@@ -75,7 +75,7 @@
                                             <td>{{ $pengawas?->semester }}</td>
                                             <td>{{ $pengawas?->kelas }} / {{ $pengawas?->praktikum }}</td>
                                             <td>{{ $pengawas?->nama_matkul }}</td>
-                                            <td>{{ $ujian?->jam_mulai }} - {{ $ujian?->jam_selesai }}</td>
+                                            <td>{{ $pengawas?->jam_mulai }} - {{ $pengawas?->jam_selesai }}</td>
                                             <td>{{ $pengawas?->ruang }}</td>
                                             <td>{{ $pengawas?->nama }}</td>
                                             <td>{{ $pengawas?->norek }}</td>

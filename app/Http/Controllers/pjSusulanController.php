@@ -7,14 +7,17 @@ use App\Models\Bap;
 use App\Models\Ujian;
 use App\Models\Amplop;
 use App\Models\Berkas;
-use App\Models\Susulan;
 use App\Models\Master;
+use App\Models\Susulan;
 use App\Models\Ketentuan;
 use App\Models\Mahasiswa;
 use App\Models\Pelanggaran;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\Storage;
 
 class pjSusulanController extends Controller
 {
@@ -114,23 +117,68 @@ class pjSusulanController extends Controller
         ]);
     }
 
+    public function persetujuanForm($id)
+    {
+        $mahasiswa = Susulan::find($id);
+
+        return view('pj_susulan.persetujuan', ["mahasiswa" => $mahasiswa]);
+    }
+
     public function mahasiswaUpdate(Request $request, $id)
     {
         $susulan = Susulan::find($id);
         $mahasiswa = Mahasiswa::find($susulan->mhs_id);
-        $susulan->update([
-            'status' => $request->status
-        ]);
+        $tglbln = Carbon::now()->translatedFormat('d F Y');
 
         if ($request->status == 'Disetujui'){
+            $destination = 'images/ttd/ttdSusulan.png';
+            if ($destination) {
+                Storage::delete($destination);
+            }
+
+            $fileName = 'ttdSusulan.png';
+            $folderPath = Storage::path('images/ttd/');
+            $image = explode(";base64,", $request->ttd);
+            $image_base64 = base64_decode($image[1]);
+            
+            $file = $folderPath . $fileName;
+            file_put_contents($file, $image_base64);
+
+            $data = [
+                "susulan" => $susulan,
+                "mahasiswa" => $mahasiswa,
+                "tglbln" => $tglbln,
+                "pj" => Auth::user()->name,
+                "ttd" => $fileName
+            ];
+
+            $pdf = PDF::loadView('layouts.persetujuan', $data);
+            return $pdf->stream();
+            $pdfName = $mahasiswa->nama . '_persetujuan_susulan.pdf';
+            $susulan->update([
+                'status' => $request->status,
+                'persetujuan' => $pdfName
+            ]);
+            Storage::put('files/pdf/' . $pdfName, $pdf->output());
+
             $message = "Pengajuan berhasil disetujui!";
             $this->Activity(' menyetujui pengajuan susulan untuk ' . $mahasiswa->nama);
+            return redirect()->route('pjSusulan.mahasiswa.index')->with('success', $message);
         } else {
+            $pdfName = $mahasiswa->nama . '_persetujuan_susulan.pdf';
+            $destination = 'files/pdf/' . $pdfName;
+            if ($destination) {
+                Storage::delete($destination);
+            }
+
+            $susulan->update([
+                'status' => $request->status,
+                'persetujuan' => null
+            ]);
             $message = "Pengajuan berhasil ditolak!";
             $this->Activity(' menolak pengajuan susulan untuk ' . $mahasiswa->nama);
+            return redirect()->route('pjSusulan.mahasiswa.index')->with('success', $message);
         }
-
-        return redirect()->route('pjSusulan.mahasiswa.index')->with('success', $message);
     }
 
     public function penjadwalanIndex()

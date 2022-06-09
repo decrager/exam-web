@@ -65,6 +65,11 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-auto">
+                                <div class="form-group">
+                                    <input type="date" name="dbTanggal" id="tanggal" class="form-control">
+                                </div>
+                            </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <select class="custom-select matkul-select" name="dbMatkul" id="dbMatkul">
@@ -92,12 +97,13 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Tanggal</th>
                                         <th>Nama</th>
                                         <th>Status Kepegawaian</th>
-                                        <th>Nomor Telepon</th>
                                         <th class="col-2">Program Studi</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Ruang</th>
+                                        <th>Sesi</th>
                                         <th>Kehadiran</th>
                                         <th>File</th>
                                         <th>Aksi</th>
@@ -107,12 +113,31 @@
                                     @foreach ($absensi as $pengawas)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $pengawas?->tanggal }}</td>
                                             <td>{{ $pengawas?->nama }}</td>
                                             <td>{{ $pengawas?->pns }}</td>
-                                            <td>{{ $pengawas?->tlp }}</td>
                                             <td>{{ $pengawas?->nama_prodi }}</td>
                                             <td>{{ $pengawas?->nama_matkul }}</td>
                                             <td>{{ $pengawas?->ruang }}</td>
+                                            <td>
+                                                @if ($hari == 'Jumat')
+                                                    @if ($pengawas?->jam_mulai == "8")
+                                                        1
+                                                    @elseif ($pengawas?->jam_mulai == "14")
+                                                        2
+                                                    @endif
+                                                @else
+                                                    @if ($pengawas?->jam_mulai == "8")
+                                                        1
+                                                    @elseif ($pengawas?->jam_mulai == "10.3")
+                                                        2
+                                                    @elseif ($pengawas?->jam_mulai == "13.15")
+                                                        3
+                                                    @elseif ($pengawas?->jam_mulai == "14")
+                                                        2
+                                                    @endif
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if ($pengawas?->presensi)
                                                     <span class="badge badge-success">Hadir</span>

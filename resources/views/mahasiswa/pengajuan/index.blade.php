@@ -60,6 +60,7 @@
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Bukti Persyaratan</th>
                                         <th>status</th>
+                                        <th>Persetujuan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -68,7 +69,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $pengajuan?->nama_matkul }}</td>
-                                        <td><a href="{{ asset('storage/files/syarat/' . $pengajuan?->file) }}" target="_blank" class="btn btn-success btn-sm"> <i class="fas fa-eye"></i></a></td>
+                                        <td><a href="{{ asset('storage/files/syarat/' . $pengajuan?->file) }}" target="_blank" class="btn btn-success btn-sm"><i class="fas fa-eye">&nbsp; Lihat</i></a></td>
                                         <td>
                                             @if ($pengajuan?->status == 'Belum')
                                                 <span class="badge badge-warning">Belum disetujui</span>
@@ -80,6 +81,7 @@
                                                 <span class="badge badge-success bg-green">Terjadwal</span>
                                             @endif
                                         </td>
+                                        <td><a href="{{ asset('storage/files/pdf/' . $pengajuan?->persetujuan) }}" class="btn btn-primary btn-sm @if($pengajuan?->persetujuan == null) disabled @endif" target="_blank"><i class="fas fa-eye">&nbsp; Lihat</i></a></td>
                                         @if ($pengajuan?->status == 'Belum')
                                         <td>
                                             <form action="{{ route('mahasiswa.susulan.delete', $pengajuan?->id) }}" class="btn-group" role="group" method="POST">
@@ -91,8 +93,12 @@
                                         </td>
                                         @else
                                         <td>
-                                            <button href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></button>
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
+                                            <form action="{{ route('mahasiswa.susulan.delete', $pengajuan?->id) }}" class="btn-group" role="group" method="POST">
+                                                <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning disabled"> <i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger disabled" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
+                                            </form>
                                         </td>
                                         @endif
                                     </tr>

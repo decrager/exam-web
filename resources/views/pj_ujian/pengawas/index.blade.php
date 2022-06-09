@@ -44,10 +44,16 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <h4 class="header-title">Daftar Pengawas</h4>
-                        <form action="/pj_ujian/pengawas" class="row justify-content-start">
+                        <div class="mb-3">
+                            <h4 class="header-title justify-content-start d-inline">Daftar Pengawas</h4>
+                            <button class="btn btn-success mb-3 float-end" data-bs-toggle="modal" data-bs-target="#export">
+                                <i class="fas fa-file-excel-o">&ensp;Export</i>
+                            </button>
+                        </div>
+                        <form action="/pj_ujian/pengawas" class="row">
                             @include('layouts.filter')
                         </form>
+                        
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>
@@ -99,6 +105,46 @@
                 </div>
             </div>
             <!-- data table end -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="export" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Pilih Lokasi Pengawas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Textual inputs start -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <div class="row">
+                                        @foreach ($dbLokasi as $lokasi)
+                                        <form action="{{ route('pjUjian.pengawas.export') }}" class="col-4 text-center mb-3">
+                                            <button type="submit" class="btn btn-primary" style="width: 125px">
+                                                <input type="text" name="lokasi" id="lokasi" value="{{ $lokasi->lokasi }}" hidden>
+                                                <i class="fas fa-location-dot">&nbsp; {{ $lokasi->lokasi }}</i>
+                                            </button>
+                                        </form>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Textual inputs end -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
