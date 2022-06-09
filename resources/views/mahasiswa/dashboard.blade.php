@@ -70,7 +70,6 @@
                                         <th class="border-0" scope="col">Kelas</th>
                                         <th class="border-0" scope="col">Praktikum</th>
                                         <th class="border-0 col-2" scope="col">Mata Kuliah</th>
-                                        <th class="border-0" scope="col">Usulan Ruang</th>
                                         <th class="border-0" scope="col">Ruang</th>
                                         <th class="border-0" scope="col">Jam Mulai</th>
                                         <th class="border-0" scope="col">Jam Selesai</th>
@@ -88,7 +87,6 @@
                                         <td class="border-0">{{ $ujian?->Praktikum?->Kelas?->kelas }}</td>
                                         <td class="border-0">{{ $ujian?->Praktikum?->praktikum }}</td>
                                         <td class="border-0">{{ $ujian?->Matkul?->nama_matkul }}</td>
-                                        <td class="border-0">{{ $ujian?->lokasi }}</td>
                                         <td class="border-0">{{ $ujian?->ruang }}</td>
                                         <td class="border-0">{{ $ujian?->jam_mulai }}</td>
                                         <td class="border-0">{{ $ujian?->jam_selesai }}</td>

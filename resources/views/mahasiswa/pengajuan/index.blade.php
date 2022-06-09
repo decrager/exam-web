@@ -91,6 +91,15 @@
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
+                                        @elseif ($pengajuan?->status == 'Ditolak')
+                                        <td>
+                                            <form action="{{ route('mahasiswa.susulan.delete', $pengajuan?->id) }}" class="btn-group" role="group" method="POST">
+                                                <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning disabled"> <i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
                                         @else
                                         <td>
                                             <form action="{{ route('mahasiswa.susulan.delete', $pengajuan?->id) }}" class="btn-group" role="group" method="POST">

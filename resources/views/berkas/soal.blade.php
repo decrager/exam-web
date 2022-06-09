@@ -109,6 +109,7 @@
                                         <th>Perbanyak Praktik</th>
                                         <th>Kertas Buram</th>
                                         <th>Jumlah Fotokopi</th>
+                                        <th>Detail</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -132,19 +133,20 @@
                                                 <td><span class="badge badge-danger">Tidak</span></td>
                                                 <td><span class="badge badge-success">Ya</span></td>
                                             @else
-                                                <td></td>
-                                                <td></td>
+                                                <td>-</td>
+                                                <td>-</td>
                                             @endif
                                             <td>
-                                                @if ($ujian->kertas == 0)
+                                                @if ($ujian?->kertas == "0" || empty($ujian->kertas))
                                                     -
-                                                @elseif ($ujian->kertas == 1)
+                                                @elseif ($ujian?->kertas == "1")
                                                     <span class="badge badge-success">Pakai</span>
-                                                @elseif ($ujian->kertas == 2)
+                                                @elseif ($ujian?->kertas == "2")
                                                     <span class="badge badge-danger">Tidak Pakai</span>
                                                 @endif
                                             </td>
                                             <td>{{ $ujian?->jumlah }}</td>
+                                            <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="{{ '#detail' . $ujian?->id }}"><i class="fas fa-info text-white"></i></button></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -156,4 +158,50 @@
             <!-- data table end -->
         </div>
     </div>
+
+    @foreach ($soal as $matkul)
+        <div class="modal fade" id="{{ 'detail' . $matkul?->id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detail Kelas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <!-- Textual inputs start -->
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body p-2">
+                                        <div class="row">
+                                            @foreach ($prak as $ujian)
+                                                @if ($ujian?->id == $matkul?->id)
+                                                    <div class="col-4 text-center mb-3">
+                                                        <div class="row">
+                                                            <h6 class="">Kelas {{ $ujian?->kelas }}/{{ $ujian?->praktikum }}</h6>
+                                                        </div>
+                                                        <div class="row">
+                                                            <h5><span class="badge bg-primary">{{ $ujian?->jml_mhs + 3 }}</span></h5>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Textual inputs end -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection

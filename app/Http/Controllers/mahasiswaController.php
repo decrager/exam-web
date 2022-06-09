@@ -104,7 +104,7 @@ class mahasiswaController extends Controller
         $request->validate([
             'matkul_id' => 'required',
             'tipe_mk' => 'required',
-            'file' => 'required|file|max:3072'
+            'file' => 'required|max:2048'
         ]);
 
         $file = $request->file('file');
@@ -132,7 +132,7 @@ class mahasiswaController extends Controller
         $request->validate([
             'matkul_id' => 'required',
             'tipe_mk' => 'required',
-            'file' => 'required|file|max:3072'
+            'file' => 'required|max:2048'
         ]);
 
         $file = $request->file('file');

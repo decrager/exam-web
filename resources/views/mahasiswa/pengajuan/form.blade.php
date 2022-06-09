@@ -78,6 +78,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Bukti Persyaratan <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file" required/>
+                                        <small class="text-muted">Max file size: 2mb</small>
                                         @error('file')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

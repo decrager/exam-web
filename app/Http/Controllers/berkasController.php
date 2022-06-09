@@ -18,6 +18,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
 use App\Exports\KetidakhadiranExport;
+use App\Models\Praktikum;
+
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Storage;
 
@@ -240,14 +242,30 @@ class berkasController extends Controller
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
-        ->groupBy('ujians.tanggal', 'ujians.tipe_mk', 'ujians.perbanyak', 'ujians.kertas', 'prodis.nama_prodi', 'b.semester', 'matkuls.nama_matkul')
-        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, ujians.kertas, count(praktikums.jml_mhs) * 3 + SUM(praktikums.jml_mhs) AS jumlah')
+        ->groupBy('ujians.tanggal', 'ujians.tipe_mk', 'ujians.perbanyak', 'ujians.kertas', 'prodis.nama_prodi', 'b.semester', 'matkuls.nama_matkul', 'matkuls.id')
+        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, ujians.kertas, count(praktikums.jml_mhs) * 3 + SUM(praktikums.jml_mhs) AS jumlah, matkuls.id')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbMatkul', 'dbTanggal']))
         ->get();
 
+        $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id')
+        ->join('ujians', 'ujians.matkul_id', 'matkuls.id')
+        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->select('matkuls.id', 'kelas.kelas', 'praktikums.praktikum', 'praktikums.jml_mhs')
+        ->get();
+
+        $prak = Praktikum::join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('ujians', 'ujians.prak_id', 'praktikums.id')
+        ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->select('matkuls.id', 'kelas.kelas', 'praktikums.praktikum', 'praktikums.jml_mhs')
+        ->get();
+
         return view('berkas.soal', [
-            "soal" => $ujian
+            "soal" => $ujian,
+            "matkul" => $matkul,
+            "prak" => $prak
         ]);
     }
 
