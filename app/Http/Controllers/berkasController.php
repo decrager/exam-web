@@ -254,12 +254,14 @@ class berkasController extends Controller
         ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->select('matkuls.id', 'kelas.kelas', 'praktikums.praktikum', 'praktikums.jml_mhs')
+        ->whereBetween('ujians.tanggal', [$from, $to])
         ->get();
 
         $prak = Praktikum::join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->join('ujians', 'ujians.prak_id', 'praktikums.id')
         ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
         ->select('matkuls.id', 'kelas.kelas', 'praktikums.praktikum', 'praktikums.jml_mhs')
+        ->whereBetween('ujians.tanggal', [$from, $to])
         ->get();
 
         return view('berkas.soal', [

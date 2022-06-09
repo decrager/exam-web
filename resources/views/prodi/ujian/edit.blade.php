@@ -89,42 +89,35 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Usulan Ruang  <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="lokasi">
-                                            <option selected="selected" value="">
-                                                Pilih Usulan Ruang
-                                            </option>
-                                            <option value="Lab. Komputer">Lab. Komputer</option>
-                                            <option value="Lab. Prodi">Lab. Prodi</option>
-                                            <option value="Ruang Kelas">Ruang Kelas</option>
+                                            <option selected="selected" value="-" {{ $lokasi == "-" ? 'selected' : '' }}>Pilih Usulan Ruang</option>
+                                            <option value="Lab. Komputer" {{ $lokasi == "Lab. Komputer" ? 'selected' : '' }}>Lab. Komputer</option>
+                                            <option value="Lab. Prodi" {{ $lokasi == "Lab. Prodi" ? 'selected' : '' }}>Lab. Prodi</option>
+                                            <option value="Ruang Kelas" {{ $lokasi == "Ruang Kelas" ? 'selected' : '' }}>Ruang Kelas</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Software yang Dibutuhkan (Optional)</label>
-                                        <input class="form-control" type="text" name="software"
-                                            placeholder="Ketik software yang dibutuhkan..." id="example-text-input" />
+                                        <input class="form-control" type="text" name="software" placeholder="Ketik software yang dibutuhkan..." value="{{ $software }}"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Perbanyak Soal <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="perbanyak">
-                                            <option selected="selected" value="0">
-                                                Pilih
-                                            </option>
-                                            <option value=1>Perbanyak Teori & Praktik</option>
-                                            <option value=3>Perbanyak Teori Saja</option>
-                                            <option value=4>Perbanyak Praktik Saja</option>
-                                            <option value=2>Tidak</option>
+                                            <option value="0" {{ $perbanyak == "0" ? 'selected' : '' }}>Pilih</option>
+                                            <option value="1" {{ $perbanyak == "1" ? 'selected' : '' }}>Perbanyak Teori & Praktik</option>
+                                            <option value="3" {{ $perbanyak == "3" ? 'selected' : '' }}>Perbanyak Teori Saja</option>
+                                            <option value="4" {{ $perbanyak == "4" ? 'selected' : '' }}>Perbanyak Praktik Saja</option>
+                                            <option value="2" {{ $perbanyak == "2" ? 'selected' : '' }}>Tidak</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Kertas Buram <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="kertas">
-                                            <option selected="selected" value="0">
-                                                Pilih
-                                            </option>
-                                            <option value=1>Pakai</option>
-                                            <option value=2>Tidak Pakai</option>
+                                            <option value="0" {{ $kertas == "0" ? 'selected' : '' }}>Pilih</option>
+                                            <option value="1" {{ $kertas == "1" ? 'selected' : '' }}>Pakai</option>
+                                            <option value="2" {{ $kertas == "2" ? 'selected' : '' }}>Tidak Pakai</option>
                                         </select>
                                     </div>
 

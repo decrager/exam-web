@@ -74,7 +74,13 @@
                                             <td>{{ $jadwal?->nama_prodi }}</td>
                                             <td>{{ $jadwal?->semester }}</td>
                                             <td>{{ $jadwal?->nama_matkul }}</td>
-                                            <td>{{ $jadwal?->lokasi }}</td>
+                                            <td>
+                                                @if (empty($jadwal?->lokasi))
+                                                    -
+                                                @else
+                                                    {{ $jadwal?->lokasi }}
+                                                @endif
+                                            </td>
                                             @if ($jadwal?->perbanyak == "1")
                                                 <td><span class="badge badge-success">Ya</span></td>
                                                 <td><span class="badge badge-success">Ya</span></td>
@@ -88,8 +94,8 @@
                                                 <td><span class="badge badge-danger">Tidak</span></td>
                                                 <td><span class="badge badge-success">Ya</span></td>
                                             @else
-                                                <td></td>
-                                                <td></td>
+                                                <td>-</td>
+                                                <td>-</td>
                                             @endif
                                             <td>
                                                 @if ($jadwal->kertas == 0)
@@ -100,7 +106,13 @@
                                                     <span class="badge badge-danger">Tidak Pakai</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $jadwal?->software }}</td>
+                                            <td>
+                                                @if (empty($jadwal?->software))
+                                                    -
+                                                @else
+                                                    {{ $jadwal?->software }}
+                                                @endif    
+                                            </td>
                                             <td>
                                                 <form action="{{ route('prodi.jadwal.edit') }}" method="GET">
                                                     @csrf
@@ -109,7 +121,11 @@
                                                     <input type="text" hidden name="matkul_id" value="{{ $jadwal?->matkul_id }}">
                                                     <input type="text" hidden name="matkul" value="{{ $jadwal?->nama_matkul }}">
                                                     <input type="text" hidden name="tipe_mk" value="{{ $jadwal?->tipe_mk }}">
-                                                    <button type="submit" class="btn btn-warning"> <i class="fas fa-pen"></i></button>
+                                                    <input type="text" hidden name="lokasi" value="{{ $jadwal?->lokasi }}">
+                                                    <input type="text" hidden name="perbanyak" value="{{ $jadwal?->perbanyak }}">
+                                                    <input type="text" hidden name="kertas" value="{{ $jadwal?->kertas }}">
+                                                    <input type="text" hidden name="software" value="{{ $jadwal?->software }}">
+                                                    <button type="submit" class="btn btn-warning"><i class="fas fa-pen"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

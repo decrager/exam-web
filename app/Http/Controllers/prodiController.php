@@ -225,7 +225,11 @@ class prodiController extends Controller
             "semester" => $request->semester,
             "matkul_id" => $request->matkul_id,
             "matkul" => $request->matkul,
-            "tipe_mk" => $request->tipe_mk
+            "tipe_mk" => $request->tipe_mk,
+            "lokasi" => $request->lokasi,
+            "perbanyak" => $request->perbanyak,
+            "kertas" => $request->kertas,
+            "software" => $request->software
         ]);
     }
 

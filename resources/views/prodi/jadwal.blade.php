@@ -157,7 +157,13 @@
                                             <td>{{ $jadwal?->Praktikum?->Kelas?->kelas }}</td>
                                             <td>{{ $jadwal?->Praktikum?->praktikum }}</td>
                                             <td>{{ $jadwal?->Matkul?->nama_matkul }}</td>
-                                            <td>{{ $jadwal?->lokasi }}</td>
+                                            <td>
+                                                @if (empty($jadwal?->lokasi))
+                                                    -
+                                                @else
+                                                    {{ $jadwal?->ruang }}
+                                                @endif
+                                            </td>
                                             <td>{{ $jadwal?->ruang }}</td>
                                             <td>{{ $jadwal?->jam_mulai }}</td>
                                             <td>{{ $jadwal?->jam_selesai }}</td>
@@ -242,16 +248,28 @@
                                                 <div class="form-group">
                                                     <h6>Perbanyak</h6>
                                                     <p>
-                                                        @if ($jadwal?->perbanyak == 1)
-                                                            <span class="badge bg-success">Perbanyak</span>
+                                                        @if ($jadwal?->perbanyak == "1")
+                                                            <span class="badge bg-success">Perbanyak Teori & Praktik</span>
+                                                        @elseif ($jadwal?->perbanyak == "2")
+                                                            <span class="badge bg-danger">Tidak Perbanyak</span>
+                                                        @elseif ($jadwal?->perbanyak == "3")
+                                                            <span class="badge bg-danger">Perbanyak Teori</span>
+                                                        @elseif ($jadwal?->perbanyak == "4")
+                                                            <span class="badge bg-danger">Perbanyak Praktik</span>
                                                         @else
-                                                            <span class="badge bg-danger">Tidak</span>
+                                                            -
                                                         @endif
                                                     </p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Software</h6>
-                                                    <p>{{ $jadwal?->software }}</p>
+                                                    <p>
+                                                        @if (empty($jadwal?->software))
+                                                            -
+                                                        @else
+                                                            {{ $jadwal?->software }}
+                                                        @endif
+                                                    </p>
                                                 </div>
                                                 <div class="form-group">
                                                     <h6>Pelaksanaan</h6>
