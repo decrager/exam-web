@@ -47,8 +47,8 @@
                                     @csrf
                                     <div class="form-group">
                                         <label class="col-form-label">Ujian <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <select class="custom-select ujian-select" name="ujian_id" id="" required>
-                                            <option selected="selected" value="">Select</option>
+                                        <select class="custom-select ujian-select" name="ujian_id" id="ujian_id" required>
+                                            <option selected="selected" value="">Pilih Ujian</option>
                                             @foreach ($ujians as $ujian)
                                             @if (old('ujian_id') === $ujian->id)
                                               <option value="{{ $ujian->id }}" selected>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - {{ $ujian->Matkul->nama_matkul }} - Kelas {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}</option>
@@ -58,17 +58,11 @@
                                           @endforeach
                                         </select>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label class="col-form-label">Nama Mahasiswa <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <select class="custom-select mhs-select" name="mhs_id" id="" required>
-                                            <option selected="selected" value="">Select</option>
-                                            @foreach ($mahasiswas as $mahasiswa)
-                                            @if (old('mhs_id') === $mahasiswa->id)
-                                              <option value="{{ $mahasiswa->id }}" selected>{{ $mahasiswa->nama }} - Kelas {{ $mahasiswa->Praktikum->Kelas->kelas }}/P{{ $mahasiswa->Praktikum->praktikum }}</option>
-                                            @else
-                                              <option value="{{ $mahasiswa->id }}">{{ $mahasiswa->nama }} - Kelas {{ $mahasiswa->Praktikum->Kelas->kelas }}/P{{ $mahasiswa->Praktikum->praktikum }}</option>                 
-                                            @endif
-                                          @endforeach
+                                        <select class="custom-select mhs-select" name="mhs_id" id="mhs_id" required>
+                                            <option selected="selected" value="">Pilih Mahasiswa</option>
                                         </select>
                                     </div>
 
@@ -149,7 +143,34 @@
         $('.ujian-select').select2({
             theme: 'bootstrap-5',
             dropdownCssClass: "select2--small",
-        });
+        }).on('change', function() {
+            var ujian_id = $(this).val();
+                if (ujian_id) {
+                    $.ajax({
+                        url: '/getUjian/' + ujian_id,
+                        type: "GET",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                $('#mhs_id').empty();
+                                $('#mhs_id').append(
+                                        '<option selected="selected" value="">Pilih Mahasiswa</option>'
+                                    );
+                                $.each(data, function(key, mhs) {
+                                    $('select[name="mhs_id"]').append('<option value="' + mhs.id + '">' + mhs.nama + '</option>')
+                                });
+                            } else {
+                                $('#mhs_id').empty();
+                            }
+                        }
+                    });
+                } else {
+                    $('#mhs_id').empty();
+                }
+            });
         $('.mhs-select').select2({
             theme: 'bootstrap-5',
             dropdownCssClass: "select2--small",

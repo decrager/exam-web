@@ -3,6 +3,7 @@
 namespace App\Exports;
 use App\Models\Master;
 use App\Models\Penugasan;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -19,17 +20,23 @@ class PengawasExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
 
-        $from = $dataTanggalMulai->periode_mulai;
-        $to = $dataTanggalSelesai->periode_akhir;
+        $from = date('Y-m-d', strtotime($dataTanggalMulai->periode_mulai));
+        $to = date('Y-m-d', strtotime($dataTanggalSelesai->periode_akhir));
 
-        $pengawas = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
-        ->join('ujians', 'penugasans.ujian_id', 'ujians.id')
-        ->groupBy('pengawas.nama', 'pengawas.nik', 'pengawas.pns', 'pengawas.bank', 'pengawas.norek')
-        ->whereBetween('ujians.tanggal', [$from, $to])
-        ->selectRaw('pengawas.nama, pengawas.nik, pengawas.pns, pengawas.bank, pengawas.norek, count(*) as total')
-        ->get();
+        $pengawas = DB::select(DB::raw("SELECT pengawas.nama, pengawas.nik, pengawas.pns, pengawas.bank, pengawas.norek, a.total, ujians.tanggal, prodis.nama_prodi, matkuls.nama_matkul, ujians.ruang
+        FROM penugasans
+        INNER JOIN pengawas ON penugasans.pengawas_id = pengawas.id
+        INNER JOIN ujians ON penugasans.ujian_id = ujians.id
+        INNER JOIN matkuls ON ujians.matkul_id = matkuls.id
+        INNER JOIN semesters ON matkuls.semester_id = semesters.id
+        INNER JOIN prodis ON semesters.prodi_id = prodis.id, 
+        (SELECT pengawas.id, COUNT(penugasans.id) AS total
+        FROM penugasans INNER JOIN pengawas ON penugasans.pengawas_id = pengawas.id GROUP BY pengawas.id) AS a
+        WHERE pengawas.id = a.id
+        AND ujians.tanggal BETWEEN '$from' AND '$to'
+        ORDER BY  pengawas.nama, pengawas.id ASC"));
 
-        return $pengawas;
+        return collect($pengawas);
     }
 
     public function headings(): array
@@ -40,7 +47,11 @@ class PengawasExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
             'Status Kepegawaian',
             'Nama Bank',
             'Nomor Rekening',
-            'Total Mengawas'
+            'Total Mengawas',
+            'Tanggal',
+            'Program Studi',
+            'Mata Kuliah',
+            'Ruang'
         ];
     }
 

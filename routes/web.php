@@ -25,6 +25,7 @@ use App\Http\Controllers\superadminController;
 use App\Http\Controllers\supervisorController;
 use App\Http\Controllers\pelanggaranController;
 use App\Http\Controllers\pelanggaranOnlineController;
+use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Redirect;
 
 /*
@@ -49,6 +50,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/resetPassword', [loginController::class, 'resetPassword'])->name('resetView');
     Route::post('/resetPassword', [loginController::class, 'reset'])->name('resetPassword');
     Route::post('/logout', [loginController::class, 'logout'])->name('logout');
+
+    Route::get('getUjian/{id}', function($id) {
+        $prak = Ujian::where('id', $id)->select('prak_id')->get();
+
+        $mahasiswa = Mahasiswa::where('prak_id', $prak[0]->prak_id)->get();
+        return response()->json($mahasiswa); 
+    });
 
     Route::get('getPengawas/{id}', function ($id) {
         $pengawas = Pengawas::where('id', $id)->get();

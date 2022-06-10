@@ -13,14 +13,15 @@ use App\Models\Master;
 use App\Models\Matkul;
 use App\Models\Semester;
 use App\Models\Mahasiswa;
+use App\Models\Praktikum;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\KetidakhadiranExport;
-use App\Models\Praktikum;
 
 use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class berkasController extends Controller
@@ -74,6 +75,7 @@ class berkasController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('berkas.amplop', [
             "amplop" => $ujian->get()
         ]);
@@ -92,6 +94,9 @@ class berkasController extends Controller
             $this->Activity(' memperbarui status Pengambilan pada Amplop menjadi Belum diambil');
         }
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status pengambilan Amplop berhasil diubah!');
+        }
         return redirect()->route('berkas.kelengkapan.amplop')->with('success', 'Status pengambilan Amplop berhasil diubah!');
     }
 
@@ -115,6 +120,7 @@ class berkasController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('berkas.bap', [
             "bap" => $ujian->get()
         ]);
@@ -133,6 +139,9 @@ class berkasController extends Controller
             $this->Activity(' memperbarui status Pengambilan pada BAP menjadi Belum diambil');
         }
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status pengambilan BAP berhasil diubah!');
+        }
         return redirect()->route('berkas.kelengkapan.bap')->with('success', 'Status pengambilan BAP berhasil diubah!');
     }
 
@@ -156,6 +165,7 @@ class berkasController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('berkas.berkas', [
             "berkas" => $ujian->get()
         ]);
@@ -177,6 +187,9 @@ class berkasController extends Controller
             $this->Activity(' memperbarui status Fotokopi pada Soal Ujian menjadi Belum difotokopi');
         }
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status Fotokopi Berkas berhasil diubah!');
+        }
         return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Status Fotokopi Berkas berhasil diubah!');
     }
 
@@ -193,6 +206,9 @@ class berkasController extends Controller
             $this->Activity(' memperbarui status Lengkap pada Soal Ujian menjadi Belum lengkap');
         }
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status Kelengkapan Berkas berhasil diubah!');
+        }
         return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Status Kelengkapan Berkas berhasil diubah!');
     }
 
@@ -209,6 +225,9 @@ class berkasController extends Controller
             $this->Activity(' memperbarui status Serah Terima pada Soal Ujian menjadi Belum diserahkan');
         }
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status Serah Terima Berkas berhasil diubah!');
+        }
         return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Status Serah Terima Berkas berhasil diubah!');
     }
 
@@ -355,6 +374,9 @@ class berkasController extends Controller
         $this->Activity(' melakukan serah terima berkas untuk matkul ' . $matkul->nama_matkul);
         DB::commit();
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
+        }
         return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
     }
 
@@ -376,6 +398,9 @@ class berkasController extends Controller
         $this->Activity(' menghapus serah terima berkas untuk mata kuliah ' . $matkul->Matkul->nama_matkul);
         DB::commit();
         
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Berkas Serah Terima berhasil dihapus!');
+        }
         return redirect()->route('berkas.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil dihapus!');
     }
 }

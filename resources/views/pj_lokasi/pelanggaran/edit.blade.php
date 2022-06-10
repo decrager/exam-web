@@ -23,11 +23,11 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Ubah Pelanggaran</h4>
+                    <h4 class="page-title pull-left">Ubah Ketidakhadiran</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a >Beranda</a></li>
-                        <li><a ><span>Pelanggaran</span></a></li>
-                        <li><span>Edit Pelanggaran</span></li>
+                        <li><a ><span>Ketidakhadiran</span></a></li>
+                        <li><span>Edit Ketidakhadiran</span></li>
                     </ul>
                 </div>
             </div>
@@ -48,13 +48,8 @@
                                     @method('put')
                                     <div class="form-group">
                                         <label class="col-form-label">Ujian</label>
-                                        <select class="custom-select ujian-select" name="ujian_id" id="ujian_id">
+                                        <select class="custom-select ujian-select" name="ujian_id" id="ujian_id" required>
                                             <option>Select</option>
-                                            <option selected="selected" value="{{ $pelanggarans->Ujian->id }}">
-                                                {{ $pelanggarans->Ujian->Matkul->Semester->Prodi->nama_prodi }} -
-                                                {{ $pelanggarans->Ujian->Matkul->nama_matkul }} - Kelas
-                                                {{ $pelanggarans->Ujian->Praktikum->Kelas->kelas }}/P{{ $pelanggarans->Ujian->Praktikum->praktikum }}
-                                            </option>
                                             @foreach ($ujians as $ujian)
                                                 @if (old('ujian_id') === $ujian->id)
                                                     <option value="{{ $ujian->id }}" selected>
@@ -63,7 +58,7 @@
                                                         {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}
                                                     </option>
                                                 @else
-                                                    <option value="{{ $ujian->id }}">
+                                                    <option value="{{ $ujian->id }}" {{ $ujian->id == $pelanggarans->Ujian->id ? 'selected' : '' }}>
                                                         {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} -
                                                         {{ $ujian->Matkul->nama_matkul }} - Kelas
                                                         {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}
@@ -74,25 +69,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Nama Mahasiswa</label>
-                                        <select class="custom-select mhs-select" name="mhs_id" id="mhs_id">
-                                            <option>Select</option>
-                                            <option selected="selected" value="{{ $pelanggarans->Mahasiswa->id }}">
-                                                {{ $pelanggarans->Mahasiswa->nama }} - Kelas
-                                                {{ $pelanggarans->Mahasiswa->Praktikum->Kelas->kelas }}/P{{ $pelanggarans->Mahasiswa->Praktikum->praktikum }}
-                                            </option>
-                                            @foreach ($mahasiswas as $mahasiswa)
-                                                @if (old('mhs_id') === $mahasiswa->id)
-                                                    <option value="{{ $mahasiswa->id }}" selected>
-                                                        {{ $mahasiswa->nama }} - Kelas
-                                                        {{ $mahasiswa->Praktikum->Kelas->kelas }}/P{{ $mahasiswa->Praktikum->praktikum }}
-                                                    </option>
-                                                @else
-                                                    <option value="{{ $mahasiswa->id }}">{{ $mahasiswa->nama }} -
-                                                        Kelas
-                                                        {{ $mahasiswa->Praktikum->Kelas->kelas }}/P{{ $mahasiswa->Praktikum->praktikum }}
-                                                    </option>
-                                                @endif
-                                            @endforeach
+                                        <select class="custom-select mhs-select" name="mhs_id" id="mhs_id" required>
+                                            <option>Pilih Mahasiswa</option>
+                                            <option selected="selected" value="{{ $pelanggarans->Mahasiswa->id }}">{{ $pelanggarans->Mahasiswa->nama }}</option>
                                         </select>
                                     </div>
 
@@ -169,6 +148,7 @@
                                         </div>
                                         @endif
                                     </div>
+
                                     <button type="submit" class="btn btn-primary">Perbarui</button>
                                 </form>
                             </div>
@@ -184,7 +164,34 @@
         $('.ujian-select').select2({
             theme: 'bootstrap-5',
             dropdownCssClass: "select2--small",
-        });
+        }).on('change', function() {
+            var ujian_id = $(this).val();
+                if (ujian_id) {
+                    $.ajax({
+                        url: '/getUjian/' + ujian_id,
+                        type: "GET",
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data) {
+                                $('#mhs_id').empty();
+                                $('#mhs_id').append(
+                                        '<option selected="selected" value="">Pilih Mahasiswa</option>'
+                                    );
+                                $.each(data, function(key, mhs) {
+                                    $('select[name="mhs_id"]').append('<option value="' + mhs.id + '">' + mhs.nama + '</option>')
+                                });
+                            } else {
+                                $('#mhs_id').empty();
+                            }
+                        }
+                    });
+                } else {
+                    $('#mhs_id').empty();
+                }
+            });
         $('.mhs-select').select2({
             theme: 'bootstrap-5',
             dropdownCssClass: "select2--small",

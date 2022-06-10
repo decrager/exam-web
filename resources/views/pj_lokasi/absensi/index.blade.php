@@ -120,22 +120,14 @@
                                             <td>{{ $pengawas?->nama_matkul }}</td>
                                             <td>{{ $pengawas?->ruang }}</td>
                                             <td>
-                                                @if ($hari == 'Jumat')
-                                                    @if ($pengawas?->jam_mulai == "8")
-                                                        1
-                                                    @elseif ($pengawas?->jam_mulai == "14")
-                                                        2
-                                                    @endif
-                                                @else
-                                                    @if ($pengawas?->jam_mulai == "8")
-                                                        1
-                                                    @elseif ($pengawas?->jam_mulai == "10.3")
-                                                        2
-                                                    @elseif ($pengawas?->jam_mulai == "13.15")
-                                                        3
-                                                    @elseif ($pengawas?->jam_mulai == "14")
-                                                        2
-                                                    @endif
+                                                @if ($pengawas?->jam_mulai == "8")
+                                                    1
+                                                @elseif ($pengawas?->jam_mulai == "10.3")
+                                                    2
+                                                @elseif ($pengawas?->jam_mulai == "13.15")
+                                                    3
+                                                @elseif ($pengawas?->jam_mulai == "14")
+                                                    2
                                                 @endif
                                             </td>
                                             <td>

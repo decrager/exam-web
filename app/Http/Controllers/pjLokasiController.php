@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class pjLokasiController extends Controller
@@ -101,6 +102,7 @@ class pjLokasiController extends Controller
         });
 
         $pengawas->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
+        Session::put('url', request()->fullUrl());
         return view('pj_lokasi.pengawas.index', [
             "pengawas" => $pengawas->get()
         ]);
@@ -131,6 +133,9 @@ class pjLokasiController extends Controller
         ]);
 
         $this->Activity(' memperbarui data pengawas ' . $request->nama);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data Pengawas berhasil diperbarui!');
+        }
         return redirect()->route('pjLokasi.pengawas.daftar.index')->with('success', 'Data Pengawas berhasil diperbarui!');
     }
 
@@ -179,6 +184,7 @@ class pjLokasiController extends Controller
         }
 
         $pengawas->filter(request(['dbProdi', 'dbMatkul']));
+        Session::put('url', request()->fullUrl());
         return view('pj_lokasi.absensi.index', [
             "absensi" => $pengawas->get(),
             "hari" => $hari
@@ -252,6 +258,9 @@ class pjLokasiController extends Controller
             'presensi' => null
         ]);
         $this->Activity(' menghapus kehadiran pengawas ' . $pengawas->nama);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Kehadiran dihapus!');
+        }
         return redirect()->route('pjLokasi.pengawas.absensi.index')->with('success', 'Kehadiran dihapus!');
     }
 
@@ -293,7 +302,7 @@ class pjLokasiController extends Controller
         }
 
         $ujian->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
-        
+        Session::put('url', request()->fullUrl());
         return view('pj_lokasi.soal.index', [
             "berkas" => $ujian->get()
         ]);
@@ -333,7 +342,7 @@ class pjLokasiController extends Controller
     public function pdf(Request $request)
     {
         // return $request->all();
-        $now = Carbon::now()->toDateString();
+        $now = $request->tanggal;
         $hari = Carbon::now()->translatedFormat('l');
 
         $pengawas = Pengawas::join('penugasans', 'penugasans.pengawas_id', 'pengawas.id')
@@ -443,6 +452,9 @@ class pjLokasiController extends Controller
         Storage::put('files/pdf/' . $pdfName, $pdf->output());
         
         $this->Activity(' melakukan submit data kehadiran pengawas');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Berhasil menyerahkan data kehadiran pengawas!');
+        }
         return redirect()->route('pjLokasi.pengawas.absensi.index')->with('success', 'Berhasil menyerahkan data kehadiran pengawas!');
     }
 
@@ -457,6 +469,9 @@ class pjLokasiController extends Controller
 
         Penugasan::where('file', $penugasan->file)->update(['file' => null]);
         $this->Activity(' menghapus data kehadiran pengawas');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Berhasil menghapus data kehadiran pengawas!');
+        }
         return redirect()->route('pjLokasi.pengawas.absensi.index')->with('success', 'Berhasil menghapus data kehadiran pengawas!');
     }
 
@@ -533,6 +548,9 @@ class pjLokasiController extends Controller
         $this->Activity(' melakukan serah terima berkas untuk matkul ' . $matkul->nama_matkul);
         DB::commit();
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
+        }
         return redirect()->route('pjLokasi.soal.index')->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
     }
 
@@ -554,6 +572,9 @@ class pjLokasiController extends Controller
         $this->Activity(' menghapus serah terima berkas untuk mata kuliah ' . $matkul->Matkul->nama_matkul);
         DB::commit();
         
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Berkas Serah Terima berhasil dihapus!');
+        }
         return redirect()->route('pjLokasi.soal.index')->with('success', 'Berkas Serah Terima berhasil dihapus!');
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Master;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -40,7 +41,7 @@ class assistenController extends Controller
         return view('assisten.dashboard', ["dbUjian" => $ujian->get()]);
     }
     
-    public function berkas(Request $request)
+    public function berkas()
     {
         $dataTanggalMulai = Master::first();
         $dataTanggalSelesai = Master::first();
@@ -60,6 +61,7 @@ class assistenController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('assisten.berkas', [
             "berkas" => $ujian->get()
         ]);
@@ -78,6 +80,9 @@ class assistenController extends Controller
             $this->Activity(' memperbarui status Asisten pada Soal Ujian menjadi Belum diambil');
         }
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status Asisten Berkas berhasil diubah!');
+        }
         return redirect()->route('assisten.berkas')->with('success', 'Status Asisten Berkas berhasil diubah!');
     }
 

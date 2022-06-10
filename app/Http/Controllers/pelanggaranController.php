@@ -65,8 +65,6 @@ class pelanggaranController extends Controller
      */
     public function create()
     {
-        $ujian = Ujian::all()->pluck('id');
-        $today = Carbon::today()->toDateString();
         return view('pj_lokasi.pelanggaran.form', [
             'ujians' => Ujian::all(),
             // ->where('tanggal', $today),

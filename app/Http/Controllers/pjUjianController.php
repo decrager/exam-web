@@ -30,6 +30,7 @@ use App\Exports\KetidakhadiranExport;
 use Illuminate\Support\Facades\Redis;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class pjUjianController extends Controller
 {
@@ -83,6 +84,7 @@ class pjUjianController extends Controller
         ->where('ujians.susulan', '0')
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('pj_ujian.ujian.index', [
             "jadwal" => $ujian->get()
         ]);
@@ -167,6 +169,9 @@ class pjUjianController extends Controller
         $berkas->save();
 
         $this->Activity(' menambahkan jadwal ujian baru');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Jadwal baru telah ditambahkan!');
+        }
         return redirect()->route('pjUjian.jadwal.index')->with('success', 'Jadwal baru telah ditambahkan!');
     }
 
@@ -208,6 +213,9 @@ class pjUjianController extends Controller
         ]);
 
         $this->Activity(' memperbarui jadwal ujian');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Jadwal berhasil diubah!');
+        }
         return redirect()->route('pjUjian.jadwal.index')->with('success', 'Jadwal berhasil diubah!');
     }
 
@@ -220,6 +228,9 @@ class pjUjianController extends Controller
         Pelanggaran::where('ujian_id', $id)->delete();
         Penugasan::where('ujian_id', $id)->delete();
         $this->Activity(' menghapus jadwal ujian');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Jadwal sudah dihapus!');
+        }
         return redirect()->route('pjUjian.jadwal.index')->with('success', 'Jadwal sudah dihapus!');
     }
 
@@ -244,6 +255,7 @@ class pjUjianController extends Controller
 
         $pengawas = $pengawas->whereBetween('ujians.tanggal', [$from, $to])->get();
         
+        Session::put('url', request()->fullUrl());
         return view('pj_ujian.pengawas.index', [
             "dataPengawas" => $pengawas
         ]);
@@ -274,6 +286,9 @@ class pjUjianController extends Controller
         ]);
 
         $this->Activity(' memperbarui data pengawas ' . $request->nama);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Pengawas sudah diperbarui!');
+        }
         return redirect()->route('pjUjian.pengawas.pengawas.index')->with('success', 'Pengawas sudah diperbarui!');
     }
 
@@ -283,6 +298,9 @@ class pjUjianController extends Controller
         $pengawas = Pengawas::find($penugasan->pengawas_id);
         $this->Activity(' menghapus data pengawas ' . $pengawas->nama);
         $penugasan->delete();
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Pengawas sudah dihapus!');
+        }
         return redirect()->route('pjUjian.pengawas.pengawas.index')->with('success', 'Pengawas sudah dihapus!');
     }
 
@@ -314,6 +332,7 @@ class pjUjianController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('pj_ujian.penugasan.index', [
             "penugasan" => $ujian->get(),
         ]);
@@ -343,6 +362,9 @@ class pjUjianController extends Controller
         $penugasan->save();
 
         $this->Activity(' menugaskan pengawas ' . $request->nama);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Pengawas berhasil ditambahkan!');
+        }
         return redirect()->route('pjUjian.pengawas.penugasan.index')->with('success', 'Pengawas berhasil ditambahkan!');
     }
 
@@ -366,6 +388,7 @@ class pjUjianController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('pj_ujian.amplop', [
             "amplop" => $ujian->get()
         ]);
@@ -391,6 +414,7 @@ class pjUjianController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('pj_ujian.bap', [
             "bap" => $ujian->get()
         ]);
@@ -416,6 +440,7 @@ class pjUjianController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('pj_ujian.berkas', [
             "berkas" => $ujian->get()
         ]);
@@ -437,6 +462,9 @@ class pjUjianController extends Controller
             $this->Activity(' memperbarui status Validasi untuk Soal Ujian menjadi Belum divalidasi');
         }
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status pengambil soal ujian berhasil diubah!');
+        }
         return redirect()->route('pjUjian.kelengkapan.berkas.index')->with('success', 'Status pengambil soal ujian berhasil diubah!');
     }
 
@@ -622,11 +650,10 @@ class pjUjianController extends Controller
         ->where('ujians.susulan', '1')
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
-        $susulans = $susulan;
-
+        Session::put('url', request()->fullUrl());
         return view('pj_ujian.susulan.index', [
             "susulan" => $susulan,
-            "susulans" => $susulans,
+            "susulans" => $susulan,
         ]);
     }
 
@@ -674,6 +701,9 @@ class pjUjianController extends Controller
         ]);
 
         $this->Activity(' memperbarui jadwal ujian susulan');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Jadwal ujian telah berhasil diubah!');
+        }
         return redirect()->route('pjUjian.susulan.susulan.index')->with('success', 'Jadwal ujian telah berhasil diubah!');
     }
 
@@ -692,12 +722,15 @@ class pjUjianController extends Controller
         Pelanggaran::where('ujian_id', $id)->delete();
 
         $this->Activity(' memperbarui jadwal ujian susulan');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Jadwal ujian susulan berhasil dihapus!');
+        }
         return redirect()->route('pjUjian.susulan.susulan.index')->with('success', 'Jadwal ujian susulan berhasil dihapus!');
     }
 
     public function logActivities()
     {
-        $log = LogActivities::Filter(Request(['tanggal']))->latest()->take(300)->get();
+        $log = LogActivities::Filter(Request(['tanggal']))->latest()->take(1000)->get();
         return view('pj_ujian.log', ['activity' => $log]);
     }
 
@@ -780,6 +813,9 @@ class pjUjianController extends Controller
         $this->Activity(' melakukan serah terima berkas untuk matkul ' . $matkul->nama_matkul);
         DB::commit();
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
+        }
         return redirect()->route('pjUjian.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil ditanda tangani!');
     }
 
@@ -802,6 +838,9 @@ class pjUjianController extends Controller
         $this->Activity(' menghapus serah terima berkas untuk mata kuliah ' . $matkul->Matkul->nama_matkul);
         DB::commit();
         
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Berkas Serah Terima berhasil dihapus!');
+        }
         return redirect()->route('pjUjian.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil dihapus!');
     }
 }

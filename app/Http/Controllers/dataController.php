@@ -26,6 +26,7 @@ use App\Models\Ruangan;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\Session;
 
 class dataController extends Controller
 {
@@ -92,11 +93,12 @@ class dataController extends Controller
     public function mahasiswaIndex()
     {
         $mahasiswa = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', '=', 'praktikums.id')
-            ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-            ->join('semesters', 'kelas.semester_id', '=', 'semesters.id')
-            ->join('prodis', 'semesters.prodi_id', '=', 'prodis.id')
-            ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas']));
+        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        ->join('semesters', 'kelas.semester_id', '=', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', '=', 'prodis.id')
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas']));
 
+        Session::put('url', request()->fullUrl());
         return view('user_data.mahasiswa.index', [
             "mahasiswa" => $mahasiswa->get()
         ]);
@@ -142,6 +144,9 @@ class dataController extends Controller
         $mahasiswa->save();
 
         $this->Activity(' menambahkan data mahasiswa ' . $request->nama);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data mahasiswa berhasil ditambahkan!');
+        }
         return redirect()->route('data.mahasiswa.view')->with('success', 'Data mahasiswa berhasil ditambahkan!');
     }
 
@@ -170,6 +175,9 @@ class dataController extends Controller
         ]);
 
         $this->Activity(' memperbarui data mahasiswa ' . $request->nama);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data mahasiswa berhasil diubah!');
+        }
         return redirect()->route('data.mahasiswa.view')->with('success', 'Data mahasiswa berhasil diubah!');
     }
 
@@ -179,6 +187,9 @@ class dataController extends Controller
         $this->Activity(' menghapus data mahasiswa ' . $mahasiswa->nama);
         User::where('id', $mahasiswa->user_id)->delete();
         $mahasiswa->delete();
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data mahasiswa berhasil dihapus!');
+        }
         return redirect()->route('data.mahasiswa.view')->with('success', 'Data mahasiswa berhasil dihapus!');
     }
 
@@ -202,6 +213,7 @@ class dataController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('user_data.bap', [
             "bap" => $ujian->get()
         ]);
@@ -220,6 +232,9 @@ class dataController extends Controller
             $this->Activity(' memperbarui status Print pada BAP menjadi Belum diprint');
         }
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status Print BAP berhasil diubah!');
+        }
         return redirect()->route('data.ketersediaan.bap')->with('success', 'Status Print BAP berhasil diubah!');
     }
 
@@ -243,6 +258,7 @@ class dataController extends Controller
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
+        Session::put('url', request()->fullUrl());
         return view('user_data.amplop', [
             "amplop" => $ujian->get()
         ]);
@@ -261,6 +277,9 @@ class dataController extends Controller
             $this->Activity(' memperbarui status Print pada Amplop menjadi Belum diprint');
         }
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status Print Amplop berhasil diubah!');
+        }
         return redirect()->route('data.ketersediaan.amplop')->with('success', 'Status Print Amplop berhasil diubah!');
     }
 
@@ -268,6 +287,7 @@ class dataController extends Controller
     {
         $pengguna = User::where('role', '!=', 'mahasiswa')->where('role', '!=', 'superadmin')->get();
 
+        Session::put('url', request()->fullUrl());
         return view('user_data.pengguna.index', [
             "pengguna" => $pengguna
         ]);
@@ -304,6 +324,9 @@ class dataController extends Controller
         $pengguna->save();
 
         $this->Activity(' menambahkan pengguna baru dengan nama ' . $request->name);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data pengguna berhasil ditambah!');
+        }
         return redirect()->route('data.pengguna.index')->with('success', 'Data pengguna berhasil ditambah!');
     }
 
@@ -325,6 +348,9 @@ class dataController extends Controller
         ]);
 
         $this->Activity(' memperbarui pengguna dengan nama ' . $request->name);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data pengguna berhasil diubah!');
+        }
         return redirect()->route('data.pengguna.index')->with('success', 'Data pengguna berhasil diubah!');
     }
 
@@ -333,6 +359,9 @@ class dataController extends Controller
         $user = User::find($id);
         $this->Activity(' menghapus pengguna dengan nama ' . $user->name);
         $user->delete();
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data pengguna berhasil dihapus!');
+        }
         return redirect()->route('data.pengguna.index')->with('success', 'Data pengguna berhasil dihapus!');
     }
 
@@ -343,6 +372,7 @@ class dataController extends Controller
 
     public function prodiIndex()
     {
+        Session::put('url', request()->fullUrl());
         return view('user_data.prodi.index', ['prodi' => Prodi::all()]);
     }
 
@@ -369,6 +399,9 @@ class dataController extends Controller
         $prodi->save();
 
         $this->Activity(' menambahkan data Program Studi baru dengan nama ' . $request->nama_prodi);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data Program Studi baru berhasil ditambahkan');
+        }
         return redirect()->route('data.akademik.prodi.index')->with('success', 'Data Program Studi baru berhasil ditambahkan');
     }
 
@@ -386,6 +419,9 @@ class dataController extends Controller
         ]);
 
         $this->Activity(' memperbarui data Program Studi dengan nama ' . $request->nama_prodi);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data Program Studi berhasil diperbarui');
+        }
         return redirect()->route('data.akademik.prodi.index')->with('success', 'Data Program Studi berhasil diperbarui');
     }
 
@@ -394,11 +430,15 @@ class dataController extends Controller
         $prodi = Prodi::find($id);
         $this->Activity(' menghapus data Program Studi dengan nama ' . $prodi->nama_prodi);
         $prodi->delete();
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data Program Studi berhasil dihapus');
+        }
         return redirect()->route('data.akademik.prodi.index')->with('success', 'Data Program Studi berhasil dihapus');
     }
 
     public function semesterIndex()
     {
+        Session::put('url', request()->fullUrl());
         return view('user_data.semester.index', ['semester' => Semester::all()]);
     }
 
@@ -425,6 +465,9 @@ class dataController extends Controller
         $semester->save();
 
         $this->Activity(' menambahkan data Semester');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data semester baru berhasil ditambahkan!');
+        }
         return redirect()->route('data.akademik.semester.index')->with('success', 'Data semester baru berhasil ditambahkan!');
     }
 
@@ -442,6 +485,9 @@ class dataController extends Controller
         ]);
 
         $this->Activity(' memperbarui data Semester');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data semester berhasil diperbarui!');
+        }
         return redirect()->route('data.akademik.semester.index')->with('success', 'Data semester berhasil diperbarui!');
     }
 
@@ -450,11 +496,15 @@ class dataController extends Controller
         $semester = Semester::find($id);
         $this->Activity(' menghapus data Semester');
         $semester->delete();
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data semester berhasil dihapus!');
+        }
         return redirect()->route('data.akademik.semester.index')->with('success', 'Data semester berhasil dihapus!');
     }
 
     public function kelasIndex()
     {
+        Session::put('url', request()->fullUrl());
         return view('user_data.kelas.index', ['kelas' => Kelas::all()]);
     }
     
@@ -483,6 +533,9 @@ class dataController extends Controller
         $kelas->save();
 
         $this->Activity(' menambahkan data Kelas');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Kelas baru berhasil ditambahkan!');
+        }
         return redirect()->route('data.akademik.kelas.index')->with('success', 'Kelas baru berhasil ditambahkan!');
     }
 
@@ -502,6 +555,9 @@ class dataController extends Controller
         ]);
 
         $this->Activity(' memperbarui data Kelas');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Kelas berhasil diperbarui!');
+        }
         return redirect()->route('data.akademik.kelas.index')->with('success', 'Kelas berhasil diperbarui!');
     }
 
@@ -510,11 +566,15 @@ class dataController extends Controller
         $kelas = Kelas::find($id);
         $this->Activity(' menghapus data Kelas');
         $kelas->delete();
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Kelas berhasil dihapus!');
+        }
         return redirect()->route('data.akademik.kelas.index')->with('success', 'Kelas berhasil dihapus!');
     }
 
     public function praktikumIndex()
     {
+        Session::put('url', request()->fullUrl());
         return view('user_data.praktikum.index', ['praktikum' => Praktikum::all()]);
     }
 
@@ -543,6 +603,9 @@ class dataController extends Controller
         $praktikum->save();
 
         $this->Activity(' menambahkan data Praktikum');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Praktikum baru berhasil ditambahkan!');
+        }
         return redirect()->route('data.akademik.praktikum.index')->with('success', 'Praktikum baru berhasil ditambahkan!');
     }
 
@@ -562,6 +625,9 @@ class dataController extends Controller
         ]);
 
         $this->Activity(' memperbarui data Praktikum');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Praktikum berhasil diperbarui!');
+        }
         return redirect()->route('data.akademik.praktikum.index')->with('success', 'Praktikum berhasil diperbarui!');
     }
 
@@ -570,11 +636,15 @@ class dataController extends Controller
         $praktikum = Praktikum::find($id);
         $this->Activity(' menghapus data Praktikum');
         $praktikum->delete();
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Praktikum berhasil dihapus!');
+        }
         return redirect()->route('data.akademik.praktikum.index')->with('success', 'Praktikum berhasil dihapus!');
     }
 
     public function matkulIndex()
     {
+        Session::put('url', request()->fullUrl());
         return view('user_data.matkul.index', ['matkul' => Matkul::all()]);
     }
 
@@ -609,6 +679,9 @@ class dataController extends Controller
         $matkul->save();
 
         $this->Activity(' menambahkan data Mata Kuliah ' . $request->nama_matkul);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Mata Kuliah baru berhasil ditambahkan!');
+        }
         return redirect()->route('data.akademik.matkul.index')->with('success', 'Mata Kuliah baru berhasil ditambahkan!');
     }
 
@@ -634,6 +707,9 @@ class dataController extends Controller
         ]);
 
         $this->Activity(' memperbarui data Mata Kuliah ' . $request->nama_matkul);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Mata Kuliah berhasil diperbarui!');
+        }
         return redirect()->route('data.akademik.matkul.index')->with('success', 'Mata Kuliah berhasil diperbarui!');
     }
 
@@ -642,6 +718,9 @@ class dataController extends Controller
         $matkul = Matkul::find($id);
         $this->Activity(' memperbarui data Mata Kuliah ' . $matkul->nama_matkul);
         $matkul->delete();
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Mata Kuliah berhasil dihapus!');
+        }
         return redirect()->route('data.akademik.matkul.index')->with('success', 'Mata Kuliah berhasil dihapus!');
     }
 
@@ -680,7 +759,7 @@ class dataController extends Controller
 
     public function logActivity()
     {
-        $log = LogActivities::Filter(Request(['tanggal']))->latest()->take(300)->get();
+        $log = LogActivities::Filter(Request(['tanggal']))->latest()->take(1000)->get();
         return view('user_data.log', ['activity' => $log]);
     }
 
@@ -715,6 +794,7 @@ class dataController extends Controller
 
     public function pengawasIndex()
     {
+        Session::put('url', request()->fullUrl());
         return view('user_data.pengawas.index', ['pengawas' => Pengawas::all()]);
     }
 
@@ -742,6 +822,9 @@ class dataController extends Controller
         Pengawas::create($request->all());
 
         $this->Activity(' menambahkan data pengawas ' . $request->nama);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data pengawas baru berhasil ditambahkan!');
+        }
         return redirect()->route('data.pengawas.data.index')->with('success', 'Data pengawas baru berhasil ditambahkan!');
     }
 
@@ -759,6 +842,9 @@ class dataController extends Controller
         Pengawas::find($id)->update($request->all());
 
         $this->Activity(' memperbarui data pengawas ' . $request->nama);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data pengawas berhasil diperbarui!');
+        }
         return redirect()->route('data.pengawas.data.index')->with('success', 'Data pengawas berhasil diperbarui!');
     }
 
@@ -767,6 +853,9 @@ class dataController extends Controller
         $pengawas = Pengawas::find($id);
         $this->Activity(' menghapus data pengawas ' . $pengawas->nama);
         $pengawas->delete();
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Data pengawas baru berhasil dihapus!');
+        }
         return redirect()->route('data.pengawas.data.index')->with('success', 'Data pengawas baru berhasil dihapus!');
     }
 
@@ -796,6 +885,7 @@ class dataController extends Controller
     public function ruanganIndex()
     {
         $lokasi = Ruangan::all();
+        Session::put('url', request()->fullUrl());
         return view('user_data.ruangan.index', compact('lokasi'));
     }
 

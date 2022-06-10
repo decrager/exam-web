@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prodi;
 use App\Models\Ujian;
 use App\Models\Berkas;
 use App\Models\Master;
@@ -10,12 +11,12 @@ use App\Models\Pengawas;
 use App\Models\Penugasan;
 use App\Exports\ProdiExport;
 use App\Exports\UjianExport;
-use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\Session;
 
 class prodiController extends Controller
 {
@@ -151,6 +152,7 @@ class prodiController extends Controller
             $matkul->where('prodis.kode_prodi', 'W');
         }
 
+        Session::put('url', request()->fullUrl());
         return view('prodi.jadwal', [
             "ujian" => $ujian->get(),
             "matkuls" => $matkul->get()
@@ -213,6 +215,7 @@ class prodiController extends Controller
             $ujian->where('prodis.kode_prodi', 'W');
         }
 
+        Session::put('url', request()->fullUrl());
         return view('prodi.ujian.index', [
             "ujian" => $ujian->whereBetween('ujians.tanggal', [$from, $to])->get()
         ]);
@@ -257,6 +260,9 @@ class prodiController extends Controller
         ]);
 
         $this->Activity(' memperbarui jadwal ujian');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Detail Jadwal berhasil ditambah!');
+        }
         return redirect()->route('prodi.jadwal.index')->with('success', 'Detail Jadwal berhasil ditambah!');
     }
 
@@ -336,6 +342,7 @@ class prodiController extends Controller
             $matkul->where('prodis.kode_prodi', 'W');
         }
 
+        Session::put('url', request()->fullUrl());
         return view('prodi.daftar_pengawas', [
             "pengawas" => $pengawas->get(),
             "matkuls" => $matkul->get()
@@ -423,6 +430,7 @@ class prodiController extends Controller
             $matkul->where('prodis.kode_prodi', 'W');
         }
 
+        Session::put('url', request()->fullUrl());
         return view('prodi.penugasan.index', [
             "ujian" => $ujian->get(),
             "matkuls" => $matkul->get()
@@ -466,6 +474,9 @@ class prodiController extends Controller
         $penugasan->save();
 
         $this->Activity(' menugaskan pengawas ' . $request->nama);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Pengawas berhasil ditambahkan!');
+        }
         return redirect()->route('prodi.pengawas.penugasan.index')->with('success', 'Pengawas berhasil ditambahkan!');
     }
 
@@ -481,6 +492,9 @@ class prodiController extends Controller
         ]);
 
         $this->Activity(' memperbarui data pengawas ' . $request->nama);
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Pengawas sudah diperbarui!');
+        }
         return redirect()->route('prodi.pengawas.list')->with('success', 'Pengawas sudah diperbarui!');
     }
 
@@ -490,6 +504,9 @@ class prodiController extends Controller
         $pengawas = Pengawas::find($penugasan->pengawas_id);
         $this->Activity(' menghapus data pengawas ' . $pengawas->nama);
         $penugasan->delete();
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Pengawas sudah dihapus!');
+        }
         return redirect()->route('prodi.pengawas.list')->with('success', 'Pengawas sudah dihapus!');
     }
 
@@ -569,6 +586,7 @@ class prodiController extends Controller
             $matkul->where('prodis.kode_prodi', 'W');
         }
 
+        Session::put('url', request()->fullUrl());
         return view('prodi.berkas', [
             "berkas" => $ujian->whereBetween('ujians.tanggal', [$from, $to])->get(),
             "matkuls" => $matkul->get()
@@ -587,7 +605,10 @@ class prodiController extends Controller
             $this->Activity(' memperbarui status Verifikasi pada Soal Ujian menjadi Belum diverifikasi');
         }
 
-        return redirect()->route('prodi.berkas')->with('success', 'Status Verifikasi Soal Ujian berhasil diubah');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status Verifikasi Soal Ujian berhasil diubah!');
+        }
+        return redirect()->route('prodi.berkas')->with('success', 'Status Verifikasi Soal Ujian berhasil diubah!');
     }
 
     public function kalibrasi($id)
@@ -602,6 +623,9 @@ class prodiController extends Controller
             $this->Activity(' memperbarui status Kalibrasi pada Soal Ujian menjadi Belum dikalibrasi');
         }
 
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Status Kalibrasi Soal Ujian berhasil diubah!');
+        }
         return redirect()->route('prodi.berkas')->with('success', 'Status Kalibrasi Soal Ujian berhasil diubah!');
     }
 

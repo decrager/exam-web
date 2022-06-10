@@ -268,7 +268,7 @@ class supervisorController extends Controller
 
     public function logActivity()
     {
-        $log = LogActivities::Filter(Request(['tanggal']))->latest()->take(300)->get();
+        $log = LogActivities::Filter(Request(['tanggal']))->latest()->take(1000)->get();
         return view('supervisor.log', ['activity' => $log]);
     }
 

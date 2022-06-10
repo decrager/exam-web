@@ -48,17 +48,14 @@
                                     @csrf
 
                                     <div class="form-group">
+                                        <label for="tanggal" class="col-form-label">Tanggal</label>
+                                        <input class="form-control" type="date" id="tanggal" value="Pilih Sesi" name="tanggal" onchange="tgl()"/>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label class="col-form-label">Sesi</label>
                                         <select class="custom-select" name="sesi" id="sesi" onchange="myFunction()" required>
                                             <option selected value="">Pilih sesi</option>
-                                            @if ($hari == 'Jumat')
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                            @else
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            @endif
                                         </select>
                                     </div>
 
@@ -100,11 +97,33 @@
     </script>
 
     <script>
-        function myFunction() {
-            var x = document.getElementById("sesi").value;
+        function tgl() {
+            var tgl = document.getElementById("tanggal").value;
             
             const weekday = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-            const d = new Date();
+            var d = new Date(tgl);
+            var day = weekday[d.getDay()];
+
+            if (day == "Jumat") {
+                $('#sesi').empty();
+                $('#sesi').append('<option selected value="">Pilih sesi</option>')
+                $('#sesi').append('<option value="1">1</option>')
+                $('#sesi').append('<option value="2">2</option>')
+            } else {
+                $('#sesi').empty();
+                $('#sesi').append('<option selected value="">Pilih sesi</option>')
+                $('#sesi').append('<option value="1">1</option>')
+                $('#sesi').append('<option value="2">2</option>')
+                $('#sesi').append('<option value="3">3</option>')
+            }
+        }
+
+        function myFunction() {
+            var x = document.getElementById("sesi").value;
+            var hari = document.getElementById("tanggal").value;
+
+            const weekday = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+            var d = new Date(hari);
             var day = weekday[d.getDay()];
 
             if (x == "2" && day == "Jumat") {
