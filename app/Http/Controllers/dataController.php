@@ -96,6 +96,7 @@ class dataController extends Controller
         ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
         ->join('semesters', 'kelas.semester_id', '=', 'semesters.id')
         ->join('prodis', 'semesters.prodi_id', '=', 'prodis.id')
+        ->select('*', 'mahasiswas.id')
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas']));
 
         Session::put('url', request()->fullUrl());
