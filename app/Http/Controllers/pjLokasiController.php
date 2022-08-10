@@ -341,9 +341,9 @@ class pjLokasiController extends Controller
 
     public function pdf(Request $request)
     {
-        // return $request->all();
         $now = $request->tanggal;
-        $hari = Carbon::now()->translatedFormat('l');
+        $tgl = strtotime($now);
+        $hari = date('l', $tgl);
 
         $pengawas = Pengawas::join('penugasans', 'penugasans.pengawas_id', 'pengawas.id')
         ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')
@@ -361,7 +361,7 @@ class pjLokasiController extends Controller
         ->where('ujians.tanggal', $now)
         ->where('penugasans.presensi', '!=', null);
 
-        if ($hari == 'Jumat') {
+        if ($hari == 'Friday') {
             if ($request->sesi == "1") {
                 $pengawas->where('ujians.jam_mulai', '8');
                 $penugasan->where('ujians.jam_mulai', '8');

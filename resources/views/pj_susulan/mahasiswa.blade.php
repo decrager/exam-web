@@ -44,7 +44,10 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <h4 class="header-title">Daftar Mahasiswa yang Mengajukan</h4>
+                        <h4 class="header-title float-left">Daftar Mahasiswa yang Mengajukan</h4>
+                        <a href="{{ route('pjSusulan.export') }}" class="btn btn-success float-right mb-3">
+                            <i class="fas fa-file-excel-o">&ensp;Export</i>
+                        </a>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>

@@ -13,6 +13,8 @@ use App\Models\Ketentuan;
 use App\Models\Mahasiswa;
 use App\Models\Pelanggaran;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SusulanExport;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
@@ -376,6 +378,12 @@ class pjSusulanController extends Controller
         return view('pj_susulan.jadwal.edit', [
             "ujian" => Ujian::find($id)
         ]);
+    }
+
+    public function export()
+    {
+        $this->Activity(' mengeksport data susulan ke excel');
+        return Excel::download(new SusulanExport, 'Susulan.xlsx');
     }
 
     public function pelanggaran()

@@ -39,8 +39,8 @@ use Illuminate\Support\Facades\Redirect;
 |
 */
 
-// Route::get('/', [loginController::class, 'index'])->name('login');
-Route::get('/', function() {return Redirect::intended('http://mindysvipb.xyz');});
+Route::get('/', [loginController::class, 'index'])->name('login');
+// Route::get('/', function() {return Redirect::intended('http://mindysvipb.xyz');});
 Route::post('/login', [loginController::class, 'authenticate']);
 Route::get('/presensi/{id}', [pjLokasiController::class, 'presence'])->name('presensi');
 Route::put('/presensi/update/{id}', [pjLokasiController::class, 'presenceUpdate'])->name('presensi.update');
@@ -288,6 +288,8 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_susulan']], function () {
     Route::get('/pj_susulan/jadwal', [pjSusulanController::class, 'jadwalIndex'])->name('pjSusulan.jadwal.index');
     Route::get('/pj_susulan/jadwal/edit/{id}', [pjSusulanController::class, 'jadwalEdit'])->name('pjSusulan.jadwal.edit');
     Route::get('/pj_susulan/pelanggaran', [pjSusulanController::class, 'pelanggaran'])->name('pjSusulan.pelanggaran');
+
+    Route::get('/pj_susulan/susulan/export', [pjSusulanController::class, 'export'])->name('pjSusulan.export');
 
     Route::post('/pj_susulan/ketentuan/create', [pjSusulanController::class, 'ketentuanCreate'])->name('pjSusulan.ketentuan.create');
     Route::put('/pj_susulan/ketentuan/update/{id}', [pjSusulanController::class, 'ketentuanUpdate'])->name('pjSusulan.ketentuan.update');
