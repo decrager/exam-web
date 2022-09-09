@@ -46,6 +46,11 @@ Route::get('/presensi/{id}', [pjLokasiController::class, 'presence'])->name('pre
 Route::put('/presensi/update/{id}', [pjLokasiController::class, 'presenceUpdate'])->name('presensi.update');
 Route::get('/hadir', [pjLokasiController::class, 'hadir'])->name('presensi.hadir');
 
+// Password Reset
+Route::get('/forgotPassword', function() {return view('forgotpw');});
+Route::post('/requestReset', [loginController::class, 'requestReset'])->name('password.request');
+Route::get('/resetPassword/{token}', function() {return view('resetpw');})->name('password.reset');
+
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/resetPassword', [loginController::class, 'resetPassword'])->name('resetView');
     Route::post('/resetPassword', [loginController::class, 'reset'])->name('resetPassword');

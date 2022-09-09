@@ -50,67 +50,52 @@
 		<div class="login-area login-s2">
 			<div class="container">
 				<div class="login-box ptb--100">
-					<form class="bg-transparent" action="/login" method="POST">
+					<form class="bg-transparent" action="{{ route('password.request') }}" method="POST">
                         @csrf
 						<div class="d-flex justify-content-center mb-5">
 							<img src="{{ asset('images/icon/SV_IPB.png') }}" alt="" width="65%">
 						</div>
 
+                        @if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        
 						<div class="login-form-head">
-							<p style="font-size: 20px;">Management Information for<br>Examination Administration System<br>Sekolah Vokasi IPB</p>
-							<p></p>
+							<p style="font-size: 20px;">Request Password Reset</p>
 						</div>
 
-						@if (session()->has('loginError'))
-							<div class="alert alert-danger alert-dismissible fade show" role="alert">
-								{{ session('loginError') }}
-								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-							</div>
-						@endif
+                        <p class="text-center mb-3" style="font-size: 14px;">Ketik email yang digunakan dan kami akan mengirimkan link untuk mereset password anda</p>
 
-						<div class="login-form-body">
-							<div class="form-gp">
-								<label for="email">Email</label>
-								<input type="email" @error('email')
-									is-invalid
-								@enderror name="email" id="email" required value="{{ old('email')}}"/>
-								@error('email')
-									<div class="invalid-feedback">
-										{{ $message }}
-									</div>
-								@enderror
-								<!-- <i class="ti-user"></i> -->
-								<img
-									class="user-thumb"
-									src="{{ asset('images/author/user.png') }}"
-									alt="avatar"
-									width="20px"
-								/>
-								<div class="text-danger"></div>
-							</div>
-							<div class="form-gp">
-								<label for="password">Password</label>
-								<input type="password" name="password" id="password" required/>
-								<!-- <i class="ti-lock"></i> -->
-								<img
-									class="user-thumb"
-									src="{{ asset('images/icon/lock.png') }}"
-									alt="avatar"
-									width="20px"
-								/>
-								<div class="text-danger"></div>
-							</div>
-	
-							<div class="submit-btn-area mb-3">
-								<button id="form_submit" type="submit">
-									Sign In <i class="ti-arrow-right"></i>
-								</button>
-							</div>
+                        <div class="">
 
-							<div class="submit-btn-area">
-								<a href="/forgotPassword">Forgot Password ?</a>
-							</div>
-						</div>
+                        </div>
+                        <div class="form-gp">
+                            <label for="email">Email</label>
+                            <input type="email" @error('email')
+                                is-invalid
+                            @enderror name="email" id="email" required value="{{ old('email')}}"/>
+                            @error('email')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            <!-- <i class="ti-user"></i> -->
+                            <img
+                                class="user-thumb"
+                                src="{{ asset('images/author/user.png') }}"
+                                alt="avatar"
+                                width="20px"
+                            />
+                            <div class="text-danger"></div>
+                        </div>
+
+                        <div class="submit-btn-area mb-3">
+                            <button type="submit">
+                                Request <i class="ti-arrow-right"></i>
+                            </button>
+                        </div>
 					</form>
 				</div>
 			</div>

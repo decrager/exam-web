@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Rules\MatchOldPassword;
+use Carbon\Carbon;
 
 class loginController extends Controller
 {
@@ -58,5 +59,28 @@ class loginController extends Controller
 
         $role = Auth::user()->role;
         return redirect('/'.$role);
+    }
+
+    public function requestReset(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email'
+        ]);
+
+        $token = \Str::random(64);
+        \DB::table('password_resets')->insert([
+            'email' => $request->email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
+
+        $action_link = route('password.reset', ['token' => $token, 'email' => $request->email]);
+        $body = "Kami menerima permintaan untuk mereset password anda untuk <b>MINDY</b> dengan email " . $request->email . ". Anda bisa mereset password dengan mengklik link di bawah";
+        \Mail::send('email-forgot', ['action_link' => $action_link, 'body' => $body], function($message) use ($request){
+            $message->from('noreply@apps.ipb.ac.id', 'MINDY');
+            $message->to($request->email, 'Pengguna')->subject('Permintaan Reset Password');
+        });
+
+        return back()->with('success', 'Kami telah mengirim link untuk mereset password anda');
     }
 }

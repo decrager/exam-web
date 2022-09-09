@@ -57,16 +57,9 @@
 						</div>
 
 						<div class="login-form-head">
-							<p style="font-size: 20px;">Management Information for<br>Examination Administration System<br>Sekolah Vokasi IPB</p>
+							<p style="font-size: 20px;">Request Password Reset</p>
 							<p></p>
 						</div>
-
-						@if (session()->has('loginError'))
-							<div class="alert alert-danger alert-dismissible fade show" role="alert">
-								{{ session('loginError') }}
-								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-							</div>
-						@endif
 
 						<div class="login-form-body">
 							<div class="form-gp">
@@ -100,15 +93,24 @@
 								/>
 								<div class="text-danger"></div>
 							</div>
+
+							<div class="form-gp">
+								<label for="password">Confirm Your Password</label>
+								<input type="password" name="password" id="password" required/>
+								<!-- <i class="ti-lock"></i> -->
+								<img
+									class="user-thumb"
+									src="{{ asset('images/icon/lock.png') }}"
+									alt="avatar"
+									width="20px"
+								/>
+								<div class="text-danger"></div>
+							</div>
 	
 							<div class="submit-btn-area mb-3">
 								<button id="form_submit" type="submit">
-									Sign In <i class="ti-arrow-right"></i>
+									Reset <i class="ti-arrow-right"></i>
 								</button>
-							</div>
-
-							<div class="submit-btn-area">
-								<a href="/forgotPassword">Forgot Password ?</a>
 							</div>
 						</div>
 					</form>
