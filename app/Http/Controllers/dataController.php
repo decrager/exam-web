@@ -186,7 +186,7 @@ class dataController extends Controller
     {
         $mahasiswa = Mahasiswa::find($id);
         $this->Activity(' menghapus data mahasiswa ' . $mahasiswa->nama);
-        User::where('id', $mahasiswa->user_id)->delete();
+        User::where('nim', $mahasiswa->nim)->delete();
         $mahasiswa->delete();
         if (session('url')) {
             return redirect(session('url'))->with('success', 'Data mahasiswa berhasil dihapus!');
@@ -869,6 +869,7 @@ class dataController extends Controller
     {
         $pengawas = Pengawas::find($id);
         $this->Activity(' menghapus data pengawas ' . $pengawas->nama);
+        User::where('email', $pengawas->nik)->delete();
         $pengawas->delete();
         if (session('url')) {
             return redirect(session('url'))->with('success', 'Data pengawas baru berhasil dihapus!');
