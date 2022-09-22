@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        $now = Carbon::now()->toDateString();
+        $now = "2022-06-08";
         $totalPelanggaran = Pelanggaran::selectRaw('count(*) as total')->get();
         $totalUjian = Ujian::selectRaw('count(*) as total')->where('tanggal', $now)->get();
         $totalKehadiran = Penugasan::join('ujians', 'penugasans.ujian_id', 'ujians.id')

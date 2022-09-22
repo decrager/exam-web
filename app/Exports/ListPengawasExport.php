@@ -24,7 +24,8 @@ class ListPengawasExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinde
 
     public function query()
     {
-        $now = Carbon::now()->toDateString();
+        // $now = Carbon::now()->toDateString();
+        $now = "2022-06-08";
 
         $pengawas = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
         ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')

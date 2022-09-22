@@ -68,6 +68,12 @@
 							</div>
 						@endif
 
+						@if (session()->has('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
 						<div class="login-form-body">
 							<div class="form-gp">
 								<label for="email">Email</label>

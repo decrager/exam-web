@@ -28,7 +28,7 @@ class berkasController extends Controller
 {
     public function dashboard()
     {
-        $now = Carbon::now()->toDateString();
+        $now = "2022-06-08";
         
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')

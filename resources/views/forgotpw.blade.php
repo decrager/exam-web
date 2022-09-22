@@ -61,6 +61,12 @@
                                 {{ session('success') }}
                             </div>
                         @endif
+
+						@if (session()->has('fail'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('fail') }}
+                            </div>
+                        @endif
                         
 						<div class="login-form-head">
 							<p style="font-size: 20px;">Request Password Reset</p>
@@ -73,14 +79,8 @@
                         </div>
                         <div class="form-gp">
                             <label for="email">Email</label>
-                            <input type="email" @error('email')
-                                is-invalid
-                            @enderror name="email" id="email" required value="{{ old('email')}}"/>
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <input type="text" name="email" id="email" required value="{{ old('email')}}"/>
+                            <span class="text-danger">@error('email') Email yang dimasukkan tidak terdaftar @enderror</span>
                             <!-- <i class="ti-user"></i> -->
                             <img
                                 class="user-thumb"
@@ -96,6 +96,13 @@
                                 Request <i class="ti-arrow-right"></i>
                             </button>
                         </div>
+
+						<div class="submit-btn-area mb-3">
+							<a href="{{ route('login') }}">
+								<i class="ti-arrow-left"> Kembali</i>
+							</a>
+						</div>
+					
 					</form>
 				</div>
 			</div>

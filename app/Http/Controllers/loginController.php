@@ -63,24 +63,31 @@ class loginController extends Controller
 
     public function requestReset(Request $request)
     {
-        $request->validate([
+        $validate = $request->validate([
             'email' => 'required|email|exists:users,email'
         ]);
 
-        $token = \Str::random(64);
-        \DB::table('password_resets')->insert([
-            'email' => $request->email,
-            'token' => $token,
-            'created_at' => Carbon::now()
+        return $validate;
+
+        $user = User::where('email', $request->email);
+        $user->update([
+            'password' => '$2a$12$73YbJpbhMa8vVwroP8Ke0ODNYu1jjlALYK1xzrXFGVDbIYEk1KhZK' 
         ]);
 
-        $action_link = route('password.reset', ['token' => $token, 'email' => $request->email]);
-        $body = "Kami menerima permintaan untuk mereset password anda untuk <b>MINDY</b> dengan email " . $request->email . ". Anda bisa mereset password dengan mengklik link di bawah";
-        \Mail::send('email-forgot', ['action_link' => $action_link, 'body' => $body], function($message) use ($request){
-            $message->from('noreply@apps.ipb.ac.id', 'MINDY');
-            $message->to($request->email, 'Pengguna')->subject('Permintaan Reset Password');
-        });
+        // $token = \Str::random(64);
+        // \DB::table('password_resets')->insert([
+        //     'email' => $request->email,
+        //     'token' => $token,
+        //     'created_at' => Carbon::now()
+        // ]);
 
-        return back()->with('success', 'Kami telah mengirim link untuk mereset password anda');
+        // $action_link = route('password.reset', ['token' => $token, 'email' => $request->email]);
+        // $body = "Kami menerima permintaan untuk mereset password anda untuk <b>MINDY</b> dengan email " . $request->email . ". Anda bisa mereset password dengan mengklik link di bawah";
+        // \Mail::send('email-forgot', ['action_link' => $action_link, 'body' => $body], function($message) use ($request){
+        //     $message->from('noreply@apps.ipb.ac.id', 'MINDY');
+        //     $message->to($request->email, 'Pengguna')->subject('Permintaan Reset Password');
+        // });
+
+        return view('login')->with('success', 'Kami telah mengubah password anda menjadi 1-8');
     }
 }

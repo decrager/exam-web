@@ -11,7 +11,7 @@ class superadminController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $now = Carbon::now()->toDateString();
+        $now = "2022-06-08";
 
         if (isEmpty($request)) {
             $ujian = Ujian::all();

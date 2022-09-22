@@ -42,6 +42,8 @@
                 <?php $role = 'Superadmin' ?>
             @elseif (auth()->user()->role == 'mahasiswa')
                 <?php $role = 'Mahasiswa' ?>
+            @elseif (auth()->user()->role == 'pengawas')
+                <?php $role = 'Pengawas' ?>
             @endif
             {{ auth()->user()->name }} | {{ $role }}<i class="fa fa-angle-down"></i>
         </h4>

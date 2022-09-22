@@ -110,6 +110,8 @@
             @include('pj_labkom.sidebar')
         @elseif (auth()->user()->role == 'superadmin')
             @include('superadmin.sidebar')
+        @elseif (auth()->user()->role == 'pengawas')
+            @include('pengawas.sidebar')
         @endif
         <!-- sidebar menu area end -->
 

@@ -32,7 +32,7 @@ class dataController extends Controller
 {
     public function dashboard()
     {
-        $now = Carbon::now()->toDateString();
+        $now = "2022-06-08";
         
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
@@ -822,6 +822,14 @@ class dataController extends Controller
 
         Pengawas::create($request->all());
 
+        $pengguna = new User;
+        $pengguna->name = $request->nama;
+        $pengguna->email = $request->nik;
+        $pengguna->role = "pengawas";
+        $pengguna->lokasi = "-";
+        $pengguna->password = '$2a$12$73YbJpbhMa8vVwroP8Ke0ODNYu1jjlALYK1xzrXFGVDbIYEk1KhZK';
+        $pengguna->save();
+
         $this->Activity(' menambahkan data pengawas ' . $request->nama);
         if (session('url')) {
             return redirect(session('url'))->with('success', 'Data pengawas baru berhasil ditambahkan!');
@@ -841,6 +849,14 @@ class dataController extends Controller
         ]);
 
         Pengawas::find($id)->update($request->all());
+
+        $pengguna = User::where('email', 'nik');
+        $pengguna->update([
+            'name' => $request->nama,
+            'email' => $request->nik,
+            'role' => "pengawas",
+            'lokasi' => "-"
+        ]);
 
         $this->Activity(' memperbarui data pengawas ' . $request->nama);
         if (session('url')) {

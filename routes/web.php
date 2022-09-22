@@ -25,6 +25,7 @@ use App\Http\Controllers\superadminController;
 use App\Http\Controllers\supervisorController;
 use App\Http\Controllers\pelanggaranController;
 use App\Http\Controllers\pelanggaranOnlineController;
+use App\Http\Controllers\pengawasController;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Redirect;
 
@@ -351,4 +352,10 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_labkom']], function () {
 
 Route::group(['middleware' => ['auth', 'cekrole:superadmin']], function () {
     Route::get('/superadmin', [superadminController::class, 'dashboard'])->name('superadminDashboard');
+});
+
+Route::group(['middleware' => ['auth', 'cekrole:pengawas']], function () {
+    Route::get('/pengawas', [pengawasController::class, 'dashboard'])->name('pengawasDashboard');
+    Route::get('/pengawas/absensi/index', [pengawasController::class, 'absensiIndex'])->name('pengawas.absensi.index');
+    Route::get('/pengawas/ketidakhadiran/index', [pengawasController::class, 'pelanggaranIndex'])->name('pengawas.ketidakhadiran.index');
 });

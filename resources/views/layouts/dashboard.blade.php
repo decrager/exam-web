@@ -91,6 +91,8 @@
                         <form action="/superadmin" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
                     @elseif (auth()->user()->role == 'mahasiswa')
                         <form action="/mahasiswa" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
+                    @elseif (auth()->user()->role == 'pengawas')
+                        <form action="/pengawas" class="row mb-1 justify-content-start">@include('layouts.filter')</form>
                     @endif
                     <!-- <i class="fa fa-check text-danger"></i> -->
 
