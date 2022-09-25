@@ -77,7 +77,7 @@
 						<div class="login-form-body">
 							<div class="form-gp">
 								<label for="email">Email</label>
-								<input type="email" @error('email')
+								<input type="text" @error('email')
 									is-invalid
 								@enderror name="email" id="email" required value="{{ old('email')}}"/>
 								@error('email')

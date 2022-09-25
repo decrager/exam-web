@@ -19,7 +19,7 @@ class loginController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email:dns',
+            'email' => 'required',
             'password' => 'required'
         ]);
 
@@ -64,7 +64,7 @@ class loginController extends Controller
     public function requestReset(Request $request)
     {
         $validate = $request->validate([
-            'email' => 'required|email|exists:users,email'
+            'email' => 'required|exists:users,email'
         ]);
 
         return $validate;

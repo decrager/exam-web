@@ -59,7 +59,8 @@
                                         <th>No</th>
                                         <th class="col-2">Mata Kuliah</th>
                                         <th>Bukti Persyaratan</th>
-                                        <th>status</th>
+                                        <th>Status</th>
+                                        <th>Catatan</th>
                                         <th>Persetujuan</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -81,7 +82,9 @@
                                                 <span class="badge badge-success bg-green">Terjadwal</span>
                                             @endif
                                         </td>
+                                        <td>{{ $pengajuan?->catatan }}</td>
                                         <td><a href="{{ asset('storage/files/pdf/' . $pengajuan?->persetujuan) }}" class="btn btn-primary btn-sm @if($pengajuan?->persetujuan == null) disabled @endif" target="_blank"><i class="fas fa-eye">&nbsp; Lihat</i></a></td>
+                                        
                                         @if ($pengajuan?->status == 'Belum')
                                         <td>
                                             <form action="{{ route('mahasiswa.susulan.delete', $pengajuan?->id) }}" class="btn-group" role="group" method="POST">

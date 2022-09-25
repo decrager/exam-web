@@ -6,6 +6,7 @@ use App\Models\Ujian;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class pengawasController extends Controller
 {
@@ -38,7 +39,20 @@ class pengawasController extends Controller
 
     public function absensiIndex()
     {
-        return view('pengawas.absensi.index');
+        $nik = Auth::user()->email;
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', 'b.id')
+        ->join('prodis', 'b.prodi_id', 'prodis.id')
+        ->join('penugasans', 'ujians.id', 'penugasans.ujian_id')
+        ->join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
+        ->select('pengawas.*', 'penugasans.*', 'prodis.*', 'b.*', 'kelas.*', 'praktikums.*', 'matkuls.*', 'ujians.*')
+        ->where('pengawas.nik', $nik)
+        ->get();
+        
+        return view('pengawas.absensi.index', ["jadwal" => $ujian]);
     }
 
     public function pelanggaranIndex()

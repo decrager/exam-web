@@ -74,7 +74,7 @@ class mahasiswaController extends Controller
         $mhs = Auth::user()->Mahasiswa->id;
         $pengajuan = Susulan::join('mahasiswas', 'susulans.mhs_id', 'mahasiswas.id')
         ->join('matkuls', 'susulans.matkul_id', 'matkuls.id')
-        ->select('matkuls.nama_matkul', 'susulans.tipe_mk', 'susulans.file', 'susulans.status', 'susulans.persetujuan', 'susulans.id')
+        ->select('matkuls.*', 'susulans.*')
         ->where('susulans.mhs_id', $mhs)
         ->get();
 

@@ -118,6 +118,9 @@
                                             <div class="row">
                                                 <label for="bukti" class="col-form-label">Persetujuan</label>
                                             </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="catatan" placeholder="Catatan (Opsional)" name="catatan"/>
+                                            </div>
                                             <div class="row-cols-">
                                                 <button type="submit" class="btn btn-success" name="status" value="Disetujui" onclick="return confirm('Yakin ingin menyetujui pengajuan?')"><i class="fas fa-check" ></i>&ensp; Setujui</button>
                                                 <button type="submit" class="btn btn-danger" name="status" value="Ditolak" onclick="return confirm('Yakin ingin menolak pengajuan?')"><i class="fas fa-xmark" ></i>&ensp; Tolak</button>
@@ -129,6 +132,9 @@
                                             @method('PUT')
                                             <div class="row">
                                                 <label for="bukti" class="col-form-label">Persetujuan</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="catatan" placeholder="Catatan (Opsional)" name="catatan"/>
                                             </div>
                                             <div class="row-cols-">
                                                 <input type="text" name="status" id="status" value="Ditolak" hidden>
@@ -149,6 +155,11 @@
                                             @method('PUT')
                                             <div class="row">
                                                 <label for="bukti" class="col-form-label">Persetujuan</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="catatan" placeholder="Catatan (Opsional)" @if ($mahasiswa?->catatan != "-")
+                                                    value="{{ $mahasiswa?->catatan }}"
+                                                @endif name="catatan"/>
                                             </div>
                                             <div class="row-cols-">
                                                 <input type="text" name="status" id="status" value="Disetujui" hidden>

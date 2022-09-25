@@ -67,19 +67,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <a href="" class="btn btn-primary">Absensi &nbsp;<i class="fas fa-file-signature"></i></a>
-                                        </td>
-                                    </tr>
+                                    @foreach ($jadwal as $ujian)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $ujian->tanggal }}</td>
+                                            <td>{{ $ujian->nama_prodi }}</td>
+                                            <td>{{ $ujian->semester }}</td>
+                                            <td>{{ $ujian->kelas }}/{{ $ujian->praktikum }}</td>
+                                            <td>{{ $ujian->nama_matkul }}</td>
+                                            <td>{{ $ujian->ruang }}</td>
+                                            <td>{{ $ujian->jam_mulai }} - {{ $ujian->jam_selesai }}</td>
+                                            <td>
+                                                <a href="" class="btn btn-primary">Absensi &nbsp;<i class="fas fa-file-signature"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

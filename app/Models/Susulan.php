@@ -17,7 +17,8 @@ class Susulan extends Model
         'tipe_mk',
         'file',
         'status',
-        'persetujuan'
+        'persetujuan',
+        'catatan'
     ];
 
     public function Matkul()

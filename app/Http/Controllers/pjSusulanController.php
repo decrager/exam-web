@@ -155,11 +155,11 @@ class pjSusulanController extends Controller
             ];
 
             $pdf = PDF::loadView('layouts.persetujuan', $data);
-            return $pdf->stream();
             $pdfName = $mahasiswa->nama . '_persetujuan_susulan.pdf';
             $susulan->update([
                 'status' => $request->status,
-                'persetujuan' => $pdfName
+                'persetujuan' => $pdfName,
+                'catatan' => $request->catatan
             ]);
             Storage::put('files/pdf/' . $pdfName, $pdf->output());
 
@@ -175,7 +175,8 @@ class pjSusulanController extends Controller
 
             $susulan->update([
                 'status' => $request->status,
-                'persetujuan' => null
+                'persetujuan' => null,
+                'catatan' => $request->catatan
             ]);
             $message = "Pengajuan berhasil ditolak!";
             $this->Activity(' menolak pengajuan susulan untuk ' . $mahasiswa->nama);
