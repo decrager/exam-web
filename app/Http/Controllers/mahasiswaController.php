@@ -108,7 +108,7 @@ class mahasiswaController extends Controller
         ]);
 
         $file = $request->file('file');
-        $fileName = time() . '_' . $file->getClientOriginalName();
+        $fileName = time() . '_BuktiPersetujuan';
         $file->storeAs('files/syarat', $fileName);
         // Storage::put('files/syarat/' . $fileName, $file);
 
@@ -136,7 +136,7 @@ class mahasiswaController extends Controller
         ]);
 
         $file = $request->file('file');
-        $fileName = time() . '_' . $file->getClientOriginalName();
+        $fileName = time() . '_BuktiPersetujuan';
         $file->storeAs('files/syarat', $fileName);
         // Storage::put('files/syarat/' . $fileName, $file);
 
