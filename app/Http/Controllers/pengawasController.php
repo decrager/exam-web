@@ -183,6 +183,7 @@ class pengawasController extends Controller
             $fileName2 = 'ttd_pengawas2.png';
             $file2 = $folderPath . $fileName2;
             file_put_contents($file2, $image_base2);
+            $pengawas2 = $request->pengawas2;
         } else {
             $fileName2 = "0";
             $pengawas2 = "0";
