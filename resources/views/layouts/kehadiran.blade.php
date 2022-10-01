@@ -9,7 +9,7 @@
     <style type="text/css">
         @font-face {
             font-family: Arial;
-            src: url({{ asset('fonts/Arial.ttf') }});
+            src: url({{ public_path('fonts/Arial.ttf') }});
         }
 
         .garis_tepi1 {
