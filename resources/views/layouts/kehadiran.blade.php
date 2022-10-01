@@ -16,9 +16,9 @@
              border: 2px solid black;
         }
         
-        body {
+        /* body {
             font-family: Arial !important;
-        }
+        } */
     </style>
 </head>
 <table border="0" align="right">
