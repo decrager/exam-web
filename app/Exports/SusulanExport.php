@@ -21,7 +21,7 @@ class SusulanExport implements FromCollection, WithHeadings, ShouldAutoSize
         ->join('matkuls', 'susulans.matkul_id', 'matkuls.id')
         ->join('semesters AS b', 'matkuls.semester_id', 'b.id')
         ->join('prodis', 'b.prodi_id', 'prodis.id')
-        ->select('prodis.nama_prodi', 'b.semester', 'matkuls.nama_matkul', 'kelas.kelas', 'praktikums.praktikum', 'mahasiswas.nama', 'mahasiswas.nim', 'susulans.status')
+        ->selectRaw('prodis.nama_prodi, b.semester, matkuls.nama_matkul, kelas.kelas, praktikums.praktikum, mahasiswas.nama, mahasiswas.nim, susulans.status, susulans.catatan, DATE_FORMAT(susulans.created_at, "%d-%m-%Y"), DATE_FORMAT(susulans.created_at, "%H:%i:%s")')
         ->get();
 
         return $susulan;
@@ -38,6 +38,9 @@ class SusulanExport implements FromCollection, WithHeadings, ShouldAutoSize
             'Nama Mahasiswa',
             'NIM',
             'Status',
+            'Catatan',
+            'Tanggal Upload',
+            'Jam Upload'
         ];
     }
 }

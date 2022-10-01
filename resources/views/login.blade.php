@@ -69,7 +69,7 @@
 						@endif
 
 						@if (session()->has('success'))
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-success show" role="alert">
                                 {{ session('success') }}
                             </div>
                         @endif

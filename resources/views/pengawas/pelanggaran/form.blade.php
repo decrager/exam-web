@@ -43,7 +43,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="hr-title">Masukkan Data Ketidakhadiran</h4>
-                                <form method="post" action="/pj_lokasi/pelanggaran">
+                                <form method="post" action="{{ route('pengawas.ketidakhadiran.create') }}">
                                     @csrf
                                     <div class="form-group">
                                         <label class="col-form-label">Ujian <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
@@ -51,9 +51,9 @@
                                             <option selected="selected" value="">Pilih Ujian</option>
                                             @foreach ($ujians as $ujian)
                                             @if (old('ujian_id') === $ujian->id)
-                                              <option value="{{ $ujian->id }}" selected>{{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - {{ $ujian->Matkul->nama_matkul }} - Kelas {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}</option>
+                                              <option value="{{ $ujian->id }}" selected>{{ $ujian->Matkul->nama_matkul }} - {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - Kelas {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}</option>
                                             @else
-                                              <option value="{{ $ujian->id }}">{{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - {{ $ujian->Matkul->nama_matkul }} - Kelas {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}</option>                 
+                                              <option value="{{ $ujian->id }}">{{ $ujian->Matkul->nama_matkul }} - {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - Kelas {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}</option>                 
                                             @endif
                                           @endforeach
                                         </select>

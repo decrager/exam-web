@@ -53,13 +53,15 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>tanggal</th>
+                                        <th>Jam</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Nama Mahasiswa</th>
+                                        <th>Nama</th>
                                         <th>NIM</th>
                                         <th>Status</th>
-                                        <th>Persetujuan</th>
+                                        <th>Bukti</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -67,6 +69,8 @@
                                     @foreach ($mahasiswa as $mahasiswa)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $mahasiswa?->created_at->format('d-m-Y') }}</td>
+                                            <td>{{ $mahasiswa?->created_at->format('H:i:s') }}</td>
                                             <td>{{ $mahasiswa?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
                                             <td>{{ $mahasiswa?->Matkul?->Semester?->semester }}</td>
                                             <td>{{ $mahasiswa?->Matkul?->nama_matkul }}</td>

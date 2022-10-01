@@ -79,7 +79,7 @@ class mahasiswaController extends Controller
         ->get();
 
         return view('mahasiswa.pengajuan.index', [
-            "susulan" => $pengajuan
+            "susulan" => $pengajuan,
         ]);
     }
 
@@ -104,7 +104,8 @@ class mahasiswaController extends Controller
         $request->validate([
             'matkul_id' => 'required',
             'tipe_mk' => 'required',
-            'file' => 'required|max:2048'
+            'file' => 'required|max:2048',
+            'alasan' => 'required'
         ]);
 
         $file = $request->file('file');
@@ -117,6 +118,7 @@ class mahasiswaController extends Controller
         $susulan->matkul_id = $request->matkul_id;
         $susulan->tipe_mk = $request->tipe_mk;
         $susulan->file = $fileName;
+        $susulan->alasan = $request->alasan;
         $susulan->status = "Belum";
         $susulan->save();
 
@@ -132,7 +134,8 @@ class mahasiswaController extends Controller
         $request->validate([
             'matkul_id' => 'required',
             'tipe_mk' => 'required',
-            'file' => 'required|max:2048'
+            'file' => 'required|max:2048',
+            'alasan' => 'required'
         ]);
 
         $file = $request->file('file');
@@ -148,7 +151,8 @@ class mahasiswaController extends Controller
         $susulan->update([
             'matkul_id' => $request->matkul_id,
             'tipe_mk' => $request->tipe_mk,
-            'file' => $fileName
+            'file' => $fileName,
+            'alasan' => $request->alasan
         ]);
 
         $matkul = Matkul::find($request->matkul_id);

@@ -68,6 +68,11 @@ class Ujian extends Model
         return $this->belongsTo(Matkul::class, 'matkul_id', 'id');
     }
 
+    public function Kehadiran()
+    {
+        return $this->hasMany(Kehadiran::class, 'ujian_id', 'id');
+    }
+
     public function Praktikum()
     {
         return $this->belongsTo(Praktikum::class, 'prak_id', 'id');

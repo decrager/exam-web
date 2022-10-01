@@ -57,8 +57,11 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th>Jam</th>
                                         <th class="col-2">Mata Kuliah</th>
-                                        <th>Bukti Persyaratan</th>
+                                        <th>Alasan</th>
+                                        <th>Bukti</th>
                                         <th>Status</th>
                                         <th>Catatan</th>
                                         <th>Persetujuan</th>
@@ -69,7 +72,10 @@
                                     @foreach ($susulan as $pengajuan)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $pengajuan?->created_at->format('d-m-Y') }}</td>
+                                        <td>{{ $pengajuan?->created_at->format('H:i:s') }}</td>
                                         <td>{{ $pengajuan?->nama_matkul }}</td>
+                                        <td>{{ $pengajuan?->alasan }}</td>
                                         <td><a href="{{ asset('storage/files/syarat/' . $pengajuan?->file) }}" target="_blank" class="btn btn-success btn-sm"><i class="fas fa-eye">&nbsp; Lihat</i></a></td>
                                         <td>
                                             @if ($pengajuan?->status == 'Belum')
@@ -82,7 +88,12 @@
                                                 <span class="badge badge-success bg-green">Terjadwal</span>
                                             @endif
                                         </td>
-                                        <td>{{ $pengajuan?->catatan }}</td>
+                                        <td>
+                                            @if ($pengajuan?->catatan)
+                                                {{ $pengajuan?->catatan }}
+                                            @else
+                                            -
+                                            @endif
                                         <td><a href="{{ asset('storage/files/pdf/' . $pengajuan?->persetujuan) }}" class="btn btn-primary btn-sm @if($pengajuan?->persetujuan == null) disabled @endif" target="_blank"><i class="fas fa-eye">&nbsp; Lihat</i></a></td>
                                         
                                         @if ($pengajuan?->status == 'Belum')

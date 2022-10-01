@@ -361,25 +361,18 @@ class pjLokasiController extends Controller
         ->where('ujians.tanggal', $now)
         ->where('penugasans.presensi', '!=', null);
 
-        if ($hari == 'Friday') {
-            if ($request->sesi == "1") {
-                $pengawas->where('ujians.jam_mulai', '8');
-                $penugasan->where('ujians.jam_mulai', '8');
-            } elseif ($request->sesi == "2") {
-                $pengawas->where('ujians.jam_mulai', '14');
-                $penugasan->where('ujians.jam_mulai', '14');
-            }
-        } else {
-            if ($request->sesi == "1") {
-                $pengawas->where('ujians.jam_mulai', '8');
-                $penugasan->where('ujians.jam_mulai', '8');
-            } elseif ($request->sesi == "2") {
-                $pengawas->where('ujians.jam_mulai', '10.3');
-                $penugasan->where('ujians.jam_mulai', '10.3');
-            } elseif ($request->sesi == "3") {
-                $pengawas->where('ujians.jam_mulai', '13.15');
-                $penugasan->where('ujians.jam_mulai', '13.15');
-            }
+        if ($request->sesi == "1") {
+            $pengawas->where('ujians.jam_mulai', '8');
+            $penugasan->where('ujians.jam_mulai', '8');
+        } elseif ($request->sesi == "2") {
+            $pengawas->where('ujians.jam_mulai', '10.3');
+            $penugasan->where('ujians.jam_mulai', '10.3');
+        } elseif ($request->sesi == "3") {
+            $pengawas->where('ujians.jam_mulai', '13');
+            $penugasan->where('ujians.jam_mulai', '13');
+        } elseif ($request->sesi == "4") {
+            $pengawas->where('ujians.jam_mulai', '15.30');
+            $penugasan->where('ujians.jam_mulai', '15.30');
         }
 
         $penugasan->where(function($query) {

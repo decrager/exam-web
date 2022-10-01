@@ -76,6 +76,11 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="col-form-label">Alasan <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <input type="text" class="form-control @error('alasan') is-invalid @enderror" id="alasan" name="alasan" placeholder="Ketik alasan susulan" required/>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label class="col-form-label">Bukti Persyaratan <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file" required/>
                                         <small class="text-muted">Max file size: 2mb</small>

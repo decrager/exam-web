@@ -63,11 +63,9 @@ class loginController extends Controller
 
     public function requestReset(Request $request)
     {
-        $validate = $request->validate([
+        $request->validate([
             'email' => 'required|exists:users,email'
         ]);
-
-        return $validate;
 
         $user = User::where('email', $request->email);
         $user->update([
@@ -88,6 +86,6 @@ class loginController extends Controller
         //     $message->to($request->email, 'Pengguna')->subject('Permintaan Reset Password');
         // });
 
-        return view('login')->with('success', 'Kami telah mengubah password anda menjadi 1-8');
+        return back()->with('success', 'Kami telah mengubah password anda menjadi 1-8, silahkan kembali ke menu Login');
     }
 }

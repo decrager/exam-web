@@ -90,7 +90,7 @@ class pelanggaranController extends Controller
         Pelanggaran::create($validatedData);
         $mahasiswa = Mahasiswa::find($request->mhs_id);
         $this->Activity(' menambahkan data pelanggaran untuk ' . $mahasiswa->nama);
-        return redirect('/pj_lokasi/pelanggaran')->with('success', 'Data has been successfully added');
+        return redirect('/pj_lokasi/pelanggaran')->with('success', 'Data ketidakhadiran berhasil ditambah');
     }
 
     /**
@@ -123,7 +123,6 @@ class pelanggaranController extends Controller
             'ujians' => Ujian::all(),
             'mahasiswas' => Mahasiswa::all()
         ]);
-      
     }
 
     /**
@@ -149,7 +148,7 @@ class pelanggaranController extends Controller
         ->update($validatedData);
         $mahasiswa = Mahasiswa::find($request->mhs_id);
         $this->Activity(' memperbarui data pelanggaran untuk ' . $mahasiswa->nama);
-        return redirect('/pj_lokasi/pelanggaran')->with('success', 'Data has been successfully updated');
+        return redirect('/pj_lokasi/pelanggaran')->with('success', 'Data ketidakhadiran berhasil diperbarui');
     }
 
     /**
@@ -163,6 +162,6 @@ class pelanggaranController extends Controller
         $mahasiswa = Mahasiswa::find($pelanggaran->mhs_id);
         $this->Activity(' menghapus data pelanggaran untuk ' . $mahasiswa->nama);
         Pelanggaran::destroy($pelanggaran->id);
-        return redirect('/pj_lokasi/pelanggaran/')->with('success', 'Data has been successfully deleted');
+        return redirect('/pj_lokasi/pelanggaran/')->with('success', 'Data ketidakhadiran berhasil dihapus');
     }
 }

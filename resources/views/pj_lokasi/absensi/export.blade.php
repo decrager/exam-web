@@ -109,12 +109,15 @@
                 $('#sesi').append('<option selected value="">Pilih sesi</option>')
                 $('#sesi').append('<option value="1">1</option>')
                 $('#sesi').append('<option value="2">2</option>')
+                $('#sesi').append('<option value="3">3</option>')
+                $('#sesi').append('<option value="4">4</option>')
             } else {
                 $('#sesi').empty();
                 $('#sesi').append('<option selected value="">Pilih sesi</option>')
                 $('#sesi').append('<option value="1">1</option>')
                 $('#sesi').append('<option value="2">2</option>')
                 $('#sesi').append('<option value="3">3</option>')
+                $('#sesi').append('<option value="4">4</option>')
             }
         }
 
@@ -126,14 +129,14 @@
             var d = new Date(hari);
             var day = weekday[d.getDay()];
 
-            if (x == "2" && day == "Jumat") {
-                var jam = "14.00 - 16.15";
-            } else if (x == "1") {
-                var jam = "08.00 - 10.15";
+            if (x == "1") {
+                var jam = "08.00 - 10.00";
             } else if (x == "2") {
-                var jam = "10.30 - 12.45";
+                var jam = "10.30 - 12.30";
             } else if (x == "3") {
-                var jam = "13.15 - 15.30";
+                var jam = "13.00 - 15.00";
+            } else if (x == "4") {
+                var jam = "15.30 - 17.30";
             } else {
                 var jam = "Pilih sesi";
             }

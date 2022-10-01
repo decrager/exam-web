@@ -43,7 +43,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Ubah Data Pelanggaran</h4>
-                                <form method="post" action="/pj_lokasi/pelanggaran/{{ $pelanggarans->id }}">
+                                <form method="post" action="/pengawas/ketidakhadiran/update/{{ $pelanggarans->id }}">
                                     @csrf
                                     @method('put')
                                     <div class="form-group">
@@ -53,14 +53,14 @@
                                             @foreach ($ujians as $ujian)
                                                 @if (old('ujian_id') === $ujian->id)
                                                     <option value="{{ $ujian->id }}" selected>
-                                                        {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} -
-                                                        {{ $ujian->Matkul->nama_matkul }} - Kelas
+                                                        {{ $ujian->Matkul->nama_matkul }} - 
+                                                        {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - Kelas 
                                                         {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}
                                                     </option>
                                                 @else
                                                     <option value="{{ $ujian->id }}" {{ $ujian->id == $pelanggarans->Ujian->id ? 'selected' : '' }}>
-                                                        {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} -
-                                                        {{ $ujian->Matkul->nama_matkul }} - Kelas
+                                                        {{ $ujian->Matkul->nama_matkul }} - 
+                                                        {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - Kelas 
                                                         {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}
                                                     </option>
                                                 @endif

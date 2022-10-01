@@ -68,21 +68,24 @@
 
                 <div class="card">
                     <div class="card-body">
-                        {{-- @if (session()->has('success'))
+                        @if (session()->has('success'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('success') }}
                             </div>
-                        @endif --}}
-                        <h4 class="header-title">Kehadiran</h4>
-                        <a href="{{ route('pjLokasi.pengawas.absensi.export') }}" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
-                             <i class="fas fa-file-pdf">&nbsp; Export</i>
+                        @endif
+
+                        <h4 class="header-title float-left">Kehadiran</h4>
+                        
+                        <a href="{{ route('pengawas.absensi.ttd', $ujian->id) }}" class="btn btn-success text-sm px-3 py-2 mb-3 float-right">
+                             <i class="fas fa-file-pdf">&nbsp; TTD</i>
                         </a>
 
                         <!-- <i class="fa fa-check text-danger"></i> -->
 
                         <div class="table-responsive">
-                            <form method="post" action="{{ route('pengawas.absensi.create') }}">
+                            <form method="post" action="{{ route('pengawas.absensi.update') }}">
                                 @csrf
+                                @method('PUT')
                                 <table class="table" style="width: 100%">
                                     <thead>
                                         <tr>
@@ -102,13 +105,23 @@
                                             <td>{{ $mahasiswa?->nama }}</td>
                                             <td>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="{{ 'kehadiran['. $i .']' }}" id="{{ 'radio' . $mahasiswa?->id }}" value="Hadir" checked>
+                                                    @if ($mahasiswa?->kehadiran == "Hadir")
+                                                        <input class="form-check-input" type="radio" name="{{ 'kehadiran['. $i .']' }}" id="{{ 'radio' . $mahasiswa?->id }}" value="Hadir" checked>
+                                                    @elseif ($mahasiswa?->kehadiran == "Tidak Hadir")
+                                                        <input class="form-check-input" type="radio" name="{{ 'kehadiran['. $i .']' }}" id="{{ 'radio' . $mahasiswa?->id }}" value="Hadir">
+                                                    @else
+                                                        <input class="form-check-input" type="radio" name="{{ 'kehadiran['. $i .']' }}" id="{{ 'radio' . $mahasiswa?->id }}" value="Hadir" checked>
+                                                    @endif
                                                     <label class="form-check-label" for="{{ 'radio' . $mahasiswa?->id }}">Hadir</label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="{{ 'kehadiran['. $i .']' }}" id="{{ 'radio' . $mahasiswa?->id }}" value="Tidak Hadir">
+                                                    @if ($mahasiswa?->kehadiran == "Tidak Hadir")
+                                                        <input class="form-check-input" type="radio" name="{{ 'kehadiran['. $i .']' }}" id="{{ 'radio' . $mahasiswa?->id }}" value="Tidak Hadir" checked>
+                                                    @else
+                                                        <input class="form-check-input" type="radio" name="{{ 'kehadiran['. $i .']' }}" id="{{ 'radio' . $mahasiswa?->id }}" value="Tidak Hadir">
+                                                    @endif
                                                     <label class="form-check-label" for="{{ 'radio' . $mahasiswa?->id }}">Tidak Hadir</label>
                                                 </div>
                                             </td>

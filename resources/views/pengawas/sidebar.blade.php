@@ -20,7 +20,7 @@
 
                     <li class="{{ Request::routeIs('pengawas.absensi.*') ? 'active' : '' }} m-1">
                         <a href="{{ route('pengawas.absensi.index') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
-                            <span>Absensi</span></a>
+                            <span>Kehadiran</span></a>
                     </li>
 
                     <li class="{{ Request::routeIs('pengawas.ketidakhadiran.*') ? 'active' : '' }} m-1">

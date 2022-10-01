@@ -43,6 +43,11 @@ class Mahasiswa extends Model
         return $this->belongsTo(Praktikum::class, 'prak_id', 'id');
     }
 
+    public function Kehadiran()
+    {
+        return $this->hasMany(Kehadiran::class, 'mhs_id', 'id');
+    }
+
     public function Pelanggaran()
     {
         return $this->hasMany(Pelanggaran::class, 'mhs_id', 'id');

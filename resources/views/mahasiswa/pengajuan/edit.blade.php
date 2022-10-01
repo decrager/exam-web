@@ -88,6 +88,15 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="col-form-label">Alasan <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <input type="text" class="form-control @error('alasan') is-invalid @enderror" id="alasan" name="alasan" placeholder="Ketik alasan susulan" 
+                                        @if ($pengajuan?->alasan)
+                                            value="{{ $pengajuan?->alasan }}"
+                                        @endif
+                                            required/>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label class="col-form-label">Bukti Persyaratan</label>
                                         <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file" required placeholder="File type: PDF"/>
                                         <small class="text-muted">Max file size: 2mb</small>

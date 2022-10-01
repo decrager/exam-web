@@ -23,7 +23,7 @@
 
 <table border="0" align="center">
     <tr>
-    <td><img src="{{ asset('images/icon/IPB.png') }}" width="80px"> </td>
+    <td><img src="{{ public_path('images/icon/IPB.png') }}" width="80px"> </td>
     <td style="font-family: Arial;"><center>
         <font size="3">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET DAN TEKNOLOGI</font><BR>
         <font size="3">INSTITUT PERTANIAN BOGOR</font><BR>
@@ -127,8 +127,8 @@
     </table>
     <table align="left" >
         <tr style="text-indent: 120px;"> 
-            <td width="350px" style="text-indent: 120px;"><img src="{{ asset('storage/images/ttd/' . $ttd_penyerah) }}" alt="TTD Penyerah"></td>
-            <td width="330px" style="text-indent: 160px;"><img src="{{ asset('storage/images/ttd/' . $ttd_penerima) }}" alt="TTD Penerima"></td>
+            <td width="350px" style="text-indent: 120px;"><img src="{{ public_path('storage/images/ttd/' . $ttd_penyerah) }}" alt="TTD Penyerah"></td>
+            <td width="330px" style="text-indent: 160px;"><img src="{{ public_path('storage/images/ttd/' . $ttd_penerima) }}" alt="TTD Penerima"></td>
         </tr>
     </table>
     <table align="left">

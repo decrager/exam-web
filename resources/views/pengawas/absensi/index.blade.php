@@ -23,10 +23,10 @@
         <div class="row align-items-center">
             <div class="col-sm-6">
                 <div class="breadcrumbs-area clearfix">
-                    <h4 class="page-title pull-left">Absensi</h4>
+                    <h4 class="page-title pull-left">Kehadiran</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a>Beranda</a></li>
-                        <li><span>Absensi</span></li>
+                        <li><span>Kehadiran</span></li>
                     </ul>
                 </div>
             </div>
@@ -37,6 +37,11 @@
         <div class="row">
             <!-- data table start -->
             <div class="col-12">
+                @if (session()->has('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-body">
                         {{-- @if (session()->has('success'))
@@ -59,8 +64,8 @@
                                         <th>Tanggal</th>
                                         <th>Program Studi</th>
                                         <th>Semester</th>
-                                        <th>Kelas/Prak</th>
                                         <th>Mata Kuliah</th>
+                                        <th>Kelas/Prak</th>
                                         <th>Ruang</th>
                                         <th>Jam</th>
                                         <th>Aksi</th>
@@ -69,16 +74,17 @@
                                 <tbody>
                                     @foreach ($jadwal as $ujian)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $ujian->tanggal }}</td>
-                                            <td>{{ $ujian->nama_prodi }}</td>
-                                            <td>{{ $ujian->semester }}</td>
-                                            <td>{{ $ujian->kelas }}/{{ $ujian->praktikum }}</td>
-                                            <td>{{ $ujian->nama_matkul }}</td>
-                                            <td>{{ $ujian->ruang }}</td>
-                                            <td>{{ $ujian->jam_mulai }} - {{ $ujian->jam_selesai }}</td>
+                                            <td>{{ $loop?->iteration }}</td>
+                                            <td>{{ $ujian?->tanggal }}</td>
+                                            <td>{{ $ujian?->nama_prodi }}</td>
+                                            <td>{{ $ujian?->semester }}</td>
+                                            <td>{{ $ujian?->nama_matkul }}</td>
+                                            <td>{{ $ujian?->kelas }}/{{ $ujian?->praktikum }}</td>
+                                            <td>{{ $ujian?->ruang }}</td>
+                                            <td>{{ $ujian?->jam_mulai }} - {{ $ujian?->jam_selesai }}</td>
                                             <td>
-                                                <a href="" class="btn btn-primary">Absensi &nbsp;<i class="fas fa-file-signature"></i></a>
+                                                <a href="{{ route('pengawas.absensi.form', $ujian->id) }}" class="btn btn-primary">Isi &nbsp;<i class="fas fa-file-signature"></i></a>
+                                                <a class="btn btn-danger text-sm @if($ujian?->kehadiran == null) disabled @endif" href="{{ asset('storage/files/kehadiran/' . $ujian?->kehadiran) }}" target="_blank"><i class="fas fa-file-pdf"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

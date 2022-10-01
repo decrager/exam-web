@@ -16,6 +16,7 @@ class Susulan extends Model
         'matkul_id',
         'tipe_mk',
         'file',
+        'alasan',
         'status',
         'persetujuan',
         'catatan'

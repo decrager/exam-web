@@ -72,7 +72,7 @@
 							<p style="font-size: 20px;">Request Password Reset</p>
 						</div>
 
-                        <p class="text-center mb-3" style="font-size: 14px;">Ketik email yang digunakan dan kami akan mengirimkan link untuk mereset password anda</p>
+                        <p class="text-center mb-3" style="font-size: 14px;">Ketik email yang digunakan dan kami akan mereset password anda menjadi 1-8</p>
 
                         <div class="">
 

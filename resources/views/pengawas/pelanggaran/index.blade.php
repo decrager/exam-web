@@ -55,7 +55,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Ketidakhadiran</h4>
-                        <a href="/pj_lokasi/pelanggaran/create" class="btn btn-primary text-sm bg-blue px-3 mb-3">Tambah
+                        <a href="{{ route('pengawas.ketidakhadiran.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">Tambah
                             Data</a>
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
@@ -144,14 +144,13 @@
                                                                 <h6 class="mb-2 pt-1">Ketidakhadiran:</h6>
                                                             </div>
                                                             <div class="col-5">
-                                                                <a href="pelanggaran/{{ $pelanggaran?->id }}/edit" class="btn btn-warning btn-sm"><i
+                                                                <a href="/pengawas/ketidakhadiran/edit/{{ $pelanggaran?->id }}" class="btn btn-warning btn-sm"><i
                                                                     class="fas fa-pen"></i></a>
-                                                                <form class="btn-group" role="group" action="pelanggaran/{{ $pelanggaran?->id }}" method="POST">
+                                                                <form class="btn-group" role="group" action="/pengawas/ketidakhadiran/delete/{{ $pelanggaran?->id }}" method="POST">
                                                                     @csrf
                                                                     @method('delete')
 
-                                                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                                                            class="fas fa-trash"></i></button>
+                                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>
                                                                 </form>
                                                             </div>
                                                         </div>

@@ -357,5 +357,16 @@ Route::group(['middleware' => ['auth', 'cekrole:superadmin']], function () {
 Route::group(['middleware' => ['auth', 'cekrole:pengawas']], function () {
     Route::get('/pengawas', [pengawasController::class, 'dashboard'])->name('pengawasDashboard');
     Route::get('/pengawas/absensi/index', [pengawasController::class, 'absensiIndex'])->name('pengawas.absensi.index');
+    Route::get('/pengawas/absensi/form/{id}', [pengawasController::class, 'absensiForm'])->name('pengawas.absensi.form');
+    Route::post('/pengawas/absensi/create', [pengawasController::class, 'absensiCreate'])->name('pengawas.absensi.create');
+    Route::put('/pengawas/absensi/update', [pengawasController::class, 'absensiUpdate'])->name('pengawas.absensi.update');
+    Route::get('/pengawas/absensi/ttd/{id}', [pengawasController::class, 'absensiTtd'])->name('pengawas.absensi.ttd');
+    Route::post('/pengawas/absensi/pdf', [pengawasController::class, 'absensiExport'])->name('pengawas.absensi.export');
+    
     Route::get('/pengawas/ketidakhadiran/index', [pengawasController::class, 'pelanggaranIndex'])->name('pengawas.ketidakhadiran.index');
+    Route::get('/pengawas/ketidakhadiran/form', [pengawasController::class, 'pelanggaranForm'])->name('pengawas.ketidakhadiran.form');
+    Route::get('/pengawas/ketidakhadiran/edit/{pelanggaran}', [pengawasController::class, 'pelanggaranEdit'])->name('pengawas.ketidakhadiran.edit');
+    Route::post('/pengawas/ketidakhadiran/create', [pengawasController::class, 'pelanggaranCreate'])->name('pengawas.ketidakhadiran.create');
+    Route::put('/pengawas/ketidakhadiran/update/{pelanggaran}', [pengawasController::class, 'pelanggaranUpdate'])->name('pengawas.ketidakhadiran.update');
+    Route::delete('/pengawas/ketidakhadiran/delete/{pelanggaran}', [pengawasController::class, 'pelanggaranDestroy'])->name('pengawas.ketidakhadiran.destroy');
 });
