@@ -7,10 +7,10 @@
     <title>PDF | ABSEN</title>
     
     <style type="text/css">
-        @font-face {
+        /* @font-face {
             font-family: Arial;
             src: url({{ public_path('fonts/Arial.ttf') }});
-        }
+        } */
 
         .garis_tepi1 {
              border: 2px solid black;
