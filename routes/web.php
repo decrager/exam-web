@@ -40,8 +40,8 @@ use Illuminate\Support\Facades\Redirect;
 |
 */
 
-Route::get('/', [loginController::class, 'index'])->name('login');
-// Route::get('/', function() {return Redirect::intended('http://mindysvipb.my.id');});
+// Route::get('/', [loginController::class, 'index'])->name('login');
+Route::get('/', function() {return Redirect::intended('http://mindysvipb.my.id');});
 Route::post('/login', [loginController::class, 'authenticate']);
 Route::get('/presensi/{id}', [pjLokasiController::class, 'presence'])->name('presensi');
 Route::put('/presensi/update/{id}', [pjLokasiController::class, 'presenceUpdate'])->name('presensi.update');
