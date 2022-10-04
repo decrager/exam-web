@@ -6,9 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PDF | SERAH TERIMA</title>
     <style type="text/css">
+        @font-face {
+            font-family: Arial;
+            src: url({{ asset('fonts/Arial.ttf') }});
+        }
+
         .garis_tepi1 {
              border: 2px solid black;
         }
+        
         body { 
             font-family: Arial; 
         }

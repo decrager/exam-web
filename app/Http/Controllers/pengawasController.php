@@ -19,7 +19,7 @@ class pengawasController extends Controller
 {
     public function dashboard()
     {
-        $now = "2022-06-08";
+        $now = Carbon::now()->toDateString();
         
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
@@ -67,6 +67,7 @@ class pengawasController extends Controller
     public function absensiForm($id)
     {
         $ujian = Ujian::find($id);
+        $now = Carbon::now()->toDateString();
 
         $mahasiswa = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
         ->join('ujians', 'praktikums.id', 'ujians.prak_id')
@@ -86,19 +87,16 @@ class pengawasController extends Controller
         if (count($kehadiran) >= 1) {
             return view('pengawas.absensi.edit', [
                 'ujian' => $ujian,
-                'mahasiswas' => $kehadiran
+                'mahasiswas' => $kehadiran,
+                'now' => $now
             ]);
         } else {
             return view('pengawas.absensi.form', [
                 'ujian' => $ujian,
-                'mahasiswas' => $mahasiswa
+                'mahasiswas' => $mahasiswa,
+                'now' => $now
             ]);
         }
-
-        return view('pengawas.absensi.form', [
-            'ujian' => $ujian,
-            'mahasiswas' => $mahasiswa
-        ]);
     }
 
     public function absensiCreate(Request $request)
@@ -170,7 +168,7 @@ class pengawasController extends Controller
             Storage::delete($destination2);
         }
         
-        $folderPath = Storage::path('images/ttd');
+        $folderPath = Storage::path('images/ttd/');
         $image1 = explode(";base64,", $request->ttd1);
         $image_base1 = base64_decode($image1[1]);
         $fileName1 = 'ttd_pengawas1.png';

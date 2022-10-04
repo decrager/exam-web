@@ -120,7 +120,11 @@
                                 </table>
 
                                 <input type="text" hidden value="{{ $ujian?->id }}" name="ujian_id">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                @if ($ujian->tanggal == $now)
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                @else
+                                    <button type="submit" class="btn btn-primary" disabled>Simpan</button>
+                                @endif
                             </form>
                         </div>
                     </div>

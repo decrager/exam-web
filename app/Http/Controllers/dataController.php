@@ -32,7 +32,7 @@ class dataController extends Controller
 {
     public function dashboard()
     {
-        $now = "2022-06-08";
+        $now = Carbon::now()->toDateString();
         
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
@@ -186,7 +186,7 @@ class dataController extends Controller
     {
         $mahasiswa = Mahasiswa::find($id);
         $this->Activity(' menghapus data mahasiswa ' . $mahasiswa->nama);
-        User::where('nim', $mahasiswa->nim)->delete();
+        User::where('email', $mahasiswa->nim)->delete();
         $mahasiswa->delete();
         if (session('url')) {
             return redirect(session('url'))->with('success', 'Data mahasiswa berhasil dihapus!');

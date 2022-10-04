@@ -27,7 +27,7 @@ class pjLokasiController extends Controller
 {
     public function dashboard()
     {
-        $now = "2022-06-08";
+        $now = Carbon::now()->toDateString();
         
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
@@ -147,7 +147,7 @@ class pjLokasiController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        $now = "2022-06-08";
+        $now = Carbon::now()->toDateString();
 
         $pengawas = Penugasan::join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
         ->join('ujians', 'penugasans.ujian_id', '=', 'ujians.id')

@@ -12,7 +12,7 @@ class pjOnlineController extends Controller
 {
     public function dashboard()
     {
-        $now = "2022-06-08";
+        $now = Carbon::now()->toDateString();
         
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')

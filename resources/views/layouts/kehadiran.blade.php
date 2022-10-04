@@ -4,21 +4,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF | ABSEN</title>
+    <title>Kehadiran - {{ $ujian->tanggal }} - {{ $ujian->Matkul->nama_matkul }} ({{ $ujian->Praktikum->Kelas->kelas }}/{{ $ujian->Praktikum->praktikum }})</title>
     
     <style type="text/css">
-        /* @font-face {
+        @font-face {
             font-family: Arial;
-            src: url({{ public_path('fonts/Arial.ttf') }});
-        } */
+            src: url({{ asset('fonts/Arial.ttf') }});
+        }
 
         .garis_tepi1 {
              border: 2px solid black;
         }
         
-        /* body {
+        body {
             font-family: Arial !important;
-        } */
+        }
     </style>
 </head>
 <table border="0" align="right">
@@ -142,12 +142,12 @@
             <td colspan="3" align="center" width="650px">Tanda Tangan Pengawas</td>
         </tr>
         <tr>
-            <td align="center"><img src="{{ asset('images/ttd/' . $ttd1) }}" alt="TTD"></td>
+            <td align="center"><img src="{{ public_path('storage/images/ttd/' . $ttd1) }}" alt="TTD"></td>
             <td></td>
             @if ($ttd2 == "0")
-                <td align="center"><img src="{{ asset('images/ttd/' . $ttd2) }}" alt="TTD"></td>
-            @else
                 <td align="center"></td>
+            @else
+                <td align="center"><img src="{{ public_path('storage/images/ttd/' . $ttd2) }}" alt="TTD"></td>
             @endif
         </tr>
         <tr>
@@ -160,6 +160,11 @@
                     _______________
                 @endif
                 )</td>
+        </tr>
+        <tr>
+            <td align="center">Pengawas 1</td>
+            <td></td>
+            <td align="center">Pengawas 2</td>
         </tr>
     </table>
 </body>
