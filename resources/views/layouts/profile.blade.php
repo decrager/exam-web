@@ -9,23 +9,7 @@
             @elseif (auth()->user()->role == 'prodi')
                 <?php $role = 'Program Studi' ?>
             @elseif (auth()->user()->role == 'pj_lokasi')
-                @if (auth()->user()->lokasi == 'CA & Lab Kom')
-                <?php $role = 'PJ Lokasi CA & Lab Kom' ?>
-                @elseif (auth()->user()->lokasi == 'CB & Lab Kom')
-                <?php $role = 'PJ Lokasi CB & Lab Kom' ?>
-                @elseif (auth()->user()->lokasi == 'BS B01-06')
-                <?php $role = 'PJ Lokasi BS B01-06' ?>
-                @elseif (auth()->user()->lokasi == 'BS B07-10')
-                <?php $role = 'PJ Lokasi BS B07-10' ?>
-                @elseif (auth()->user()->lokasi == 'BS KIMBOTFIS')
-                <?php $role = 'PJ Lokasi BS KIMBOTFIS' ?>
-                @elseif (auth()->user()->lokasi == 'BS P01-03')
-                <?php $role = 'PJ Lokasi BS P01-03' ?>
-                @elseif (auth()->user()->lokasi == 'Sukabumi')
-                <?php $role = 'PJ Lokasi Sukabumi' ?>
-                @elseif (auth()->user()->lokasi == 'Online')
-                <?php $role = 'PJ Lokasi Online' ?>
-                @endif
+                {{ auth()->user()->name }} | PJ Lokasi {{ auth()->user()->lokasi }}<i class="fa fa-angle-down"></i>
             @elseif (auth()->user()->role == 'berkas')
                 <?php $role = 'Berkas' ?>
             @elseif (auth()->user()->role == 'assisten')
@@ -45,12 +29,26 @@
             @elseif (auth()->user()->role == 'pengawas')
                 <?php $role = 'Pengawas' ?>
             @endif
-            {{ auth()->user()->name }} | {{ $role }}<i class="fa fa-angle-down"></i>
+
+            @if (auth()->user()->role != 'pj_lokasi')
+                {{ auth()->user()->name }} | {{ $role }}<i class="fa fa-angle-down"></i>
+            @endif
         </h4>
         <div class="dropdown-menu">
+            @if (auth()->user()->role == 'mahasiswa')
+                <form action="{{ route('mahasiswa.profile') }}" method="GET">
+                    <button type="submit" class="dropdown-item">Profil</button>
+                </form>
+            @elseif (auth()->user()->role == 'pengawas')
+                <form action="{{ route('pengawas.profile') }}" method="GET">
+                    <button type="submit" class="dropdown-item">Profil</button>
+                </form>
+            @endif
+
             <form action="{{ route('resetView') }}" method="GET">
                 <button type="submit" class="dropdown-item">Ubah Password</button>
             </form>
+            
             {{-- <button class="dropdown-item">Ubah Password</button>
             <a class="dropdown-item" href="{{ route('resetPassword') }}">Ubah Password</a> --}}
             <form action="/logout" method="POST">

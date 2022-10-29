@@ -41,6 +41,30 @@
                 <div class="row">
                     <!-- Textual inputs start -->
                     <div class="col-12">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h4 class="header-title">Detail Ujian</h4>
+                                <div class="row">
+                                    <div class="text-left">
+                                        <p><b>Tanggal</b></p>
+                                        <p>&nbsp;&nbsp;{{ $ujian?->tanggal }}</p>
+                                        <p><b>Program Studi</b></p>
+                                        <p>&nbsp;&nbsp;{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</p>
+                                        <p><b>Semester</b></p>
+                                        <p>&nbsp;&nbsp;{{ $ujian?->Matkul?->Semester?->semester }}</p>
+                                        <p><b>Mata Kuliah</b></p>
+                                        <p>&nbsp;&nbsp;{{ $ujian?->Matkul?->nama_matkul }}<br>{{ $ujian?->Matkul?->kode_matkul }}</p>
+                                        <p><b>Kelas / Praktikum</b></p>
+                                        <p>&nbsp;&nbsp;{{ $ujian?->Praktikum?->Kelas?->kelas }} / {{ $ujian?->Praktikum?->praktikum }}</p>
+                                        <p><b>Ruang</b></p>
+                                        <p>&nbsp;&nbsp;{{ $ujian?->ruang }}</p>
+                                        <p><b>Jam</b></p>
+                                        <p>&nbsp;&nbsp;{{ $ujian?->jam_mulai }} - {{ $ujian?->jam_selesai }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="card">
                             <div class="card-body">
                                 <form action="{{ route('prodi.pengawas.update', $penugasan?->id) }}" method="POST">

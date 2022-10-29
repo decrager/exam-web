@@ -451,13 +451,15 @@ class prodiController extends Controller
     public function penugasanEdit($id)
     {
         $penugasan = Penugasan::find($id);
+        $ujian = ujian::find($penugasan->ujian_id);
         $selected = Pengawas::find($penugasan->pengawas_id);
         $pengawas = Pengawas::all();
 
         return view('prodi.penugasan.edit', [
             "penugasan" => $penugasan,
             "pengawas" => $pengawas,
-            "selected" => $selected
+            "selected" => $selected,
+            "ujian" => $ujian
         ]);
     }
 

@@ -44,6 +44,11 @@
                                 {{ session('success') }}
                             </div>
                         @endif
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger" role="alert">
+                                {{ $error }}
+                            </div>
+                        @endforeach
                         <h4 class="header-title">Daftar Jadwal Ujian</h4>
                         <div class="float-right">
                             <a href="{{ route('data.jadwal.export') }}" class="btn btn-success py-2 mr-2">Export &nbsp;&nbsp;<i
@@ -67,7 +72,7 @@
                                         <th>Kode Ruang</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
-                                        <th>Perbanyak</th>
+                                        {{-- <th>Perbanyak</th> --}}
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -84,13 +89,13 @@
                                             <td>{{ $ujian?->ruang }}</td>
                                             <td>{{ $ujian?->jam_mulai }}</td>
                                             <td>{{ $ujian?->jam_selesai }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 @if ($ujian?->perbanyak == 1)
                                                     <span class="badge badge-success">Perbanyak</span>
                                                 @else
                                                     <span class="badge badge-danger">Tidak</span>
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <button class="btn btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="{{ '#detail' . $ujian?->id }}"><i
@@ -100,11 +105,69 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <button type="button" class="btn btn-success px-3 mx-1 text-sm" data-bs-toggle="modal" data-bs-target="#importModal">
+                                Import
+                            </button>
+                            <button type="button" class="btn btn-danger px-3" data-bs-toggle="modal" data-bs-target="#resetModal">
+                                Reset
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- data table end -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('data.resetJadwal') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Reset Jadwal Ujian</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="font-size: 16px;"><b>Masukkan password anda untuk mengkonfirmasi:</b></p>
+                        <div class="form-group">
+                            <label for="password" class="col-form-label" style="font-size: 16px;"><b>Password</b></label>
+                            <input class="form-control" type="password" placeholder="Ketik password" id="password" name="password" required/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('data.importJadwal') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import Jadwal Ujian</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="font-size: 16px;"><b>Download template excel yang sudah disesuaikan:</b></p>
+                        <a href="{{ asset('storage/template/jadwal.xlsx') }}" class="btn btn-success mb-2" target="_blank"><i class="fas fa-file-excel"></i>&nbsp; Unduh Template</a>
+                        <div class="form-group">
+                            <label for="password" class="col-form-label" style="font-size: 16px;"><b>Upload:</b></label>
+                            <input class="form-control" type="file" placeholder="Upload file" id="file" name="file" required/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

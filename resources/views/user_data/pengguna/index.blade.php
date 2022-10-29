@@ -87,6 +87,8 @@
                                                     PJ Online
                                                 @elseif ($pengguna?->role == 'pj_labkom')
                                                     PJ Lab Kom
+                                                @elseif ($pengguna?->role == 'pengawas')
+                                                    Pengawas
                                                 @endif
                                             </td>
                                             <td>{{ $pengguna?->lokasi }}</td>

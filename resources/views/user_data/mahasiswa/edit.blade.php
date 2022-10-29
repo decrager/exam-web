@@ -43,7 +43,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <form action="{{ route('data.mahasiswa.update', $mahasiswa?->id) }}" method="POST">
-                                    <h4 class="header-title">Tambah Data Mahasiswa</h4>
+                                    <h4 class="header-title">Ubah Data Mahasiswa</h4>
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
@@ -92,8 +92,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label">Email <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="email" placeholder="Ketik email..." value="{{ $mahasiswa?->email }}" name="email"
+                                        <label for="email" class="col-form-label">Email/Username (Digunakan untuk login) <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <input class="form-control" type="text" placeholder="Ketik email..." value="{{ $mahasiswa?->email }}" name="email"
                                             id="email" required/>
                                     </div>
 

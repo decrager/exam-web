@@ -8,7 +8,7 @@
     
     <style type="text/css">
         @font-face {
-            font-family: Arial;
+            font-family: 'Arial';
             src: url({{ asset('fonts/Arial.ttf') }});
         }
 
@@ -17,7 +17,7 @@
         }
         
         body {
-            font-family: Arial !important;
+            font-family: Arial, Helvetica, sans-serif;
         }
     </style>
 </head>

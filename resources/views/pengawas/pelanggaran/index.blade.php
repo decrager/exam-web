@@ -143,7 +143,7 @@
                                                             <div class="col-7">
                                                                 <h6 class="mb-2 pt-1">Ketidakhadiran:</h6>
                                                             </div>
-                                                            <div class="col-5">
+                                                            {{-- <div class="col-5">
                                                                 <a href="/pengawas/ketidakhadiran/edit/{{ $pelanggaran?->id }}" class="btn btn-warning btn-sm"><i
                                                                     class="fas fa-pen"></i></a>
                                                                 <form class="btn-group" role="group" action="/pengawas/ketidakhadiran/delete/{{ $pelanggaran?->id }}" method="POST">
@@ -152,7 +152,7 @@
 
                                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?')"><i class="fas fa-trash"></i></button>
                                                                 </form>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                         <div class="form-group pl-3">
                                                             <h6>Mata Kuliah</h6>

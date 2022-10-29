@@ -80,6 +80,12 @@
                                                 Izin
                                             </label>
                                         </div>
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Tanpa Keterangan" id="pelanggaran10">
+                                            <label class="form-check-label" for="pelanggaran10">
+                                                Tanpa Keterangan
+                                            </label>
+                                        </div>
                                         <label class="col-form-label">Pelanggaran</label>
                                         <div class="form-check" id="btn">
                                             <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Terlambat" id="pelanggaran3">
@@ -180,6 +186,10 @@
             if(document.getElementById('pelanggaran9').checked) {
                 $('#lainnya').empty();
                 $('#lainnya').append('<input class="form-control" type="text" placeholder="Ketik..." name="pelanggaran"/>');
+            }
+            else if (document.getElementById('pelanggaran10').checked) {
+                $('#lainnya').empty();
+                $('#lainnya').append('<input class="form-control" type="text" readonly/>');
             }
             else if (document.getElementById('pelanggaran8').checked) {
                 $('#lainnya').empty();

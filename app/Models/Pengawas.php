@@ -12,6 +12,7 @@ class Pengawas extends Model
     protected $primaryKey = 'id';
     protected $guarded = [];
     protected $fillable = [
+        'user_id',
         'nama',
         'nik',
         'pns',
@@ -54,5 +55,10 @@ class Pengawas extends Model
     public function Penugasan()
     {
         return $this->hasMany(Penugasan::class, 'pengawas_id', 'id');
+    }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

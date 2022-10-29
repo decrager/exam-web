@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\LogExport;
-use App\Exports\PengawasExport;
 use Carbon\Carbon;
 use App\Models\Bap;
 use App\Models\User;
@@ -13,20 +11,32 @@ use App\Models\Ujian;
 use App\Models\Amplop;
 use App\Models\Master;
 use App\Models\Matkul;
+use App\Models\Ruangan;
+use App\Models\Susulan;
 use App\Models\Pengawas;
 use App\Models\Semester;
+use App\Models\Kehadiran;
 use App\Models\Mahasiswa;
 use App\Models\Penugasan;
 use App\Models\Praktikum;
+use App\Exports\LogExport;
+use App\Models\Pelanggaran;
+use App\Exports\UjianExport;
 use Illuminate\Http\Request;
 use App\Models\LogActivities;
+use App\Exports\PengawasExport;
+use App\Imports\JadwalImport;
+use App\Imports\MahasiswaImport;
+use App\Imports\PengawasImport;
+use App\Models\Berkas;
 use Illuminate\Support\Facades\DB;
-use App\Exports\UjianExport;
-use App\Models\Ruangan;
+use App\Rules\MatchCurrentPassword;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class dataController extends Controller
 {
@@ -76,7 +86,7 @@ class dataController extends Controller
         ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
-        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->whereBetween('ujians.tanggal', [$from, $to])   
         ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         return view('user_data.ujian', [
@@ -820,8 +830,6 @@ class dataController extends Controller
             'tlp' => 'nullable'
         ]);
 
-        Pengawas::create($request->all());
-
         $pengguna = new User;
         $pengguna->name = $request->nama;
         $pengguna->email = $request->nik;
@@ -829,6 +837,21 @@ class dataController extends Controller
         $pengguna->lokasi = "-";
         $pengguna->password = '$2a$12$73YbJpbhMa8vVwroP8Ke0ODNYu1jjlALYK1xzrXFGVDbIYEk1KhZK';
         $pengguna->save();
+
+        $late = User::orderBy('id', 'DESC')->take(1)->get();
+        foreach ($late as $iduser) {
+            $latest = $iduser->id;
+        }
+
+        $pengawas = new Pengawas;
+        $pengawas->user_id = $latest;
+        $pengawas->nama = $request->nama;
+        $pengawas->nik = $request->nik;
+        $pengawas->pns = $request->pns;
+        $pengawas->bank = $request->bank;
+        $pengawas->norek = $request->norek;
+        $pengawas->tlp = $request->tlp;
+        $pengawas->save();
 
         $this->Activity(' menambahkan data pengawas ' . $request->nama);
         if (session('url')) {
@@ -841,6 +864,7 @@ class dataController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'email' => 'required',
             'nik' => 'required',
             'pns' => 'required',
             'bank' => 'nullable',
@@ -848,12 +872,20 @@ class dataController extends Controller
             'tlp' => 'nullable'
         ]);
 
-        Pengawas::find($id)->update($request->all());
-
-        $pengguna = User::where('email', 'nik');
-        $pengguna->update([
+        Pengawas::find($request->pengawas_id)->update([
+            'user_id' => $request->user_id,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'nik' => $request->nik,
+            'pns' => $request->pns,
+            'bank' => $request->bank,
+            'norek' => $request->norek,
+            'tlp' => $request->tlp
+        ]);
+    
+        User::find($request->user_id)->update([
             'name' => $request->nama,
-            'email' => $request->nik,
+            'email' => $request->email,
             'role' => "pengawas",
             'lokasi' => "-"
         ]);
@@ -953,5 +985,97 @@ class dataController extends Controller
         $this->Activity(' menghapus data lokasi ' . $lokasi->lokasi . ' dan ruangan ' . $lokasi->ruangan);
         $lokasi->delete();
         return redirect()->route('data.ruangan.index')->with('success', 'Berhasil menghapus data ruangan');
+    }
+
+    public function resetPeriod(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', new MatchCurrentPassword]
+        ]);
+
+        Kehadiran::truncate();
+        Pelanggaran::truncate();
+        Susulan::truncate();
+        Penugasan::truncate();
+
+        $dir1 = 'images/ttd';
+        $dir2 = 'files/kehadiran';
+        $dir3 = 'files/pdf';
+        $dir4 = 'files/syarat';
+        $dir5 = 'images/ttd/pengawas';
+
+        $file1 = Storage::allFiles($dir1);
+        $file2 = Storage::allFiles($dir2);
+        $file3 = Storage::allFiles($dir3);
+        $file4 = Storage::allFiles($dir4);
+        $file5 = Storage::allFiles($dir5);
+
+        Storage::delete($file1);
+        Storage::delete($file2);
+        Storage::delete($file3);
+        Storage::delete($file4);
+        Storage::delete($file5);
+
+        return back()->with('success', 'Semua data Kehadiran, Ketidakhadiran, Susulan, Penugasan berhasil dihapus');
+    }
+
+    public function resetMahasiswa(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', new MatchCurrentPassword]
+        ]);
+
+        Mahasiswa::truncate();
+        User::where('role', 'mahasiswa')->delete();
+        DB::statement('ALTER TABLE mahasiswas AUTO_INCREMENT = 1');
+        return back()->with('success', 'Semua data Mahasiswa berhasil dihapus');
+    }
+
+    public function importMahasiswa(Request $request)
+    {
+        Excel::import(new MahasiswaImport, $request->file);
+
+        return back()->with('success', 'Data Mahasiswa berhasil diimport');
+    }
+
+    public function resetPengawas(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', new MatchCurrentPassword]
+        ]);
+
+        Pengawas::truncate();
+        User::where('role', 'pengawas')->delete();
+        DB::statement('ALTER TABLE pengawas AUTO_INCREMENT = 1');
+        return back()->with('success', 'Semua data Pengawas berhasil dihapus');
+    }
+
+    public function importPengawas(Request $request)
+    {
+        Excel::import(new PengawasImport, $request->file);
+
+        return back()->with('success', 'Pengawas berhasil diimport');
+    }
+
+    public function resetJadwal(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', new MatchCurrentPassword]
+        ]);
+
+        Ujian::truncate();
+        Amplop::truncate();
+        Bap::truncate();
+        Berkas::truncate();
+        Matkul::truncate();
+
+        return back()->with('success', 'Jadwal Ujian berhasil direset');
+    }
+
+    public function importJadwal(Request $request)
+    {
+        Excel::import(new JadwalImport, $request->file);
+
+        return back()->with('success', 'Jadwal Ujian berhasil diimport');
     }
 }

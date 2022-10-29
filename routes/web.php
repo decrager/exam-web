@@ -40,8 +40,8 @@ use Illuminate\Support\Facades\Redirect;
 |
 */
 
-Route::get('/', [loginController::class, 'index'])->name('login');
-// Route::get('/', function() {return Redirect::intended('http://mindysvipb.my.id');});
+// Route::get('/', [loginController::class, 'index'])->name('login');
+Route::get('/', function() {return Redirect::intended('http://mindysvipb.my.id');});
 Route::post('/login', [loginController::class, 'authenticate']);
 Route::get('/presensi/{id}', [pjLokasiController::class, 'presence'])->name('presensi');
 Route::put('/presensi/update/{id}', [pjLokasiController::class, 'presenceUpdate'])->name('presensi.update');
@@ -167,6 +167,13 @@ Route::group(['middleware' => ['auth', 'cekrole:data']], function () {
 
     Route::get('/data/jadwal/export', [dataController::class, 'export'])->name('data.jadwal.export');
     Route::get('/data/aktivitas/export', [dataController::class, 'logExport'])->name('data.aktivitas.export');
+    Route::delete('/data/periodic_reset', [dataController::class, 'resetPeriod'])->name('data.resetPeriod');
+    Route::delete('/data/mahasiswa/reset', [dataController::class, 'resetMahasiswa'])->name('data.resetMahasiswa');
+    Route::delete('/data/pengawas/reset', [dataController::class, 'resetPengawas'])->name('data.resetPengawas');
+    Route::delete('/data/ujian/reset', [dataController::class, 'resetJadwal'])->name('data.resetJadwal');
+    Route::post('/data/mahasiswa/import', [dataController::class, 'importMahasiswa'])->name('data.importMahasiswa');
+    Route::post('/data/pengawas/import', [dataController::class, 'importPengawas'])->name('data.importPengawas');
+    Route::post('/data/ujian/import', [dataController::class, 'importJadwal'])->name('data.importJadwal');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
@@ -189,6 +196,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::get('/pj_ujian/susulan/susulan', [pjUjianController::class, 'susulanIndex'])->name('pjUjian.susulan.susulan.index');
     Route::get('/pj_ujian/susulan/susulan/edit/{id}', [pjUjianController::class, 'susulanEdit'])->name('pjUjian.susulan.susulan.edit');
     Route::get('/pj_ujian/aktivitas', [pjUjianController::class, 'logActivities'])->name('pjUjian.activity');
+    Route::get('/pj_ujian/kehadiran', [pjUjianController::class, 'kehadiran'])->name('pjUjian.kehadiran');
 
     Route::put('/pj_ujian/susulan/update/{id}', [pjUjianController::class, 'susulanUpdate'])->name('pjUjian.susulan.update');
     Route::post('/pj_ujian/pengawas/penugasan/create', [pjUjianController::class, 'penugasanCreate'])->name('pjUjian.pengawas.penugasan.create');
@@ -339,6 +347,8 @@ Route::group(['middleware' => ['auth', 'cekrole:mahasiswa']], function () {
     Route::get('/mahasiswa/susulan/pengajuan', [mahasiswaController::class, 'pengajuanIndex'])->name('mahasiswa.susulan.pengajuan.index');
     Route::get('/mahasiswa/susulan/pengajuan/tambah', [mahasiswaController::class, 'pengajuanForm'])->name('mahasiswa.susulan.pengajuan.form');
     Route::get('/mahasiswa/susulan/pengajuan/edit/{id}', [mahasiswaController::class, 'pengajuanEdit'])->name('mahasiswa.susulan.pengajuan.edit');
+    Route::get('/mahasiswa/profil', [mahasiswaController::class, 'profile'])->name('mahasiswa.profile');
+    Route::put('/mahasiswa/profil/update', [mahasiswaController::class, 'profileUpdate'])->name('mahasiswa.profile.update');
     
     Route::post('/mahasiswa/susulan/create', [mahasiswaController::class, 'pengajuanCreate'])->name('mahasiswa.susulan.create');
     Route::put('/mahasiswa/susulan/update/{id}', [mahasiswaController::class, 'pengajuanUpdate'])->name('mahasiswa.susulan.update');
@@ -356,6 +366,8 @@ Route::group(['middleware' => ['auth', 'cekrole:superadmin']], function () {
 
 Route::group(['middleware' => ['auth', 'cekrole:pengawas']], function () {
     Route::get('/pengawas', [pengawasController::class, 'dashboard'])->name('pengawasDashboard');
+    Route::get('/pengawas/profil', [pengawasController::class, 'profile'])->name('pengawas.profile');
+    Route::put('/pengawas/profil/update', [pengawasController::class, 'profileUpdate'])->name('pengawas.profile.update');
     Route::get('/pengawas/absensi/index', [pengawasController::class, 'absensiIndex'])->name('pengawas.absensi.index');
     Route::get('/pengawas/absensi/form/{id}', [pengawasController::class, 'absensiForm'])->name('pengawas.absensi.form');
     Route::post('/pengawas/absensi/create', [pengawasController::class, 'absensiCreate'])->name('pengawas.absensi.create');

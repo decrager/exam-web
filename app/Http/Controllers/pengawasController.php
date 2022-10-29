@@ -10,6 +10,11 @@ use App\Models\Kehadiran;
 use App\Models\Mahasiswa;
 use App\Models\Master;
 use App\Models\Pelanggaran;
+use App\Models\Pengawas;
+use App\Models\Penugasan;
+use App\Models\Susulan;
+use App\Models\User;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +51,7 @@ class pengawasController extends Controller
 
     public function absensiIndex()
     {
-        $nik = Auth::user()->email;
+        $user_id = Auth::user()->id;
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
         ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
@@ -57,7 +62,7 @@ class pengawasController extends Controller
         ->join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
         ->join('baps', 'ujians.id', 'baps.ujian_id')
         ->select('pengawas.*', 'penugasans.*', 'prodis.*', 'b.*', 'kelas.*', 'praktikums.*', 'matkuls.*', 'baps.kehadiran', 'ujians.*')
-        ->where('pengawas.nik', $nik)
+        ->where('pengawas.user_id', $user_id)
         ->orderBy('ujians.tanggal', 'ASC')
         ->get();
         
@@ -80,8 +85,9 @@ class pengawasController extends Controller
         ->join('ujians', 'praktikums.id', 'ujians.prak_id')
         ->join('kehadirans', 'mahasiswas.id', 'kehadirans.mhs_id')
         ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id','kehadirans.kehadiran')
-        ->where('ujians.id', $id)
+        ->where('kehadirans.ujian_id', $id)
         ->orderBy('mahasiswas.nim', 'ASC')
+        ->distinct()
         ->get();
 
         if (count($kehadiran) >= 1) {
@@ -102,19 +108,10 @@ class pengawasController extends Controller
     public function absensiCreate(Request $request)
     {
         for ($i = 0; $i < count($request->mhs_id); $i++) {
-            $mhs_id = array();
-            $kehadiran = array();
-            $mhs_id[$i] = $request->mhs_id[$i];
-            $kehadiran[$i] = $request->kehadiran[$i];
-            
-            $absensi = Kehadiran::where('mhs_id', $mhs_id[$i])
-            ->where('ujian_id', $request->ujian_id)
-            ->get();
-
             $absen = new Kehadiran;
-            $absen->mhs_id = $mhs_id[$i];
+            $absen->mhs_id = $request->mhs_id[$i];
             $absen->ujian_id = $request->ujian_id;
-            $absen->kehadiran = $kehadiran[$i];
+            $absen->kehadiran = $request->kehadiran[$i];
             $absen->save();
         }
 
@@ -124,15 +121,10 @@ class pengawasController extends Controller
     public function absensiUpdate(Request $request)
     {
         for ($i = 0; $i < count($request->mhs_id); $i++) {
-            $mhs_id = array();
-            $kehadiran = array();
-            $mhs_id[$i] = $request->mhs_id[$i];
-            $kehadiran[$i] = $request->kehadiran[$i];
-
-            Kehadiran::where('mhs_id', $mhs_id[$i])
+            Kehadiran::where('mhs_id', $request->mhs_id[$i])
             ->where('ujian_id', $request->ujian_id)
             ->update([
-                'kehadiran' => $kehadiran[$i]
+                'kehadiran' => $request->kehadiran[$i]
             ]);
         }
 
@@ -210,7 +202,7 @@ class pengawasController extends Controller
         Storage::put('files/kehadiran/' . $pdfName, $pdf->output());
         DB::commit();
 
-        $nik = Auth::user()->email;
+        $user_id = Auth::user()->id;
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', 'matkuls.id')
         ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
         ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
@@ -221,11 +213,49 @@ class pengawasController extends Controller
         ->join('pengawas', 'penugasans.pengawas_id', 'pengawas.id')
         ->join('baps', 'ujians.id', 'baps.ujian_id')
         ->select('pengawas.*', 'penugasans.*', 'prodis.*', 'b.*', 'kelas.*', 'praktikums.*', 'matkuls.*', 'baps.kehadiran', 'ujians.*')
-        ->where('pengawas.nik', $nik)
+        ->where('pengawas.user_id', $user_id)
         ->orderBy('ujians.tanggal', 'ASC')
         ->get();
 
         return view('pengawas.absensi.index', ["jadwal" => $ujian])->with('success', 'Kehadiran Mahasiswa berhasil ditandatangani');
+    }
+
+    public function profile()
+    {
+        $user_id = Auth::user()->id;
+        return view('pengawas.profile', [
+            'profil' => User::find($user_id)
+        ]);
+    }
+    
+    public function profileUpdate(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'nik' => 'required',
+            'email' => 'required',
+            'pns' => 'required',
+            'bank' => 'required',
+            'norek' => 'required',
+            'tlp' => 'required',
+        ]);
+
+        Pengawas::find($request->pengawas_id)->update([
+            'user_id' => $request->user_id,
+            'nama' => $request->nama,
+            'nik' => $request->nik,
+            'pns' => $request->pns,
+            'norek' => $request->norek,
+            'bank' => $request->bank,
+            'tlp' => $request->tlp,
+        ]);
+
+        User::find($request->user_id)->update([
+            'name' => $request->nama,
+            'email' => $request->email,
+        ]);
+
+        return back()->with('success', 'Profil Pengawas berhasil diperbarui');
     }
 
     public function pelanggaranIndex()

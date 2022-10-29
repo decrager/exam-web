@@ -43,7 +43,6 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                @foreach ($pengajuan as $pengajuan)
                                 <form action="{{ route('mahasiswa.susulan.update', $pengajuan?->id) }}" method="POST" enctype="multipart/form-data">
                                     <h4 class="header-title">Masukkan Pengajuan</h4>
                                     @csrf
@@ -109,7 +108,6 @@
 
                                     <button class="btn btn-primary">Simpan</button>
                                 </form>
-                                @endforeach
                             </div>
                         </div>
                     </div>

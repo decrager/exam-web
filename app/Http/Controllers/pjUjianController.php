@@ -27,6 +27,7 @@ use App\Exports\ListPengawasExport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\KetidakhadiranExport;
+use App\Models\Kehadiran;
 use Illuminate\Support\Facades\Redis;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Storage;
@@ -264,13 +265,15 @@ class pjUjianController extends Controller
     public function pengawasEdit($id)
     {
         $penugasan = Penugasan::find($id);
+        $ujian = Ujian::find($penugasan->ujian_id);
         $selected = Pengawas::find($penugasan->pengawas_id);
         $pengawas = Pengawas::all();
 
         return view('pj_ujian.pengawas.edit', [
             "penugasan" => $penugasan,
             "pengawas" => $pengawas,
-            "selected" => $selected
+            "selected" => $selected,
+            "ujian" => $ujian
         ]);
     }
 
@@ -842,5 +845,38 @@ class pjUjianController extends Controller
             return redirect(session('url'))->with('success', 'Berkas Serah Terima berhasil dihapus!');
         }
         return redirect()->route('pjUjian.kelengkapan.berkas.index')->with('success', 'Berkas Serah Terima berhasil dihapus!');
+    }
+
+    public function kehadiran()
+    {
+        $ujian = Kehadiran::join('mahasiswas', 'kehadirans.mhs_id', 'mahasiswas.id')
+        ->join('ujians', 'kehadirans.ujian_id', 'ujians.id')
+        ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->join('baps', 'ujians.id', 'baps.ujian_id')
+        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters', 'kelas.semester_id', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id')
+        ->groupBy('ujians.tanggal', 'prodis.nama_prodi','semesters.semester', 'kelas.kelas', 'praktikums.praktikum', 'matkuls.nama_matkul', 'baps.kehadiran')
+        ->selectRaw('ujians.tanggal, prodis.nama_prodi, semesters.semester, kelas.kelas, praktikums.praktikum, matkuls.nama_matkul, baps.kehadiran, count(mahasiswas.nim) AS total')
+        ->where('kehadirans.kehadiran', 'Hadir')
+        ->get();
+
+        $absen = Kehadiran::join('mahasiswas', 'kehadirans.mhs_id', 'mahasiswas.id')
+        ->join('ujians', 'kehadirans.ujian_id', 'ujians.id')
+        ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters', 'kelas.semester_id', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id')
+        ->groupBy('ujians.tanggal', 'prodis.nama_prodi','semesters.semester', 'kelas.kelas', 'praktikums.praktikum', 'matkuls.nama_matkul')
+        ->selectRaw('ujians.tanggal, prodis.nama_prodi, semesters.semester, kelas.kelas, praktikums.praktikum, matkuls.nama_matkul, count(mahasiswas.nim) AS total')
+        ->where('kehadirans.kehadiran', 'Tidak Hadir')
+        ->get();
+
+        return view('pj_ujian.kehadiran', [
+            'kehadiran' => $ujian,
+            'absen' => $absen
+        ]);
     }
 }

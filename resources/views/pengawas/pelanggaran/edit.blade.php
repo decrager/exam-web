@@ -89,6 +89,12 @@
                                                 Izin
                                             </label>
                                         </div>
+                                        <div class="form-check" id="btn">
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Tanpa Keterangan" id="pelanggaran10" @if ($pelanggarans->pelanggaran == 'Tanpa Keterangan') checked @endif>
+                                            <label class="form-check-label" for="pelanggaran10">
+                                                Tanpa Keterangan
+                                            </label>
+                                        </div>
                                         <label class="col-form-label">Pelanggaran</label>
                                         <div class="form-check" id="btn">
                                             <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Terlambat" id="pelanggaran3" @if ($pelanggarans->pelanggaran == 'Terlambat') checked @endif>
@@ -126,7 +132,7 @@
                                                 Mencontek
                                             </label>
                                         </div>
-                                        @if ($pelanggarans->pelanggaran != 'Mencontek' && $pelanggarans->pelanggaran != 'Rambut Panjang' && $pelanggarans->pelanggaran != 'Tidak memakai seragam Program Studi (Kamis)' && $pelanggarans->pelanggaran != 'Pakaian tidak sesuai SOP' && $pelanggarans->pelanggaran != 'Tidak Membawa KTM' && $pelanggarans->pelanggaran != 'Terlambat' && $pelanggarans->pelanggaran != 'Izin' && $pelanggarans->pelanggaran != 'Sakit')
+                                        @if ($pelanggarans->pelanggaran != 'Mencontek' && $pelanggarans->pelanggaran != 'Rambut Panjang' && $pelanggarans->pelanggaran != 'Tidak memakai seragam Program Studi (Kamis)' && $pelanggarans->pelanggaran != 'Pakaian tidak sesuai SOP' && $pelanggarans->pelanggaran != 'Tidak Membawa KTM' && $pelanggarans->pelanggaran != 'Terlambat' && $pelanggarans->pelanggaran != 'Izin' && $pelanggarans->pelanggaran != 'Sakit' && $pelanggarans->pelanggaran != 'Tanpa Keterangan')
                                         <div class="form-check" id="btn">
                                             <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="" id="pelanggaran9" checked>
                                             <label class="form-check-label" for="pelanggaran9">
@@ -201,6 +207,10 @@
             if(document.getElementById('pelanggaran9').checked) {
                 $('#lainnya').empty();
                 $('#lainnya').append('<input class="form-control" type="text" placeholder="Ketik..." name="pelanggaran"/>');
+            }
+            else if (document.getElementById('pelanggaran10').checked) {
+                $('#lainnya').empty();
+                $('#lainnya').append('<input class="form-control" type="text" readonly/>');
             }
             else if (document.getElementById('pelanggaran8').checked) {
                 $('#lainnya').empty();

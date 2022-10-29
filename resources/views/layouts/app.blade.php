@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" />
 
     <link type="text/css" href="{{ asset('jquery-ui/jquery-ui.css') }}" rel="stylesheet">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('jquery-ui/jquery-ui.min.js') }}"></script>
 
     <style>

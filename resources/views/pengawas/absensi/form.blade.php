@@ -42,25 +42,21 @@
                     <div class="card-body">
                         <h4 class="header-title">Detail Ujian</h4>
                         <div class="row">
-                            <div class="col-2" style="font-size: 16px">
-                                Tanggal <br>
-                                Program Studi <br>
-                                Semester <br>
-                                Mata Kuliah <br>
-                                Kode Mata Kuliah <br>
-                                Kelas / Praktikum <br>
-                                Ruang <br>
-                                Jam <br>
-                            </div>
-                            <div class="col-3" style="font-size: 16px">
-                                : &nbsp; {{ $ujian?->tanggal }}<br>
-                                : &nbsp; {{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}<br>
-                                : &nbsp; {{ $ujian?->Matkul?->Semester?->semester }}<br>
-                                : &nbsp; {{ $ujian?->Matkul?->nama_matkul }}<br>
-                                : &nbsp; {{ $ujian?->Matkul?->kode_matkul }}<br>
-                                : &nbsp; {{ $ujian?->Praktikum?->Kelas?->kelas }} / {{ $ujian?->Praktikum?->praktikum }}<br>
-                                : &nbsp; {{ $ujian?->ruang }}<br>
-                                : &nbsp; {{ $ujian?->jam_mulai }} - {{ $ujian?->jam_selesai }}<br>
+                            <div class="text-center">
+                                <p><b>Tanggal</b></p>
+                                <p>{{ $ujian?->tanggal }}</p>
+                                <p><b>Program Studi</b></p>
+                                <p>{{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }}</p>
+                                <p><b>Semester</b></p>
+                                <p>{{ $ujian?->Matkul?->Semester?->semester }}</p>
+                                <p><b>Mata Kuliah</b></p>
+                                <p>{{ $ujian?->Matkul?->nama_matkul }}<br>{{ $ujian?->Matkul?->kode_matkul }}</p>
+                                <p><b>Kelas / Praktikum</b></p>
+                                <p>{{ $ujian?->Praktikum?->Kelas?->kelas }} / {{ $ujian?->Praktikum?->praktikum }}</p>
+                                <p><b>Ruang</b></p>
+                                <p>{{ $ujian?->ruang }}</p>
+                                <p><b>Jam</b></p>
+                                <p>{{ $ujian?->jam_mulai }} - {{ $ujian?->jam_selesai }}</p>
                             </div>
                         </div>
                     </div>
@@ -74,9 +70,9 @@
                             </div>
                         @endif --}}
                         <h4 class="header-title">Kehadiran</h4>
-                        <a href="{{ route('pjLokasi.pengawas.absensi.export') }}" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
+                        {{-- <a href="{{ route('pjLokasi.pengawas.absensi.export') }}" class="btn btn-danger text-sm px-3 py-2 mb-3 float-right">
                              <i class="fas fa-file-pdf">&nbsp; Export</i>
-                        </a>
+                        </a> --}}
 
                         <!-- <i class="fa fa-check text-danger"></i> -->
 
@@ -120,11 +116,11 @@
                                 </table>
 
                                 <input type="text" hidden value="{{ $ujian?->id }}" name="ujian_id">
-                                @if ($ujian->tanggal == $now)
+                                {{-- @if ($ujian->tanggal == $now) --}}
                                     <button type="submit" class="btn btn-primary">Simpan</button>
-                                @else
+                                {{-- @else
                                     <button type="submit" class="btn btn-primary" disabled>Simpan</button>
-                                @endif
+                                @endif --}}
                             </form>
                         </div>
                     </div>

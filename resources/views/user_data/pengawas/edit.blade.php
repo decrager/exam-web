@@ -53,6 +53,11 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="nama" class="col-form-label">Email/Username (Digunakan untuk login)<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <input class="form-control" type="text" placeholder="Ketik..." name="email" required id="email" value="{{ $pengawas?->User->email }}"/>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label class="col-form-label">Status Kepegawaian <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <select class="custom-select" name="pns" id="pns" required>
                                             <option value="">Pilih</option>
@@ -88,6 +93,8 @@
                                         <input class="form-control" type="text" placeholder="Ketik..." name="tlp" id="tlp" value="{{ $pengawas?->tlp }}"/>
                                     </div>
 
+                                    <input type="text" name="user_id" value="{{ $pengawas?->user_id }}" hidden>
+                                    <input type="text" name="pengawas_id" value="{{ $pengawas?->id }}" hidden>
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>

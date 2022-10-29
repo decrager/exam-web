@@ -9,6 +9,9 @@ use App\Models\Matkul;
 use App\Models\Master;
 use App\Models\Susulan;
 use App\Models\Ketentuan;
+use App\Models\Pelanggaran;
+use App\Models\Praktikum;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -91,11 +94,39 @@ class mahasiswaController extends Controller
             ->join('prodis', 'semesters.prodi_id', 'prodis.id')
             ->select('matkuls.id', 'matkuls.nama_matkul')
             ->where('semesters.id', $smt)
-            ->where('prodis.id', $prodi)
-            ->get();
+            ->where('prodis.id', $prodi);
+        
+        $mhs_id = Auth::user()->Mahasiswa->id;
+        
+        $pelanggaran = Pelanggaran::join('ujians', 'pelanggarans.ujian_id', 'ujians.id')
+        ->where('mhs_id', $mhs_id)
+        ->where('pelanggaran', '!=', 'Sakit')
+        ->where('pelanggaran', '!=', 'Izin')
+        ->select('matkul_id')
+        ->get();
+
+        $tertolak = Susulan::where('mhs_id', $mhs_id)
+        ->where('status', 'Ditolak')
+        ->select('matkul_id')
+        ->get();
+
+        $count1 = count($pelanggaran);
+        $count2 = count($tertolak);
+        
+        if ($count1 >= 1) {
+            for ($i = 0; $i < $count1; $i++) {
+                $matkul->where('matkuls.id', '!=', $pelanggaran[$i]->matkul_id);
+            }
+        }
+
+        if ($count2 >= 1) {
+            for ($j = 0; $j < $count2; $j++) {
+                $matkul->where('matkuls.id', '!=', $tertolak[$j]->matkul_id);
+            }
+        }
 
         return view('mahasiswa.pengajuan.form', [
-            "matkul" => $matkul
+            "matkul" => $matkul->get()
         ]);
     }
 
@@ -183,18 +214,100 @@ class mahasiswaController extends Controller
             ->join('prodis', 'semesters.prodi_id', 'prodis.id')
             ->select('matkuls.id', 'matkuls.nama_matkul')
             ->where('semesters.id', $smt)
-            ->where('prodis.id', $prodi)
-            ->get();
-
-        $pengajuan = Susulan::join('mahasiswas', 'susulans.mhs_id', 'mahasiswas.id')
-        ->join('matkuls', 'susulans.matkul_id', 'matkuls.id')
-        ->select('susulans.id', 'matkuls.nama_matkul', 'susulans.tipe_mk', 'susulans.file', 'susulans.status', 'susulans.matkul_id')
-        ->find($id)
+            ->where('prodis.id', $prodi);
+        
+        $mhs_id = Auth::user()->Mahasiswa->id;
+        
+        $pelanggaran = Pelanggaran::join('ujians', 'pelanggarans.ujian_id', 'ujians.id')
+        ->where('mhs_id', $mhs_id)
+        ->where('pelanggaran', '!=', 'Sakit')
+        ->where('pelanggaran', '!=', 'Izin')
+        ->where('pelanggaran', '!=', 'Tanpa Keterangan')
+        ->select('matkul_id')
         ->get();
+
+        $tertolak = Susulan::where('mhs_id', $mhs_id)
+        ->where('status', 'Ditolak')
+        ->select('matkul_id')
+        ->get();
+
+        $count1 = count($pelanggaran);
+        $count2 = count($tertolak);
+        
+        if ($count1 >= 1) {
+            for ($i = 0; $i < $count1; $i++) {
+                $matkul->where('matkuls.id', '!=', $pelanggaran[$i]->matkul_id);
+            }
+        }
+
+        if ($count2 >= 1) {
+            for ($j = 0; $j < $count2; $j++) {
+                $matkul->where('matkuls.id', '!=', $tertolak[$j]->matkul_id);
+            }
+        }
+
+        $pengajuan = Susulan::find($id);
 
         return view('mahasiswa.pengajuan.edit', [
             "pengajuan" => $pengajuan,
-            "matkul" => $matkul
+            "matkul" => $matkul->get()
         ]);
+    }
+
+    public function profile()
+    {
+        $user_id = Auth::user()->id;
+
+        $profile = User::join('mahasiswas', 'users.id', 'mahasiswas.user_id')
+        ->join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters', 'kelas.semester_id', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id')
+        ->select('prodis.*', 'semesters.*', 'kelas.*', 'praktikums.*', 'users.*', 'mahasiswas.*')
+        ->where('mahasiswas.user_id', $user_id)
+        ->first();
+
+        return view('mahasiswa.profile', [
+            'profil' => $profile
+        ]);
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $request->validate([
+            'prodi' => 'required',
+            'semester' => 'required',
+            'kelas' => 'required',
+            'praktikum' => 'required',
+            'nama' => 'required',
+            'email' => 'required',
+            'nim' => 'required'
+        ]);
+        
+        $user_id = Auth::user()->id;
+
+        $prak_id = Praktikum::join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters', 'kelas.semester_id', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id')
+        ->select('praktikums.id')
+        ->where('prodis.nama_prodi', $request->prodi)
+        ->where('semesters.semester', $request->semester)
+        ->where('kelas.kelas', $request->kelas)
+        ->where('praktikums.praktikum', $request->praktikum)
+        ->first();
+
+        User::find($user_id)->update([
+            'name' => $request->nama,
+            'email' => $request->email
+        ]);
+
+        Mahasiswa::find($request->mhs_id)->update([
+            'nama' => $request->nama,
+            'nim' => $request->nim,
+            'email' => $request->email,
+            'prak_id' => $prak_id->id
+        ]);
+
+        return back()->with('success', 'Profil Mahasiswa berhasil diperbarui');
     }
 }

@@ -8,16 +8,16 @@
     
     <style type="text/css">
         @font-face {
-            font-family: Arial;
+            font-family: 'Arial';
             src: url({{ asset('fonts/Arial.ttf') }});
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         .garis_tepi1 {
              border: 2px solid black;
-        }
-        
-        body {
-            font-family: Arial !important;
         }
     </style>
 </head>
@@ -30,7 +30,7 @@
 <table border="0" align="center">
     <tr>
     <td><img src="{{ public_path('images/icon/IPB.png') }}" width="80px"> </td>
-    <td style="font-family: Arial;"><center>
+    <td><center>
         <font size="3">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET DAN TEKNOLOGI</font><BR>
         <font size="3">INSTITUT PERTANIAN BOGOR</font><BR>
         <font size="3"><b>SEKOLAH VOKASI</b></font><BR>

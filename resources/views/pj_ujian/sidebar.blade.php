@@ -57,6 +57,11 @@
                         </ul>
                     </li>
 
+                    <li class="{{ Request::routeIs('pjUjian.kehadiran') ? 'active' : '' }} m-1">
+                        <a href="{{ route('pjUjian.kehadiran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Kehadiran</span></a>
+                    </li>
+
                     <li class="{{ Request::routeIs('pjUjian.pelanggaran') ? 'active' : '' }} m-1">
                         <a href="{{ route('pjUjian.pelanggaran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Ketidakhadiran</span></a>

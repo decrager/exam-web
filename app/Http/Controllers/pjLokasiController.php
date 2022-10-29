@@ -111,13 +111,15 @@ class pjLokasiController extends Controller
     public function pengawasEdit($id)
     {
         $penugasan = Penugasan::find($id);
+        $ujian = Ujian::find($penugasan->ujian_id);
         $selected = Pengawas::find($penugasan->pengawas_id);
         $pengawas = Pengawas::all();
 
         return view('pj_lokasi.pengawas.edit', [
             "penugasan" => $penugasan,
             "pengawas" => $pengawas,
-            "selected" => $selected
+            "selected" => $selected,
+            "ujian" => $ujian
         ]);
     }
 
@@ -194,7 +196,7 @@ class pjLokasiController extends Controller
     public function absensiForm($id)
     {
         $pengawas = Penugasan::find($id);
-        $qrcode =  QrCode::size(500)->generate('http://mindysvipb.xyz/presensi/' . $pengawas->id);
+        $qrcode =  QrCode::size(500)->generate('https://mindysvipb.my.id/presensi/' . $pengawas->id);
         return view('pj_lokasi.absensi.form', [
             "pengawas" => $pengawas,
             "qrCode" => $qrcode

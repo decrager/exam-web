@@ -155,7 +155,7 @@ class pjSusulanController extends Controller
             ];
 
             $pdf = PDF::loadView('layouts.persetujuan', $data);
-            $pdfName = $mahasiswa->nama . '_persetujuan_susulan.pdf';
+            $pdfName = $mahasiswa->nama . $susulan->Matkul->nama_matkul . '_persetujuan_susulan.pdf';
             $susulan->update([
                 'status' => $request->status,
                 'persetujuan' => $pdfName,
@@ -167,7 +167,7 @@ class pjSusulanController extends Controller
             $this->Activity(' menyetujui pengajuan susulan untuk ' . $mahasiswa->nama);
             return redirect()->route('pjSusulan.mahasiswa.index')->with('success', $message);
         } else {
-            $pdfName = $mahasiswa->nama . '_persetujuan_susulan.pdf';
+            $pdfName = $mahasiswa->nama . $susulan->Matkul->nama_matkul . '_persetujuan_susulan.pdf';
             $destination = 'files/pdf/' . $pdfName;
             if ($destination) {
                 Storage::delete($destination);

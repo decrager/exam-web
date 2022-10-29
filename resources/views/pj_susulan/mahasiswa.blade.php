@@ -61,7 +61,7 @@
                                         <th>Nama</th>
                                         <th>NIM</th>
                                         <th>Status</th>
-                                        <th>Bukti</th>
+                                        <th>File</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>

@@ -57,7 +57,7 @@
                                         <th>Kode Program Studi</th>
                                         <th>Nama Program Studi</th>
                                         <th>Semester</th>
-                                        <th>Kode Mata Kuliah</th>
+                                        <th>Kode MK</th>
                                         <th>Mata Kuliah</th>
                                         <th>SKS</th>
                                         <th>SKS Kuliah</th>
@@ -72,8 +72,8 @@
                                         <td>{{ $matkul?->Semester?->Prodi?->kode_prodi }}</td>
                                         <td>{{ $matkul?->Semester?->Prodi?->nama_prodi }}</td>
                                         <td>{{ $matkul?->Semester?->semester }}</td>
-                                        <td>{{ $matkul?->nama_matkul }}</td>
                                         <td>{{ $matkul?->kode_matkul }}</td>
+                                        <td>{{ $matkul?->nama_matkul }}</td>
                                         <td>{{ $matkul?->sks }}</td>
                                         <td>{{ $matkul?->sks_kul }}</td>
                                         <td>{{ $matkul?->sks_prak }}</td>

@@ -44,6 +44,11 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger" role="alert">
+                            {{ $error }}
+                        </div>
+                    @endforeach
                     <h4 class="header-title">Periode Ujian</h4>
                     <a href="{{ Route('data.periode.edit', $master?->id) }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">
                         Perbarui Data
@@ -97,11 +102,46 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <button type="button" class="btn btn-danger float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Reset Data Periodik
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- data table end -->
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('data.resetPeriod') }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Data Periodik</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p style="font-size: 16px;"><b>Data Periodik yang akan direset mencakup:</b></p>
+                    <ul>
+                        <li>- Data Kehadiran Mahasiswa</li>
+                        <li>- Data Ketidahhadiran Mahasiswa</li>
+                        <li>- Data Susulan</li>
+                        <li>- Data Penugasan</li>
+                    </ul>
+                    <div class="form-group">
+                        <label for="password" class="col-form-label" style="font-size: 16px;"><b>Password</b></label>
+                        <input class="form-control" type="password" placeholder="Ketik password" id="password" name="password" required/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @endsection

@@ -80,6 +80,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="matkul" class="col-form-label">Alasan</label>
+                                    <input class="form-control" id="matkul" value="@if ($mahasiswa?->alasan) {{ $mahasiswa?->alasan }} @else - @endif" readonly/>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="matkul" class="col-form-label">Status</label>
                                     @if ($mahasiswa?->status == 'Belum')
                                         <h5><span class="badge bg-warning">Belum disetujui</span></h5>

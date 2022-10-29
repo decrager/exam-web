@@ -88,8 +88,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label">Email <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="email" placeholder="Ketik email..." name="email" required
+                                        <label for="email" class="col-form-label">Email/Username (Digunakan untuk login)<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <input class="form-control" type="text" placeholder="Ketik email..." name="email" required
                                             id="email" />
                                     </div>
 
