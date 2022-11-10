@@ -52,8 +52,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label">Email <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="email" placeholder="Ketik email..." value="{{ $pengguna?->email }}" name="email"
+                                        <label for="email" class="col-form-label">Email/Username <b>(Yang digunakan untuk Login) <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <input class="form-control" type="text" placeholder="Ketik email..." value="{{ $pengguna?->email }}" name="email"
                                             id="email" required/>
                                     </div>
 
@@ -81,6 +81,8 @@
                                             <option selected="selected" value="{{ $pengguna?->role }}">PJ Online</option>
                                             @elseif ($pengguna?->role == 'pj_labkom')
                                             <option selected="selected" value="{{ $pengguna?->role }}">PJ Lab Komputer</option>
+                                            @elseif ($pengguna?->role == 'kmk')
+                                            <option selected="selected" value="{{ $pengguna?->role }}">Koordinator Mata Kuliah</option>
                                             @endif
                                             <option value="assisten">Assisten Lokasi</option>
                                             <option value="berkas">Berkas</option>
@@ -92,6 +94,7 @@
                                             <option value="prodi">Program Studi</option>
                                             <option value="supervisor">Supervisor (Komdik/Pembina)</option>
                                             <option value="pj_labkom">PJ Lab Komputer</option>
+                                            <option value="kmk">Koordinator Mata Kuliah</option>
                                         </select>
                                     </div>
 

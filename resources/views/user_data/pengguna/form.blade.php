@@ -52,8 +52,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label">Email <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
-                                        <input class="form-control" type="email" placeholder="Ketik email..." name="email"
+                                        <label for="email" class="col-form-label">Email/Username <b>(Yang digunakan untuk Login) <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <input class="form-control" type="text" placeholder="Ketik email..." name="email"
                                             id="email" required/>
                                     </div>
 
@@ -73,6 +73,7 @@
                                             <option value="prodi">Program Studi</option>
                                             <option value="pj_labkom">PJ Lab Komputer</option>
                                             <option value="supervisor">Supervisor (Komdik/Pembina)</option>
+                                            <option value="kmk">Koordinator Mata Kuliah</option>
                                         </select>
                                     </div>
 

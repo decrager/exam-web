@@ -16,6 +16,7 @@ use App\Http\Controllers\prodiController;
 use App\Http\Controllers\berkasController;
 use App\Http\Controllers\pjUjianController;
 use App\Http\Controllers\assistenController;
+use App\Http\Controllers\kmkController;
 use App\Http\Controllers\pjLabkomController;
 use App\Http\Controllers\pjLokasiController;
 use App\Http\Controllers\pjOnlineController;
@@ -381,4 +382,10 @@ Route::group(['middleware' => ['auth', 'cekrole:pengawas']], function () {
     Route::post('/pengawas/ketidakhadiran/create', [pengawasController::class, 'pelanggaranCreate'])->name('pengawas.ketidakhadiran.create');
     Route::put('/pengawas/ketidakhadiran/update/{pelanggaran}', [pengawasController::class, 'pelanggaranUpdate'])->name('pengawas.ketidakhadiran.update');
     Route::delete('/pengawas/ketidakhadiran/delete/{pelanggaran}', [pengawasController::class, 'pelanggaranDestroy'])->name('pengawas.ketidakhadiran.destroy');
+});
+
+Route::group(['middleware' => ['auth', 'cekrole:kmk']], function () {
+    Route::get('/kmk', [kmkController::class, 'dashboard'])->name('kmkDashboard');
+    Route::get('/kmk/kehadiran', [kmkController::class, 'kehadiran'])->name('kmk.kehadiran');
+    Route::get('/kmk/ketidakhadiran', [kmkController::class, 'ketidakhadiran'])->name('kmk.ketidakhadiran');
 });

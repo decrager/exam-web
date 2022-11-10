@@ -89,6 +89,8 @@
                                                     PJ Lab Kom
                                                 @elseif ($pengguna?->role == 'pengawas')
                                                     Pengawas
+                                                @elseif ($pengguna?->role == 'kmk')
+                                                    Koordinator Mata Kuliah
                                                 @endif
                                             </td>
                                             <td>{{ $pengguna?->lokasi }}</td>

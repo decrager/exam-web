@@ -145,12 +145,21 @@ class pengawasController extends Controller
         DB::beginTransaction();
 
         $ujian = Ujian::find($request->ujian_id);
+        // $kehadiran = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
+        // ->join('ujians', 'praktikums.id', 'ujians.prak_id')
+        // ->join('kehadirans', 'mahasiswas.id', 'kehadirans.mhs_id')
+        // ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id','kehadirans.kehadiran')
+        // ->where('ujians.id', $request->ujian_id)
+        // ->orderBy('mahasiswas.nim', 'ASC')
+        // ->get();
+
         $kehadiran = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
         ->join('ujians', 'praktikums.id', 'ujians.prak_id')
         ->join('kehadirans', 'mahasiswas.id', 'kehadirans.mhs_id')
         ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id','kehadirans.kehadiran')
-        ->where('ujians.id', $request->ujian_id)
+        ->where('kehadirans.ujian_id', $ujian->id)
         ->orderBy('mahasiswas.nim', 'ASC')
+        ->distinct()
         ->get();
 
         $destination1 = 'images/ttd/ttd_pengawas1.png';

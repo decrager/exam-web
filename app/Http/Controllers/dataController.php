@@ -997,6 +997,7 @@ class dataController extends Controller
         Pelanggaran::truncate();
         Susulan::truncate();
         Penugasan::truncate();
+        LogActivities::truncate();
 
         $dir1 = 'images/ttd';
         $dir2 = 'files/kehadiran';

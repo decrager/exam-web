@@ -28,6 +28,8 @@
                 <?php $role = 'Mahasiswa' ?>
             @elseif (auth()->user()->role == 'pengawas')
                 <?php $role = 'Pengawas' ?>
+            @elseif (auth()->user()->role == 'kmk')
+                <?php $role = 'Koordinator Mata Kuliah' ?>
             @endif
 
             @if (auth()->user()->role != 'pj_lokasi')

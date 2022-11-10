@@ -112,6 +112,8 @@
             @include('superadmin.sidebar')
         @elseif (auth()->user()->role == 'pengawas')
             @include('pengawas.sidebar')
+        @elseif (auth()->user()->role == 'kmk')
+            @include('kmk.sidebar')
         @endif
         <!-- sidebar menu area end -->
 
