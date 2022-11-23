@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Ujian;
+use App\Models\Susulan;
 use App\Models\Kehadiran;
 use Illuminate\Http\Request;
 
@@ -73,6 +74,16 @@ class kmkController extends Controller
         return view('kmk.kehadiran', [
             'kehadiran' => $ujian,
             'absen' => $absen
+        ]);
+    }
+
+    public function susulan()
+    {
+        $mahasiswa = Susulan::all();
+
+        return view('kmk.susulan', [
+            "mahasiswa" => $mahasiswa,
+            "mahasiswas" => $mahasiswa
         ]);
     }
 }

@@ -388,4 +388,5 @@ Route::group(['middleware' => ['auth', 'cekrole:kmk']], function () {
     Route::get('/kmk', [kmkController::class, 'dashboard'])->name('kmkDashboard');
     Route::get('/kmk/kehadiran', [kmkController::class, 'kehadiran'])->name('kmk.kehadiran');
     Route::get('/kmk/ketidakhadiran', [kmkController::class, 'ketidakhadiran'])->name('kmk.ketidakhadiran');
+    Route::get('/kmk/susulan', [kmkController::class, 'susulan'])->name('kmk.susulan');
 });

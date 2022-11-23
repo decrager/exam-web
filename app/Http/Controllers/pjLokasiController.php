@@ -364,17 +364,17 @@ class pjLokasiController extends Controller
         ->where('penugasans.presensi', '!=', null);
 
         if ($request->sesi == "1") {
-            $pengawas->where('ujians.jam_mulai', '8');
-            $penugasan->where('ujians.jam_mulai', '8');
+            $pengawas->where('ujians.sesi', '1');
+            $penugasan->where('ujians.sesi', '1');
         } elseif ($request->sesi == "2") {
-            $pengawas->where('ujians.jam_mulai', '10.3');
-            $penugasan->where('ujians.jam_mulai', '10.3');
+            $pengawas->where('ujians.sesi', '2');
+            $penugasan->where('ujians.sesi', '2');
         } elseif ($request->sesi == "3") {
-            $pengawas->where('ujians.jam_mulai', '13');
-            $penugasan->where('ujians.jam_mulai', '13');
+            $pengawas->where('ujians.sesi', '3');
+            $penugasan->where('ujians.sesi', '3');
         } elseif ($request->sesi == "4") {
-            $pengawas->where('ujians.jam_mulai', '15.30');
-            $penugasan->where('ujians.jam_mulai', '15.30');
+            $pengawas->where('ujians.sesi', '4');
+            $penugasan->where('ujians.sesi', '4');
         }
 
         $penugasan->where(function($query) {

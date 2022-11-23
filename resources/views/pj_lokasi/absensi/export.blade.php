@@ -49,19 +49,23 @@
 
                                     <div class="form-group">
                                         <label for="tanggal" class="col-form-label">Tanggal</label>
-                                        <input class="form-control" type="date" id="tanggal" value="Pilih Sesi" name="tanggal" onchange="tgl()"/>
+                                        <input class="form-control" type="date" id="tanggal" name="tanggal" onchange="tgl()"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Sesi</label>
                                         <select class="custom-select" name="sesi" id="sesi" onchange="myFunction()" required>
                                             <option selected value="">Pilih sesi</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="pukul" class="col-form-label">Pukul</label>
-                                        <input class="form-control" id="pukul" value="Pilih Sesi" name="pukul" readonly/>
+                                        <input class="form-control" type="text" id="pukul" value="Ketik jam mulai - jam akhir sesi" name="pukul" readonly/>
                                     </div>
 
                                     <div class="form-group">
@@ -96,7 +100,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         function tgl() {
             var tgl = document.getElementById("tanggal").value;
             
@@ -143,5 +147,5 @@
 
             document.getElementById("pukul").value = jam;
         }
-    </script>
+    </script> --}}
 @endsection

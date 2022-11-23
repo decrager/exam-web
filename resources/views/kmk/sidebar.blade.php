@@ -27,6 +27,11 @@
                         <a href="{{ route('kmk.ketidakhadiran') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
                             <span>Ketidakhadiran</span></a>
                     </li>
+
+                    <li class="{{ Request::routeIs('kmk.susulan') ? 'active' : '' }} m-1">
+                        <a href="{{ route('kmk.susulan') }}" aria-expanded="true"><i class="fa fa-align-left"></i>
+                            <span>Susulan</span></a>
+                    </li>
                 </ul>
             </nav>
         </div>
