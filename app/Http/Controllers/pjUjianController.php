@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\KetidakhadiranExport;
 use App\Models\Kehadiran;
+use App\Models\Penjadwalan;
 use Illuminate\Support\Facades\Redis;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Storage;
@@ -105,9 +106,42 @@ class pjUjianController extends Controller
     public function ujianEdit($id)
     {
         $ujian = Ujian::find($id);
+        $mahasiswa = Mahasiswa::all();
+        $terpilih = Penjadwalan::where('ujian_id', $id)->get();
+
+        if (empty($terpilih)) {
+            $oldMhs = 1;
+        } else {
+            $oldMhs = $terpilih;
+        }
+
         return view('pj_ujian.ujian.edit', [
-            "ujian" => $ujian
+            "ujian" => $ujian,
+            "mahasiswa" => $mahasiswa,
+            "terpilih" => $oldMhs
         ]);
+    }
+
+    public function ujianMhs(Request $request, $id)
+    {
+        $request->validate([
+            'mhs_id' => 'required'
+        ]);
+
+        Penjadwalan::where('ujian_id', $id)->delete();
+
+        for ($i = 0; $i < count($request->mhs_id); $i++) {
+            Penjadwalan::create([
+                'ujian_id' => $id,
+                'mhs_id' => $request->mhs_id[$i]
+            ]);
+        }
+
+        $this->Activity(' memasukkan Mahasiswa pada jadwal ujian yang ditentukan');
+        if (session('url')) {
+            return redirect(session('url'))->with('success', 'Mahasiswa yang mengikuti ujian tertentu telah ditambahkan!');
+        }
+        return redirect()->route('pjUjian.jadwal.index')->with('success', 'Mahasiswa yang mengikuti ujian tertentu telah ditambahkan!');
     }
 
     public function ujianCreate(Request $request)

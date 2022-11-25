@@ -29,18 +29,30 @@ class mahasiswaController extends Controller
         $ketentuan = Ketentuan::all();
         $prak = Auth::user()->Mahasiswa->Praktikum->id;
         $ujian = Ujian::join('matkuls', 'ujians.matkul_id', 'matkuls.id')
-            ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
-            ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
-            ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
-            ->join('semesters AS b', 'kelas.semester_id', 'b.id')
-            ->join('prodis', 'b.prodi_id', 'prodis.id')
-            ->where('praktikums.id', $prak)
-            ->whereBetween('ujians.tanggal', [$from, $to])->get();
+        ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', 'b.id')
+        ->join('prodis', 'b.prodi_id', 'prodis.id')
+        ->select('prodis.*', 'b.*', 'kelas.*', 'praktikums.*', 'matkuls.*', 'ujians.*')
+        ->where('praktikums.id', $prak)
+        ->whereBetween('ujians.tanggal', [$from, $to])
+        ->get();
+
+        $dip = Ujian::join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', 'b.id')
+        ->join('prodis', 'b.prodi_id', 'prodis.id')
+        ->join('penjadwalans', 'penjadwalans.ujian_id', 'ujians.id')
+        ->select('prodis.*', 'b.*', 'kelas.*', 'praktikums.*', 'matkuls.*', 'ujians.*')
+        ->where('penjadwalans.mhs_id', Auth::user()->Mahasiswa->id)->get();
 
         return view('mahasiswa.dashboard', [
             "ketentuan" => $ketentuan,
             "ujian" => $ujian,
-            "ujian1" => $ujian
+            "umum" => $dip
         ]);
     }
 

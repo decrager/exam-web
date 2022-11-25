@@ -34,6 +34,7 @@
         </div>
     </div>
     <!-- page title area end -->
+
     <div class="main-content-inner">
         <div class="row">
             <div class="col-lg-12 col-ml-12">
@@ -207,4 +208,55 @@
             </div>
         </div>
     </div>
+
+    @if ($ujian?->Matkul?->Semester?->Prodi?->kode_prodi == "DIP")
+    <div class="main-content-inner">
+        <div class="row">
+            <div class="col-lg-12 col-ml-12">
+                <div class="row">
+                    <!-- Textual inputs start -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="{{ route('pjUjian.mhs.penjadwalan', $ujian?->id) }}" method="POST">
+                                    <h4 class="header-title">Mahasiswa yang Mengikuti Ujian</h4>
+
+                                    @csrf
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">Pilih Mahasiswa<i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
+                                        <select class="custom-select js-basic-multiple" name="mhs_id[]" id="mhs_id" multiple="multiple" style="width: 100%" required>
+                                            <?php $true = 0;?>
+                                            @foreach ($mahasiswa as $mhs)
+                                                @foreach ($terpilih as $oldMhs)
+                                                    @if ($mhs->id == $oldMhs->mhs_id)
+                                                        <option value="{{ $mhs->id }}" selected>{{ $mhs->nim }} - {{ $mhs->nama }}</option>
+                                                        <?php $true = $mhs->id ?>
+                                                    @endif
+                                                @endforeach
+                                                @if ($mhs->id != $true)
+                                                    <option value="{{ $mhs->id }}">{{ $mhs->nim }} - {{ $mhs->nama }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Textual inputs end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    <script>
+        $('.js-basic-multiple').select2({
+            theme: 'bootstrap-5',
+            dropdownCssClass: "select2--small",
+        });
+    </script>
 @endsection

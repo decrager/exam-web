@@ -210,6 +210,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_ujian']], function () {
     Route::post('/pj_ujian/susulan/jadwal/create', [pjUjianController::class, 'penjadwalanCreate'])->name('pjUjian.penjadwalan.create');
     Route::put('/pj_ujian/susulan/jadwal/edit/update/{id}', [pjUjianController::class, 'jadwalUpdate'])->name('pjUjian.susulan.jadwal.update');
     Route::delete('/pj_ujian/susulan/jadwal/destroy/{id}', [pjUjianController::class, 'jadwalDestroy'])->name('pjUjian.susulan.jadwal.destroy');
+    Route::post('/pj_ujian/penjadwalan/create/{id}', [pjUjianController::class, 'ujianMhs'])->name('pjUjian.mhs.penjadwalan');
 
     Route::get('/pj_ujian/jadwal/export', [pjUjianController::class, 'export'])->name('pjUjian.jadwal.export');
     Route::get('/pj_ujian/aktivitas/export', [pjUjianController::class, 'logExport'])->name('pjUjian.aktivitas.export');
@@ -356,10 +357,10 @@ Route::group(['middleware' => ['auth', 'cekrole:mahasiswa']], function () {
     Route::delete('/mahasiswa/susulan/delete/{id}', [mahasiswaController::class, 'pengajuanDestroy'])->name('mahasiswa.susulan.delete');
 });
 
-Route::group(['middleware' => ['auth', 'cekrole:pj_labkom']], function () {
-    Route::get('/pj_labkom', [pjLabkomController::class, 'dashboard'])->name('pjLabkomDashboard');
-    Route::get('/pj_labkom/ujian', [pjLabkomController::class, 'ujian'])->name('pjLabkom.ujian');
-});
+// Route::group(['middleware' => ['auth', 'cekrole:pj_labkom']], function () {
+//     Route::get('/pj_labkom', [pjLabkomController::class, 'dashboard'])->name('pjLabkomDashboard');
+//     Route::get('/pj_labkom/ujian', [pjLabkomController::class, 'ujian'])->name('pjLabkom.ujian');
+// });
 
 Route::group(['middleware' => ['auth', 'cekrole:superadmin']], function () {
     Route::get('/superadmin', [superadminController::class, 'dashboard'])->name('superadminDashboard');

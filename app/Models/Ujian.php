@@ -73,6 +73,11 @@ class Ujian extends Model
         return $this->hasMany(Kehadiran::class, 'ujian_id', 'id');
     }
 
+    public function Penjadwalan()
+    {
+        return $this->hasMany(Penjadwalan::class, 'ujian_id', 'id');
+    }
+
     public function Praktikum()
     {
         return $this->belongsTo(Praktikum::class, 'prak_id', 'id');

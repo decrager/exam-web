@@ -48,6 +48,11 @@ class Mahasiswa extends Model
         return $this->hasMany(Kehadiran::class, 'mhs_id', 'id');
     }
 
+    public function Penjadwalan()
+    {
+        return $this->hasMany(Penjadwalan::class, 'mhs_id', 'id');
+    }
+
     public function Pelanggaran()
     {
         return $this->hasMany(Pelanggaran::class, 'mhs_id', 'id');

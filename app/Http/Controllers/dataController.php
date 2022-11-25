@@ -29,6 +29,7 @@ use App\Imports\JadwalImport;
 use App\Imports\MahasiswaImport;
 use App\Imports\PengawasImport;
 use App\Models\Berkas;
+use App\Models\Penjadwalan;
 use Illuminate\Support\Facades\DB;
 use App\Rules\MatchCurrentPassword;
 use Illuminate\Support\Facades\Auth;
@@ -1069,6 +1070,7 @@ class dataController extends Controller
         Bap::truncate();
         Berkas::truncate();
         Matkul::truncate();
+        Penjadwalan::truncate();
 
         return back()->with('success', 'Jadwal Ujian berhasil direset');
     }
