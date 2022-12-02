@@ -538,10 +538,13 @@ class pjUjianController extends Controller
         $susulan->update([
             'status' => $request->status
         ]);
-
+        
         if ($request->status == 'Disetujui'){
             $message = "Pengajuan berhasil disetujui!";
             $this->Activity(' menyetujui pengajuan susulan untuk ' . $mahasiswa->nama);
+        } elseif ($request->status == 'Pending'){
+            $message = "Pengajuan dipending!";
+            $this->Activity(' Menunda pengajuan susulan untuk ' . $mahasiswa->nama);
         } else {
             $message = "Pengajuan berhasil ditolak!";
             $this->Activity(' menolak pengajuan susulan untuk ' . $mahasiswa->nama);

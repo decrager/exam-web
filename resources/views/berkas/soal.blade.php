@@ -39,7 +39,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Mata Kuliah</h4>
+                        <div class="mb-3">
+                            <h4 class="header-title justify-content-start d-inline">Mata Kuliah</h4>
+                            <a href="{{ route('berkas.soal.export') }}" class="btn btn-success float-right mb-3">
+                                <i class="fas fa-file-excel-o">&ensp;Export</i>
+                            </a>
+                        </div>
                         <form action="/berkas/soal" class="row justify-content-start">
                             <div class="col-md-2">
                                 <div class="form-group">
@@ -108,7 +113,7 @@
                                         <th>Perbanyak Teori</th>
                                         <th>Perbanyak Praktik</th>
                                         <th>Kertas Buram</th>
-                                        <th>Jumlah Fotokopi</th>
+                                        <th>Jumlah Mahasiswa</th>
                                         <th>Detail</th>
                                     </tr>
                                 </thead>
@@ -183,7 +188,7 @@
                                                             <h6 class="">Kelas {{ $ujian?->kelas }}/{{ $ujian?->praktikum }}</h6>
                                                         </div>
                                                         <div class="row">
-                                                            <h5><span class="badge bg-primary">{{ $ujian?->jml_mhs + 3 }}</span></h5>
+                                                            <h5><span class="badge bg-primary">{{ $ujian?->jml_mhs }}</span></h5>
                                                         </div>
                                                     </div>
                                                 @endif

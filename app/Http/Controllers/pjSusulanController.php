@@ -111,7 +111,7 @@ class pjSusulanController extends Controller
     
     public function mahasiswaIndex()
     {
-        $mahasiswa = Susulan::all();
+        $mahasiswa = Susulan::orderBy('updated_at', 'DESC')->get();
 
         return view('pj_susulan.mahasiswa', [
             "mahasiswa" => $mahasiswa,
@@ -124,6 +124,22 @@ class pjSusulanController extends Controller
         $mahasiswa = Susulan::find($id);
 
         return view('pj_susulan.persetujuan', ["mahasiswa" => $mahasiswa]);
+    }
+
+    public function persetujuanDestroy($id)
+    {
+        $susulan = Susulan::find($id);
+        $mahasiswa = Mahasiswa::find($susulan->mhs_id);
+        $destination = 'files/syarat/' . $susulan->file;
+        
+        if ($destination) {
+            Storage::delete($destination);
+        }
+        Susulan::find($id)->delete();
+
+        $message = "Pengajuan berhasil dihapus!";
+        $this->Activity(' menyetujui pengajuan susulan untuk ' . $mahasiswa->nama);
+        return redirect()->route('pjSusulan.mahasiswa.index')->with('success', $message);
     }
 
     public function mahasiswaUpdate(Request $request, $id)
@@ -155,29 +171,67 @@ class pjSusulanController extends Controller
             ];
 
             $pdf = PDF::loadView('layouts.persetujuan', $data);
-            $pdfName = $mahasiswa->nama . $susulan->Matkul->nama_matkul . '_persetujuan_susulan.pdf';
-            $susulan->update([
-                'status' => $request->status,
-                'persetujuan' => $pdfName,
-                'catatan' => $request->catatan
-            ]);
+            $pdfName = $mahasiswa->nim . $susulan->Matkul->nama_matkul . '_persetujuan_susulan.pdf';
+            
+            $susulan->timestamps = false;
+            $susulan->status = $request->status;
+            $susulan->persetujuan = $pdfName;
+            $susulan->catatan = $request->catatan;
+            $susulan->save();
+            // $susulan->update([
+            //     'status' => $request->status,
+            //     'persetujuan' => $pdfName,
+            //     'catatan' => $request->catatan,
+            //     'timestamps' => false
+            // ]);
             Storage::put('files/pdf/' . $pdfName, $pdf->output());
 
             $message = "Pengajuan berhasil disetujui!";
             $this->Activity(' menyetujui pengajuan susulan untuk ' . $mahasiswa->nama);
             return redirect()->route('pjSusulan.mahasiswa.index')->with('success', $message);
-        } else {
-            $pdfName = $mahasiswa->nama . $susulan->Matkul->nama_matkul . '_persetujuan_susulan.pdf';
+        } 
+        elseif ($request->status == 'Pending') {
+            $pdfName = $mahasiswa->nim . $susulan->Matkul->nama_matkul . '_persetujuan_susulan.pdf';
             $destination = 'files/pdf/' . $pdfName;
             if ($destination) {
                 Storage::delete($destination);
             }
 
-            $susulan->update([
-                'status' => $request->status,
-                'persetujuan' => null,
-                'catatan' => $request->catatan
-            ]);
+            $susulan->timestamps = false;
+            $susulan->status = $request->status;
+            $susulan->persetujuan = null;
+            $susulan->catatan = $request->catatan;
+            $susulan->save();
+
+            // $susulan->update([
+            //     'status' => $request->status,
+            //     'persetujuan' => null,
+            //     'catatan' => $request->catatan,
+            //     'timestamps' => false
+            // ]);
+
+            $message = "Pengajuan berhasil dipending!";
+            $this->Activity(' menunda pengajuan susulan untuk ' . $mahasiswa->nama);
+            return redirect()->route('pjSusulan.mahasiswa.index')->with('success', $message);
+        } else {
+            $pdfName = $mahasiswa->nim . $susulan->Matkul->nama_matkul . '_persetujuan_susulan.pdf';
+            $destination = 'files/pdf/' . $pdfName;
+            if ($destination) {
+                Storage::delete($destination);
+            }
+
+            $susulan->timestamps = false;
+            $susulan->status = $request->status;
+            $susulan->persetujuan = null;
+            $susulan->catatan = $request->catatan;
+            $susulan->save();
+
+            // $susulan->update([
+            //     'status' => $request->status,
+            //     'persetujuan' => null,
+            //     'catatan' => $request->catatan,
+            //     'timestamps' => false
+            // ]);
             $message = "Pengajuan berhasil ditolak!";
             $this->Activity(' menolak pengajuan susulan untuk ' . $mahasiswa->nama);
             return redirect()->route('pjSusulan.mahasiswa.index')->with('success', $message);

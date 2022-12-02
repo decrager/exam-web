@@ -72,15 +72,15 @@
 							<p style="font-size: 20px;">Request Password Reset</p>
 						</div>
 
-                        <p class="text-center mb-3" style="font-size: 14px;">Ketik email yang digunakan dan kami akan mereset password anda menjadi 1-8</p>
+                        <p class="text-center mb-3" style="font-size: 14px;">Ketik email/username yang digunakan dan kami akan mereset password anda menjadi 1-8</p>
 
                         <div class="">
 
                         </div>
                         <div class="form-gp">
-                            <label for="email">Email</label>
-                            <input type="text" name="email" id="email" required value="{{ old('email')}}"/>
-                            <span class="text-danger">@error('email') Email yang dimasukkan tidak terdaftar @enderror</span>
+                            <label for="email">Email/username</label>
+                            <input type="text" name="text" id="email" required value="{{ old('email')}}"/>
+                            <span class="text-danger">@error('email') Email/username yang dimasukkan tidak terdaftar @enderror</span>
                             <!-- <i class="ti-user"></i> -->
                             <img
                                 class="user-thumb"

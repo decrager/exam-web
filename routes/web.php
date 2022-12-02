@@ -282,6 +282,7 @@ Route::group(['middleware' => ['auth', 'cekrole:berkas']], function () {
     Route::post('/berkas/serahterima/export', [berkasController::class, 'SerahTerima'])->name('berkas.serahterima');
     Route::put('/berkas/serahterima/delete/{id}', [berkasController::class, 'SerahTerimaDestroy'])->name('berkas.serahterima.destroy');
     Route::get('/berkas/pelanggaran/export', [berkasController::class, 'pelanggaranExport'])->name('berkas.pelanggaran.export');
+    Route::get('/berkas/soal/export', [berkasController::class, 'soalExport'])->name('berkas.soal.export');
 });
 
 Route::group(['middleware' => ['auth', 'cekrole:assisten']], function () {
@@ -311,6 +312,7 @@ Route::group(['middleware' => ['auth', 'cekrole:pj_susulan']], function () {
     Route::put('/pj_susulan/ketentuan/update/{id}', [pjSusulanController::class, 'ketentuanUpdate'])->name('pjSusulan.ketentuan.update');
     Route::delete('/pj_susulan/ketentuan/delete/{id}', [pjSusulanController::class, 'ketentuanDestroy'])->name('pjSusulan.ketentuan.delete');
     Route::put('/pj_susulan/mahasiswa/update/{id}', [pjSusulanController::class, 'mahasiswaUpdate'])->name('pjSusulan.mahasiswa.update');
+    Route::delete('/pj_susulan/mahasiswa/delete/{id}', [pjSusulanController::class, 'persetujuanDestroy'])->name('pjSusulan.mahasiswa.delete');
     Route::post('/pj_susulan/jadwal/create', [pjSusulanController::class, 'jadwalCreate'])->name('pjSusulan.jadwal.create');
     Route::put('/pj_susulan/jadwal/update/{id}', [pjSusulanController::class, 'jadwalUpdate'])->name('pjSusulan.jadwal.update');
     Route::delete('/pj_susulan/jadwal/delete/{id}', [pjSusulanController::class, 'jadwalDestroy'])->name('pjSusulan.jadwal.destroy');

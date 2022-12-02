@@ -158,6 +158,8 @@
                                                             <span class="badge bg-warning">Belum disetujui</span>
                                                         @elseif ($mahasiswa?->status == 'Ditolak')
                                                             <span class="badge bg-danger">Ditolak</span>
+                                                        @elseif ($mahasiswa?->status == 'Pending')
+                                                            <span class="badge bg-secondary">Pending</span>
                                                         @elseif ($mahasiswa?->status == 'Disetujui')
                                                             <span class="badge bg-success">Disetujui</span>
                                                         @else
@@ -169,7 +171,7 @@
                                                     <h6>Bukti Persyaratan</h6>
                                                     <a href="{{ asset('storage/files/syarat/'. $mahasiswa?->file) }}" target="_blank" class="btn btn-success btn-sm mt-1"> <i class="fas fa-eye"></i>&ensp; Lihat</a>
                                                 </div>
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     @if ($mahasiswa?->status == 'Belum')
                                                         <h6>Persetujuan</h6>
                                                         <form action="{{ route('pjUjian.susulan.update', $mahasiswa?->id) }}" class="btn-group mt-1" role="group" method="POST">
@@ -199,7 +201,7 @@
                                                         </form>
                                                     @else
                                                     @endif
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>

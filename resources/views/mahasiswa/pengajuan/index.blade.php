@@ -72,8 +72,8 @@
                                     @foreach ($susulan as $pengajuan)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $pengajuan?->created_at->format('d-m-Y') }}</td>
-                                        <td>{{ $pengajuan?->created_at->format('H:i:s') }}</td>
+                                        <td>{{ $pengajuan?->updated_at->format('d-m-Y') }}</td>
+                                        <td>{{ $pengajuan?->updated_at->format('H:i:s') }}</td>
                                         <td>{{ $pengajuan?->nama_matkul }}</td>
                                         <td>{{ $pengajuan?->alasan }}</td>
                                         <td><a href="{{ asset('storage/files/syarat/' . $pengajuan?->file) }}" target="_blank" class="btn btn-success btn-sm"><i class="fas fa-eye">&nbsp; Lihat</i></a></td>
@@ -84,6 +84,8 @@
                                                 <span class="badge badge-danger">Ditolak</span>
                                             @elseif ($pengajuan?->status == 'Disetujui')
                                                 <span class="badge badge-success">Disetujui</span>
+                                            @elseif ($pengajuan?->status == 'Pending')
+                                                <span class="badge badge-secondary">Pending</span>
                                             @else
                                                 <span class="badge badge-success bg-green">Terjadwal</span>
                                             @endif
@@ -105,13 +107,22 @@
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
+                                        @elseif ($pengajuan?->status == 'Pending')
+                                        <td>
+                                            <form action="{{ route('mahasiswa.susulan.delete', $pengajuan?->id) }}" class="btn-group" role="group" method="POST">
+                                                <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
                                         @elseif ($pengajuan?->status == 'Ditolak')
                                         <td>
                                             <form action="{{ route('mahasiswa.susulan.delete', $pengajuan?->id) }}" class="btn-group" role="group" method="POST">
                                                 <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning disabled"> <i class="fas fa-pen"></i></a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger disabled" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                         @else
@@ -120,7 +131,7 @@
                                                 <a href="{{ route('mahasiswa.susulan.pengajuan.edit', $pengajuan?->id) }}" class="btn btn-warning disabled"> <i class="fas fa-pen"></i></a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger disabled" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan pengajuan?')"> <i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                         @endif

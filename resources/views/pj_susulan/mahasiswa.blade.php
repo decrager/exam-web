@@ -53,7 +53,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>tanggal</th>
+                                        <th>Tanggal</th>
                                         <th>Jam</th>
                                         <th class="col-2">Program Studi</th>
                                         <th>Semester</th>
@@ -69,8 +69,8 @@
                                     @foreach ($mahasiswa as $mahasiswa)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $mahasiswa?->created_at->format('d-m-Y') }}</td>
-                                            <td>{{ $mahasiswa?->created_at->format('H:i:s') }}</td>
+                                            <td>{{ $mahasiswa?->updated_at->format('d-m-Y') }}</td>
+                                            <td>{{ $mahasiswa?->updated_at->format('H:i:s') }}</td>
                                             <td>{{ $mahasiswa?->Matkul?->Semester?->Prodi?->nama_prodi }}</td>
                                             <td>{{ $mahasiswa?->Matkul?->Semester?->semester }}</td>
                                             <td>{{ $mahasiswa?->Matkul?->nama_matkul }}</td>
@@ -83,15 +83,22 @@
                                                     <span class="badge bg-danger">Ditolak</span>
                                                 @elseif ($mahasiswa?->status == 'Disetujui')
                                                     <span class="badge bg-success">Disetujui</span>
+                                                @elseif ($mahasiswa?->status == 'Pending')
+                                                    <span class="badge bg-secondary">Pending</span>
                                                 @else
                                                     <span class="badge bg-green">Terjadwal</span>
                                                 @endif
                                             </td>
                                             <td><a href="{{ asset('storage/files/pdf/' . $mahasiswa?->persetujuan) }}" class="btn btn-primary btn-sm @if($mahasiswa?->persetujuan == null) disabled @endif" target="_blank"><i class="fas fa-eye">&nbsp; Lihat</i></a></td>
                                             <td>
-                                                <a href="{{ route('pjSusulan.mahasiswa.form', $mahasiswa?->id) }}" class="btn btn-primary">
-                                                    <i class="fas fa-info"></i>
-                                                </a>
+                                                <form action="{{ route('pjSusulan.mahasiswa.delete', $mahasiswa?->id) }}" class="btn-group" role="group" method="POST">
+                                                    <a href="{{ route('pjSusulan.mahasiswa.form', $mahasiswa?->id) }}" class="btn btn-primary">
+                                                        <i class="fas fa-info"></i>
+                                                    </a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus pengajuan?')"> <i class="fas fa-trash"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -170,6 +177,8 @@
                                                             <span class="badge bg-danger">Ditolak</span>
                                                         @elseif ($mahasiswa?->status == 'Disetujui')
                                                             <span class="badge bg-success">Disetujui</span>
+                                                        @elseif ($mahasiswa?->status == 'Pending')
+                                                            <span class="badge bg-secondary">Pending</span>
                                                         @else
                                                             <span class="badge bg-success bg-green">Terjadwal</span>
                                                         @endif

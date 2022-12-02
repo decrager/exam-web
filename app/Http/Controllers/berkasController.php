@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\JumlahMahasiswa;
 use Carbon\Carbon;
 use App\Models\Bap;
 use App\Models\Kelas;
@@ -255,14 +256,15 @@ class berkasController extends Controller
         $from = $dataTanggalMulai->periode_mulai;
         $to = $dataTanggalSelesai->periode_akhir;
 
-        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', '=', 'matkuls.id')
-        ->join('semesters AS a', 'matkuls.semester_id', '=', 'a.id')
-        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-        ->join('semesters AS b', 'kelas.semester_id', '=', 'b.id')
-        ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
+        $ujian = Ujian::join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->join('semesters AS a', 'matkuls.semester_id', 'a.id')
+        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('mahasiswas', 'mahasiswas.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters AS b', 'kelas.semester_id', 'b.id')
+        ->join('prodis', 'b.prodi_id', 'prodis.id')
         ->groupBy('ujians.tanggal', 'ujians.tipe_mk', 'ujians.perbanyak', 'ujians.kertas', 'prodis.nama_prodi', 'b.semester', 'matkuls.nama_matkul', 'matkuls.id')
-        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, ujians.kertas, count(praktikums.jml_mhs) * 3 + SUM(praktikums.jml_mhs) AS jumlah, matkuls.id')
+        ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, matkuls.nama_matkul, ujians.tipe_mk, ujians.perbanyak, ujians.kertas, count(mahasiswas.id) AS jumlah, matkuls.id')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->filter(request(['dbProdi', 'dbSemester', 'dbMatkul', 'dbTanggal']))
         ->get();
@@ -270,16 +272,20 @@ class berkasController extends Controller
         $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
         ->join('prodis', 'semesters.prodi_id', 'prodis.id')
         ->join('ujians', 'ujians.matkul_id', 'matkuls.id')
-        ->join('praktikums', 'ujians.prak_id', '=', 'praktikums.id')
-        ->join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
-        ->select('matkuls.id', 'kelas.kelas', 'praktikums.praktikum', 'praktikums.jml_mhs')
+        ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
+        ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->select('matkuls.id')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->get();
 
-        $prak = Praktikum::join('kelas', 'praktikums.kelas_id', '=', 'kelas.id')
+        $prak = Praktikum::join('kelas', 'praktikums.kelas_id', 'kelas.id')
+        ->join('semesters', 'kelas.semester_id', 'semesters.id')
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id')
         ->join('ujians', 'ujians.prak_id', 'praktikums.id')
         ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
-        ->select('matkuls.id', 'kelas.kelas', 'praktikums.praktikum', 'praktikums.jml_mhs')
+        ->join('mahasiswas', 'mahasiswas.prak_id', 'praktikums.id')
+        ->groupBy('matkuls.id', 'prodis.nama_prodi', 'semesters.semester', 'kelas.kelas', 'praktikums.praktikum')
+        ->selectRaw('matkuls.id, prodis.nama_prodi, semesters.semester, kelas.kelas, praktikums.praktikum, count(mahasiswas.id) AS jml_mhs')
         ->whereBetween('ujians.tanggal', [$from, $to])
         ->get();
 
@@ -288,6 +294,12 @@ class berkasController extends Controller
             "matkul" => $matkul,
             "prak" => $prak
         ]);
+    }
+
+    public function soalExport()
+    {
+        $this->Activity(' mengeksport rekapitulasi jumlah mahasiswa ke excel');
+        return Excel::download(new JumlahMahasiswa, 'Data Jumlah Mahasiswa.xlsx');
     }
 
     public function pelanggaran()

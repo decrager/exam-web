@@ -92,6 +92,8 @@
                                         <h5><span class="badge bg-danger">Ditolak</span></h5>
                                     @elseif ($mahasiswa?->status == 'Disetujui')
                                         <h5><span class="badge bg-success">Disetujui</span></h5>
+                                    @elseif ($mahasiswa?->status == 'Pending')
+                                        <h5><span class="badge bg-secondary">Pending</span></h5>
                                     @else
                                         <h5><span class="badge bg-green">Terjadwal</span></h5>
                                     @endif
@@ -128,25 +130,11 @@
                                             </div>
                                             <div class="row-cols-">
                                                 <button type="submit" class="btn btn-success" name="status" value="Disetujui" onclick="return confirm('Yakin ingin menyetujui pengajuan?')"><i class="fas fa-check" ></i>&ensp; Setujui</button>
+                                                <button type="submit" class="btn btn-secondary btn-sm align-top" name="status" value="Pending" onclick="return confirm('Yakin ingin menunda pengajuan?')"><i class="fas fa-clock" ></i>&ensp; Pending</button>
                                                 <button type="submit" class="btn btn-danger" name="status" value="Ditolak" onclick="return confirm('Yakin ingin menolak pengajuan?')"><i class="fas fa-xmark" ></i>&ensp; Tolak</button>
                                             </div>
                                         </form>
                                     @elseif ($mahasiswa?->status == 'Disetujui')
-                                        <form  class="form-group" action="{{ route('pjSusulan.mahasiswa.update', $mahasiswa?->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="row">
-                                                <label for="bukti" class="col-form-label">Persetujuan</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="catatan" placeholder="Catatan (Opsional)" name="catatan"/>
-                                            </div>
-                                            <div class="row-cols-">
-                                                <input type="text" name="status" id="status" value="Ditolak" hidden>
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menolak pengajuan?')"><i class="fas fa-xmark" ></i>&ensp; Tolak</button>
-                                            </div>
-                                        </form>
-                                    @elseif ($mahasiswa?->status == 'Ditolak')
                                         <form  class="form-group" action="{{ route('pjSusulan.mahasiswa.update', $mahasiswa?->id) }}" method="POST">
                                             <div class="form-group">
                                                 <label class="" for="">Tanda Tangan:</label>
@@ -156,19 +144,66 @@
                                                 <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
                                                 <textarea id="signature" name="ttd" style="display: none"></textarea>
                                             </div>
+
                                             @csrf
                                             @method('PUT')
                                             <div class="row">
                                                 <label for="bukti" class="col-form-label">Persetujuan</label>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="catatan" placeholder="Catatan (Opsional)" @if ($mahasiswa?->catatan != "-")
-                                                    value="{{ $mahasiswa?->catatan }}"
-                                                @endif name="catatan"/>
+                                                <input type="text" class="form-control" id="catatan" placeholder="Catatan (Opsional)" name="catatan"/>
                                             </div>
                                             <div class="row-cols-">
-                                                <input type="text" name="status" id="status" value="Disetujui" hidden>
-                                                <button type="submit" class="btn btn-success" onclick="return confirm('Yakin ingin menyetujui pengajuan?')"><i class="fas fa-check" ></i>&ensp; Setujui</button>
+                                                <button type="submit" class="btn btn-secondary btn-sm align-top" name="status" value="Pending" onclick="return confirm('Yakin ingin menunda pengajuan?')"><i class="fas fa-clock" ></i>&ensp; Pending</button>
+                                                <button type="submit" class="btn btn-danger" name="status" value="Ditolak" onclick="return confirm('Yakin ingin menolak pengajuan?')"><i class="fas fa-xmark" ></i>&ensp; Tolak</button>
+                                            </div>
+                                        </form>
+                                    @elseif ($mahasiswa?->status == 'Pending')
+                                        <form  class="form-group" action="{{ route('pjSusulan.mahasiswa.update', $mahasiswa?->id) }}" method="POST">
+                                            <div class="form-group">
+                                                <label class="" for="">Tanda Tangan:</label>
+                                                <br />
+                                                <div id="sign"> </div>
+                                                <br />
+                                                <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
+                                                <textarea id="signature" name="ttd" style="display: none"></textarea>
+                                            </div>
+
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="row">
+                                                <label for="bukti" class="col-form-label">Persetujuan</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="catatan" placeholder="Catatan (Opsional)" name="catatan"/>
+                                            </div>
+                                            <div class="row-cols-">
+                                                <button type="submit" class="btn btn-success" name="status" value="Disetujui" onclick="return confirm('Yakin ingin menyetujui pengajuan?')"><i class="fas fa-check" ></i>&ensp; Setujui</button>
+                                                <button type="submit" class="btn btn-danger" name="status" value="Ditolak" onclick="return confirm('Yakin ingin menolak pengajuan?')"><i class="fas fa-xmark" ></i>&ensp; Tolak</button>
+                                            </div>
+                                        </form>
+                                    @elseif ($mahasiswa?->status == 'Ditolak')
+                                        <form class="form-group" action="{{ route('pjSusulan.mahasiswa.update', $mahasiswa?->id) }}" method="POST">
+                                            <div class="form-group">
+                                                <label class="" for="">Tanda Tangan:</label>
+                                                <br />
+                                                <div id="sign"> </div>
+                                                <br />
+                                                <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
+                                                <textarea id="signature" name="ttd" style="display: none"></textarea>
+                                            </div>
+
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="row">
+                                                <label for="bukti" class="col-form-label">Persetujuan</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="catatan" placeholder="Catatan (Opsional)" name="catatan"/>
+                                            </div>
+                                            <div class="row-cols-">
+                                                <button type="submit" class="btn btn-success" name="status" value="Disetujui" onclick="return confirm('Yakin ingin menyetujui pengajuan?')"><i class="fas fa-check" ></i>&ensp; Setujui</button>
+                                                <button type="submit" class="btn btn-secondary btn-sm align-top" name="status" value="Pending" onclick="return confirm('Yakin ingin menunda pengajuan?')"><i class="fas fa-clock" ></i>&ensp; Pending</button>
                                             </div>
                                         </form>
                                     @else

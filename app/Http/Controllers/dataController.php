@@ -297,7 +297,10 @@ class dataController extends Controller
 
     public function penggunaIndex()
     {
-        $pengguna = User::where('role', '!=', 'mahasiswa')->where('role', '!=', 'superadmin')->get();
+        $pengguna = User::where('role', '!=', 'mahasiswa')
+        ->where('role', '!=', 'superadmin')
+        ->where('role', '!=', 'pengawas')
+        ->get();
 
         Session::put('url', request()->fullUrl());
         return view('user_data.pengguna.index', [
