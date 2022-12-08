@@ -65,7 +65,7 @@ class pengawasController extends Controller
         ->where('pengawas.user_id', $user_id)
         ->orderBy('ujians.tanggal', 'ASC')
         ->get();
-        
+
         return view('pengawas.absensi.index', ["jadwal" => $ujian]);
     }
 
@@ -74,21 +74,42 @@ class pengawasController extends Controller
         $ujian = Ujian::find($id);
         $now = Carbon::now()->toDateString();
 
-        $mahasiswa = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
-        ->join('ujians', 'praktikums.id', 'ujians.prak_id')
-        ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id')
-        ->where('ujians.id', $id)
-        ->orderBy('mahasiswas.nim', 'ASC')
-        ->get();
+        $dip = $ujian->Matkul->Semester->Prodi->kode_prodi;
 
-        $kehadiran = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
-        ->join('ujians', 'praktikums.id', 'ujians.prak_id')
-        ->join('kehadirans', 'mahasiswas.id', 'kehadirans.mhs_id')
-        ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id','kehadirans.kehadiran')
-        ->where('kehadirans.ujian_id', $id)
-        ->orderBy('mahasiswas.nim', 'ASC')
-        ->distinct()
-        ->get();
+        if ($dip == 'DIP') {
+            $mahasiswa = Mahasiswa::join('penjadwalans', 'mahasiswas.id', 'penjadwalans.mhs_id')
+            ->join('ujians', 'penjadwalans.ujian_id', 'ujians.id')
+            ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id')
+            ->where('ujians.id', $ujian->id)
+            ->orderBy('mahasiswas.nim', 'ASC')
+            ->get();
+
+            $kehadiran = Mahasiswa::join('penjadwalans', 'mahasiswas.id', 'penjadwalans.mhs_id')
+            ->join('ujians', 'penjadwalans.ujian_id', 'ujians.id')
+            ->join('kehadirans', 'mahasiswas.id', 'kehadirans.mhs_id')
+            ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id','kehadirans.kehadiran')
+            ->where('kehadirans.ujian_id', $ujian->id)
+            ->orderBy('mahasiswas.nim', 'ASC')
+            ->distinct()
+            ->get();
+
+        } else {
+            $mahasiswa = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
+            ->join('ujians', 'praktikums.id', 'ujians.prak_id')
+            ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id')
+            ->where('ujians.id', $ujian->id)
+            ->orderBy('mahasiswas.nim', 'ASC')
+            ->get();
+
+            $kehadiran = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
+            ->join('ujians', 'praktikums.id', 'ujians.prak_id')
+            ->join('kehadirans', 'mahasiswas.id', 'kehadirans.mhs_id')
+            ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id','kehadirans.kehadiran')
+            ->where('kehadirans.ujian_id', $ujian->id)
+            ->orderBy('mahasiswas.nim', 'ASC')
+            ->distinct()
+            ->get();
+        }
 
         if (count($kehadiran) >= 1) {
             return view('pengawas.absensi.edit', [
@@ -145,22 +166,28 @@ class pengawasController extends Controller
         DB::beginTransaction();
 
         $ujian = Ujian::find($request->ujian_id);
-        // $kehadiran = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
-        // ->join('ujians', 'praktikums.id', 'ujians.prak_id')
-        // ->join('kehadirans', 'mahasiswas.id', 'kehadirans.mhs_id')
-        // ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id','kehadirans.kehadiran')
-        // ->where('ujians.id', $request->ujian_id)
-        // ->orderBy('mahasiswas.nim', 'ASC')
-        // ->get();
+        $dip = $ujian->Matkul->Semester->Prodi->kode_prodi;
 
-        $kehadiran = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
-        ->join('ujians', 'praktikums.id', 'ujians.prak_id')
-        ->join('kehadirans', 'mahasiswas.id', 'kehadirans.mhs_id')
-        ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id','kehadirans.kehadiran')
-        ->where('kehadirans.ujian_id', $ujian->id)
-        ->orderBy('mahasiswas.nim', 'ASC')
-        ->distinct()
-        ->get();
+        if ($dip == 'DIP') {
+            $kehadiran = Mahasiswa::join('penjadwalans', 'mahasiswas.id', 'penjadwalans.mhs_id')
+            ->join('ujians', 'penjadwalans.ujian_id', 'ujians.id')
+            ->join('kehadirans', 'mahasiswas.id', 'kehadirans.mhs_id')
+            ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id','kehadirans.kehadiran')
+            ->where('kehadirans.ujian_id', $request->ujian_id)
+            ->orderBy('mahasiswas.nim', 'ASC')
+            ->distinct()
+            ->get();
+            
+        } else {
+            $kehadiran = Mahasiswa::join('praktikums', 'mahasiswas.prak_id', 'praktikums.id')
+            ->join('ujians', 'praktikums.id', 'ujians.prak_id')
+            ->join('kehadirans', 'mahasiswas.id', 'kehadirans.mhs_id')
+            ->select('mahasiswas.nim', 'mahasiswas.nama', 'mahasiswas.id','kehadirans.kehadiran')
+            ->where('kehadirans.ujian_id', $request->ujian_id)
+            ->orderBy('mahasiswas.nim', 'ASC')
+            ->distinct()
+            ->get();
+        }
 
         $destination1 = 'images/ttd/ttd_pengawas1.png';
         $destination2 = 'images/ttd/ttd_pengawas2.png';
@@ -200,7 +227,7 @@ class pengawasController extends Controller
 
         $pdf = PDF::loadView('layouts.kehadiran', $data);
         // return $pdf->stream();
-        $pdfName = 'kehadiran_' . $ujian->tanggal . '_' . $ujian->Matkul->nama_matkul . '(' . $ujian->Praktikum->Kelas->kelas . $ujian->Praktikum->praktikum . ')' . '.pdf';
+        $pdfName = 'kehadiran_' . $ujian->tanggal . '_' . $ujian->Matkul->nama_matkul . '-' . $ujian->Matkul->Semester->Prodi->nama_prodi . '(' . $ujian->Praktikum->Kelas->kelas . $ujian->Praktikum->praktikum . ')' . '.pdf';
         
         $destination3 = 'files/kehadiran/' . $pdfName;
         if ($destination3) {

@@ -33,16 +33,16 @@ class prodiController extends Controller
         ->join('amplops', 'amplops.ujian_id', '=', 'ujians.id')
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
-        ->where('ujians.tanggal', $now)
-        ->where('prodis.kode_prodi', 'DIP');
+        ->where('ujians.tanggal', $now);
 
         $prodi = Prodi::all();
         for ($i = 0; $i < count($prodi); $i++) {
-            if (Auth::user()->name == $prodi->nama_prodi) {
-                $ujian->where('prodis.kode_prodi', $prodi->kode_prodi);
+            if (Auth::user()->name == $prodi[$i]->nama_prodi) {
+                $ujian->where('prodis.kode_prodi', $prodi[$i]->kode_prodi);
             }
         }
-
+        $ujian->orWhere('prodis.kode_prodi', 'DIP');
+        
         return view('prodi.dashboard', [
             "dbUjian" => $ujian->get()
         ]);
@@ -66,20 +66,20 @@ class prodiController extends Controller
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
         ->whereBetween('ujians.tanggal', [$from, $to])
-        ->where('prodis.kode_prodi', 'DIP')
         ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
-        ->join('prodis', 'semesters.prodi_id', 'prodis.id')
-        ->where('prodis.kode_prodi', 'DIP');
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id');
 
         $prodi = Prodi::all();
         for ($i = 0; $i < count($prodi); $i++) {
-            if (Auth::user()->name == $prodi->nama_prodi) {
-                $ujian->where('prodis.kode_prodi', $prodi->kode_prodi);
-                $matkul->where('prodis.kode_prodi', $prodi->kode_prodi);
+            if (Auth::user()->name == $prodi[$i]->nama_prodi) {
+                $ujian->where('prodis.kode_prodi', $prodi[$i]->kode_prodi);
+                $matkul->where('prodis.kode_prodi', $prodi[$i]->kode_prodi);
             }
         }
+        $ujian->orWhere('prodis.kode_prodi', 'DIP');
+        $matkul->orWhere('prodis.kode_prodi', 'DIP');
 
         Session::put('url', request()->fullUrl());
         return view('prodi.jadwal', [
@@ -106,15 +106,15 @@ class prodiController extends Controller
         ->join('baps', 'baps.ujian_id', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', 'ujians.id')
         ->selectRaw('ujians.tanggal, prodis.nama_prodi, b.semester, ujians.matkul_id, matkuls.nama_matkul, ujians.tipe_mk, ujians.lokasi, ujians.perbanyak, ujians.kertas, ujians.software, count(ujians.id) AS total')
-        ->groupBy('ujians.tanggal', 'prodis.nama_prodi', 'b.semester', 'ujians.matkul_id', 'matkuls.nama_matkul', 'ujians.tipe_mk', 'ujians.lokasi', 'ujians.perbanyak', 'ujians.kertas', 'ujians.software')
-        ->where('prodis.kode_prodi', 'DIP');
+        ->groupBy('ujians.tanggal', 'prodis.nama_prodi', 'b.semester', 'ujians.matkul_id', 'matkuls.nama_matkul', 'ujians.tipe_mk', 'ujians.lokasi', 'ujians.perbanyak', 'ujians.kertas', 'ujians.software');
 
         $prodi = Prodi::all();
         for ($i = 0; $i < count($prodi); $i++) {
-            if (Auth::user()->name == $prodi->nama_prodi) {
-                $ujian->where('prodis.kode_prodi', $prodi->kode_prodi);
+            if (Auth::user()->name == $prodi[$i]->nama_prodi) {
+                $ujian->where('prodis.kode_prodi', $prodi[$i]->kode_prodi);
             }
         }
+        $ujian->orWhere('prodis.kode_prodi', 'DIP');
         
         Session::put('url', request()->fullUrl());
         return view('prodi.ujian.index', [
@@ -185,20 +185,20 @@ class prodiController extends Controller
         ->join('prodis', 'b.prodi_id', '=', 'prodis.id')
         ->select('ujians.*', 'matkuls.*', 'b.*', 'praktikums.*', 'kelas.*', 'prodis.*', 'pengawas.*', 'penugasans.*')
         ->whereBetween('ujians.tanggal', [$from, $to])
-        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']))
-        ->where('prodis.kode_prodi', 'DIP');
+        ->filter(request(['dbProdi', 'dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
-        ->join('prodis', 'semesters.prodi_id', 'prodis.id')
-        ->where('prodis.kode_prodi', 'DIP');
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id');
 
         $prodi = Prodi::all();
         for ($i = 0; $i < count($prodi); $i++) {
-            if (Auth::user()->name == $prodi->nama_prodi) {
-                $pengawas->where('prodis.kode_prodi', $prodi->kode_prodi);
-                $matkul->where('prodis.kode_prodi', $prodi->kode_prodi);
+            if (Auth::user()->name == $prodi[$i]->nama_prodi) {
+                $pengawas->where('prodis.kode_prodi', $prodi[$i]->kode_prodi);
+                $matkul->where('prodis.kode_prodi', $prodi[$i]->kode_prodi);
             }
         }
+        $pengawas->orWhere('prodis.kode_prodi', 'DIP');
+        $matkul->orWhere('prodis.kode_prodi', 'DIP');
 
         Session::put('url', request()->fullUrl());
         return view('prodi.daftar_pengawas', [
@@ -230,20 +230,20 @@ class prodiController extends Controller
         // ->doesntHave('Penugasan')
         ->whereBetween('ujians.tanggal', [$from, $to])
         // ->where('ujians.tanggal', $now)
-        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']))
-        ->where('prodis.kode_prodi', 'DIP');
+        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
-        ->join('prodis', 'semesters.prodi_id', 'prodis.id')
-        ->where('prodis.kode_prodi', 'DIP');
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id');
 
         $prodi = Prodi::all();
         for ($i = 0; $i < count($prodi); $i++) {
-            if (Auth::user()->name == $prodi->nama_prodi) {
-                $ujian->where('prodis.kode_prodi', $prodi->kode_prodi);
-                $matkul->where('prodis.kode_prodi', $prodi->kode_prodi);
+            if (Auth::user()->name == $prodi[$i]->nama_prodi) {
+                $ujian->where('prodis.kode_prodi', $prodi[$i]->kode_prodi);
+                $matkul->where('prodis.kode_prodi', $prodi[$i]->kode_prodi);
             }
         }
+        $ujian->orWhere('prodis.kode_prodi', 'DIP');
+        $matkul->orWhere('prodis.kode_prodi', 'DIP');
 
         Session::put('url', request()->fullUrl());
         return view('prodi.penugasan.index', [
@@ -345,20 +345,20 @@ class prodiController extends Controller
         ->join('baps', 'baps.ujian_id', '=', 'ujians.id')
         ->join('berkas', 'berkas.ujian_id', '=', 'ujians.id')
         ->whereBetween('ujians.tanggal', [$from, $to])
-        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']))
-        ->where('prodis.kode_prodi', 'DIP');
+        ->filter(request(['dbSemester', 'dbPraktikum', 'dbKelas', 'dbMatkul', 'dbTanggal', 'dbRuang']));
 
         $matkul = Matkul::join('semesters', 'matkuls.semester_id', 'semesters.id')
-        ->join('prodis', 'semesters.prodi_id', 'prodis.id')
-        ->where('prodis.kode_prodi', 'DIP');
+        ->join('prodis', 'semesters.prodi_id', 'prodis.id');
 
         $prodi = Prodi::all();
         for ($i = 0; $i < count($prodi); $i++) {
-            if (Auth::user()->name == $prodi->nama_prodi) {
-                $ujian->where('prodis.kode_prodi', $prodi->kode_prodi);
-                $matkul->where('prodis.kode_prodi', $prodi->kode_prodi);
+            if (Auth::user()->name == $prodi[$i]->nama_prodi) {
+                $ujian->where('prodis.kode_prodi', $prodi[$i]->kode_prodi);
+                $matkul->where('prodis.kode_prodi', $prodi[$i]->kode_prodi);
             }
         }
+        $ujian->orWhere('prodis.kode_prodi', 'DIP');
+        $matkul->orWhere('prodis.kode_prodi', 'DIP');
 
         Session::put('url', request()->fullUrl());
         return view('prodi.berkas', [

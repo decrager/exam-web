@@ -114,6 +114,7 @@ class mahasiswaController extends Controller
         ->where('mhs_id', $mhs_id)
         ->where('pelanggaran', '!=', 'Sakit')
         ->where('pelanggaran', '!=', 'Izin')
+        ->where('pelanggaran', '!=', 'Tanpa Keterangan')
         ->select('matkul_id')
         ->get();
 
@@ -147,12 +148,13 @@ class mahasiswaController extends Controller
         $request->validate([
             'matkul_id' => 'required',
             'tipe_mk' => 'required',
-            'file' => 'required|max:2048',
+            'file' => 'required|mimes:pdf,jpeg,jpg,png|max:1024',
             'alasan' => 'required'
         ]);
 
         $file = $request->file('file');
-        $fileName = time() . '_BuktiPersetujuan';
+        $format = $file->getClientOriginalExtension();
+        $fileName = time() . '_Bukti.' . $format;
         $file->storeAs('files/syarat', $fileName);
         // Storage::put('files/syarat/' . $fileName, $file);
 
@@ -177,19 +179,20 @@ class mahasiswaController extends Controller
         $request->validate([
             'matkul_id' => 'required',
             'tipe_mk' => 'required',
-            'file' => 'required|max:2048',
+            'file' => 'required|mimes:pdf,jped,jpg,png|max:1024',
             'alasan' => 'required'
         ]);
-
-        $file = $request->file('file');
-        $fileName = time() . '_BuktiPersetujuan';
-        $file->storeAs('files/syarat', $fileName);
-        // Storage::put('files/syarat/' . $fileName, $file);
 
         $destination = 'files/syarat/' . $susulan->file;
         if ($destination) {
             Storage::delete($destination);
         }
+
+        $file = $request->file('file');
+        $format = $file->getClientOriginalExtension();
+        $fileName = time() . '_Bukti.' . $format;
+        $file->storeAs('files/syarat', $fileName);
+        // Storage::put('files/syarat/' . $fileName, $file);
 
         $susulan->update([
             'matkul_id' => $request->matkul_id,

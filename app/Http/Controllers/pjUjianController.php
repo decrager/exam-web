@@ -894,26 +894,66 @@ class pjUjianController extends Controller
         ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
         ->join('semesters', 'kelas.semester_id', 'semesters.id')
         ->join('prodis', 'semesters.prodi_id', 'prodis.id')
-        ->groupBy('ujians.tanggal', 'prodis.nama_prodi','semesters.semester', 'kelas.kelas', 'praktikums.praktikum', 'matkuls.nama_matkul', 'baps.kehadiran')
-        ->selectRaw('ujians.tanggal, prodis.nama_prodi, semesters.semester, kelas.kelas, praktikums.praktikum, matkuls.nama_matkul, baps.kehadiran, count(mahasiswas.nim) AS total')
+        ->groupBy('ujians.id', 'ujians.tanggal', 'prodis.nama_prodi','semesters.semester', 'kelas.kelas', 'praktikums.praktikum', 'matkuls.nama_matkul', 'baps.kehadiran')
+        ->selectRaw('ujians.id, ujians.tanggal, prodis.nama_prodi, semesters.semester, kelas.kelas, praktikums.praktikum, matkuls.nama_matkul, baps.kehadiran, count(mahasiswas.nim) AS total')
         ->where('kehadirans.kehadiran', 'Hadir')
         ->get();
 
-        $absen = Kehadiran::join('mahasiswas', 'kehadirans.mhs_id', 'mahasiswas.id')
+        $absensi = Kehadiran::join('mahasiswas', 'kehadirans.mhs_id', 'mahasiswas.id')
         ->join('ujians', 'kehadirans.ujian_id', 'ujians.id')
         ->join('matkuls', 'ujians.matkul_id', 'matkuls.id')
+        ->join('baps', 'ujians.id', 'baps.ujian_id')
         ->join('praktikums', 'ujians.prak_id', 'praktikums.id')
         ->join('kelas', 'praktikums.kelas_id', 'kelas.id')
         ->join('semesters', 'kelas.semester_id', 'semesters.id')
         ->join('prodis', 'semesters.prodi_id', 'prodis.id')
-        ->groupBy('ujians.tanggal', 'prodis.nama_prodi','semesters.semester', 'kelas.kelas', 'praktikums.praktikum', 'matkuls.nama_matkul')
-        ->selectRaw('ujians.tanggal, prodis.nama_prodi, semesters.semester, kelas.kelas, praktikums.praktikum, matkuls.nama_matkul, count(mahasiswas.nim) AS total')
+        ->groupBy('ujians.id', 'ujians.tanggal', 'prodis.nama_prodi','semesters.semester', 'kelas.kelas', 'praktikums.praktikum', 'matkuls.nama_matkul', 'baps.kehadiran')
+        ->selectRaw('ujians.id, ujians.tanggal, prodis.nama_prodi, semesters.semester, kelas.kelas, praktikums.praktikum, matkuls.nama_matkul, baps.kehadiran, count(mahasiswas.nim) AS total')
         ->where('kehadirans.kehadiran', 'Tidak Hadir')
         ->get();
 
+        $data = array();
+        $false = 0;
+        $true = 0;
+        
+        foreach ($ujian as $hadir) {
+            foreach($absensi as $absen){
+                if ($hadir->id == $absen->id) {
+                    $data[] = [
+                        'tanggal' => $hadir->tanggal,
+                        'nama_prodi' => $hadir->nama_prodi,
+                        'semester' => $hadir->semester,
+                        'kelas' => $hadir->kelas,
+                        'praktikum' => $hadir->praktikum,
+                        'nama_matkul' => $hadir->nama_matkul,
+                        'hadir' => $hadir->total,
+                        'absen' => $absen->total,
+                        'file' => $hadir->kehadiran
+                    ];
+                    $true = $hadir->id;
+                } else {
+                    $false = $absen->id;
+                }
+            }
+            if ($hadir->id != $false) {
+                if ($true != $hadir->id) {
+                    $data[] = [
+                        'tanggal' => $hadir->tanggal,
+                        'nama_prodi' => $hadir->nama_prodi,
+                        'semester' => $hadir->semester,
+                        'kelas' => $hadir->kelas,
+                        'praktikum' => $hadir->praktikum,
+                        'nama_matkul' => $hadir->nama_matkul,
+                        'hadir' => $hadir->total,
+                        'absen' => 0,
+                        'file' => $hadir->kehadiran
+                    ];
+                }
+            }
+        }
+        
         return view('pj_ujian.kehadiran', [
-            'kehadiran' => $ujian,
-            'absen' => $absen
+            'data' => $data
         ]);
     }
 }

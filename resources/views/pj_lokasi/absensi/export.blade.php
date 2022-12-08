@@ -65,7 +65,7 @@
 
                                     <div class="form-group">
                                         <label for="pukul" class="col-form-label">Pukul</label>
-                                        <input class="form-control" type="text" id="pukul" value="Ketik jam mulai - jam akhir sesi" name="pukul" readonly/>
+                                        <input class="form-control" type="text" id="pukul" placeholder="Ketik jam mulai - jam akhir sesi" name="pukul"/>
                                     </div>
 
                                     <div class="form-group">

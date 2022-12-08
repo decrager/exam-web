@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kehadiran - {{ $ujian->tanggal }} - {{ $ujian->Matkul->nama_matkul }} ({{ $ujian->Praktikum->Kelas->kelas }}/{{ $ujian->Praktikum->praktikum }})</title>
+    <title>Kehadiran - {{ $ujian->tanggal }} - {{ $ujian->Matkul->nama_matkul }} - {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - ({{ $ujian->Praktikum->Kelas->kelas }}/{{ $ujian->Praktikum->praktikum }})</title>
     
     <style type="text/css">
         @font-face {

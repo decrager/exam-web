@@ -13,7 +13,12 @@ class loginController extends Controller
 {
     public function index()
     {
-        return view('login');
+        if (Auth::check()) {
+            $role = Auth::user()->role;
+            return redirect()->intended('/'.$role);
+        } else {
+            return view('login');
+        }
     }
 
     public function authenticate(Request $request)
@@ -23,7 +28,7 @@ class loginController extends Controller
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             $role = Auth::user()->role;

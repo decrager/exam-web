@@ -51,17 +51,17 @@
                                         <select class="custom-select ujian-select" name="ujian_id" id="ujian_id" required>
                                             <option>Select</option>
                                             @foreach ($ujians as $ujian)
-                                                @if (old('ujian_id') === $ujian->id)
-                                                    <option value="{{ $ujian->id }}" selected>
-                                                        {{ $ujian->Matkul->nama_matkul }} - 
-                                                        {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - Kelas 
-                                                        {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}
+                                                @if (old('ujian_id') === $ujian?->id)
+                                                    <option value="{{ $ujian?->id }}" selected>
+                                                        {{ $ujian?->Matkul?->nama_matkul }} - 
+                                                        {{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }} - Kelas 
+                                                        {{ $ujian?->Praktikum?->Kelas?->kelas }}/P{{ $ujian?->Praktikum?->praktikum }}
                                                     </option>
                                                 @else
-                                                    <option value="{{ $ujian->id }}" {{ $ujian->id == $pelanggarans->Ujian->id ? 'selected' : '' }}>
-                                                        {{ $ujian->Matkul->nama_matkul }} - 
-                                                        {{ $ujian->Matkul->Semester->Prodi->nama_prodi }} - Kelas 
-                                                        {{ $ujian->Praktikum->Kelas->kelas }}/P{{ $ujian->Praktikum->praktikum }}
+                                                    <option value="{{ $ujian?->id }}" {{ $ujian?->id == $pelanggarans?->Ujian?->id ? 'selected' : '' }}>
+                                                        {{ $ujian?->Matkul?->nama_matkul }} - 
+                                                        {{ $ujian?->Matkul?->Semester?->Prodi?->nama_prodi }} - Kelas 
+                                                        {{ $ujian?->Praktikum?->Kelas?->kelas }}/P{{ $ujian?->Praktikum?->praktikum }}
                                                     </option>
                                                 @endif
                                             @endforeach
@@ -71,75 +71,75 @@
                                         <label class="col-form-label">Nama Mahasiswa</label>
                                         <select class="custom-select mhs-select" name="mhs_id" id="mhs_id" required>
                                             <option>Pilih Mahasiswa</option>
-                                            <option selected="selected" value="{{ $pelanggarans->Mahasiswa->id }}">{{ $pelanggarans->Mahasiswa->nama }}</option>
+                                            <option selected="selected" value="{{ $pelanggarans?->Mahasiswa?->id }}">{{ $pelanggarans?->Mahasiswa?->nama }}</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">Alasan Ketidakhadiran <i class="fas fa-star-of-life fa-2xs" style="color: red"></i></label>
                                         <div class="form-check" id="btn">
-                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Sakit" id="pelanggaran1" @if ($pelanggarans->pelanggaran == 'Sakit') checked @endif>
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Sakit" id="pelanggaran1" @if ($pelanggarans?->pelanggaran == 'Sakit') checked @endif>
                                             <label class="form-check-label" for="pelanggaran1">
                                                 Sakit
                                             </label>
                                         </div>
                                         <div class="form-check" id="btn">
-                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Izin" id="pelanggaran2" @if ($pelanggarans->pelanggaran == 'Izin') checked @endif>
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Izin" id="pelanggaran2" @if ($pelanggarans?->pelanggaran == 'Izin') checked @endif>
                                             <label class="form-check-label" for="pelanggaran2">
                                                 Izin
                                             </label>
                                         </div>
                                         <div class="form-check" id="btn">
-                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Tanpa Keterangan" id="pelanggaran10" @if ($pelanggarans->pelanggaran == 'Tanpa Keterangan') checked @endif>
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Tanpa Keterangan" id="pelanggaran10" @if ($pelanggarans?->pelanggaran == 'Tanpa Keterangan') checked @endif>
                                             <label class="form-check-label" for="pelanggaran10">
                                                 Tanpa Keterangan
                                             </label>
                                         </div>
                                         <label class="col-form-label">Pelanggaran</label>
                                         <div class="form-check" id="btn">
-                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Terlambat" id="pelanggaran3" @if ($pelanggarans->pelanggaran == 'Terlambat') checked @endif>
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Terlambat" id="pelanggaran3" @if ($pelanggarans?->pelanggaran == 'Terlambat') checked @endif>
                                             <label class="form-check-label" for="pelanggaran3">
                                                 Terlambat
                                             </label>
                                         </div>
                                         <div class="form-check" id="btn">
-                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Tidak Membawa KTM" id="pelanggaran4" @if ($pelanggarans->pelanggaran == 'Tidak Membawa KTM') checked @endif>
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Tidak Membawa KTM" id="pelanggaran4" @if ($pelanggarans?->pelanggaran == 'Tidak Membawa KTM') checked @endif>
                                             <label class="form-check-label" for="pelanggaran4">
                                                 Tidak Membawa KTM
                                             </label>
                                         </div>
                                         <div class="form-check" id="btn">
-                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Pakaian tidak sesuai SOP" id="pelanggaran5" @if ($pelanggarans->pelanggaran == 'Pakaian tidak sesuai SOP') checked @endif>
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Pakaian tidak sesuai SOP" id="pelanggaran5" @if ($pelanggarans?->pelanggaran == 'Pakaian tidak sesuai SOP') checked @endif>
                                             <label class="form-check-label" for="pelanggaran5">
                                                 Pakaian tidak sesuai SOP
                                             </label>
                                         </div>
                                         <div class="form-check" id="btn">
-                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Tidak memakai seragam Program Studi (Kamis)" id="pelanggaran6" @if ($pelanggarans->pelanggaran == 'Tidak memakai seragam Program Studi (Kamis)') checked @endif>
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Tidak memakai seragam Program Studi (Kamis)" id="pelanggaran6" @if ($pelanggarans?->pelanggaran == 'Tidak memakai seragam Program Studi (Kamis)') checked @endif>
                                             <label class="form-check-label" for="pelanggaran6">
                                                 Tidak memakai seragam Program Studi (Kamis)
                                             </label>
                                         </div>
                                         <div class="form-check" id="btn">
-                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Rambut panjang" id="pelanggaran7" @if ($pelanggarans->pelanggaran == 'Rambut panjang') checked @endif>
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Rambut panjang" id="pelanggaran7" @if ($pelanggarans?->pelanggaran == 'Rambut panjang') checked @endif>
                                             <label class="form-check-label" for="pelanggaran7">
                                                 Rambut panjang
                                             </label>
                                         </div>
                                         <div class="form-check" id="btn">
-                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Mencontek" id="pelanggaran8" @if ($pelanggarans->pelanggaran == 'Mencontek') checked @endif>
+                                            <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="Mencontek" id="pelanggaran8" @if ($pelanggarans?->pelanggaran == 'Mencontek') checked @endif>
                                             <label class="form-check-label" for="pelanggaran8">
                                                 Mencontek
                                             </label>
                                         </div>
-                                        @if ($pelanggarans->pelanggaran != 'Mencontek' && $pelanggarans->pelanggaran != 'Rambut Panjang' && $pelanggarans->pelanggaran != 'Tidak memakai seragam Program Studi (Kamis)' && $pelanggarans->pelanggaran != 'Pakaian tidak sesuai SOP' && $pelanggarans->pelanggaran != 'Tidak Membawa KTM' && $pelanggarans->pelanggaran != 'Terlambat' && $pelanggarans->pelanggaran != 'Izin' && $pelanggarans->pelanggaran != 'Sakit' && $pelanggarans->pelanggaran != 'Tanpa Keterangan')
+                                        @if ($pelanggarans?->pelanggaran != 'Mencontek' && $pelanggarans?->pelanggaran != 'Rambut Panjang' && $pelanggarans?->pelanggaran != 'Tidak memakai seragam Program Studi (Kamis)' && $pelanggarans?->pelanggaran != 'Pakaian tidak sesuai SOP' && $pelanggarans?->pelanggaran != 'Tidak Membawa KTM' && $pelanggarans?->pelanggaran != 'Terlambat' && $pelanggarans?->pelanggaran != 'Izin' && $pelanggarans?->pelanggaran != 'Sakit' && $pelanggarans?->pelanggaran != 'Tanpa Keterangan')
                                         <div class="form-check" id="btn">
                                             <input class="form-check-input" onclick="checkButton()" type="radio" name="pelanggaran" value="" id="pelanggaran9" checked>
                                             <label class="form-check-label" for="pelanggaran9">
                                                 Lainnya
                                             </label>
                                             <div id="lainnya">
-                                                <input class="form-control" type="text" value="{{ $pelanggarans->pelanggaran }}" name="pelanggaran"/>
+                                                <input class="form-control" type="text" value="{{ $pelanggarans?->pelanggaran }}" name="pelanggaran"/>
                                             </div>
                                         </div>
                                         @else

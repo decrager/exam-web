@@ -12,7 +12,7 @@
         
         @font-face {
             font-family: 'Arial';
-            src: url('{{ public_path('fonts/Arial.ttf') }}');
+            src: url({{ asset('fonts/Arial.ttf') }});
         }
 
         body {

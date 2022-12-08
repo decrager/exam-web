@@ -55,8 +55,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Ketidakhadiran</h4>
-                        <a href="{{ route('pengawas.ketidakhadiran.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">Tambah
-                            Data</a>
+                        {{-- <a href="{{ route('pengawas.ketidakhadiran.form') }}" class="btn btn-primary text-sm bg-blue px-3 mb-3">Tambah Data</a> --}}
                         <div class="table-responsive">
                             <table id="example" class="table" style="width: 100%">
                                 <thead>

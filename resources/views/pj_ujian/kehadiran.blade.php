@@ -68,20 +68,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for ($i = 0; $i < count($kehadiran); $i++)
+                                    @foreach ($data as $kehadiran)
                                         <tr>
-                                            <td>{{ $i + 1 }}</td>
-                                            <td>{{ $kehadiran[$i]->tanggal }}</td>
-                                            <td>{{ $kehadiran[$i]->nama_prodi }}</td>
-                                            <td>{{ $kehadiran[$i]->semester }}</td>
-                                            <td>{{ $kehadiran[$i]->kelas }}</td>
-                                            <td>{{ $kehadiran[$i]->praktikum }}</td>
-                                            <td>{{ $kehadiran[$i]->nama_matkul }}</td>
-                                            <td>{{ $kehadiran[$i]->total }}</td>
-                                            <td>{{ $absen[$i]->total }}</td>
-                                            <td><a class="btn btn-danger text-sm @if($kehadiran[$i]?->kehadiran == null) disabled @endif" href="{{ asset('storage/files/kehadiran/' . $kehadiran[$i]?->kehadiran) }}" target="_blank"><i class="fas fa-file-pdf"></i></a></td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $kehadiran['tanggal'] }}</td>
+                                            <td>{{ $kehadiran['nama_prodi'] }}</td>
+                                            <td>{{ $kehadiran['semester'] }}</td>
+                                            <td>{{ $kehadiran['kelas'] }}</td>
+                                            <td>{{ $kehadiran['praktikum'] }}</td>
+                                            <td>{{ $kehadiran['nama_matkul'] }}</td>
+                                            <td>{{ $kehadiran['hadir'] }}</td>
+                                            <td>{{ $kehadiran['absen'] }}</td>
+                                            <td><a class="btn btn-danger text-sm @if($kehadiran['file'] == null) disabled @endif" href="{{ asset('storage/files/kehadiran/' . $kehadiran['file']) }}" target="_blank"><i class="fas fa-file-pdf"></i></a></td>
                                         </tr>
-                                    @endfor
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
